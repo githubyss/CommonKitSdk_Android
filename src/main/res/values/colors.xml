@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 颜色 -->
+    <!-- 没有后缀的是100Pct. -->
+    <color name="common_kit_color_white">#FFFFFF</color>
+    <color name="common_kit_color_white_80_pct">#CCFFFFFF</color>
+    <color name="common_kit_color_black">#000000</color>
+    <color name="common_kit_color_black_80_pct">#CC000000</color>
+    <color name="common_kit_color_black_60_pct">#99000000</color>
+    <color name="common_kit_color_151515">#151515</color>
+    <color name="common_kit_color_16a2ff">#16A2FF</color>
+    <color name="common_kit_color_17cdc6">#17CDC6</color>
+    <color name="common_kit_color_19bdcf">#19BDCF</color>
+    <color name="common_kit_color_1f86ed">#1F86ED</color>
+    <color name="common_kit_color_2689e9">#2689E9</color>
+    <color name="common_kit_color_333333">#333333</color>
+    <color name="common_kit_color_3399ff">#3399FF</color>
+    <color name="common_kit_color_353d44">#353D44</color>
+    <color name="common_kit_color_3592ee">#3592EE</color>
+    <color name="common_kit_color_35ccc5">#35CCC5</color>
+    <color name="common_kit_color_3bd4b8">#3BD4B8</color>
+    <color name="common_kit_color_49e0f5">#49E0F5</color>
+    <color name="common_kit_color_54cbf2">#54CBF2</color>
+    <color name="common_kit_color_555b61">#555B61</color>
+    <color name="common_kit_color_666666">#666666</color>
+    <color name="common_kit_color_909090">#909090</color>
+    <color name="common_kit_color_999999">#999999</color>
+    <color name="common_kit_color_aaaaaa">#AAAAAA</color>
+    <color name="common_kit_color_c3c3c3">#C3C3C3</color>
+    <color name="common_kit_color_c6c6c6">#C6C6C6</color>
+    <color name="common_kit_color_cacaca">#CACACA</color>
+    <color name="common_kit_color_cccccc">#CCCCCC</color>
+    <color name="common_kit_color_e8e8e8">#E8E8E8</color>
+    <color name="common_kit_color_ebebeb">#EBEBEB</color>
+    <color name="common_kit_color_f2f2f2">#F2F2F2</color>
+    <color name="common_kit_color_f4f4f4">#F4F4F4</color>
+    <color name="common_kit_color_ff5a00">#FF5A00</color>
+    <color name="common_kit_color_ff7100">#FF7100</color>
+    <color name="common_kit_color_ff8000">#FF8000</color>
+    <color name="common_kit_color_ffa200">#FFA200</color>
+    <color name="common_kit_color_ffba40">#FFBA40</color>
+    <color name="common_kit_color_ffd25d">#FFD25D</color>
+    <color name="common_kit_color_fff2d0">#FFF2D0</color>
+
+    <!-- “整个页面背景”配色 -->
+    <color name="common_kit_layout_bg_light_gray">#F2F2F2</color>
+    <color name="common_kit_layout_bg_transparent">#00000000</color>
+    <color name="common_kit_layout_bg_default">#F2F2F2</color>
+
+    <!-- “分割线”配色 -->
+    <color name="common_kit_layout_separator">#E8E8E8</color>
+    <color name="common_kit_layout_separator_DDDDDD">#DDDDDD</color>
+
+    <!-- “对话框背景”配色 -->
+    <color name="common_kit_dialog_bg_normal">#FFFFFF</color>
+    <color name="common_kit_dialog_bg_pressed">#FFFFFF</color>
+    <color name="common_kit_dialog_bg_disabled">#FFFFFF</color>
+    <color name="common_kit_dialog_stroke">#DDDDDD</color>
+
+    <!-- “公用标题-蓝”配色 -->
+    <!--<color name="common_kit_title_blue_bg">#1F86ED</color>-->
+    <!--<color name="common_kit_title_blue_headline">#FFFFFF</color>-->
+    <!--<color name="common_kit_title_blue_btn">#FFFFFF</color>-->
+
+    <!-- “公用按钮-蓝”配色 -->
+    <color name="common_kit_btn_blue_bg_normal">#3399FF</color>
+    <color name="common_kit_btn_blue_bg_pressed">#3089E5</color>
+    <color name="common_kit_btn_blue_bg_disabled">#E8E8E8</color>
+    <color name="common_kit_btn_blue_stroke">#FFFFFF</color>
+
+    <!-- “公用按钮-白”配色 -->
+    <color name="common_kit_btn_white_bg_normal">#FFFFFF</color>
+    <color name="common_kit_btn_white_bg_pressed">#F8F8F8</color>
+    <color name="common_kit_btn_white_bg_disabled">#CACACA</color>
+    <color name="common_kit_btn_white_stroke">#FFFFFF</color>
+
+    <!-- “公用按钮-透明”配色 -->
+    <color name="common_kit_btn_transparent_bg_normal">#00000000</color>
+    <color name="common_kit_btn_transparent_bg_pressed">#05FFFFFF</color>
+    <color name="common_kit_btn_transparent_bg_disabled">#CACACA</color>
+    <color name="common_kit_btn_transparent_stroke">#FFFFFF</color>
+
+    <!-- “对话框按钮”配色 -->
+    <color name="common_kit_dialog_btn_bg_normal">#FFFFFF</color>
+    <color name="common_kit_dialog_btn_bg_pressed">#F8F8F8</color>
+    <color name="common_kit_dialog_btn_bg_disabled">#E8E8E8</color>
+    <color name="common_kit_dialog_btn_stroke">#DDDDDD</color>
+</resources>
