@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- “文案”字号大小 -->
-    <dimen name="common_kit_text_size_10sp">10sp</dimen>
-    <dimen name="common_kit_text_size_11sp">11sp</dimen>
-    <dimen name="common_kit_text_size_12sp">12sp</dimen>
-    <dimen name="common_kit_text_size_13sp">13sp</dimen>
-    <dimen name="common_kit_text_size_14sp">14sp</dimen>
-    <dimen name="common_kit_text_size_15sp">15sp</dimen>
-    <dimen name="common_kit_text_size_16sp">16sp</dimen>
-    <dimen name="common_kit_text_size_17sp">17sp</dimen>
-    <dimen name="common_kit_text_size_18sp">18sp</dimen>
-    <dimen name="common_kit_text_size_19sp">19sp</dimen>
-    <dimen name="common_kit_text_size_20sp">20sp</dimen>
-    <dimen name="common_kit_text_size_22sp">22sp</dimen>
-    <dimen name="common_kit_text_size_24sp">24sp</dimen>
-    <dimen name="common_kit_text_size_28sp">28sp</dimen>
-    <dimen name="common_kit_text_size_36sp">36sp</dimen>
-    <dimen name="common_kit_text_size_40sp">40sp</dimen>
+    <dimen name="comkitTextSize10Sp">10sp</dimen>
+    <dimen name="comkitTextSize11Sp">11sp</dimen>
+    <dimen name="comkitTextSize12Sp">12sp</dimen>
+    <dimen name="comkitTextSize13Sp">13sp</dimen>
+    <dimen name="comkitTextSize14Sp">14sp</dimen>
+    <dimen name="comkitTextSize15Sp">15sp</dimen>
+    <dimen name="comkitTextSize16Sp">16sp</dimen>
+    <dimen name="comkitTextSize17Sp">17sp</dimen>
+    <dimen name="comkitTextSize18Sp">18sp</dimen>
+    <dimen name="comkitTextSize19Sp">19sp</dimen>
+    <dimen name="comkitTextSize20Sp">20sp</dimen>
+    <dimen name="comkitTextSize22Sp">22sp</dimen>
+    <dimen name="comkitTextSize24Sp">24sp</dimen>
+    <dimen name="comkitTextSize28Sp">28sp</dimen>
+    <dimen name="comkitTextSize36Sp">36sp</dimen>
+    <dimen name="comkitTextSize40Sp">40sp</dimen>
 
-    <!-- 统一“文案”字号大小 -->
-    <dimen name="common_kit_text_size_default">12sp</dimen>
+    <!-- “文案-默认”字号大小 -->
+    <dimen name="comkitTextSizeDefault">12sp</dimen>
 
-    <!-- 统一“边距”大小 -->
-    <dimen name="common_kit_side_margin_default">14dp</dimen>
+    <!-- “边距-默认”大小 -->
+    <dimen name="comkitSideMarginDefault">14dp</dimen>
 
-    <!-- 统一“标题”控件大小 -->
+    <!-- Button dimen default -->
+    <dimen name="comkitCommonBtnCornerRadiusDefault">5dp</dimen>
+    <dimen name="comkitCommonBtnStrokeWidthDefault">0dp</dimen>
+    <dimen name="comkitCommonBtnTextSizeDefault">19sp</dimen>
+
+    <!-- “对话框-默认”样式 -->
+    <dimen name="comkitCommonDialogCornerRadiusDefault">12dp</dimen>
+    <dimen name="comkitCommonDialogStrokeWidthDefault">0dp</dimen>
+
+    <!-- “对话框按钮-默认”样式 -->
+    <dimen name="comkitCommonDialogBtnCornerRadiusDefault">5dp</dimen>
+    <dimen name="comkitCommonDialogBtnStrokeWidthDefault">0dp</dimen>
+
+    <!-- “标题-默认”控件大小 -->
     <!--<dimen name="common_kit_title_height_default">44dp</dimen>-->
     <!--<dimen name="common_kit_title_left_margin_default">14dp</dimen>-->
     <!--<dimen name="common_kit_title_right_margin_default">14dp</dimen>-->
 
-    <!-- 统一“标题”文案字号 -->
+    <!-- “标题-默认”文案字号 -->
     <!--<dimen name="common_kit_title_headline_text_size_default">20sp</dimen>-->
     <!--<dimen name="common_kit_title_btn_text_size_default">15sp</dimen>-->
 
 
     <!-- “按钮圆角”大小 -->
-    <dimen name="common_kit_btn_corner_radius_0">0dp</dimen>
-    <dimen name="common_kit_btn_corner_radius_5">5dp</dimen>
-    <dimen name="common_kit_btn_corner_radius_100">100dp</dimen>
+    <dimen name="comkitCommonBtnCornerRadius0">0dp</dimen>
+    <dimen name="comkitCommonBtnCornerRadius5">5dp</dimen>
+    <dimen name="comkitCommonBtnCornerRadius100">100dp</dimen>
     <!-- “按钮描边”大小 -->
-    <dimen name="common_kit_btn_stroke_width_0">0dp</dimen>
-    <dimen name="common_kit_btn_stroke_width_1">1dp</dimen>
-
-    <!-- 统一“按钮”样式 -->
-    <dimen name="common_kit_btn_corner_radius_default">5dp</dimen>
-    <dimen name="common_kit_btn_stroke_width_default">0dp</dimen>
-
-
-    <!-- 统一“对话框”样式 -->
-    <dimen name="common_kit_dialog_corner_radius_default">12dp</dimen>
-    <dimen name="common_kit_dialog_stroke_width_default">0dp</dimen>
-
-    <!-- 统一“对话框按钮”样式 -->
-    <dimen name="common_kit_dialog_btn_corner_radius_default">5dp</dimen>
-    <dimen name="common_kit_dialog_btn_stroke_width_default">0dp</dimen>
+    <dimen name="comkitCommonBtnStrokeWidth0">0dp</dimen>
+    <dimen name="comkitCommonBtnStrokeWidth1">1dp</dimen>
 </resources>

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Common Kit Android</string>
+    <string name="comkitAppName">Common Kit Android</string>
+
+    <string name="comkitOk">OK</string>
+    <string name="comkitCancel">Cancel</string>
+    <string name="comkitConfirm">Confirm</string>
+    <string name="comkitSubmit">Submit</string>
+    <string name="comkitSend">Send</string>
+    <string name="comkitStart">Start</string>
+    <string name="comkitStop">Stop</string>
+    <string name="comkitOpen">Open</string>
+    <string name="comkitClose">Close</string>
+    <string name="comkitSetting">Setting</string>
 </resources>

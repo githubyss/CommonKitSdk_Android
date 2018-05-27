@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base application theme. -->
+    <style name="comkitAppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/comkitColorPrimary</item>
+        <item name="colorPrimaryDark">@color/comkitColorPrimaryDark</item>
+        <item name="colorAccent">@color/comkitColorAccent</item>
+    </style>
 
+    <!-- Default button style. -->
+    <style name="comkitCommonBtnDefault">
+        <item name="android:layout_marginBottom">@dimen/comkitSideMarginDefault</item>
+        <item name="android:layout_marginLeft">@dimen/comkitSideMarginDefault</item>
+        <item name="android:layout_marginRight">@dimen/comkitSideMarginDefault</item>
+        <item name="android:layout_marginTop">@dimen/comkitSideMarginDefault</item>
+        <item name="android:background">@drawable/comkit_btn_common_default</item>
+        <item name="android:enabled">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/comkitCommonBtnTextColorDefault</item>
+        <item name="android:textSize">@dimen/comkitCommonBtnTextSizeDefault</item>
+    </style>
 </resources>
