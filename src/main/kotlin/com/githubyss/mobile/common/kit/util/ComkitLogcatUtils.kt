@@ -68,6 +68,12 @@ object ComkitLogcatUtils {
         }
     }
 
+    fun e(t: Throwable) {
+        if (logLevel <= LOG_LEVEL_ERROR) {
+            Log.e(LOG_PREFIX, "", t)
+        }
+    }
+
     fun json(jsonString: String) {
         if (logLevel <= LOG_LEVEL_INFO) {
             printJson(ComkitStackTraceElementUtils.getStackTrace(), jsonString)
@@ -132,7 +138,7 @@ object ComkitLogcatUtils {
             is String -> Log.i(tag, `object`.toString())
             is Array<*> -> {
                 val collection = `object`.toList()
-                printObjectCollection(tag, fileName, simpleName, collection)
+                printObjectCollectionOneLine(tag, fileName, simpleName, collection)
             }
             is Collection<*> -> {
                 val collection = `object`
@@ -150,6 +156,29 @@ object ComkitLogcatUtils {
                 Log.i(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + message)
                 Log.i(fileName, LOG_BOTTOM_BORDER)
             }
+        }
+    }
+
+    private fun printObjectCollectionOneLine(tag: String, fileName: String, simpleName: String, collection: Collection<*>) {
+        var msg = " %s size = %d ["
+        msg = String.format(msg, simpleName, collection.size)
+        if (!collection.isEmpty()) {
+            val stringBuilder = StringBuilder()
+            stringBuilder.append(LOG_TOP_BORDER).append(SYSTEM_LINE_SEPARATOR)
+                    .append(LOG_VERTICAL_DOUBLE_LINE).append(" ").append(tag).append(SYSTEM_LINE_SEPARATOR)
+                    .append(LOG_MIDDLE_BORDER).append(SYSTEM_LINE_SEPARATOR)
+                    .append(LOG_VERTICAL_DOUBLE_LINE).append(msg)
+            val iterator = collection.iterator()
+            var index = 0
+            while (iterator.hasNext()) {
+                val itemString = "%s%s"
+                val item = iterator.next()
+                stringBuilder.append(String.format(itemString, ComkitTypeCastUtils.objectToString(item), if (index++ < collection.size - 1) ", " else ""))
+            }
+            stringBuilder.append("]\n").append(LOG_BOTTOM_BORDER)
+            Log.i(fileName, stringBuilder.toString())
+        } else {
+            Log.i(tag, "$msg and is empty ]")
         }
     }
 

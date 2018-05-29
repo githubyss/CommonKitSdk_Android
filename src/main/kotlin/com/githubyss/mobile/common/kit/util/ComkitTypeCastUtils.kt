@@ -10,7 +10,6 @@ package com.githubyss.mobile.common.kit.util
  */
 object ComkitTypeCastUtils {
     private val types = arrayOf("int", "java.lang.String", "boolean", "char", "float", "double", "long", "short", "byte")
-
     fun <T : Any> objectToString(`object`: T?): String {
         if (`object` == null) {
             return "Object{object is null}"
@@ -44,6 +43,36 @@ object ComkitTypeCastUtils {
         } else {
             return `object`.toString()
         }
+    }
+
+    fun doubleArrayToFloatArray(doubleArray: Array<Double>): Array<Float> {
+        val floatArray = Array(doubleArray.size, { 0.toFloat() })
+
+        for (idx in 0 until doubleArray.size) {
+            floatArray[idx] = doubleArray[idx].toFloat()
+        }
+
+        return floatArray
+    }
+
+    fun doubleArrayToShortArray(doubleArray: Array<Double>): Array<Short> {
+        val shortArray = Array(doubleArray.size, { 0.toShort() })
+
+        for (idx in 0 until doubleArray.size) {
+            shortArray[idx] = doubleArray[idx].toShort()
+        }
+
+        return shortArray
+    }
+
+    fun doubleArrayToByteArray(doubleArray: Array<Double>): Array<Byte> {
+        val byteArray = Array(doubleArray.size, { 0.toByte() })
+
+        for (idx in 0 until doubleArray.size) {
+            byteArray[idx] = doubleArray[idx].toByte()
+        }
+
+        return byteArray
     }
 
     /**

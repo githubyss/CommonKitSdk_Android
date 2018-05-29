@@ -1,66 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 通用ToolBar颜色 -->
+    <!-- Common tool bar colors -->
     <color name="comkitColorPrimary">#3F51B5</color>
     <color name="comkitColorPrimaryDark">#303F9F</color>
     <color name="comkitColorAccent">#FF4081</color>
 
-    <!-- “整个页面背景”配色 -->
+    <!-- Layout background colors -->
     <color name="comkitLayoutBgColorDefault">#F2F2F2</color>
     <color name="comkitLayoutBgColorLightGray">#F2F2F2</color>
     <color name="comkitLayoutBgColorTransparent">#00000000</color>
 
-    <!-- “分割线”配色 -->
+    <!-- Separator colors -->
     <color name="comkitSeparatorColorDefault">#E8E8E8</color>
     <color name="comkitSeparatorColorDDDDDD">#DDDDDD</color>
 
-    <!-- “对话框背景-默认”配色 -->
+    <!-- Common dialog background default colors -->
     <color name="comkitCommonDialogBgColorDefaultNormal">#FFFFFF</color>
     <color name="comkitCommonDialogBgColorDefaultPressed">#FFFFFF</color>
     <color name="comkitCommonDialogBgColorDefaultDisabled">#FFFFFF</color>
     <color name="comkitCommonDialogStrokeColorDefault">#DDDDDD</color>
 
-    <!-- “公用标题-蓝”配色 -->
+    <!-- Common title colors -->
     <!--<color name="common_kit_title_blue_bg">#1F86ED</color>-->
     <!--<color name="common_kit_title_blue_headline">#FFFFFF</color>-->
     <!--<color name="common_kit_title_blue_btn">#FFFFFF</color>-->
 
-    <!-- Button color default -->
+    <!-- Common button default colors -->
     <color name="comkitCommonBtnBgColorDefaultNormal">#3399FF</color>
     <color name="comkitCommonBtnBgColorDefaultPressed">#3089E5</color>
     <color name="comkitCommonBtnBgColorDefaultDisabled">#E8E8E8</color>
     <color name="comkitCommonBtnStrokeColorDefault">#FFFFFF</color>
     <color name="comkitCommonBtnTextColorDefault">#FFFFFF</color>
 
-    <!-- “对话框按钮-默认”配色 -->
+    <!-- Common dialog button default colors -->
     <color name="comkitCommonDialogBtnBgColorDefaultNormal">#FFFFFF</color>
     <color name="comkitCommonDialogBtnBgColorDefaultPressed">#F8F8F8</color>
     <color name="comkitCommonDialogBtnBgColorDefaultDisabled">#E8E8E8</color>
     <color name="comkitCommonDialogBtnStrokeColorDefault">#DDDDDD</color>
 
 
-    <!-- “公用按钮-蓝”配色 -->
+    <!-- Common button blue colors -->
     <color name="comkitCommonBtnBgColorBlueNormal">#3399FF</color>
     <color name="comkitCommonBtnBgColorBluePressed">#3089E5</color>
     <color name="comkitCommonBtnBgColorBlueDisabled">#E8E8E8</color>
     <color name="comkitCommonBtnStrokeColorBlue">#FFFFFF</color>
 
-    <!-- “公用按钮-白”配色 -->
+    <!-- Common button white colors -->
     <color name="comkitCommonBtnBgColorWhiteNormal">#FFFFFF</color>
     <color name="comkitCommonBtnBgColorWhitePressed">#F8F8F8</color>
     <color name="comkitCommonBtnBgColorWhiteDisabled">#CACACA</color>
     <color name="comkitCommonBtnStrokeColorWhite">#FFFFFF</color>
 
-    <!-- “公用按钮-透明”配色 -->
+    <!-- Common button transparent colors -->
     <color name="comkitCommonBtnBgColorTransparentNormal">#00000000</color>
     <color name="comkitCommonBtnBgColorTransparentPressed">#05FFFFFF</color>
     <color name="comkitCommonBtnBgColorTransparentDisabled">#CACACA</color>
     <color name="comkitCommonBtnStrokeColorTransparent">#FFFFFF</color>
 
 
-    <!-- 没有后缀的是100Pct. -->
-
-    <!-- 颜色（色值） -->
+    <!-- Colors without suffix is 100Pct. -->
+    <!-- Colors named by value -->
     <color name="comkitColorWhite80Pct">#CCFFFFFF</color>
     <color name="comkitColorBlack80Pct">#CC000000</color>
     <color name="comkitColorBlack60Pct">#99000000</color>
@@ -99,7 +98,7 @@
     <color name="comkitColorFFD25D">#FFD25D</color>
     <color name="comkitColorFFF2D0">#FFF2D0</color>
 
-    <!-- 颜色（色名） -->
+    <!-- Colors named by scientific name -->
     <color name="comkitColorWhite">#FFFFFF</color><!--白色-->
     <color name="comkitColorIvory">#FFFFF0</color><!--象牙色-->
     <color name="comkitColorLightyellow">#FFFFE0</color><!--亮黄色-->

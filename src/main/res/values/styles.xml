@@ -13,6 +13,8 @@
         <item name="android:layout_marginLeft">@dimen/comkitSideMarginDefault</item>
         <item name="android:layout_marginRight">@dimen/comkitSideMarginDefault</item>
         <item name="android:layout_marginTop">@dimen/comkitSideMarginDefault</item>
+        <item name="android:paddingLeft">@dimen/comkitSideMarginDefault</item>
+        <item name="android:paddingRight">@dimen/comkitSideMarginDefault</item>
         <item name="android:background">@drawable/comkit_btn_common_default</item>
         <item name="android:enabled">true</item>
         <item name="android:gravity">center</item>
