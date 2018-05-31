@@ -1,6 +1,8 @@
 package com.githubyss.mobile.common.kit.base
 
 import android.app.Fragment
+import com.githubyss.mobile.common.kit.R
+import kotlinx.android.synthetic.main.comkit_toolbar_base.*
 
 /**
  * ComkitBaseFragment.kt
@@ -22,4 +24,44 @@ abstract class ComkitBaseFragment : Fragment() {
 
     /** Refresh Views. by Ace Yan */
     open fun refreshView() {}
+
+
+    /** Setup Toolbar title by ResId. by Ace Yan */
+    protected fun setToolbarTitle(titleResId: Int) {
+        activity.toolbarBase.setTitle(titleResId)
+    }
+
+    /** Setup Toolbar title by String. by Ace Yan */
+    protected fun setToolbarTitle(titleString: String) {
+        activity.toolbarBase.title = titleString
+    }
+
+    /** Add fragment to activity. by Ace Yan */
+    protected fun addFragment(fragment: Fragment, tag: String? = null, addToBackStack: Boolean) {
+        if (fragmentManager.findFragmentByTag(tag) != null) {
+            return
+        }
+
+        fragment.arguments = activity.intent.extras
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.flFragmentContainer, fragment, tag)
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(null)
+        }
+        fragmentTransaction.commitAllowingStateLoss()
+    }
+
+    protected fun replaceFragment(fragment: Fragment, tag: String? = null, addToBackStack: Boolean) {
+        if (fragmentManager.findFragmentByTag(tag) != null) {
+            return
+        }
+
+        fragment.arguments = activity.intent.extras
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.flFragmentContainer, fragment, tag)
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(null)
+        }
+        fragmentTransaction.commitAllowingStateLoss()
+    }
 }

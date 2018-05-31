@@ -24,10 +24,15 @@
     <!-- “边距-默认”大小 -->
     <dimen name="comkitSideMarginDefault">14dp</dimen>
 
-    <!-- Button dimen default -->
+    <!-- Button default dimens -->
     <dimen name="comkitCommonBtnCornerRadiusDefault">5dp</dimen>
     <dimen name="comkitCommonBtnStrokeWidthDefault">0dp</dimen>
     <dimen name="comkitCommonBtnTextSizeDefault">19sp</dimen>
+
+    <!-- Toggle button default dimens -->
+    <dimen name="comkitCommonTglBtnCornerRadiusDefault">10dp</dimen>
+    <dimen name="comkitCommonTglBtnStrokeWidthDefault">0dp</dimen>
+    <dimen name="comkitCommonTglBtnTextSizeDefault">19sp</dimen>
 
     <!-- “对话框-默认”样式 -->
     <dimen name="comkitCommonDialogCornerRadiusDefault">12dp</dimen>
