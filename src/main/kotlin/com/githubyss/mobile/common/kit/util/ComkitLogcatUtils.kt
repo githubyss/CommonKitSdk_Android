@@ -135,19 +135,28 @@ object ComkitLogcatUtils {
 
         val simpleName = `object`.javaClass.simpleName
         when (`object`) {
-            is String -> Log.i(tag, `object`.toString())
+            is String,
+            is StringBuilder,
+            is StringBuffer -> {
+                val string = `object`.toString()
+                printObjectString(tag, fileName, simpleName, string)
+            }
+
             is Array<*> -> {
                 val collection = `object`.toList()
                 printObjectCollectionOneLine(tag, fileName, simpleName, collection)
             }
+
             is Collection<*> -> {
                 val collection = `object`
                 printObjectCollection(tag, fileName, simpleName, collection)
             }
+
             is Map<*, *> -> {
                 val map = `object`
                 printObjectMap(tag, fileName, simpleName, map)
             }
+
             else -> {
                 val message = ComkitTypeCastUtils.objectToString(`object`)
                 Log.i(fileName, LOG_TOP_BORDER)
@@ -156,6 +165,23 @@ object ComkitLogcatUtils {
                 Log.i(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + message)
                 Log.i(fileName, LOG_BOTTOM_BORDER)
             }
+        }
+    }
+
+    private fun printObjectString(tag: String, fileName: String, simpleName: String, string: String) {
+        var msg = " %s size = %d \""
+        msg = String.format(msg, simpleName, string.length)
+        if (!string.isEmpty()) {
+            val stringBuilder = StringBuilder()
+            stringBuilder.append(LOG_TOP_BORDER).append(SYSTEM_LINE_SEPARATOR)
+                    .append(LOG_VERTICAL_DOUBLE_LINE).append(" ").append(tag).append(SYSTEM_LINE_SEPARATOR)
+                    .append(LOG_MIDDLE_BORDER).append(SYSTEM_LINE_SEPARATOR)
+                    .append(LOG_VERTICAL_DOUBLE_LINE).append(msg)
+            stringBuilder.append(string)
+            stringBuilder.append("\"\n").append(LOG_BOTTOM_BORDER)
+            Log.i(fileName, stringBuilder.toString())
+        } else {
+            Log.i(tag, "$msg and is empty ]")
         }
     }
 
