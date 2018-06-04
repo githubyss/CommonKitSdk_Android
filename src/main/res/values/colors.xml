@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Common toolbar colors -->
+    <!-- Common toolbar colors. -->
     <color name="comkitColorPrimary">#3F51B5</color>
     <color name="comkitColorPrimaryDark">#303F9F</color>
     <color name="comkitColorAccent">#FF4081</color>
 
-    <!-- Layout background colors -->
+    <!-- Layout background colors. -->
     <color name="comkitLayoutBgColorDefault">#F2F2F2</color>
     <color name="comkitLayoutBgColorLightGray">#F2F2F2</color>
     <color name="comkitLayoutBgColorTransparent">#00000000</color>
 
-    <!-- Separator colors -->
+    <!-- Separator colors. -->
     <color name="comkitSeparatorColorDefault">#E8E8E8</color>
     <color name="comkitSeparatorColorDDDDDD">#DDDDDD</color>
 
-    <!-- Common dialog background default colors -->
-    <color name="comkitCommonDialogBgColorDefaultNormal">#FFFFFF</color>
-    <color name="comkitCommonDialogBgColorDefaultPressed">#FFFFFF</color>
-    <color name="comkitCommonDialogBgColorDefaultDisabled">#FFFFFF</color>
-    <color name="comkitCommonDialogStrokeColorDefault">#DDDDDD</color>
-
-    <!-- Common title colors -->
-    <!--<color name="common_kit_title_blue_bg">#1F86ED</color>-->
-    <!--<color name="common_kit_title_blue_headline">#FFFFFF</color>-->
-    <!--<color name="common_kit_title_blue_btn">#FFFFFF</color>-->
-
-    <!-- Common button default colors -->
+    <!-- Common button default colors. -->
     <color name="comkitCommonBtnBgColorDefaultNormal">#3399FF</color>
     <color name="comkitCommonBtnBgColorDefaultPressed">#3089E5</color>
     <color name="comkitCommonBtnBgColorDefaultDisabled">#E8E8E8</color>
     <color name="comkitCommonBtnStrokeColorDefault">#FFFFFF</color>
     <color name="comkitCommonBtnTextColorDefault">#FFFFFF</color>
 
-    <!-- Common toggle button default colors -->
+    <!-- Common toggle button default colors. -->
     <color name="comkitCommonTglBtnBgColorDefaultChecked">#3399FF</color>
     <color name="comkitCommonTglBtnBgColorDefaultUnChecked">#999999</color>
     <color name="comkitCommonTglBtnBgColorDefaultDisabled">#E8E8E8</color>
     <color name="comkitCommonTglBtnStrokeColorDefault">#FFFFFF</color>
     <color name="comkitCommonTglBtnTextColorDefault">#FFFFFF</color>
 
-    <!-- Common dialog button default colors -->
+    <!-- Common checkbox button default colors. -->
+    <color name="comkitCommonChkBtnBgColorDefaultChecked">#3399FF</color>
+    <color name="comkitCommonChkBtnBgColorDefaultUnChecked">#999999</color>
+    <color name="comkitCommonChkBtnBgColorDefaultDisabled">#E8E8E8</color>
+    <color name="comkitCommonChkBtnStrokeColorDefault">#FFFFFF</color>
+    <color name="comkitCommonChkBtnTextColorDefault">#FFFFFF</color>
+
+    <!-- Common dialog default colors. -->
+    <color name="comkitCommonDialogBgColorDefaultNormal">#FFFFFF</color>
+    <color name="comkitCommonDialogBgColorDefaultPressed">#FFFFFF</color>
+    <color name="comkitCommonDialogBgColorDefaultDisabled">#FFFFFF</color>
+    <color name="comkitCommonDialogStrokeColorDefault">#DDDDDD</color>
+
+    <!-- Common dialog button default colors. -->
     <color name="comkitCommonDialogBtnBgColorDefaultNormal">#FFFFFF</color>
     <color name="comkitCommonDialogBtnBgColorDefaultPressed">#F8F8F8</color>
     <color name="comkitCommonDialogBtnBgColorDefaultDisabled">#E8E8E8</color>
     <color name="comkitCommonDialogBtnStrokeColorDefault">#DDDDDD</color>
 
-
-    <!-- Common button blue colors -->
+    <!-- Common button blue colors. -->
     <color name="comkitCommonBtnBgColorBlueNormal">#3399FF</color>
     <color name="comkitCommonBtnBgColorBluePressed">#3089E5</color>
     <color name="comkitCommonBtnBgColorBlueDisabled">#E8E8E8</color>
     <color name="comkitCommonBtnStrokeColorBlue">#FFFFFF</color>
 
-    <!-- Common button white colors -->
+    <!-- Common button white colors. -->
     <color name="comkitCommonBtnBgColorWhiteNormal">#FFFFFF</color>
     <color name="comkitCommonBtnBgColorWhitePressed">#F8F8F8</color>
     <color name="comkitCommonBtnBgColorWhiteDisabled">#CACACA</color>
     <color name="comkitCommonBtnStrokeColorWhite">#FFFFFF</color>
 
-    <!-- Common button transparent colors -->
+    <!-- Common button transparent colors. -->
     <color name="comkitCommonBtnBgColorTransparentNormal">#00000000</color>
     <color name="comkitCommonBtnBgColorTransparentPressed">#05FFFFFF</color>
     <color name="comkitCommonBtnBgColorTransparentDisabled">#CACACA</color>
@@ -66,7 +67,7 @@
 
 
     <!-- Colors without suffix is 100Pct. -->
-    <!-- Colors named by value -->
+    <!-- Colors named by value. -->
     <color name="comkitColorWhite80Pct">#CCFFFFFF</color>
     <color name="comkitColorBlack80Pct">#CC000000</color>
     <color name="comkitColorBlack60Pct">#99000000</color>
@@ -105,7 +106,8 @@
     <color name="comkitColorFFD25D">#FFD25D</color>
     <color name="comkitColorFFF2D0">#FFF2D0</color>
 
-    <!-- Colors named by scientific name -->
+    <!-- Colors named by scientific name. -->
+    <color name="comkitColorTransparent">#00000000</color><!--透明-->
     <color name="comkitColorWhite">#FFFFFF</color><!--白色-->
     <color name="comkitColorIvory">#FFFFF0</color><!--象牙色-->
     <color name="comkitColorLightyellow">#FFFFE0</color><!--亮黄色-->

@@ -1,6 +1,7 @@
 package com.githubyss.mobile.common.kit.base
 
 import android.app.Fragment
+import android.widget.Button
 import com.githubyss.mobile.common.kit.R
 import kotlinx.android.synthetic.main.comkit_toolbar_base.*
 
@@ -24,6 +25,12 @@ abstract class ComkitBaseFragment : Fragment() {
 
     /** Refresh Views. by Ace Yan */
     open fun refreshView() {}
+
+    /** Change button status. by Ace Yan */
+    open fun changeBtnStatus(button: Button?, status: Boolean) {
+        button?.isEnabled = status
+        button?.isClickable = status
+    }
 
 
     /** Setup Toolbar title by ResId. by Ace Yan */

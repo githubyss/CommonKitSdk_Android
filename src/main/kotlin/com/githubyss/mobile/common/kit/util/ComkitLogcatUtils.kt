@@ -181,7 +181,7 @@ object ComkitLogcatUtils {
             stringBuilder.append("\"\n").append(LOG_BOTTOM_BORDER)
             Log.i(fileName, stringBuilder.toString())
         } else {
-            Log.i(tag, "$msg and is empty ]")
+            Log.i(fileName, "$msg and is empty.\"")
         }
     }
 
@@ -204,7 +204,7 @@ object ComkitLogcatUtils {
             stringBuilder.append("]\n").append(LOG_BOTTOM_BORDER)
             Log.i(fileName, stringBuilder.toString())
         } else {
-            Log.i(tag, "$msg and is empty ]")
+            Log.i(fileName, "$msg and is empty.]")
         }
     }
 
@@ -227,7 +227,7 @@ object ComkitLogcatUtils {
             stringBuilder.append("$LOG_VERTICAL_DOUBLE_LINE ]\n").append(LOG_BOTTOM_BORDER)
             Log.i(fileName, stringBuilder.toString())
         } else {
-            Log.i(tag, "$msg and is empty ]")
+            Log.i(fileName, "$msg and is empty.]")
         }
     }
 
@@ -248,7 +248,7 @@ object ComkitLogcatUtils {
                     .append(LOG_BOTTOM_BORDER)
             Log.i(fileName, stringBuilder.toString())
         } else {
-            Log.i(tag, simpleName + " is Empty")
+            Log.i(fileName, "$simpleName is empty.")
         }
     }
 }
