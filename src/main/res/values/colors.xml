@@ -10,9 +10,8 @@
     <color name="comkitLayoutBgColorLightGray">#F2F2F2</color>
     <color name="comkitLayoutBgColorTransparent">#00000000</color>
 
-    <!-- Separator colors. -->
-    <color name="comkitSeparatorColorDefault">#E8E8E8</color>
-    <color name="comkitSeparatorColorDDDDDD">#DDDDDD</color>
+    <!-- Common separator default color. -->
+    <color name="comkitCommonSeparatorColorDefault">#999999</color>
 
     <!-- Common button default colors. -->
     <color name="comkitCommonBtnBgColorDefaultNormal">#3399FF</color>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <!-- Base application theme. -->
-    <style name="comkitAppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="comkitAppTheme"
+           parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/comkitColorPrimary</item>
         <item name="colorPrimaryDark">@color/comkitColorPrimaryDark</item>
         <item name="colorAccent">@color/comkitColorAccent</item>
     </style>
 
     <!-- Translucent theme. -->
-    <style name="comkitTranslucentTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="comkitTranslucentTheme"
+           parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/comkitLayoutBgColorTransparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
@@ -17,7 +19,8 @@
     </style>
 
     <!-- Translucent fullscreen theme. -->
-    <style name="comkitTranslucentFullscreenTheme" parent="comkitTranslucentTheme">
+    <style name="comkitTranslucentFullscreenTheme"
+           parent="comkitTranslucentTheme">
         <item name="android:windowFullscreen">true</item>
     </style>
 
@@ -75,30 +78,43 @@
         <item name="android:textSize">@dimen/comkitTextSize16Sp</item>
     </style>
 
+    <!-- Default common text display style. -->
+    <style name="comkitCommonTextDisplayStyle">
+        <item name="android:background">@color/comkitColorTransparent</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/comkitColorDarkslategray</item>
+        <item name="android:textSize">@dimen/comkitTextSize16Sp</item>
+    </style>
+
     <!-- Common style. -->
     <style name="comkitCommonStyle">
     </style>
 
     <!-- Match parent style. -->
-    <style name="comkitBothMatchParentStyle" parent="comkitCommonStyle">
+    <style name="comkitBothMatchParentStyle"
+           parent="comkitCommonStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
     <!-- Wrap content style. -->
-    <style name="comkitBothWrapContentStyle" parent="comkitCommonStyle">
+    <style name="comkitBothWrapContentStyle"
+           parent="comkitCommonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <!-- Width match height wrap layout style. -->
-    <style name="comkitOnlyWidthMatchParentLayoutStyle" parent="comkitCommonStyle">
+    <style name="comkitOnlyWidthMatchParentLayoutStyle"
+           parent="comkitCommonStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <!-- Width wrap height match layout style. -->
-    <style name="comkitOnlyHeightMatchParentLayoutStyle" parent="comkitCommonStyle">
+    <style name="comkitOnlyHeightMatchParentLayoutStyle"
+           parent="comkitCommonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
     </style>

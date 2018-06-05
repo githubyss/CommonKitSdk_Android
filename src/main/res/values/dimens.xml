@@ -7,6 +7,9 @@
     <dimen name="comkitSideMarginDefault">14dp</dimen>
 
 
+    <!-- Common separator default dimens. -->
+    <dimen name="comkitCommonSeparatorThicknessDefault">1dp</dimen>
+
     <!-- Common button default dimens. -->
     <dimen name="comkitCommonBtnCornerRadiusDefault">5dp</dimen>
     <dimen name="comkitCommonBtnStrokeWidthDefault">0dp</dimen>
