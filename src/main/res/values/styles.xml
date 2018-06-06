@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
+    <style name="comkitBaseAppTheme"
+           parent="Theme.AppCompat.NoActionBar" />
+
+    <!-- Application theme. -->
     <style name="comkitAppTheme"
-           parent="Theme.AppCompat.NoActionBar">
+           parent="comkitBaseAppTheme">
         <item name="colorPrimary">@color/comkitColorPrimary</item>
         <item name="colorPrimaryDark">@color/comkitColorPrimaryDark</item>
         <item name="colorAccent">@color/comkitColorAccent</item>
@@ -10,7 +14,7 @@
 
     <!-- Translucent theme. -->
     <style name="comkitTranslucentTheme"
-           parent="Theme.AppCompat.NoActionBar">
+           parent="comkitBaseAppTheme">
         <item name="android:windowBackground">@color/comkitLayoutBgColorTransparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
