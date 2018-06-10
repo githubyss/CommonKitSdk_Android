@@ -126,9 +126,9 @@ object ComkitFontUtils {
             defaultField.isAccessible = true
             defaultField.set(any, typeface)
         } catch (exception: NoSuchFieldException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
         } catch (exception: IllegalAccessException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
         }
     }
 }

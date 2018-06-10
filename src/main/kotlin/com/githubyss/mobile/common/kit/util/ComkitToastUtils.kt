@@ -97,7 +97,7 @@ object ComkitToastUtils {
                 toast?.cancel()
             }
         } catch (exception: Exception) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
         }
     }
 }
