@@ -37,7 +37,7 @@ object ComkitToastUtils {
                     msgId: Int,
                     duration: Int = if (ComkitResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG,
                     centerable: Boolean = false) {
-        this@ComkitToastUtils.showMessage(context, ComkitResUtils.getString(context, msgId), duration, centerable)
+        showMessage(context, ComkitResUtils.getString(context, msgId), duration, centerable)
     }
 
     /**
@@ -63,16 +63,16 @@ object ComkitToastUtils {
             Looper.prepare()
         }
 
-        if (this@ComkitToastUtils.toast != null) {
-            this@ComkitToastUtils.toast?.cancel()
+        if (toast != null) {
+            toast?.cancel()
         }
 
-        this@ComkitToastUtils.toast = Toast.makeText(context, msgStr, duration)
+        toast = Toast.makeText(context, msgStr, duration)
         if (this@ComkitToastUtils.centerable) {
-            this@ComkitToastUtils.toast?.setGravity(Gravity.CENTER, 0, 0)
+            toast?.setGravity(Gravity.CENTER, 0, 0)
         }
 
-        this@ComkitToastUtils.show()
+        show()
     }
 
     /**
@@ -87,7 +87,7 @@ object ComkitToastUtils {
      */
     private fun show() {
         synchronized(ComkitToastUtils::class.java) {
-            this@ComkitToastUtils.toast?.show()
+            toast?.show()
         }
     }
 

@@ -20,11 +20,11 @@ object ComkitFontUtils {
     private var typefaceCacheMap = HashMap<String, SoftReference<Typeface>>()
 
     fun replaceFontFromAsset(rootView: View?, fontPath: String, fontStyle: Int = Typeface.NORMAL) {
-        this@ComkitFontUtils.replaceFont(rootView, this@ComkitFontUtils.createTypefaceFromAsset(rootView?.context, fontPath), fontStyle)
+        replaceFont(rootView, createTypefaceFromAsset(rootView?.context, fontPath), fontStyle)
     }
 
     fun replaceFontFromFile(rootView: View?, fontPath: String, fontStyle: Int = Typeface.NORMAL) {
-        this@ComkitFontUtils.replaceFont(rootView, this@ComkitFontUtils.createTypefaceFromFile(fontPath), fontStyle)
+        replaceFont(rootView, createTypefaceFromFile(fontPath), fontStyle)
     }
 
     /**
@@ -107,17 +107,17 @@ object ComkitFontUtils {
      * @github githubyss
      */
     fun replaceSystemDefaultFontFromAsset(context: Context?, fontPath: String) {
-        this@ComkitFontUtils.replaceSystemDefaultFont(this@ComkitFontUtils.createTypefaceFromAsset(context, fontPath))
+        replaceSystemDefaultFont(createTypefaceFromAsset(context, fontPath))
     }
 
     fun replaceSystemDefaultFontFromFile(fontPath: String) {
-        this@ComkitFontUtils.replaceSystemDefaultFont(this@ComkitFontUtils.createTypefaceFromFile(fontPath))
+        replaceSystemDefaultFont(createTypefaceFromFile(fontPath))
     }
 
     private fun replaceSystemDefaultFont(typeface: Typeface?) {
-//        this@ComkitFontUtils.modifyObjectField(null, "SANS_SERIF", typeface)
-//        this@ComkitFontUtils.modifyObjectField(null, "SERIF", typeface)
-        this@ComkitFontUtils.modifyObjectField(null, "MONOSPACE", typeface)
+//        modifyObjectField(null, "SANS_SERIF", typeface)
+//        modifyObjectField(null, "SERIF", typeface)
+        modifyObjectField(null, "MONOSPACE", typeface)
     }
 
     private fun modifyObjectField(any: Any?, fieldName: String, typeface: Typeface?) {
