@@ -16,15 +16,18 @@ object ComkitReusableUtils {
      * <Description>
      * <Details>
      *
+     * fun regExPatternMatches(input: String, regEx: String): Boolean {
+     *     val pattern = Pattern.compile(regEx)
+     *     val matcher = pattern.matcher(input)
+     *     return matcher.matches()
+     * }
+     *
      * @param input
      * @param regEx
      * @return
      * @author Ace Yan
      * @github githubyss
      */
-    fun regExPatternMatches(input: String, regEx: String): Boolean {
-        val pattern = Pattern.compile(regEx)
-        val matcher = pattern.matcher(input)
-        return matcher.matches()
-    }
+    fun regExPatternMatches(input: String, regEx: String) =
+            Pattern.compile(regEx).matcher(input).matches()
 }
