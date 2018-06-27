@@ -9,15 +9,14 @@ package com.githubyss.mobile.common.kit.util
  * @github githubyss
  */
 object ComkitStackTraceElementUtils {
-    fun getStackTrace(): StackTraceElement {
-        return Thread.currentThread().stackTrace[4]
-    }
+    fun getStackTrace(
+    ): StackTraceElement = Thread.currentThread().stackTrace[4]
 
     fun generateValues(element: StackTraceElement): Array<String> {
-        var values = Array(2, { String() })
+        val values = Array(2, { String() })
 
-        var traceElement = element
-        var stringBuilder = StringBuilder()
+        val traceElement = element
+        val stringBuilder = StringBuilder()
         val className = traceElement.className
         val fileName = traceElement.fileName
 

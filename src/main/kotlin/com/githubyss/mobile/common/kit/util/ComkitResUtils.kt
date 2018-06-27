@@ -1,6 +1,7 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import com.githubyss.mobile.common.kit.ComkitApplication
 
@@ -24,8 +25,10 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getColor(resContext: Context = ComkitApplication.application.applicationContext, resId: Int) =
-            ContextCompat.getColor(resContext, resId)
+    fun getColor(resContext: Context? = ComkitApplication.instance.application?.applicationContext,
+                 resId: Int
+    ): Int? = ContextCompat.getColor(resContext, resId)
+
 
     /**
      * ComkitResUtils.getString(resContext, resId)
@@ -38,8 +41,9 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getString(resContext: Context = ComkitApplication.application.applicationContext, resId: Int) =
-            resContext.resources.getString(resId) ?: ""
+    fun getString(resContext: Context? = ComkitApplication.instance.application?.applicationContext,
+                  resId: Int
+    ): String? = resContext?.resources?.getString(resId)
 
     /**
      * ComkitResUtils.getString(resContext, resId, resFormat)
@@ -53,8 +57,10 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getString(resContext: Context = ComkitApplication.application.applicationContext, resId: Int, vararg resFormat: Any) =
-            resContext.resources.getString(resId, resFormat)
+    fun getString(resContext: Context? = ComkitApplication.instance.application?.applicationContext,
+                  resId: Int,
+                  vararg resFormat: Any
+    ): String? = resContext?.resources?.getString(resId, resFormat)
 
     /**
      * ComkitResUtils.getDimension(resContext, resId)
@@ -67,8 +73,9 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getDimension(resContext: Context = ComkitApplication.application.applicationContext, resId: Int) =
-            resContext.resources.getDimension(resId)
+    fun getDimension(resContext: Context? = ComkitApplication.instance.application?.applicationContext,
+                     resId: Int
+    ): Float? = resContext?.resources?.getDimension(resId)
 
     /**
      * ComkitResUtils.getDimensionPixelSize(resContext, resId)
@@ -81,8 +88,9 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getDimensionPixelSize(resContext: Context = ComkitApplication.application.applicationContext, resId: Int) =
-            resContext.resources.getDimensionPixelSize(resId)
+    fun getDimensionPixelSize(resContext: Context? = ComkitApplication.instance.application?.applicationContext,
+                              resId: Int
+    ): Int? = resContext?.resources?.getDimensionPixelSize(resId)
 
     /**
      * ComkitResUtils.getDrawable(resContext, resId)
@@ -95,6 +103,7 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getDrawable(resContext: Context = ComkitApplication.application.applicationContext, resId: Int) =
-            ContextCompat.getDrawable(resContext, resId)
+    fun getDrawable(resContext: Context? = ComkitApplication.instance.application?.applicationContext,
+                    resId: Int
+    ): Drawable? = ContextCompat.getDrawable(resContext, resId)
 }

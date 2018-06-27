@@ -28,6 +28,6 @@ object ComkitReusableUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun regExPatternMatches(input: String, regEx: String) =
-            Pattern.compile(regEx).matcher(input).matches()
+    fun regExPatternMatches(input: String, regEx: String
+    ): Boolean = Pattern.compile(regEx).matcher(input).matches()
 }

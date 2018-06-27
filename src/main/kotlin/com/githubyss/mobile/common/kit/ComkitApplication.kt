@@ -10,11 +10,25 @@ import android.app.Application
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitApplication {
-    lateinit var application: Application
+class ComkitApplication private constructor() {
+    companion object {
+        var instance = Holder.INSTANCE
+    }
+
+    private object Holder {
+        val INSTANCE = ComkitApplication()
+    }
+
+
+    var application: Application? = null
         private set
 
+
     fun init(application: Application) {
-        ComkitApplication.application = application
+        if (ComkitApplication.instance.application != null) {
+            return
+        }
+
+        ComkitApplication.instance.application = application
     }
 }

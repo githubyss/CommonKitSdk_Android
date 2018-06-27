@@ -33,11 +33,11 @@ object ComkitToastUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun showMessage(context: Context = ComkitApplication.application.applicationContext,
+    fun showMessage(context: Context? = ComkitApplication.instance.application?.applicationContext,
                     msgId: Int,
-                    duration: Int = if (ComkitResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG,
+                    duration: Int = if (ComkitResUtils.getString(context, msgId)?.length ?: 0 <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG,
                     centerable: Boolean = false) {
-        showMessage(context, ComkitResUtils.getString(context, msgId), duration, centerable)
+        showMessage(context, ComkitResUtils.getString(context, msgId) ?: "", duration, centerable)
     }
 
     /**
@@ -53,7 +53,7 @@ object ComkitToastUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun showMessage(context: Context = ComkitApplication.application.applicationContext,
+    fun showMessage(context: Context? = ComkitApplication.instance.application?.applicationContext,
                     msgStr: String,
                     duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG,
                     centerable: Boolean = false) {

@@ -83,6 +83,6 @@ object ComkitTypeCastUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun listToString(list: List<*>) =
-            list.toString()
+    fun listToString(list: List<*>
+    ) = list.toString()
 }

@@ -15,12 +15,12 @@ object ComkitTimeUtils {
     private val DATE_FORMAT_DEFAULT = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
 
 
-    fun currentTimeMillis() =
-            System.currentTimeMillis()
+    fun currentTimeMillis(
+    ) = System.currentTimeMillis()
 
-    fun defaultFormattedTime(timeMillis: Long) =
-            DATE_FORMAT_DEFAULT.format(timeMillis)
+    fun defaultFormattedTime(timeMillis: Long
+    ) = DATE_FORMAT_DEFAULT.format(timeMillis)
 
-    fun millisToS(timeMillis: Long) =
-            timeMillis / 1000
+    fun millisToS(timeMillis: Long
+    ) = timeMillis / 1000
 }
