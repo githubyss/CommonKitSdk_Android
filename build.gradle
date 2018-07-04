@@ -1,34 +1,21 @@
 apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'com.alibaba.arouter'
-
-kapt {
-    arguments {
-        arg("moduleName", project.getName())
-    }
-}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Kotlin */
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
 
     /* Compatibility Support */
     implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_V7_VERSION"
 
-    /* ARouter */
-    implementation "com.alibaba:arouter-api:$AROUTER_API_VERSION"
-    kapt "com.alibaba:arouter-compiler:$AROUTER_COMPILE_VERSION"
-
     /* Test */
-    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation "junit:junit:$JUNIT_VERSION"
+    androidTestImplementation "com.android.support.test:runner:$ANDROID_TEST_RUNNER_VERSION"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$ANDROID_TEST_ESPRESSO_CORE_VERSION"
 }
 
 android {
