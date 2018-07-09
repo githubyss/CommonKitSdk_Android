@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.util
+package com.githubyss.mobile.common.kit.logcat
 
 /**
  * ComkitStackTraceElementUtils.kt
@@ -20,8 +20,8 @@ object ComkitStackTraceElementUtils {
         val className = traceElement.className
         val fileName = traceElement.fileName
 
-        stringBuilder.append(className.substring(className.lastIndexOf(".") + 1))
-                .append(".")
+        stringBuilder.append(className.substring(className.lastIndexOf("") + 1))
+                .append("")
                 .append(traceElement.methodName)
                 .append(" (").append(fileName).append(":").append(traceElement.lineNumber).append(") ")
 

@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.util
+package com.githubyss.mobile.common.kit.resource
 
 import android.content.Context
 import android.graphics.drawable.Drawable

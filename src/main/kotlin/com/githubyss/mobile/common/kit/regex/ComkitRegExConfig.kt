@@ -1,14 +1,14 @@
-package com.githubyss.mobile.common.kit.constant
+package com.githubyss.mobile.common.kit.regex
 
 /**
- * ComkitRegExConstants.kt
+ * ComkitRegExConfig.kt
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitRegExConstants {
+object ComkitRegExConfig {
     object Common {
         val BLANK = "^\\s*$"
         val RETURN = "[\\n]"

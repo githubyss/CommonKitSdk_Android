@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.util.checker
+package com.githubyss.mobile.common.kit.checker
 
 import org.junit.After
 import org.junit.Assert

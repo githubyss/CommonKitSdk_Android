@@ -1,18 +1,17 @@
-package com.githubyss.mobile.common.kit.util
+package com.githubyss.mobile.common.kit.regex
 
 import java.util.regex.Pattern
 
 /**
- * ComkitReusableUtils.kt
- * <Description>
+ * ComkitRegExUtils.kt <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitReusableUtils {
+object ComkitRegExUtils {
     /**
-     * ComkitReusableUtils.regExPatternMatches(input, regEx)
+     * ComkitRegExUtils.regExPatternMatches(input, regEx)
      * <Description>
      * <Details>
      *

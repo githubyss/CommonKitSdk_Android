@@ -1,10 +1,12 @@
-package com.githubyss.mobile.common.kit.util
+package com.githubyss.mobile.common.kit.hint
 
 import android.content.Context
 import android.os.Looper
 import android.view.Gravity
 import android.widget.Toast
 import com.githubyss.mobile.common.kit.ComkitApplication
+import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 
 /**
  * ComkitToastUtils.kt
@@ -57,7 +59,7 @@ object ComkitToastUtils {
                     msgStr: String,
                     duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG,
                     centerable: Boolean = false) {
-        this@ComkitToastUtils.centerable = centerable
+        ComkitToastUtils.centerable = centerable
 
         if (Looper.myLooper() == null) {
             Looper.prepare()
@@ -68,7 +70,7 @@ object ComkitToastUtils {
         }
 
         toast = Toast.makeText(context, msgStr, duration)
-        if (this@ComkitToastUtils.centerable) {
+        if (ComkitToastUtils.centerable) {
             toast?.setGravity(Gravity.CENTER, 0, 0)
         }
 

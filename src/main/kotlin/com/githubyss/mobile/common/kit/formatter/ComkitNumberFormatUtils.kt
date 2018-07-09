@@ -1,6 +1,6 @@
-package com.githubyss.mobile.common.kit.util.formatter
+package com.githubyss.mobile.common.kit.formatter
 
-import com.githubyss.mobile.common.kit.util.checker.ComkitNumberCheckUtils
+import com.githubyss.mobile.common.kit.checker.ComkitNumberCheckUtils
 
 /**
  * ComkitNumberFormatUtils.kt

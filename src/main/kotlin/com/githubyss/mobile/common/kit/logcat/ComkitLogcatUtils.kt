@@ -1,7 +1,8 @@
-package com.githubyss.mobile.common.kit.util
+package com.githubyss.mobile.common.kit.logcat
 
 import android.text.TextUtils
 import android.util.Log
+import com.githubyss.mobile.common.kit.convertor.ComkitTypeCastUtils
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -25,9 +26,9 @@ object ComkitLogcatUtils {
     val LOG_VERTICAL_DOUBLE_LINE = '║'
     val LOG_HORIZONTAL_DOUBLE_LINE = "════════════════════════════════════════════"
     val LOG_HORIZONTAL_SINGLE_LINE = "────────────────────────────────────────────"
-    val LOG_TOP_BORDER = "$LOG_LEFT_TOP_CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
-    val LOG_BOTTOM_BORDER = "$LOG_LEFT_BOTTOM_CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
-    val LOG_MIDDLE_BORDER = "$LOG_LEFT_MIDDLE_CORNER$LOG_HORIZONTAL_SINGLE_LINE$LOG_HORIZONTAL_SINGLE_LINE"
+    val LOG_TOP_BORDER = "${LOG_LEFT_TOP_CORNER}${LOG_HORIZONTAL_DOUBLE_LINE}${LOG_HORIZONTAL_DOUBLE_LINE}"
+    val LOG_BOTTOM_BORDER = "${LOG_LEFT_BOTTOM_CORNER}${LOG_HORIZONTAL_DOUBLE_LINE}${LOG_HORIZONTAL_DOUBLE_LINE}"
+    val LOG_MIDDLE_BORDER = "${LOG_LEFT_MIDDLE_CORNER}${LOG_HORIZONTAL_SINGLE_LINE}${LOG_HORIZONTAL_SINGLE_LINE}"
 
     val LOG_LEVEL_VERBOSE = 1
     val LOG_LEVEL_DEBUG = 2
@@ -93,7 +94,7 @@ object ComkitLogcatUtils {
         val fileName = values[1]
 
         if (TextUtils.isEmpty(jsonString)) {
-            ComkitLogcatUtils.v(tag, "{json is empty.}")
+            v(tag, "{json is empty.}")
             return
         }
 
@@ -110,15 +111,15 @@ object ComkitLogcatUtils {
 
             val lines = jsonStringIndented.split(SYSTEM_LINE_SEPARATOR)
             val stringBuilder = StringBuilder()
-            ComkitLogcatUtils.v(fileName, LOG_TOP_BORDER)
-            ComkitLogcatUtils.v(fileName, "$LOG_VERTICAL_DOUBLE_LINE $tag")
-            ComkitLogcatUtils.v(fileName, LOG_MIDDLE_BORDER)
+            v(fileName, LOG_TOP_BORDER)
+            v(fileName, "${LOG_VERTICAL_DOUBLE_LINE} $tag")
+            v(fileName, LOG_MIDDLE_BORDER)
             for (line in lines) {
-                stringBuilder.append("$LOG_VERTICAL_DOUBLE_LINE ").append(line).append(SYSTEM_LINE_SEPARATOR)
-                ComkitLogcatUtils.v(fileName, stringBuilder.toString())
+                stringBuilder.append("${LOG_VERTICAL_DOUBLE_LINE} ").append(line).append(SYSTEM_LINE_SEPARATOR)
+                v(fileName, stringBuilder.toString())
                 stringBuilder.delete(0, stringBuilder.length)
             }
-            ComkitLogcatUtils.v(fileName, LOG_BOTTOM_BORDER)
+            v(fileName, LOG_BOTTOM_BORDER)
         } catch (e: JSONException) {
             Log.e(tag, e.message)
         }
@@ -130,7 +131,7 @@ object ComkitLogcatUtils {
         val fileName = values[1]
 
         if (`object` == null) {
-            ComkitLogcatUtils.v(tag, "Object is null.")
+            v(tag, "Object is null.")
             return
         }
 
@@ -160,11 +161,11 @@ object ComkitLogcatUtils {
 
             else -> {
                 val message = ComkitTypeCastUtils.objectToString(`object`)
-                ComkitLogcatUtils.v(fileName, LOG_TOP_BORDER)
-                ComkitLogcatUtils.v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + tag)
-                ComkitLogcatUtils.v(fileName, LOG_MIDDLE_BORDER)
-                ComkitLogcatUtils.v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + message)
-                ComkitLogcatUtils.v(fileName, LOG_BOTTOM_BORDER)
+                v(fileName, LOG_TOP_BORDER)
+                v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + tag)
+                v(fileName, LOG_MIDDLE_BORDER)
+                v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + message)
+                v(fileName, LOG_BOTTOM_BORDER)
             }
         }
     }
@@ -180,9 +181,9 @@ object ComkitLogcatUtils {
                     .append(LOG_VERTICAL_DOUBLE_LINE).append(msg)
             stringBuilder.append(string)
             stringBuilder.append("\"\n").append(LOG_BOTTOM_BORDER)
-            ComkitLogcatUtils.v(fileName, stringBuilder.toString())
+            v(fileName, stringBuilder.toString())
         } else {
-            ComkitLogcatUtils.v(fileName, "$msg and is empty.\"")
+            v(fileName, "$msg and is empty.\"")
         }
     }
 
@@ -203,9 +204,9 @@ object ComkitLogcatUtils {
                 stringBuilder.append(String.format(itemString, ComkitTypeCastUtils.objectToString(item), if (index++ < collection.size - 1) ", " else ""))
             }
             stringBuilder.append("]\n").append(LOG_BOTTOM_BORDER)
-            ComkitLogcatUtils.v(fileName, stringBuilder.toString())
+            v(fileName, stringBuilder.toString())
         } else {
-            ComkitLogcatUtils.v(fileName, "$msg and is empty.]")
+            v(fileName, "$msg and is empty.]")
         }
     }
 
@@ -221,14 +222,14 @@ object ComkitLogcatUtils {
             val iterator = collection.iterator()
             var index = 0
             while (iterator.hasNext()) {
-                val itemString = "$LOG_VERTICAL_DOUBLE_LINE [%d]:%s%s"
+                val itemString = "${LOG_VERTICAL_DOUBLE_LINE} [%d]:%s%s"
                 val item = iterator.next()
                 stringBuilder.append(String.format(itemString, index, ComkitTypeCastUtils.objectToString(item), if (index++ < collection.size - 1) ",\n" else "\n"))
             }
-            stringBuilder.append("$LOG_VERTICAL_DOUBLE_LINE ]\n").append(LOG_BOTTOM_BORDER)
-            ComkitLogcatUtils.v(fileName, stringBuilder.toString())
+            stringBuilder.append("${LOG_VERTICAL_DOUBLE_LINE} ]\n").append(LOG_BOTTOM_BORDER)
+            v(fileName, stringBuilder.toString())
         } else {
-            ComkitLogcatUtils.v(fileName, "$msg and is empty.]")
+            v(fileName, "$msg and is empty.]")
         }
     }
 
@@ -247,9 +248,9 @@ object ComkitLogcatUtils {
             }
             stringBuilder.append(LOG_VERTICAL_DOUBLE_LINE).append(" ").append("}\n")
                     .append(LOG_BOTTOM_BORDER)
-            ComkitLogcatUtils.v(fileName, stringBuilder.toString())
+            v(fileName, stringBuilder.toString())
         } else {
-            ComkitLogcatUtils.v(fileName, "$simpleName is empty.")
+            v(fileName, "$simpleName is empty.")
         }
     }
 }

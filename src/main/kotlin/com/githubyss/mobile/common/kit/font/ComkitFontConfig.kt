@@ -1,20 +1,20 @@
-package com.githubyss.mobile.common.kit.constant
+package com.githubyss.mobile.common.kit.font
 
 import android.graphics.Typeface
 
 /**
- * ComkitFontConstants.kt
+ * ComkitFontConfig.kt
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitFontConstants {
+object ComkitFontConfig {
     object FontPath {
         val SOURCE_CODE_PRO_REGULAR = "font/source_code_pro_regular.ttf"
 
-        val MONOSPACE_DEFAULT = ComkitFontConstants.FontPath.SOURCE_CODE_PRO_REGULAR
+        val MONOSPACE_DEFAULT = SOURCE_CODE_PRO_REGULAR
     }
 
     object FontTypeface {

@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.util.formatter
+package com.githubyss.mobile.common.kit.formatter
 
 import org.junit.After
 import org.junit.Assert

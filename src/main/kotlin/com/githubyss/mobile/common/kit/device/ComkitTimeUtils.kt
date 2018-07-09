@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.util
+package com.githubyss.mobile.common.kit.device
 
 import java.text.SimpleDateFormat
 import java.util.*
