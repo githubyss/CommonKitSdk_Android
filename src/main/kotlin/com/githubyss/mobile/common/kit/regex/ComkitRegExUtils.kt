@@ -27,6 +27,6 @@ object ComkitRegExUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun regExPatternMatches(input: String, regEx: String
-    ): Boolean = Pattern.compile(regEx).matcher(input).matches()
+    fun regExPatternMatches(input: String, regEx: String): Boolean
+            = Pattern.compile(regEx).matcher(input).matches()
 }

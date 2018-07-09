@@ -9,8 +9,8 @@ package com.githubyss.mobile.common.kit.logcat
  * @github githubyss
  */
 object ComkitStackTraceElementUtils {
-    fun getStackTrace(
-    ): StackTraceElement = Thread.currentThread().stackTrace[4]
+    fun getStackTrace(): StackTraceElement
+            = Thread.currentThread().stackTrace[4]
 
     fun generateValues(element: StackTraceElement): Array<String> {
         val values = Array(2, { String() })

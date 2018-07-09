@@ -21,8 +21,8 @@ object ComkitNumberFormatUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun formatConventionalIntegerNonNegative(input: String
-    ): String = when {
+    fun formatConventionalIntegerNonNegative(input: String): String
+            = when {
         ComkitNumberCheckUtils.checkInteger(input) -> input.toLong().toString().replace("-", "")
         else -> ""
     }

@@ -12,34 +12,34 @@ import com.githubyss.mobile.common.kit.regex.ComkitRegExUtils
  * @github githubyss
  */
 object ComkitNumberCheckUtils {
-    fun checkInteger(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER)
+    fun checkInteger(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER)
 
-    fun checkIntegerZero(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER_ZERO)
+    fun checkIntegerZero(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER_ZERO)
 
-    fun checkIntegerNonNegative(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER_NON_NEGATIVE)
+    fun checkIntegerNonNegative(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER_NON_NEGATIVE)
 
-    fun checkIntegerNonPositive(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER_NON_POSITIVE)
+    fun checkIntegerNonPositive(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER_NON_POSITIVE)
 
 
-    fun checkConventionalIntegerZero(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_ZERO)
+    fun checkConventionalIntegerZero(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_ZERO)
 
-    fun checkConventionalInteger(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER)
+    fun checkConventionalInteger(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER)
 
-    fun checkConventionalIntegerPositive(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_POSITIVE)
+    fun checkConventionalIntegerPositive(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_POSITIVE)
 
-    fun checkConventionalIntegerNegative(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NEGATIVE)
+    fun checkConventionalIntegerNegative(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NEGATIVE)
 
-    fun checkConventionalIntegerNonNegative(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NON_NEGATIVE)
+    fun checkConventionalIntegerNonNegative(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NON_NEGATIVE)
 
-    fun checkConventionalIntegerNonPositive(input: String
-    ): Boolean = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NON_POSITIVE)
+    fun checkConventionalIntegerNonPositive(input: String): Boolean
+            = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NON_POSITIVE)
 }

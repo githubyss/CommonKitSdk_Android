@@ -20,15 +20,12 @@ class ComkitApplication private constructor() {
     }
 
 
-    var application: Application? = null
+    lateinit var application: Application
         private set
 
 
-    fun init(application: Application) {
-        if (ComkitApplication.instance.application != null) {
-            return
-        }
-
-        ComkitApplication.instance.application = application
+    fun init(application: Application): ComkitApplication {
+        instance.application = application
+        return instance
     }
 }
