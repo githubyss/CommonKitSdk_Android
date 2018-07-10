@@ -9,7 +9,7 @@ import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import java.lang.ref.SoftReference
 
 /**
- * ComkitFontUtils.kt
+ * ComkitFontUtils
  * <Description>
  * <Details>
  *

@@ -1,17 +1,17 @@
-package com.githubyss.mobile.common.kit.checker
+package com.githubyss.mobile.common.kit.processor
 
 import com.githubyss.mobile.common.kit.regex.ComkitRegExConfig
 import com.githubyss.mobile.common.kit.regex.ComkitRegExUtils
 
 /**
- * ComkitNumberCheckUtils.kt
+ * ComkitNumberProcessor
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitNumberCheckUtils {
+object ComkitNumberProcessor {
     fun checkInteger(input: String): Boolean
             = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER)
 
@@ -42,4 +42,21 @@ object ComkitNumberCheckUtils {
 
     fun checkConventionalIntegerNonPositive(input: String): Boolean
             = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NON_POSITIVE)
+
+
+    /**
+     * ComkitNumberProcessor.string2ConventionalIntegerNonNegative(input)
+     * <Description> Format the input to conventional non negative integer.
+     * <Details>
+     *
+     * @param input String to be formatted.
+     * @return Conventional non negative integer, such as "0", "1", "10", "1234".
+     * @author Ace Yan
+     * @github githubyss
+     */
+    fun string2ConventionalIntegerNonNegative(input: String): String
+            = when {
+        checkInteger(input) -> input.toLong().toString().replace("-", "")
+        else -> ""
+    }
 }

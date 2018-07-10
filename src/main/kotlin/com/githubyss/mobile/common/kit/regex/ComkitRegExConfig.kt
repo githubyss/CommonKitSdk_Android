@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.regex
 
 /**
- * ComkitRegExConfig.kt
+ * ComkitRegExConfig
  * <Description>
  * <Details>
  *

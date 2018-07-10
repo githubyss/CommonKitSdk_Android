@@ -9,7 +9,7 @@ import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 
 /**
- * ComkitToastUtils.kt
+ * ComkitToastUtils
  * <Description>
  * <Details>
  *

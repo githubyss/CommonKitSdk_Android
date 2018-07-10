@@ -6,7 +6,7 @@ import kotlin.concurrent.thread
 
 
 /**
- * ComkitTypewriteUtils.kt
+ * ComkitTypewriteUtils
  * <Description>
  * <Details>
  *

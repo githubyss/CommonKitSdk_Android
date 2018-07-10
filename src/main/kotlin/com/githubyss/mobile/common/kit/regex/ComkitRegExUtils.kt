@@ -3,7 +3,8 @@ package com.githubyss.mobile.common.kit.regex
 import java.util.regex.Pattern
 
 /**
- * ComkitRegExUtils.kt <Description>
+ * ComkitRegExUtils
+ * <Description>
  * <Details>
  *
  * @author Ace Yan

@@ -1,16 +1,17 @@
-package com.githubyss.mobile.common.kit.convertor
+package com.githubyss.mobile.common.kit.converter
 
 /**
- * ComkitTypeCastUtils.kt
+ * ComkitTypeConverter
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitTypeCastUtils {
+object ComkitTypeConverter {
     private val types = arrayOf("int", "java.lang.String", "boolean", "char", "float", "double", "long", "short", "byte")
-    fun <T : Any> objectToString(`object`: T?): String {
+
+    fun <T : Any> object2String(`object`: T?): String {
         if (`object` == null) {
             return "Object{object is null}"
         }
@@ -46,7 +47,7 @@ object ComkitTypeCastUtils {
     }
 
     /**
-     * ComkitTypeCastUtils.arrayOfLongToString(array)
+     * ComkitTypeConverter.array2String(array)
      * <Description>
      * <Details>
      *
@@ -55,7 +56,7 @@ object ComkitTypeCastUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun arrayToString(array: Array<*>): String {
+    fun array2String(array: Array<*>): String {
         val stringBuilder = StringBuilder()
         val arraySize = array.size
         for (idx in 0 until arraySize) {
@@ -74,7 +75,7 @@ object ComkitTypeCastUtils {
     }
 
     /**
-     * ComkitTypeCastUtils.listToString(list)
+     * ComkitTypeConverter.list2String(list)
      * <Description>
      * <Details>
      *
@@ -83,6 +84,6 @@ object ComkitTypeCastUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun listToString(list: List<*>)
+    fun list2String(list: List<*>)
             = list.toString()
 }

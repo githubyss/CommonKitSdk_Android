@@ -3,7 +3,7 @@ package com.githubyss.mobile.common.kit
 import android.app.Application
 
 /**
- * ComkitApplication.kt
+ * ComkitApplication
  * <Description>
  * <Details>
  *

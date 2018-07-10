@@ -3,7 +3,7 @@ package com.githubyss.mobile.common.kit.font
 import android.graphics.Typeface
 
 /**
- * ComkitFontConfig.kt
+ * ComkitFontConfig
  * <Description>
  * <Details>
  *

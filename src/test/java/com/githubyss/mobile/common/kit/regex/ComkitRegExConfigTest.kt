@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.constant
+package com.githubyss.mobile.common.kit.regex
 
 //object ComkitRegExConstantsTest {
 //    object MathematicalNumber {

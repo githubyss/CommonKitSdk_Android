@@ -2,13 +2,13 @@ package com.githubyss.mobile.common.kit.logcat
 
 import android.text.TextUtils
 import android.util.Log
-import com.githubyss.mobile.common.kit.convertor.ComkitTypeCastUtils
+import com.githubyss.mobile.common.kit.converter.ComkitTypeConverter
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
 /**
- * ComkitLogcatUtils.kt
+ * ComkitLogcatUtils
  * <Description>
  * <Details>
  *
@@ -160,7 +160,7 @@ object ComkitLogcatUtils {
             }
 
             else -> {
-                val message = ComkitTypeCastUtils.objectToString(`object`)
+                val message = ComkitTypeConverter.object2String(`object`)
                 v(fileName, LOG_TOP_BORDER)
                 v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + tag)
                 v(fileName, LOG_MIDDLE_BORDER)
@@ -201,7 +201,7 @@ object ComkitLogcatUtils {
             while (iterator.hasNext()) {
                 val itemString = "%s%s"
                 val item = iterator.next()
-                stringBuilder.append(String.format(itemString, ComkitTypeCastUtils.objectToString(item), if (index++ < collection.size - 1) ", " else ""))
+                stringBuilder.append(String.format(itemString, ComkitTypeConverter.object2String(item), if (index++ < collection.size - 1) ", " else ""))
             }
             stringBuilder.append("]\n").append(LOG_BOTTOM_BORDER)
             v(fileName, stringBuilder.toString())
@@ -224,7 +224,7 @@ object ComkitLogcatUtils {
             while (iterator.hasNext()) {
                 val itemString = "${LOG_VERTICAL_DOUBLE_LINE} [%d]:%s%s"
                 val item = iterator.next()
-                stringBuilder.append(String.format(itemString, index, ComkitTypeCastUtils.objectToString(item), if (index++ < collection.size - 1) ",\n" else "\n"))
+                stringBuilder.append(String.format(itemString, index, ComkitTypeConverter.object2String(item), if (index++ < collection.size - 1) ",\n" else "\n"))
             }
             stringBuilder.append("${LOG_VERTICAL_DOUBLE_LINE} ]\n").append(LOG_BOTTOM_BORDER)
             v(fileName, stringBuilder.toString())
@@ -244,7 +244,7 @@ object ComkitLogcatUtils {
 
             for (key in keys) {
                 stringBuilder.append(LOG_VERTICAL_DOUBLE_LINE).append(" ")
-                        .append(String.format("[%s -> %s]\n", ComkitTypeCastUtils.objectToString(key), ComkitTypeCastUtils.objectToString(if (map[key] is Array<*>) ComkitTypeCastUtils.arrayToString(map[key] as Array<*>) else map[key])))
+                        .append(String.format("[%s -> %s]\n", ComkitTypeConverter.object2String(key), ComkitTypeConverter.object2String(if (map[key] is Array<*>) ComkitTypeConverter.array2String(map[key] as Array<*>) else map[key])))
             }
             stringBuilder.append(LOG_VERTICAL_DOUBLE_LINE).append(" ").append("}\n")
                     .append(LOG_BOTTOM_BORDER)

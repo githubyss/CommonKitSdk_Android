@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.logcat
 
 /**
- * ComkitStackTraceElementUtils.kt
+ * ComkitStackTraceElementUtils
  * <Description>
  * <Details>
  *
