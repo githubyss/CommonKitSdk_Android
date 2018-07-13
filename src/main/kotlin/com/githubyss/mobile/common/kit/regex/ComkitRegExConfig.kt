@@ -36,14 +36,42 @@ object ComkitRegExConfig {
          * 02347777777
          * by Ace Yan
          */
-        val CHINESE_TELEPHONE_NUMBER = "^0\\d{2,3}\\d{7,8}(\\d{1,5})?$"
+        val CHINESE_TELEPHONE_NORMAL = "^0\\d{2,3}\\d{7,8}(\\d{1,5})?$"
 
         /**
          * 12999999999
          * by Ace Yan
          */
-        val CHINESE_CELLPHONE_NUMBER = "^1[2-9]\\d{9}$"
+        val CHINESE_CELLPHONE_NORMAL = "^1[2-9]\\d{9}$"
 
-        val QQ_NUMBER = "^[1-9]\\d{4,}$"
+        /**
+         * 129-9999-9999
+         * by Ace Yan
+         */
+        val CHINESE_CELLPHONE_DASH_SPLIT = "^$"
+
+        /**
+         * 129 9999 9999
+         * by Ace Yan
+         */
+        val CHINESE_CELLPHONE_SPACE_SPLIT = "^$"
+
+        /**
+         * 320100199901010000
+         * by Ace Yan
+         */
+        val CHINESE_IDENTITY_CARD = "^$"
+
+        /**
+         *
+         * by Ace Yan
+         */
+        val CHINESE_PASSPORT_CARD = "^$"
+
+        /**
+         * 10000
+         * by Ace Yan
+         */
+        val QQ = "^[1-9]\\d{4,}$"
     }
 }

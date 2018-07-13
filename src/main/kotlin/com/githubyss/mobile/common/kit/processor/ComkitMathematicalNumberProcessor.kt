@@ -4,14 +4,14 @@ import com.githubyss.mobile.common.kit.regex.ComkitRegExConfig
 import com.githubyss.mobile.common.kit.regex.ComkitRegExUtils
 
 /**
- * ComkitNumberProcessor
+ * ComkitMathematicalNumberProcessor
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitNumberProcessor {
+object ComkitMathematicalNumberProcessor {
     fun checkInteger(input: String): Boolean
             = ComkitRegExUtils.regExPatternMatches(input, ComkitRegExConfig.MathematicalNumber.INTEGER)
 
@@ -45,7 +45,7 @@ object ComkitNumberProcessor {
 
 
     /**
-     * ComkitNumberProcessor.string2ConventionalIntegerNonNegative(input)
+     * ComkitMathematicalNumberProcessor.string2ConventionalIntegerNonNegative(input)
      * <Description> Format the input to conventional non negative integer.
      * <Details>
      *
