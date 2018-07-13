@@ -39,15 +39,15 @@ object ComkitScreenProcessor {
 
     // ---------- ---------- ---------- Converter ---------- ---------- ----------
 
-    fun dp2Px(context: Context = ComkitApplication.instance.application.applicationContext, dpValue: Float): Int
-            = (dpValue * density(context) + 0.5F).toInt()
+    fun dp2Px(context: Context = ComkitApplication.instance.application.applicationContext, input: Float?): Int
+            = ((input ?: 0F) * density(context) + 0.5F).toInt()
 
-    fun px2Dp(context: Context = ComkitApplication.instance.application.applicationContext, pxValue: Float): Int
-            = (pxValue / density(context) + 0.5F).toInt()
+    fun px2Dp(context: Context = ComkitApplication.instance.application.applicationContext, input: Float?): Int
+            = ((input ?: 0F) / density(context) + 0.5F).toInt()
 
-    fun sp2Px(context: Context = ComkitApplication.instance.application.applicationContext, spValue: Float): Int
-            = (spValue * scaledDensity(context) + 0.5F).toInt()
+    fun sp2Px(context: Context = ComkitApplication.instance.application.applicationContext, input: Float?): Int
+            = ((input ?: 0F) * scaledDensity(context) + 0.5F).toInt()
 
-    fun px2Sp(context: Context = ComkitApplication.instance.application.applicationContext, pxValue: Float): Int
-            = (pxValue / scaledDensity(context) + 0.5F).toInt()
+    fun px2Sp(context: Context = ComkitApplication.instance.application.applicationContext, input: Float?): Int
+            = ((input ?: 0F) / scaledDensity(context) + 0.5F).toInt()
 }
