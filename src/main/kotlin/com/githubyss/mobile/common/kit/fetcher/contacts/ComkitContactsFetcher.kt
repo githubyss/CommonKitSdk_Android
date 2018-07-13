@@ -95,6 +95,25 @@ class ComkitContactsFetcher private constructor() {
         }
     }
 
+    /**
+     * ComkitContactsFetcher.getDeviceContacts(context, contactsModelList, cellphoneSet)
+     * <Description> Fetch contacts in cellphone device.
+     * <Details>
+     *     Traverse table [raw_contacts] to obtain all "display_name" and "_id" in cellphone device.
+     *     Query table [data] by "raw_contact_id"("_id" above) and "mimetype_id" and find out all number("data1") according to "display_name"
+     *
+     *     "raw_contact_id" relate to "display_name" one-to-one;
+     *     "raw_contact_id" relate to "data1" one-to-many.
+     *
+     *     You can obtain the contacts database file "contact2.db" from a rooted cellphone device to get more information.
+     *
+     * @param context
+     * @param contactsModelList
+     * @param cellphoneSet
+     * @return
+     * @author Ace Yan
+     * @github githubyss
+     */
     private fun getDeviceContacts(context: WeakReference<Context>, contactsModelList: MutableList<ComkitContactsModel>, cellphoneSet: MutableSet<String>) {
         try {
             val contentResolver = context.get()?.contentResolver ?: return
