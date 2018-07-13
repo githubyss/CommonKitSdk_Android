@@ -97,40 +97,37 @@ class ComkitContactsFetcher private constructor() {
 
     private fun getDeviceContacts(context: WeakReference<Context>, contactsModelList: MutableList<ComkitContactsModel>, cellphoneSet: MutableSet<String>) {
         try {
-            val contentResolver = context.get()?.contentResolver
+            val contentResolver = context.get()?.contentResolver ?: return
 
-            val tableRawContactsUri = ContactsContract.RawContacts.CONTENT_URI /* content://com.android.contacts/raw_ */
-            val tableRawContactsCursor = contentResolver?.query(tableRawContactsUri, TABLE_RAW_CONTACTS_COLUMNS_ARRAY, null, null, null)
-
-            while (contactsFetchAsyncTask?.isCancelled == false && tableRawContactsCursor?.moveToNext() == true) {
-                val idIndex = tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts._ID)
-                val displayNameIndex = tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY)
-
-                val idStr = tableRawContactsCursor.getString(idIndex)
-                val displayNameStr = tableRawContactsCursor.getString(displayNameIndex)
-
-                val tableDataUri = ContactsContract.Data.CONTENT_URI /*  */
-                val tableDataCursor = contentResolver.query(tableDataUri, TABLE_DATA_COLUMNS_ARRAY, null, null, null)
-
+            val tableRawContactsCursor = contentResolver.query(
+                    ContactsContract.RawContacts.CONTENT_URI /* content://com.android.contacts/raw_contacts */,
+                    TABLE_RAW_CONTACTS_COLUMNS_ARRAY,
+                    null, null, null)
+            while (contactsFetchAsyncTask?.isCancelled == false && tableRawContactsCursor.moveToNext()) {
                 val cellphoneList = ArrayList<String>()
 
-                while (contactsFetchAsyncTask?.isCancelled == false && tableDataCursor.moveToNext()) {
-                    val cellphoneIndex = tableDataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                val idStr = tableRawContactsCursor.getString(tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts._ID))
+                val displayNameStr = tableRawContactsCursor.getString(tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY))
 
-                    val cellphoneStr = formatCellphone(tableRawContactsCursor.getString(cellphoneIndex))
+                val tableDataCursor = contentResolver.query(
+                        ContactsContract.Data.CONTENT_URI /* content://com.android.contacts/data */,
+                        TABLE_DATA_COLUMNS_ARRAY,
+                        "${ContactsContract.Data.RAW_CONTACT_ID} =? AND ${ContactsContract.Data.MIMETYPE} =?",
+                        arrayOf(idStr, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE), null)
+                while (contactsFetchAsyncTask?.isCancelled == false && tableDataCursor.moveToNext()) {
+                    val cellphoneStr = formatCellphone(tableDataCursor.getString(tableDataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)))
 
                     if (ComkitSociologicalNumberProcessor.checkChineseCellphone(cellphoneStr)) {
                         cellphoneList.add(cellphoneStr)
                         cellphoneSet.add(cellphoneStr)
                     }
                 }
+                tableDataCursor.close()
 
                 val contactsModel = ComkitContactsModel(idStr, displayNameStr, cellphoneList)
                 contactsModelList.add(contactsModel)
-
-                tableDataCursor.close()
             }
-            tableRawContactsCursor?.close()
+            tableRawContactsCursor.close()
         } catch (e: SecurityException) {
             ComkitLogcatUtils.e(msg = e.toString())
         }
