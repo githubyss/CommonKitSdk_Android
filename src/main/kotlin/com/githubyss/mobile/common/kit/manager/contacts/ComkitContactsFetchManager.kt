@@ -1,22 +1,25 @@
-package com.githubyss.mobile.common.kit.fetcher.contacts
+package com.githubyss.mobile.common.kit.manager.contacts
 
+import android.app.Application
 import android.content.Context
+import android.database.Cursor
 import android.os.AsyncTask
 import android.provider.ContactsContract
 import android.text.TextUtils
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.processor.ComkitSociologicalNumberProcessor
+import java.lang.Exception
 import java.lang.ref.WeakReference
 
 /**
- * ComkitContactsFetcher
+ * ComkitContactsFetchManager
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-class ComkitContactsFetcher private constructor() {
+class ComkitContactsFetchManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
 
@@ -34,12 +37,12 @@ class ComkitContactsFetcher private constructor() {
     }
 
     private object Holder {
-        val INSTANCE = ComkitContactsFetcher()
+        val INSTANCE = ComkitContactsFetchManager()
     }
 
 
     interface OnContactsFetchListener {
-        fun onFetchComplete(list: List<ComkitContactsModel>)
+        fun onContactsFetched(list: List<ComkitContactsModel>)
     }
 
 
@@ -48,7 +51,7 @@ class ComkitContactsFetcher private constructor() {
     private var beFetching = false
 
 
-    private class ContactsFetchAsyncTask(private val context: WeakReference<Context>, private val comkitContactsFetcherWeakRef: WeakReference<ComkitContactsFetcher>) : AsyncTask<String, Int, List<ComkitContactsModel>>() {
+    private class ContactsFetchAsyncTask constructor(private val contactsFetchManagerWeakRef: WeakReference<ComkitContactsFetchManager>, private val contextWeakRef: WeakReference<Context>) : AsyncTask<String, Int, List<ComkitContactsModel>>() {
         override fun doInBackground(vararg params: String?): List<ComkitContactsModel> {
             if (isCancelled) {
                 return emptyList()
@@ -57,7 +60,7 @@ class ComkitContactsFetcher private constructor() {
             val contactsModelList = ArrayList<ComkitContactsModel>()
             val cellphoneSet = HashSet<String>()
 
-            comkitContactsFetcherWeakRef.get()?.getDeviceContacts(context, contactsModelList, cellphoneSet)
+            contactsFetchManagerWeakRef.get()?.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
 
             return contactsModelList
         }
@@ -65,24 +68,24 @@ class ComkitContactsFetcher private constructor() {
         override fun onPostExecute(result: List<ComkitContactsModel>) {
             super.onPostExecute(result)
 
-            comkitContactsFetcherWeakRef.get()?.beFetching = false
-            comkitContactsFetcherWeakRef.get()?.onContactsFetchListener?.onFetchComplete(result)
+            contactsFetchManagerWeakRef.get()?.beFetching = false
+            contactsFetchManagerWeakRef.get()?.onContactsFetchListener?.onContactsFetched(result)
         }
 
         override fun onCancelled() {
             super.onCancelled()
-            comkitContactsFetcherWeakRef.get()?.beFetching = false
+            contactsFetchManagerWeakRef.get()?.beFetching = false
         }
     }
 
 
-    fun startFetch(context: Context, onContactsFetchListener: OnContactsFetchListener) {
+    fun startFetch(application: Application, onContactsFetchListener: OnContactsFetchListener) {
         when {
             beFetching -> return
             else -> {
                 beFetching = true
-                this@ComkitContactsFetcher.onContactsFetchListener = onContactsFetchListener
-                contactsFetchAsyncTask = ContactsFetchAsyncTask(WeakReference(context), WeakReference(this@ComkitContactsFetcher))
+                this@ComkitContactsFetchManager.onContactsFetchListener = onContactsFetchListener
+                contactsFetchAsyncTask = ContactsFetchAsyncTask(WeakReference(this@ComkitContactsFetchManager), WeakReference(application))
                 contactsFetchAsyncTask?.execute()
             }
         }
@@ -96,7 +99,7 @@ class ComkitContactsFetcher private constructor() {
     }
 
     /**
-     * ComkitContactsFetcher.getDeviceContacts(context, contactsModelList, cellphoneSet)
+     * ComkitContactsFetchManager.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
      * <Description> Fetch contacts in cellphone device.
      * <Details>
      *     Traverse table [raw_contacts] to obtain all "display_name" and "_id" in cellphone device.
@@ -107,32 +110,45 @@ class ComkitContactsFetcher private constructor() {
      *
      *     You can obtain the contacts database file "contact2.db" from a rooted cellphone device to get more information.
      *
-     * @param context
+     * @param contextWeakRef
      * @param contactsModelList
      * @param cellphoneSet
      * @return
      * @author Ace Yan
      * @github githubyss
      */
-    private fun getDeviceContacts(context: WeakReference<Context>, contactsModelList: MutableList<ComkitContactsModel>, cellphoneSet: MutableSet<String>) {
+    private fun getDeviceContacts(contextWeakRef: WeakReference<Context>, contactsModelList: MutableList<ComkitContactsModel>, cellphoneSet: MutableSet<String>) {
         try {
-            val contentResolver = context.get()?.contentResolver ?: return
+            val contentResolver = contextWeakRef.get()?.contentResolver ?: return
+            var tableRawContactsCursor: Cursor? = null
+            try {
+                tableRawContactsCursor = contentResolver.query(
+                        ContactsContract.RawContacts.CONTENT_URI /* content://com.android.contacts/raw_contacts */,
+                        TABLE_RAW_CONTACTS_COLUMNS_ARRAY,
+                        null, null, null)
+            } catch (e: Exception) {
+                ComkitLogcatUtils.e(msg = e.toString())
+            }
+            tableRawContactsCursor ?: return
 
-            val tableRawContactsCursor = contentResolver.query(
-                    ContactsContract.RawContacts.CONTENT_URI /* content://com.android.contacts/raw_contacts */,
-                    TABLE_RAW_CONTACTS_COLUMNS_ARRAY,
-                    null, null, null)
             while (contactsFetchAsyncTask?.isCancelled == false && tableRawContactsCursor.moveToNext()) {
                 val cellphoneList = ArrayList<String>()
 
                 val idStr = tableRawContactsCursor.getString(tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts._ID))
                 val displayNameStr = tableRawContactsCursor.getString(tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY))
 
-                val tableDataCursor = contentResolver.query(
-                        ContactsContract.Data.CONTENT_URI /* content://com.android.contacts/data */,
-                        TABLE_DATA_COLUMNS_ARRAY,
-                        "${ContactsContract.Data.RAW_CONTACT_ID} =? AND ${ContactsContract.Data.MIMETYPE} =?",
-                        arrayOf(idStr, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE), null)
+                var tableDataCursor: Cursor? = null
+                try {
+                    tableDataCursor = contentResolver.query(
+                            ContactsContract.Data.CONTENT_URI /* content://com.android.contacts/data */,
+                            TABLE_DATA_COLUMNS_ARRAY,
+                            "${ContactsContract.Data.RAW_CONTACT_ID} =? AND ${ContactsContract.Data.MIMETYPE} =?",
+                            arrayOf(idStr, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE), null)
+                } catch (e: Exception) {
+                    ComkitLogcatUtils.e(msg = e.toString())
+                }
+                tableDataCursor ?: return
+
                 while (contactsFetchAsyncTask?.isCancelled == false && tableDataCursor.moveToNext()) {
                     val cellphoneStr = formatCellphone(tableDataCursor.getString(tableDataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)))
 

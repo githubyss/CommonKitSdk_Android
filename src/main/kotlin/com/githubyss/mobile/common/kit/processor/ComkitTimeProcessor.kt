@@ -17,6 +17,9 @@ object ComkitTimeProcessor {
     fun millisToSecond(timeMillis: Long): Long
             = timeMillis / 1000
 
+    fun secondToMillis(timeSecond: Long): Long
+            = timeSecond * 1000
+
     fun millis2Default(timeMillis: Long): String
             = DATETIME_FORMAT_DEFAULT.format(timeMillis)
 }

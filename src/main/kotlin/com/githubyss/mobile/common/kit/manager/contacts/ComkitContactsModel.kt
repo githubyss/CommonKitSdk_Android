@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.fetcher.contacts
+package com.githubyss.mobile.common.kit.manager.contacts
 
 /**
  * ComkitContactsModel
