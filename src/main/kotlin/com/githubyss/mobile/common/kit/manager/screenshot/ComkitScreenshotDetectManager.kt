@@ -38,22 +38,6 @@ import java.lang.ref.WeakReference
 class ComkitScreenshotDetectManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
-
-        private val TABLE_MEDIA_IMAGE_COLUMNS = arrayOf(
-                MediaStore.Images.ImageColumns.DATA,
-                MediaStore.Images.ImageColumns.DATE_TAKEN)
-
-        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-        private val TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN = arrayOf(
-                MediaStore.Images.ImageColumns.DATA,
-                MediaStore.Images.ImageColumns.DATE_TAKEN,
-                MediaStore.Images.ImageColumns.WIDTH,
-                MediaStore.Images.ImageColumns.HEIGHT)
-
-        private val PATH_KEYWORDS = arrayOf(
-                "screenshot", "screen_shot", "screen-shot", "screen shot",
-                "screencapture", "screen_capture", "screen-capture", "screen capture",
-                "screencap", "screen_cap", "screen-cap", "screen cap")
     }
 
     private object Holder {
@@ -62,9 +46,25 @@ class ComkitScreenshotDetectManager private constructor() {
 
 
     interface OnScreenshotDetectListener {
-        fun onScreenshotDetected(path: String)
+        fun onScreenshotDetect(path: String)
     }
 
+
+    private val TABLE_MEDIA_IMAGE_COLUMNS = arrayOf(
+            MediaStore.Images.ImageColumns.DATA,
+            MediaStore.Images.ImageColumns.DATE_TAKEN)
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    private val TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN = arrayOf(
+            MediaStore.Images.ImageColumns.DATA,
+            MediaStore.Images.ImageColumns.DATE_TAKEN,
+            MediaStore.Images.ImageColumns.WIDTH,
+            MediaStore.Images.ImageColumns.HEIGHT)
+
+    private val PATH_KEYWORDS = arrayOf(
+            "screenshot", "screen_shot", "screen-shot", "screen shot",
+            "screencapture", "screen_capture", "screen-capture", "screen capture",
+            "screencap", "screen_cap", "screen-cap", "screen cap")
 
     private var onScreenshotDetectListener: OnScreenshotDetectListener? = null
     private var internalObserver: MediaContentObserver? = null
@@ -183,8 +183,8 @@ class ComkitScreenshotDetectManager private constructor() {
     private fun checkMediaData(context: Context, path: String, dateTaken: Long, width: Int, height: Int): Boolean {
         return if (checkScreenshot(context, path, dateTaken, width, height)) {
             if (!checkCallbackPath(path)) {
-                ComkitLogcatUtils.d(msg = "onScreenshotDetected time: ${SystemClock.elapsedRealtime()}")
-                onScreenshotDetectListener?.onScreenshotDetected(path)
+                ComkitLogcatUtils.d(msg = "onScreenshotDetect time: ${SystemClock.elapsedRealtime()}")
+                onScreenshotDetectListener?.onScreenshotDetect(path)
                 true
             } else {
                 ComkitLogcatUtils.d(msg = "")
@@ -200,8 +200,8 @@ class ComkitScreenshotDetectManager private constructor() {
         }
     }
 
-    private fun checkScreenshot(context: Context, path: String, dateTaken: Long, width: Int, height: Int): Boolean =
-            checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
+    private fun checkScreenshot(context: Context, path: String, dateTaken: Long, width: Int, height: Int): Boolean
+            = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
 
     private fun checkDateTaken(dateTaken: Long): Boolean {
         ComkitLogcatUtils.d(msg = "checkDateTaken(): " +

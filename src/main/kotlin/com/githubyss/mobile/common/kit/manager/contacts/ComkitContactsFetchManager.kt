@@ -22,18 +22,6 @@ import java.lang.ref.WeakReference
 class ComkitContactsFetchManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
-
-        private val TABLE_RAW_CONTACTS_COLUMNS_ARRAY = arrayOf(
-                ContactsContract.RawContacts._ID,
-                ContactsContract.RawContacts.CONTACT_ID,
-                ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY)
-
-        private val TABLE_DATA_COLUMNS_ARRAY = arrayOf(
-                ContactsContract.Data._ID,
-                ContactsContract.Data.RAW_CONTACT_ID,
-                ContactsContract.Data.MIMETYPE,
-                ContactsContract.CommonDataKinds.Phone.NUMBER,
-                ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)
     }
 
     private object Holder {
@@ -42,12 +30,24 @@ class ComkitContactsFetchManager private constructor() {
 
 
     interface OnContactsFetchListener {
-        fun onContactsFetched(list: List<ComkitContactsModel>)
+        fun onContactsFetch(list: List<ComkitContactsModel>)
     }
 
 
-    private var contactsFetchAsyncTask: ContactsFetchAsyncTask? = null
+    private val TABLE_RAW_CONTACTS_COLUMNS_ARRAY = arrayOf(
+            ContactsContract.RawContacts._ID,
+            ContactsContract.RawContacts.CONTACT_ID,
+            ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY)
+
+    private val TABLE_DATA_COLUMNS_ARRAY = arrayOf(
+            ContactsContract.Data._ID,
+            ContactsContract.Data.RAW_CONTACT_ID,
+            ContactsContract.Data.MIMETYPE,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)
+
     private var onContactsFetchListener: OnContactsFetchListener? = null
+    private var contactsFetchAsyncTask: ContactsFetchAsyncTask? = null
     private var beFetching = false
 
 
@@ -69,7 +69,7 @@ class ComkitContactsFetchManager private constructor() {
             super.onPostExecute(result)
 
             contactsFetchManagerWeakRef.get()?.beFetching = false
-            contactsFetchManagerWeakRef.get()?.onContactsFetchListener?.onContactsFetched(result)
+            contactsFetchManagerWeakRef.get()?.onContactsFetchListener?.onContactsFetch(result)
         }
 
         override fun onCancelled() {
