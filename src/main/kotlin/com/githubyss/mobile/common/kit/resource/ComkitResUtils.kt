@@ -104,6 +104,6 @@ object ComkitResUtils {
      * @github githubyss
      */
     fun getDrawable(resContext: Context = ComkitApplication.instance.application.applicationContext,
-                    resId: Int): Drawable
+                    resId: Int): Drawable?
             = ContextCompat.getDrawable(resContext, resId)
 }
