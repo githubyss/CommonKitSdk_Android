@@ -3,7 +3,7 @@ package com.githubyss.mobile.common.kit.info
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.support.annotation.RequiresPermission
+import androidx.annotation.RequiresPermission
 import com.githubyss.mobile.common.kit.ComkitApplication
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import java.net.InetAddress
