@@ -35,10 +35,7 @@ object ComkitToastUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext,
-                    msgId: Int,
-                    duration: Int = if (ComkitResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG,
-                    centerable: Boolean = false) {
+    fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext, msgId: Int, duration: Int = if (ComkitResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
         showMessage(context, ComkitResUtils.getString(context, msgId), duration, centerable)
     }
 
@@ -55,10 +52,7 @@ object ComkitToastUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext,
-                    msgStr: String,
-                    duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG,
-                    centerable: Boolean = false) {
+    fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext, msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
         ComkitToastUtils.centerable = centerable
 
         if (Looper.myLooper() == null) {
