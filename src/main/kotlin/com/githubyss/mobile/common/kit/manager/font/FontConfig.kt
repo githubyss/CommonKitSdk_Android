@@ -1,6 +1,7 @@
-package com.githubyss.mobile.common.kit.font
+package com.githubyss.mobile.common.kit.manager.font
 
 import android.graphics.Typeface
+
 
 /**
  * ComkitFontConfig
@@ -10,19 +11,20 @@ import android.graphics.Typeface
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitFontConfig {
+
+object FontConfig {
+    
     object FontPath {
         val SOURCE_CODE_PRO_REGULAR = "font/source_code_pro_regular.ttf"
-
         val MONOSPACE_DEFAULT = SOURCE_CODE_PRO_REGULAR
     }
-
+    
     object FontTypeface {
         val SANS_SERIF = Typeface.SANS_SERIF
         val SERIF = Typeface.SERIF
         val MONOSPACE = Typeface.MONOSPACE
     }
-
+    
     object FontStyle {
         val NORMAL = Typeface.NORMAL
         val BOLD = Typeface.BOLD

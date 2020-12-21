@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.hint
+package com.githubyss.mobile.common.kit.indicator
 
 import android.content.Context
 import android.os.Looper
@@ -8,15 +8,18 @@ import com.githubyss.mobile.common.kit.ComkitApplication
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 
+
 /**
- * ComkitToastUtils
- * <Description>
+ * ToastIndicator
+ * <Description> Toast 指示器
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2020/12/19 09:52:03
  */
-object ComkitToastUtils {
+object ToastIndicator {
+    
     private var toast: Toast? = null
 
     private var centerable = false
@@ -32,8 +35,6 @@ object ComkitToastUtils {
      * @param duration
      * @param centerable
      * @return
-     * @author Ace Yan
-     * @github githubyss
      */
     fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext, msgId: Int, duration: Int = if (ComkitResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
         showMessage(context, ComkitResUtils.getString(context, msgId), duration, centerable)
@@ -49,11 +50,9 @@ object ComkitToastUtils {
      * @param duration How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
      * @param centerable
      * @return
-     * @author Ace Yan
-     * @github githubyss
      */
     fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext, msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
-        ComkitToastUtils.centerable = centerable
+        ToastIndicator.centerable = centerable
 
         if (Looper.myLooper() == null) {
             Looper.prepare()
@@ -64,7 +63,7 @@ object ComkitToastUtils {
         }
 
         toast = Toast.makeText(context, msgStr, duration)
-        if (ComkitToastUtils.centerable) {
+        if (ToastIndicator.centerable) {
             toast?.setGravity(Gravity.CENTER, 0, 0)
         }
 
@@ -78,11 +77,9 @@ object ComkitToastUtils {
      *
      * @param
      * @return
-     * @author Ace Yan
-     * @github githubyss
      */
     private fun show() {
-        synchronized(ComkitToastUtils::class.java) {
+        synchronized(ToastIndicator::class.java) {
             toast?.show()
         }
     }

@@ -90,7 +90,6 @@ class ComkitActivityLifecycleUtils private constructor() : Application.ActivityL
     
     // ---------- ---------- ---------- Public Methods ---------- ---------- ----------
     
-    
     /**
      * 关闭所有的activity
      */

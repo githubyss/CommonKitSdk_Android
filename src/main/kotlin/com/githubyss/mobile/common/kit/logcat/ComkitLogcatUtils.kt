@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.logcat
 
 import android.text.TextUtils
 import android.util.Log
-import com.githubyss.mobile.common.kit.converter.ComkitTypeConverter
+import com.githubyss.mobile.common.kit.converter.ConvertUtils
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -164,7 +164,7 @@ object ComkitLogcatUtils {
             }
 
             else -> {
-                val message = ComkitTypeConverter.object2String(`object`)
+                val message = ConvertUtils.object2String(`object`)
                 v(fileName, LOG_TOP_BORDER)
                 v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + tag)
                 v(fileName, LOG_MIDDLE_BORDER)
@@ -220,7 +220,7 @@ object ComkitLogcatUtils {
                 stringBuilder.append(
                     String.format(
                         itemString,
-                        ComkitTypeConverter.object2String(item),
+                        ConvertUtils.object2String(item),
                         if (index++ < collection.size - 1) ", " else ""
                     )
                 )
@@ -256,7 +256,7 @@ object ComkitLogcatUtils {
                     String.format(
                         itemString,
                         index,
-                        ComkitTypeConverter.object2String(item),
+                        ConvertUtils.object2String(item),
                         if (index++ < collection.size - 1) ",\n" else "\n"
                     )
                 )
@@ -283,9 +283,9 @@ object ComkitLogcatUtils {
                     .append(
                         String.format(
                             "[%s -> %s]\n",
-                            ComkitTypeConverter.object2String(key),
-                            ComkitTypeConverter.object2String(
-                                if (map[key] is Array<*>) ComkitTypeConverter.array2String(map[key] as Array<*>) else map[key]
+                            ConvertUtils.object2String(key),
+                            ConvertUtils.object2String(
+                                if (map[key] is Array<*>) ConvertUtils.array2String(map[key] as Array<*>) else map[key]
                             )
                         )
                     )

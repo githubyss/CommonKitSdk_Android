@@ -15,7 +15,7 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
-import com.githubyss.mobile.common.kit.processor.ComkitScreenProcessor
+import com.githubyss.mobile.common.kit.info.ScreenInfo
 import com.githubyss.mobile.common.kit.processor.ComkitThreadProcessor
 import com.githubyss.mobile.common.kit.processor.ComkitTimeProcessor
 import java.lang.Exception
@@ -86,7 +86,7 @@ class ComkitScreenshotDetectManager private constructor() {
     fun startDetect(application: Application, onScreenshotDetectListener: OnScreenshotDetectListener) {
         ComkitThreadProcessor.assertMainThread()
 
-        actualScreenPoint = ComkitScreenProcessor.screenPointPixels(application) ?: return
+        actualScreenPoint = ScreenInfo.screenPointPx(application) ?: return
         callbackPathList?.clear()
         this@ComkitScreenshotDetectManager.onScreenshotDetectListener = onScreenshotDetectListener
         startDetectTime = System.currentTimeMillis()

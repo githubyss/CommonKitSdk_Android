@@ -13,6 +13,7 @@ import java.text.DecimalFormat
  * @github githubyss
  */
 object ComkitMoneyProcessor {
+    
     fun yuan2Fen(yuan: String, pattern: String = "#0"): String
             = if (TextUtils.isEmpty(yuan))
         "" else DecimalFormat(pattern).format(BigDecimal(yuan).multiply(BigDecimal.valueOf(100)))
