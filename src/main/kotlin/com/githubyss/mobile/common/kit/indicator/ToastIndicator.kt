@@ -5,7 +5,7 @@ import android.os.Looper
 import android.view.Gravity
 import android.widget.Toast
 import com.githubyss.mobile.common.kit.ComkitApplication
-import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.LogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 
 
@@ -90,7 +90,7 @@ object ToastIndicator {
                 toast?.cancel()
             }
         } catch (exception: Exception) {
-            ComkitLogcatUtils.e(t = exception)
+            LogcatUtils.e(t = exception)
         }
     }
 }

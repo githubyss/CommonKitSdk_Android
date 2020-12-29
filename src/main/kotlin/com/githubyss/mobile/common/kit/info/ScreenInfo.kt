@@ -8,7 +8,7 @@ import android.util.DisplayMetrics
 import android.view.Display
 import android.view.WindowManager
 import com.githubyss.mobile.common.kit.ComkitApplication
-import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.LogcatUtils
 
 
 /**
@@ -146,7 +146,7 @@ object ScreenInfo {
         } else {
             defaultDisplay(context = context)?.getSize(point) ?: return null
         }
-        ComkitLogcatUtils.d(msg = "screenPointPx(): {widthPx:${point?.x ?: -1}, heightPx:${point?.y ?: -1}}")
+        LogcatUtils.d(msg = "screenPointPx(): {widthPx:${point?.x ?: -1}, heightPx:${point?.y ?: -1}}")
         return point
     }
     

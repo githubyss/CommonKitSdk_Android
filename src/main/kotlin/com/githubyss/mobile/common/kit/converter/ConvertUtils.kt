@@ -1,15 +1,14 @@
 package com.githubyss.mobile.common.kit.converter
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.graphics.*
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
 import com.githubyss.mobile.common.kit.ComkitApplication
-import com.githubyss.mobile.common.kit.constant.MemoryConstants
-import com.githubyss.mobile.common.kit.constant.TimeConstants
+import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
+import com.githubyss.mobile.common.kit.enumeration.TimeUnit
 import com.githubyss.mobile.common.kit.info.ScreenInfo
 import com.githubyss.mobile.common.kit.processor.StringUtils
 import java.io.*
@@ -54,7 +53,8 @@ object ConvertUtils {
      */
     fun <T : Any> object2String(`object`: T?): String {
         if (`object` == null) return "Object{ object is null }"
-        if (`object`.toString().startsWith(`object`.javaClass.name + "@")) {
+        if (`object`.toString()
+                        .startsWith(`object`.javaClass.name + "@")) {
             val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object{ ")
             val fields = `object`.javaClass.declaredFields
             for (field in fields) {
@@ -78,7 +78,8 @@ object ConvertUtils {
                     stringBuilder.append(String.format("%s=%s, ", field.name, "Object"))
                 }
             }
-            return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, " }").toString()
+            return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, " }")
+                    .toString()
         } else {
             return `object`.toString()
         }
@@ -239,7 +240,8 @@ object ConvertUtils {
             hexString = "0$hexString"
             len += 1
         }
-        val hexBytes = hexString.toUpperCase().toCharArray()
+        val hexBytes = hexString.toUpperCase()
+                .toCharArray()
         val ret = ByteArray(len shr 1)
         for (i in 0 until len step 2) {
             ret[i shr 1] = (hexChar2Int(hexBytes[i]) shl 4 or hexChar2Int(hexBytes[i + 1])).toByte()
@@ -264,7 +266,7 @@ object ConvertUtils {
             in 'A'..'F' -> {
                 hexChar - 'A' + 10
             }
-            else -> {
+            else        -> {
                 throw IllegalArgumentException()
             }
         }
@@ -290,14 +292,14 @@ object ConvertUtils {
      * @param memorySize Size of memory.
      * @param unit       The unit of memory size.
      *                   <ul>
-     *                   <li>{@link MemoryConstants#BYTE}</li>
-     *                   <li>{@link MemoryConstants#KB}</li>
-     *                   <li>{@link MemoryConstants#MB}</li>
-     *                   <li>{@link MemoryConstants#GB}</li>
+     *                   <li>{@link MemoryUnit#BYTE}</li>
+     *                   <li>{@link MemoryUnit#KB}</li>
+     *                   <li>{@link MemoryUnit#MB}</li>
+     *                   <li>{@link MemoryUnit#GB}</li>
      *                   </ul>
      * @return Size of byte.
      */
-    fun memorySize2Byte(memorySize: Long, @MemoryConstants.Unit unit: Int): Long {
+    fun memorySize2Byte(memorySize: Long, @MemoryUnit unit: Int): Long {
         return if (memorySize < 0) -1 else memorySize * unit
     }
     
@@ -308,14 +310,14 @@ object ConvertUtils {
      * @param byteSize Size of byte.
      * @param unit     The unit of memory size.
      *                 <ul>
-     *                 <li>{@link MemoryConstants#BYTE}</li>
-     *                 <li>{@link MemoryConstants#KB}</li>
-     *                 <li>{@link MemoryConstants#MB}</li>
-     *                 <li>{@link MemoryConstants#GB}</li>
+     *                 <li>{@link MemoryUnit#BYTE}</li>
+     *                 <li>{@link MemoryUnit#KB}</li>
+     *                 <li>{@link MemoryUnit#MB}</li>
+     *                 <li>{@link MemoryUnit#GB}</li>
      *                 </ul>
      * @return Size of memory in unit.
      */
-    fun byte2MemorySize(byteSize: Long, @MemoryConstants.Unit unit: Int): Double {
+    fun byte2MemorySize(byteSize: Long, @MemoryUnit unit: Int): Double {
         return if (byteSize < 0) (-1).toDouble() else byteSize.toDouble() / unit
     }
     
@@ -329,20 +331,20 @@ object ConvertUtils {
     @SuppressLint("DefaultLocale")
     fun byte2FitMemorySize(byteSize: Long): String {
         return when {
-            byteSize < 0 -> {
+            byteSize < 0             -> {
                 "shouldn't be less than zero!"
             }
-            byteSize < MemoryConstants.KB -> {
+            byteSize < MemoryUnit.KB -> {
                 String.format("%.3fB", byteSize.toDouble())
             }
-            byteSize < MemoryConstants.MB -> {
-                String.format("%.3fKB", byteSize.toDouble() / MemoryConstants.KB)
+            byteSize < MemoryUnit.MB -> {
+                String.format("%.3fKB", byteSize.toDouble() / MemoryUnit.KB)
             }
-            byteSize < MemoryConstants.GB -> {
-                String.format("%.3fMB", byteSize.toDouble() / MemoryConstants.MB)
+            byteSize < MemoryUnit.GB -> {
+                String.format("%.3fMB", byteSize.toDouble() / MemoryUnit.MB)
             }
-            else -> {
-                String.format("%.3fGB", byteSize.toDouble() / MemoryConstants.GB)
+            else                     -> {
+                String.format("%.3fGB", byteSize.toDouble() / MemoryUnit.GB)
             }
         }
     }
@@ -356,15 +358,15 @@ object ConvertUtils {
      * @param timeSpan The time span.
      * @param unit     The unit of time span.
      *                 <ul>
-     *                 <li>{@link TimeConstants#MSEC}</li>
-     *                 <li>{@link TimeConstants#SEC }</li>
-     *                 <li>{@link TimeConstants#MIN }</li>
-     *                 <li>{@link TimeConstants#HOUR}</li>
-     *                 <li>{@link TimeConstants#DAY }</li>
+     *                 <li>{@link TimeUnit#MSEC}</li>
+     *                 <li>{@link TimeUnit#SEC }</li>
+     *                 <li>{@link TimeUnit#MIN }</li>
+     *                 <li>{@link TimeUnit#HOUR}</li>
+     *                 <li>{@link TimeUnit#DAY }</li>
      *                 </ul>
      * @return The milliseconds.
      */
-    fun timeSpan2Millis(timeSpan: Long, @TimeConstants.Unit unit: Int): Long {
+    fun timeSpan2Millis(timeSpan: Long, @TimeUnit unit: Int): Long {
         return timeSpan * unit
     }
     
@@ -375,15 +377,15 @@ object ConvertUtils {
      * @param millis The milliseconds.
      * @param unit   The unit of time span.
      *               <ul>
-     *               <li>{@link TimeConstants#MSEC}</li>
-     *               <li>{@link TimeConstants#SEC }</li>
-     *               <li>{@link TimeConstants#MIN }</li>
-     *               <li>{@link TimeConstants#HOUR}</li>
-     *               <li>{@link TimeConstants#DAY }</li>
+     *               <li>{@link TimeUnit#MSEC}</li>
+     *               <li>{@link TimeUnit#SEC }</li>
+     *               <li>{@link TimeUnit#MIN }</li>
+     *               <li>{@link TimeUnit#HOUR}</li>
+     *               <li>{@link TimeUnit#DAY }</li>
      *               </ul>
      * @return The time span in unit.
      */
-    fun millis2TimeSpan(millis: Long, @TimeConstants.Unit unit: Int): Long {
+    fun millis2TimeSpan(millis: Long, @TimeUnit unit: Int): Long {
         return millis / unit
     }
     
@@ -411,13 +413,14 @@ object ConvertUtils {
         if (millis <= 0 || precision <= 0) return ""
         val stringBuilder = StringBuilder()
         val units = arrayOf("天", "小时", "分钟", "秒", "毫秒")
-        val unitLens = intArrayOf(TimeConstants.DAY, TimeConstants.HOUR, TimeConstants.MIN, TimeConstants.SEC, TimeConstants.MSEC)
+        val unitLens = intArrayOf(TimeUnit.DAY, TimeUnit.HOUR, TimeUnit.MIN, TimeUnit.SEC, TimeUnit.MSEC)
         precision = min(precision, units.size)
         for (i in 0 until precision) {
             if (millis >= unitLens[i]) {
                 val mode = millis / unitLens[i]
                 millis -= mode * unitLens[i]
-                stringBuilder.append(mode).append(units[i])
+                stringBuilder.append(mode)
+                        .append(units[i])
             }
         }
         return stringBuilder.toString()
@@ -435,9 +438,10 @@ object ConvertUtils {
     fun inputStream2ByteArrayOutputStream(input: InputStream?): ByteArrayOutputStream? {
         return if (input == null) null else try {
             val baos = ByteArrayOutputStream()
-            val bytes = ByteArray(MemoryConstants.KB)
+            val bytes = ByteArray(MemoryUnit.KB)
             var len: Int
-            while (input.read(bytes, 0, MemoryConstants.KB).also { len = it } != -1) {
+            while (input.read(bytes, 0, MemoryUnit.KB)
+                            .also { len = it } != -1) {
                 baos.write(bytes, 0, len)
             }
             baos

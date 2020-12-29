@@ -5,11 +5,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
 import com.githubyss.mobile.common.kit.ComkitApplication
-import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.LogcatUtils
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException
 import java.net.UnknownHostException
+
 
 /**
  * ComkitNetworkInfo
@@ -22,13 +23,13 @@ import java.net.UnknownHostException
 object ComkitNetworkInfo {
     /** China Mobile Communications Corporation Proxy */
     private val CMCC_PROXY = "10.0.0.172"
-
+    
     /** China Unicom Communications Corporation Proxy */
     private val CUCC_PROXY = "10.0.0.172"
-
+    
     /** China Telecom Communications Corporation Proxy */
     private val CTCC_PROXY = "10.0.0.200"
-
+    
     enum class NetworkType {
         NETWORK_ETHERNET,
         NETWORK_WIFI,
@@ -38,13 +39,13 @@ object ComkitNetworkInfo {
         NETWORK_UNKNOWN,
         NETWORK_NO
     }
-
+    
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     fun getActiveNetworkInfo(context: Context = ComkitApplication.instance.application.applicationContext): NetworkInfo {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo
     }
-
+    
     fun getCellphoneIpAddress(useIpv4: Boolean = true): String {
         try {
             val networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces()
@@ -59,7 +60,8 @@ object ComkitNetworkInfo {
                         } else {
                             if (!isIpv4) {
                                 val index = hostAddress.indexOf('%')
-                                return if (index < 0) hostAddress.toUpperCase() else hostAddress.substring(0, index).toUpperCase()
+                                return if (index < 0) hostAddress.toUpperCase() else hostAddress.substring(0, index)
+                                        .toUpperCase()
                             }
                         }
                     }
@@ -67,30 +69,30 @@ object ComkitNetworkInfo {
             }
             return ""
         } catch (e: SocketException) {
-            ComkitLogcatUtils.e(msg = e.toString())
+            LogcatUtils.e(msg = e.toString())
             return ""
         }
     }
-
+    
     fun getDomainAddress(domain: String): String {
         return try {
             InetAddress.getByName(domain).hostAddress
         } catch (e: UnknownHostException) {
-            ComkitLogcatUtils.e(msg = e.toString())
+            LogcatUtils.e(msg = e.toString())
             ""
         }
     }
-
+    
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     fun getNetworkType(context: Context = ComkitApplication.instance.application.applicationContext): String {
         val networkInfo = getActiveNetworkInfo(context)
         val typeName = networkInfo.typeName
         return when (typeName.toLowerCase()) {
             "mobile" -> networkInfo.extraInfo.toLowerCase()
-            else -> typeName
+            else     -> typeName
         }
     }
-
+    
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     fun getApnProxy(context: Context = ComkitApplication.instance.application.applicationContext): String {
         val networkInfo = getActiveNetworkInfo(context)
@@ -98,15 +100,15 @@ object ComkitNetworkInfo {
         return when (typeName.toLowerCase()) {
             "mobile" -> {
                 when (networkInfo.extraInfo.toLowerCase()) {
-                    "cmwap" -> CMCC_PROXY
-                    "3gwap" -> CMCC_PROXY
+                    "cmwap"  -> CMCC_PROXY
+                    "3gwap"  -> CMCC_PROXY
                     "uniwap" -> CMCC_PROXY
-                    "ctwap" -> CTCC_PROXY
-                    else -> ""
+                    "ctwap"  -> CTCC_PROXY
+                    else     -> ""
                 }
             }
-
-            else -> ""
+            
+            else     -> ""
         }
     }
 }

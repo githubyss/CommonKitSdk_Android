@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.os.AsyncTask
 import android.provider.ContactsContract
 import android.text.TextUtils
-import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.LogcatUtils
 import com.githubyss.mobile.common.kit.processor.ComkitSociologicalNumberProcessor
 import java.lang.Exception
 import java.lang.ref.WeakReference
@@ -127,7 +127,7 @@ class ComkitContactsFetchManager private constructor() {
                         TABLE_RAW_CONTACTS_COLUMNS_ARRAY,
                         null, null, null)
             } catch (e: Exception) {
-                ComkitLogcatUtils.e(msg = e.toString())
+                LogcatUtils.e(msg = e.toString())
             }
             tableRawContactsCursor ?: return
 
@@ -145,7 +145,7 @@ class ComkitContactsFetchManager private constructor() {
                             "${ContactsContract.Data.RAW_CONTACT_ID} =? AND ${ContactsContract.Data.MIMETYPE} =?",
                             arrayOf(idStr, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE), null)
                 } catch (e: Exception) {
-                    ComkitLogcatUtils.e(msg = e.toString())
+                    LogcatUtils.e(msg = e.toString())
                 }
                 tableDataCursor ?: return
 
@@ -164,7 +164,7 @@ class ComkitContactsFetchManager private constructor() {
             }
             tableRawContactsCursor.close()
         } catch (e: SecurityException) {
-            ComkitLogcatUtils.e(msg = e.toString())
+            LogcatUtils.e(msg = e.toString())
         }
     }
 

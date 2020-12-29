@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.viewoperator
 
 import android.widget.TextView
-import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.LogcatUtils
 import kotlin.concurrent.thread
 
 
@@ -30,7 +30,7 @@ object ComkitTypewriteUtils {
                         Thread.sleep(delayMillis)
                     }
                 } catch (exception: InterruptedException) {
-                    ComkitLogcatUtils.e(t = exception)
+                    LogcatUtils.e(t = exception)
                 }
             }
         }
@@ -54,7 +54,7 @@ object ComkitTypewriteUtils {
                         Thread.sleep(delayMillis)
                     }
                 } catch (exception: InterruptedException) {
-                    ComkitLogcatUtils.e(t = exception)
+                    LogcatUtils.e(t = exception)
                 }
             }
         }

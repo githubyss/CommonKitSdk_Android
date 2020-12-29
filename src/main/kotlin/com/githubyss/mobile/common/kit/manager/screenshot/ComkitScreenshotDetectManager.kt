@@ -14,7 +14,7 @@ import android.os.SystemClock
 import android.provider.MediaStore
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
-import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.LogcatUtils
 import com.githubyss.mobile.common.kit.info.ScreenInfo
 import com.githubyss.mobile.common.kit.processor.ComkitThreadProcessor
 import com.githubyss.mobile.common.kit.processor.ComkitTimeProcessor
@@ -77,7 +77,7 @@ class ComkitScreenshotDetectManager private constructor() {
     private class MediaContentObserver constructor(private val screenshotDetectManagerWeakRef: WeakReference<ComkitScreenshotDetectManager>, private val context: Context, private val uri: Uri, handler: Handler?) : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            ComkitLogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
+            LogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
             screenshotDetectManagerWeakRef.get()?.handleOnMediaContentChange(context, uri)
         }
     }
@@ -108,19 +108,19 @@ class ComkitScreenshotDetectManager private constructor() {
             internalObserver?.let { application.contentResolver.unregisterContentObserver(it) }
             internalObserver = null
         } catch (e: Exception) {
-            ComkitLogcatUtils.e(msg = e.toString())
+            LogcatUtils.e(msg = e.toString())
         }
 
         try {
             externalObserver?.let { application.contentResolver.unregisterContentObserver(it) }
             externalObserver = null
         } catch (e: Exception) {
-            ComkitLogcatUtils.e(msg = e.toString())
+            LogcatUtils.e(msg = e.toString())
         }
     }
 
     private fun handleOnMediaContentChange(context: Context, uri: Uri) {
-        ComkitLogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
+        LogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
 
         try {
             val contentResolver = context.contentResolver ?: return
@@ -128,12 +128,12 @@ class ComkitScreenshotDetectManager private constructor() {
             try {
                 tableImageMediaCursor = contentResolver.query(uri, if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) TABLE_MEDIA_IMAGE_COLUMNS else TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN, null, null, "${MediaStore.Images.ImageColumns.DATE_ADDED} desc limit 1")
             } catch (e: Exception) {
-                ComkitLogcatUtils.e(msg = e.toString())
+                LogcatUtils.e(msg = e.toString())
             }
             tableImageMediaCursor ?: return
 
             if (tableImageMediaCursor.moveToFirst()) {
-                ComkitLogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
+                LogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
 
                 val pathStr = tableImageMediaCursor.getString(tableImageMediaCursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA))
                 val dateTakenLong = tableImageMediaCursor.getLong(tableImageMediaCursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_TAKEN))
@@ -156,27 +156,27 @@ class ComkitScreenshotDetectManager private constructor() {
                     heightInt = point.y
                 }
 
-                ComkitLogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
+                LogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
                 checkMediaData(context, pathStr, dateTakenLong, widthInt, heightInt)
             }
             tableImageMediaCursor.close()
         } catch (e: SecurityException) {
-            ComkitLogcatUtils.e(msg = e.toString())
+            LogcatUtils.e(msg = e.toString())
         }
     }
 
     private fun checkMediaData(context: Context, path: String, dateTaken: Long, width: Int, height: Int): Boolean {
         return if (checkScreenshot(context, path, dateTaken, width, height)) {
             if (!checkCallbackPath(path)) {
-                ComkitLogcatUtils.d(msg = "onScreenshotDetect time: ${SystemClock.elapsedRealtime()}")
+                LogcatUtils.d(msg = "onScreenshotDetect time: ${SystemClock.elapsedRealtime()}")
                 onScreenshotDetectListener?.onScreenshotDetect(path)
                 true
             } else {
-                ComkitLogcatUtils.d(msg = "")
+                LogcatUtils.d(msg = "")
                 false
             }
         } else {
-            ComkitLogcatUtils.d(msg = "Media data changed, but not screenshot: " + "{time:${SystemClock.elapsedRealtime()}}\t" + "{dateTaken:$dateTaken}\t" + "{path:$path}\t" + "{width:$width, height:$height}\t")
+            LogcatUtils.d(msg = "Media data changed, but not screenshot: " + "{time:${SystemClock.elapsedRealtime()}}\t" + "{dateTaken:$dateTaken}\t" + "{path:$path}\t" + "{width:$width, height:$height}\t")
             false
         }
     }
@@ -184,17 +184,17 @@ class ComkitScreenshotDetectManager private constructor() {
     private fun checkScreenshot(context: Context, path: String, dateTaken: Long, width: Int, height: Int): Boolean = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
 
     private fun checkDateTaken(dateTaken: Long): Boolean {
-        ComkitLogcatUtils.d(msg = "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentTimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentTimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")
+        LogcatUtils.d(msg = "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentTimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentTimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")
         return (dateTaken > startDetectTime && (System.currentTimeMillis() - dateTaken) < ComkitTimeProcessor.secondToMillis(10))
     }
 
     private fun checkImageSize(width: Int, height: Int): Boolean {
-        ComkitLogcatUtils.d(msg = "checkImageSize(): " + "{imageWidth:$width, imageHeight:$height}\t" + "{screenWidth:${actualScreenPoint?.x ?: -1}, screenHeight:${actualScreenPoint?.x ?: -1}}")
+        LogcatUtils.d(msg = "checkImageSize(): " + "{imageWidth:$width, imageHeight:$height}\t" + "{screenWidth:${actualScreenPoint?.x ?: -1}, screenHeight:${actualScreenPoint?.x ?: -1}}")
         return ((width <= actualScreenPoint?.x ?: -1 && height <= actualScreenPoint?.y ?: -1) || (height <= actualScreenPoint?.x ?: -1 && width <= actualScreenPoint?.y ?: -1))
     }
 
     private fun checkPathKeywords(path: String): Boolean {
-        ComkitLogcatUtils.d(msg = "checkPathKeywords(): " + "{path:$path}")
+        LogcatUtils.d(msg = "checkPathKeywords(): " + "{path:$path}")
         return (!TextUtils.isEmpty(path) && PATH_KEYWORDS.any { path.toLowerCase().contains(it) })
     }
 
