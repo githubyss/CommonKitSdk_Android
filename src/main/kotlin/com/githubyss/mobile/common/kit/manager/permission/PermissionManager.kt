@@ -2,6 +2,7 @@ package com.githubyss.mobile.common.kit.manager.permission
 
 import android.Manifest
 import android.os.Build
+import com.githubyss.mobile.common.kit.enumeration.PermissionType
 
 
 /**
@@ -26,21 +27,21 @@ object PermissionManager {
     private val GROUP_SMS = arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_WAP_PUSH, Manifest.permission.RECEIVE_MMS)
     private val GROUP_STORAGE = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     
-    fun getPermissions(@com.githubyss.mobile.common.kit.enumeration.PermissionType permission: String): Array<String> {
+    fun getPermissions(@PermissionType permission: String): Array<String> {
         when (permission) {
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.CALENDAR   -> return GROUP_CALENDAR
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.CAMERA     -> return GROUP_CAMERA
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.CONTACTS   -> return GROUP_CONTACTS
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.LOCATION   -> return GROUP_LOCATION
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.MICROPHONE -> return GROUP_MICROPHONE
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.PHONE      -> return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            PermissionType.CALENDAR   -> return GROUP_CALENDAR
+            PermissionType.CAMERA     -> return GROUP_CAMERA
+            PermissionType.CONTACTS   -> return GROUP_CONTACTS
+            PermissionType.LOCATION   -> return GROUP_LOCATION
+            PermissionType.MICROPHONE -> return GROUP_MICROPHONE
+            PermissionType.PHONE      -> return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 GROUP_PHONE_BELOW_O
             } else {
                 GROUP_PHONE
             }
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.SENSORS    -> return GROUP_SENSORS
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.SMS        -> return GROUP_SMS
-            com.githubyss.mobile.common.kit.enumeration.PermissionType.STORAGE    -> return GROUP_STORAGE
+            PermissionType.SENSORS    -> return GROUP_SENSORS
+            PermissionType.SMS        -> return GROUP_SMS
+            PermissionType.STORAGE    -> return GROUP_STORAGE
         }
         return arrayOf(permission)
     }
