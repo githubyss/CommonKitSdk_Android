@@ -29,19 +29,19 @@ object PermissionManager {
     
     fun getPermissions(@PermissionType permission: String): Array<String> {
         when (permission) {
-            PermissionType.CALENDAR   -> return GROUP_CALENDAR
-            PermissionType.CAMERA     -> return GROUP_CAMERA
-            PermissionType.CONTACTS   -> return GROUP_CONTACTS
-            PermissionType.LOCATION   -> return GROUP_LOCATION
+            PermissionType.CALENDAR -> return GROUP_CALENDAR
+            PermissionType.CAMERA -> return GROUP_CAMERA
+            PermissionType.CONTACTS -> return GROUP_CONTACTS
+            PermissionType.LOCATION -> return GROUP_LOCATION
             PermissionType.MICROPHONE -> return GROUP_MICROPHONE
-            PermissionType.PHONE      -> return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            PermissionType.PHONE -> return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 GROUP_PHONE_BELOW_O
             } else {
                 GROUP_PHONE
             }
-            PermissionType.SENSORS    -> return GROUP_SENSORS
-            PermissionType.SMS        -> return GROUP_SMS
-            PermissionType.STORAGE    -> return GROUP_STORAGE
+            PermissionType.SENSORS -> return GROUP_SENSORS
+            PermissionType.SMS -> return GROUP_SMS
+            PermissionType.STORAGE -> return GROUP_STORAGE
         }
         return arrayOf(permission)
     }
