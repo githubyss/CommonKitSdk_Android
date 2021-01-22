@@ -75,7 +75,7 @@ class ComkitScreenshotDetectManager private constructor() {
     }
 
 
-    private class MediaContentObserver constructor(private val screenshotDetectManagerWeakRef: WeakReference<ComkitScreenshotDetectManager>, private val context: Context, private val uri: Uri, handler: Handler?) : ContentObserver(handler) {
+    private class MediaContentObserver constructor(private val screenshotDetectManagerWeakRef: WeakReference<ComkitScreenshotDetectManager>, private val context: Context?, private val uri: Uri, handler: Handler?) : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
             LogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
@@ -84,7 +84,7 @@ class ComkitScreenshotDetectManager private constructor() {
     }
 
 
-    fun startDetect(application: Application, onScreenshotDetectListener: OnScreenshotDetectListener) {
+    fun startDetect(application: Application?, onScreenshotDetectListener: OnScreenshotDetectListener) {
         ComkitThreadProcessor.assertMainThread()
 
         actualScreenPoint = ScreenInfo.screenPointPx(application) ?: return
@@ -95,36 +95,36 @@ class ComkitScreenshotDetectManager private constructor() {
         internalObserver = MediaContentObserver(WeakReference(this@ComkitScreenshotDetectManager), application, MediaStore.Images.Media.INTERNAL_CONTENT_URI, uiHandler)
         externalObserver = MediaContentObserver(WeakReference(this@ComkitScreenshotDetectManager), application, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, uiHandler)
 
-        internalObserver?.let { application.contentResolver.registerContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, false, it) }
-        externalObserver?.let { application.contentResolver.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, it) }
+        internalObserver?.let { application?.contentResolver?.registerContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, false, it) }
+        externalObserver?.let { application?.contentResolver?.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, it) }
     }
 
-    fun stopDetect(application: Application) {
+    fun stopDetect(application: Application?) {
         ComkitThreadProcessor.assertMainThread()
 
         callbackPathList?.clear()
         startDetectTime = -1L
 
         try {
-            internalObserver?.let { application.contentResolver.unregisterContentObserver(it) }
+            internalObserver?.let { application?.contentResolver?.unregisterContentObserver(it) }
             internalObserver = null
         } catch (e: Exception) {
             LogcatUtils.e(msg = e.toString())
         }
 
         try {
-            externalObserver?.let { application.contentResolver.unregisterContentObserver(it) }
+            externalObserver?.let { application?.contentResolver?.unregisterContentObserver(it) }
             externalObserver = null
         } catch (e: Exception) {
             LogcatUtils.e(msg = e.toString())
         }
     }
 
-    private fun handleOnMediaContentChange(context: Context, uri: Uri) {
+    private fun handleOnMediaContentChange(context: Context?, uri: Uri) {
         LogcatUtils.d(msg = SystemClock.elapsedRealtime().toString())
 
         try {
-            val contentResolver = context.contentResolver ?: return
+            val contentResolver = context?.contentResolver ?: return
             var tableImageMediaCursor: Cursor? = null
             try {
                 tableImageMediaCursor = contentResolver.query(uri, if (Build.VERSION.SDK_INT < VersionCode.JELLY_BEAN) TABLE_MEDIA_IMAGE_COLUMNS else TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN, null, null, "${MediaStore.Images.ImageColumns.DATE_ADDED} desc limit 1")
@@ -166,7 +166,7 @@ class ComkitScreenshotDetectManager private constructor() {
         }
     }
 
-    private fun checkMediaData(context: Context, path: String, dateTaken: Long, width: Int, height: Int): Boolean {
+    private fun checkMediaData(context: Context?, path: String, dateTaken: Long, width: Int, height: Int): Boolean {
         return if (checkScreenshot(context, path, dateTaken, width, height)) {
             if (!checkCallbackPath(path)) {
                 LogcatUtils.d(msg = "onScreenshotDetect time: ${SystemClock.elapsedRealtime()}")
@@ -182,7 +182,7 @@ class ComkitScreenshotDetectManager private constructor() {
         }
     }
 
-    private fun checkScreenshot(context: Context, path: String, dateTaken: Long, width: Int, height: Int): Boolean = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
+    private fun checkScreenshot(context: Context?, path: String, dateTaken: Long, width: Int, height: Int): Boolean = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
 
     private fun checkDateTaken(dateTaken: Long): Boolean {
         LogcatUtils.d(msg = "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentTimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentTimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")

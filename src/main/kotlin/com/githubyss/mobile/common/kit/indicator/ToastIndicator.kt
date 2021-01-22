@@ -82,7 +82,7 @@ object ToastIndicator {
         }
     }
 
-    fun close(context: Context) {
+    fun close(context: Context?) {
         try {
             if (toast != null) {
                 toast?.cancel()

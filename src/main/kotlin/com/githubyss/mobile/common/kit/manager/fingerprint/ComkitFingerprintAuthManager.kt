@@ -105,11 +105,11 @@ class ComkitFingerprintAuthManager private constructor() {
     // }
     
     
-    fun startAuth(application: Application, onFingerprintAuthListener: OnFingerprintAuthListener) {
+    fun startAuth(application: Application?, onFingerprintAuthListener: OnFingerprintAuthListener) {
         this@ComkitFingerprintAuthManager.onFingerprintAuthListener = onFingerprintAuthListener
         if (beSdkVersionAfterM() && fingerprintManager == null) {
             try {
-                fingerprintManager = application.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
+                fingerprintManager = application?.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
                 hasFingerprintManager = true
             } catch (e: Exception) {
                 LogcatUtils.e(msg = e.toString())
