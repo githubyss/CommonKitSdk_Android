@@ -13,7 +13,6 @@ import android.app.Application
  * @createdTime 2020/12/19 09:47:37
  */
 class ComkitApplication private constructor() {
-    
     companion object {
         var instance = Holder.INSTANCE
     }
@@ -23,12 +22,14 @@ class ComkitApplication private constructor() {
     }
     
     
-    lateinit var application: Application
+    var application: Application? = null
         private set
     
     
     fun init(application: Application): ComkitApplication {
-        instance.application = application
+        if (instance.application == null) {
+            instance.application = application
+        }
         return instance
     }
 }

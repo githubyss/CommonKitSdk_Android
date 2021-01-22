@@ -19,14 +19,12 @@ import com.githubyss.mobile.common.kit.resource.ComkitResUtils
  * @createdTime 2020/12/19 09:52:03
  */
 object ToastIndicator {
-    
     private var toast: Toast? = null
 
     private var centerable = false
 
 
     /**
-     * ComkitToastUtils.showMessage(context, msgId, duration, centerable)
      * <Description>
      * <Details>
      *
@@ -36,7 +34,7 @@ object ToastIndicator {
      * @param centerable
      * @return
      */
-    fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext, msgId: Int, duration: Int = if (ComkitResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
+    fun showMessage(context: Context? = ComkitApplication.instance.application?.applicationContext, msgId: Int, duration: Int = if (ComkitResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
         showMessage(context, ComkitResUtils.getString(context, msgId), duration, centerable)
     }
 
@@ -51,7 +49,7 @@ object ToastIndicator {
      * @param centerable
      * @return
      */
-    fun showMessage(context: Context = ComkitApplication.instance.application.applicationContext, msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
+    fun showMessage(context: Context? = ComkitApplication.instance.application?.applicationContext, msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
         ToastIndicator.centerable = centerable
 
         if (Looper.myLooper() == null) {

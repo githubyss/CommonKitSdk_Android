@@ -14,6 +14,7 @@ import android.os.SystemClock
 import android.provider.MediaStore
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
+import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import com.githubyss.mobile.common.kit.logcat.LogcatUtils
 import com.githubyss.mobile.common.kit.info.ScreenInfo
 import com.githubyss.mobile.common.kit.processor.ComkitThreadProcessor
@@ -52,7 +53,7 @@ class ComkitScreenshotDetectManager private constructor() {
 
     private val TABLE_MEDIA_IMAGE_COLUMNS = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.ImageColumns.DATE_TAKEN)
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(VersionCode.JELLY_BEAN)
     private val TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.ImageColumns.DATE_TAKEN, MediaStore.Images.ImageColumns.WIDTH, MediaStore.Images.ImageColumns.HEIGHT)
 
     private val PATH_KEYWORDS = arrayOf("screenshot", "screen_shot", "screen-shot", "screen shot", "screencapture", "screen_capture", "screen-capture", "screen capture", "screencap", "screen_cap", "screen-cap", "screen cap")
@@ -126,7 +127,7 @@ class ComkitScreenshotDetectManager private constructor() {
             val contentResolver = context.contentResolver ?: return
             var tableImageMediaCursor: Cursor? = null
             try {
-                tableImageMediaCursor = contentResolver.query(uri, if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) TABLE_MEDIA_IMAGE_COLUMNS else TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN, null, null, "${MediaStore.Images.ImageColumns.DATE_ADDED} desc limit 1")
+                tableImageMediaCursor = contentResolver.query(uri, if (Build.VERSION.SDK_INT < VersionCode.JELLY_BEAN) TABLE_MEDIA_IMAGE_COLUMNS else TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN, null, null, "${MediaStore.Images.ImageColumns.DATE_ADDED} desc limit 1")
             } catch (e: Exception) {
                 LogcatUtils.e(msg = e.toString())
             }
@@ -140,7 +141,7 @@ class ComkitScreenshotDetectManager private constructor() {
 
                 var widthIndex = -1
                 var heightIndex = -1
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN) {
                     widthIndex = tableImageMediaCursor.getColumnIndex(MediaStore.Images.ImageColumns.WIDTH)
                     heightIndex = tableImageMediaCursor.getColumnIndex(MediaStore.Images.ImageColumns.HEIGHT)
                 }

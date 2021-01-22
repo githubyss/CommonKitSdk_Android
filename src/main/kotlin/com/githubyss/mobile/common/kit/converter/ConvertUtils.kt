@@ -266,7 +266,7 @@ object ConvertUtils {
             in 'A'..'F' -> {
                 hexChar - 'A' + 10
             }
-            else        -> {
+            else -> {
                 throw IllegalArgumentException()
             }
         }
@@ -331,7 +331,7 @@ object ConvertUtils {
     @SuppressLint("DefaultLocale")
     fun byte2FitMemorySize(byteSize: Long): String {
         return when {
-            byteSize < 0             -> {
+            byteSize < 0 -> {
                 "shouldn't be less than zero!"
             }
             byteSize < MemoryUnit.KB -> {
@@ -343,7 +343,7 @@ object ConvertUtils {
             byteSize < MemoryUnit.GB -> {
                 String.format("%.3fMB", byteSize.toDouble() / MemoryUnit.MB)
             }
-            else                     -> {
+            else -> {
                 String.format("%.3fGB", byteSize.toDouble() / MemoryUnit.GB)
             }
         }
@@ -632,7 +632,7 @@ object ConvertUtils {
      * @return The drawable.
      */
     fun bitmap2Drawable(bitmap: Bitmap?): Drawable? {
-        return if (bitmap == null) null else BitmapDrawable(ComkitApplication.instance.application.resources, bitmap)
+        return if (bitmap == null) null else BitmapDrawable(ComkitApplication.instance.application?.resources, bitmap)
     }
     
     /**

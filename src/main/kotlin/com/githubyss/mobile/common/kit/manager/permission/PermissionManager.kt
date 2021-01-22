@@ -3,6 +3,7 @@ package com.githubyss.mobile.common.kit.manager.permission
 import android.Manifest
 import android.os.Build
 import com.githubyss.mobile.common.kit.enumeration.PermissionType
+import com.githubyss.mobile.common.kit.enumeration.VersionCode
 
 
 /**
@@ -34,7 +35,7 @@ object PermissionManager {
             PermissionType.CONTACTS -> return GROUP_CONTACTS
             PermissionType.LOCATION -> return GROUP_LOCATION
             PermissionType.MICROPHONE -> return GROUP_MICROPHONE
-            PermissionType.PHONE -> return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            PermissionType.PHONE -> return if (Build.VERSION.SDK_INT < VersionCode.O) {
                 GROUP_PHONE_BELOW_O
             } else {
                 GROUP_PHONE

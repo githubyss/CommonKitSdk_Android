@@ -16,19 +16,19 @@ import com.githubyss.mobile.common.kit.ComkitApplication
  * @createdTime 2020/12/19 11:48:47
  */
 object StringUtils {
-
+    
     /** ********** ********** ********** Properties ********** ********** ********** */
-
-
+    
+    
     /** ********** ********** ********** Constructors ********** ********** ********** */
-
+    
     init {
         throw UnsupportedOperationException("u can't instantiate me...")
     }
-
-
+    
+    
     /** ********** ********** ********** Public ********** ********** ********** */
-
+    
     /**
      * <Description> Return whether the string is null or 0-length.
      * <Details>
@@ -39,7 +39,7 @@ object StringUtils {
     fun isEmpty(s: CharSequence?): Boolean {
         return s == null || s.isEmpty()
     }
-
+    
     /**
      * <Description> Return whether the string is null or whitespace.
      * <Details>
@@ -48,9 +48,10 @@ object StringUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isTrimEmpty(s: String?): Boolean {
-        return s == null || s.trim().isEmpty()
+        return s == null || s.trim()
+                .isEmpty()
     }
-
+    
     /**
      * <Description> Return whether the string is null or white space.
      * <Details>
@@ -60,7 +61,7 @@ object StringUtils {
      */
     fun isSpace(s: String?): Boolean {
         if (s == null || s.isEmpty()) return true
-
+        
         for (element in s) {
             if (!Character.isWhitespace(element)) {
                 return false
@@ -68,7 +69,7 @@ object StringUtils {
         }
         return true
     }
-
+    
     /**
      * <Description> Return whether string1 is equals to string2.
      * <Details>
@@ -79,7 +80,7 @@ object StringUtils {
      */
     fun equals(s1: CharSequence?, s2: CharSequence?): Boolean {
         if (s1 === s2) return true
-
+        
         val length: Int
         if (s1 != null && s2 != null) {
             length = s1.length
@@ -96,7 +97,7 @@ object StringUtils {
         }
         return false
     }
-
+    
     /**
      * <Description> Return whether string1 is equals to string2, ignoring case considerations..
      * <Details>
@@ -108,7 +109,7 @@ object StringUtils {
     fun equalsIgnoreCase(s1: String?, s2: String?): Boolean {
         return s1?.equals(s2, ignoreCase = true) ?: (s2 == null)
     }
-
+    
     /**
      * <Description> Return {@code ""} if string equals null.
      * <Details>
@@ -119,7 +120,7 @@ object StringUtils {
     fun null2Length0(s: String?): String {
         return s ?: ""
     }
-
+    
     /**
      * <Description> Return the length of string.
      * <Details>
@@ -130,7 +131,7 @@ object StringUtils {
     fun length(s: CharSequence?): Int {
         return s?.length ?: 0
     }
-
+    
     /**
      * <Description> Set the first letter of string upper.
      * <Details>
@@ -142,9 +143,10 @@ object StringUtils {
         if (s == null || s.isEmpty()) return ""
         // 首字符可能会是数字，所以不能直接用 Character.isUpperCase 判断
         if (!Character.isLowerCase(s[0])) return s
-        return (s[0].toInt() - 32).toChar().toString() + s.substring(1)
+        return (s[0].toInt() - 32).toChar()
+                .toString() + s.substring(1)
     }
-
+    
     /**
      * <Description> Set the first letter of string lower.
      * <Details>
@@ -156,9 +158,10 @@ object StringUtils {
         if (s == null || s.isEmpty()) return ""
         // 首字符可能会是数字，所以不能直接用 Character.isLowerCase 判断
         if (!Character.isUpperCase(s[0])) return s
-        return (s[0].toInt() + 32).toChar().toString() + s.substring(1)
+        return (s[0].toInt() + 32).toChar()
+                .toString() + s.substring(1)
     }
-
+    
     /**
      * <Description> Reverse the string.
      * <Details>
@@ -168,10 +171,10 @@ object StringUtils {
      */
     fun reverse(s: String?): String {
         if (s == null) return ""
-
+        
         val len = s.length
         if (len <= 1) return s
-
+        
         val mid = len shr 1
         val chars = s.toCharArray()
         var c: Char
@@ -182,7 +185,7 @@ object StringUtils {
         }
         return String(chars)
     }
-
+    
     /**
      * <Description> Convert string to DBC.
      * <Details>
@@ -192,7 +195,7 @@ object StringUtils {
      */
     fun toDBC(s: String?): String {
         if (s == null || s.isEmpty()) return ""
-
+        
         val chars = s.toCharArray()
         for (i in chars.indices) {
             when {
@@ -209,7 +212,7 @@ object StringUtils {
         }
         return String(chars)
     }
-
+    
     /**
      * <Description> Convert string to SBC.
      * <Details>
@@ -219,7 +222,7 @@ object StringUtils {
      */
     fun toSBC(s: String?): String? {
         if (s == null || s.isEmpty()) return ""
-
+        
         val chars = s.toCharArray()
         for (i in chars.indices) {
             when {
@@ -236,7 +239,7 @@ object StringUtils {
         }
         return String(chars)
     }
-
+    
     /**
      * <Description> Return the string value associated with a particular resource ID.
      * <Details>
@@ -246,12 +249,12 @@ object StringUtils {
      */
     fun getString(@StringRes id: Int): String {
         return try {
-            ComkitApplication.instance.application.resources.getString(id)
+            ComkitApplication.instance.application?.resources?.getString(id) ?: ""
         } catch (ignore: NotFoundException) {
             ""
         }
     }
-
+    
     /**
      * <Description> Return the string value associated with a particular resource ID.
      * <Details>
@@ -262,12 +265,12 @@ object StringUtils {
      */
     fun getString(@StringRes id: Int, vararg formatArgs: Any?): String {
         return try {
-            ComkitApplication.instance.application.resources.getString(id, formatArgs)
+            ComkitApplication.instance.application?.resources?.getString(id, formatArgs) ?: ""
         } catch (ignore: NotFoundException) {
             ""
         }
     }
-
+    
     /**
      * <Description> Return the string array associated with a particular resource ID.
      * <Details>
@@ -275,9 +278,9 @@ object StringUtils {
      * @param id The desired resource identifier.
      * @return The string array associated with the resource.
      */
-    fun getStringArray(@ArrayRes id: Int): Array<String?> {
+    fun getStringArray(@ArrayRes id: Int): Array<String?>? {
         return try {
-            ComkitApplication.instance.application.resources.getStringArray(id)
+            ComkitApplication.instance.application?.resources?.getStringArray(id)
         } catch (ignore: NotFoundException) {
             arrayOfNulls(0)
         }

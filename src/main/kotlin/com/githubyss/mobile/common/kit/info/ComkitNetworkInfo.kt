@@ -41,8 +41,8 @@ object ComkitNetworkInfo {
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getActiveNetworkInfo(context: Context = ComkitApplication.instance.application.applicationContext): NetworkInfo {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    fun getActiveNetworkInfo(context: Context? = ComkitApplication.instance.application?.applicationContext): NetworkInfo {
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo
     }
     
@@ -84,31 +84,31 @@ object ComkitNetworkInfo {
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getNetworkType(context: Context = ComkitApplication.instance.application.applicationContext): String {
+    fun getNetworkType(context: Context? = ComkitApplication.instance.application?.applicationContext): String {
         val networkInfo = getActiveNetworkInfo(context)
         val typeName = networkInfo.typeName
         return when (typeName.toLowerCase()) {
             "mobile" -> networkInfo.extraInfo.toLowerCase()
-            else     -> typeName
+            else -> typeName
         }
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getApnProxy(context: Context = ComkitApplication.instance.application.applicationContext): String {
+    fun getApnProxy(context: Context? = ComkitApplication.instance.application?.applicationContext): String {
         val networkInfo = getActiveNetworkInfo(context)
         val typeName = networkInfo.typeName
         return when (typeName.toLowerCase()) {
             "mobile" -> {
                 when (networkInfo.extraInfo.toLowerCase()) {
-                    "cmwap"  -> CMCC_PROXY
-                    "3gwap"  -> CMCC_PROXY
+                    "cmwap" -> CMCC_PROXY
+                    "3gwap" -> CMCC_PROXY
                     "uniwap" -> CMCC_PROXY
-                    "ctwap"  -> CTCC_PROXY
-                    else     -> ""
+                    "ctwap" -> CTCC_PROXY
+                    else -> ""
                 }
             }
             
-            else     -> ""
+            else -> ""
         }
     }
 }

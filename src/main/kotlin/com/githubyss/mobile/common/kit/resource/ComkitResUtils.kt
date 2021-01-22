@@ -26,8 +26,8 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getColor(resContext: Context = ComkitApplication.instance.application.applicationContext, resId: Int): Int {
-        return ContextCompat.getColor(resContext, resId)
+    fun getColor(resContext: Context? = ComkitApplication.instance.application?.applicationContext, resId: Int): Int {
+        return ContextCompat.getColor(resContext ?: return -1, resId)
     }
     
     /**
@@ -41,8 +41,8 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getString(resContext: Context = ComkitApplication.instance.application.applicationContext, resId: Int): String {
-        return resContext.resources.getString(resId)
+    fun getString(resContext: Context? = ComkitApplication.instance.application?.applicationContext, resId: Int): String {
+        return resContext?.resources?.getString(resId) ?: ""
     }
     
     /**
@@ -57,8 +57,8 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getString(resContext: Context = ComkitApplication.instance.application.applicationContext, resId: Int, vararg resFormat: Any): String {
-        return resContext.resources.getString(resId, resFormat)
+    fun getString(resContext: Context? = ComkitApplication.instance.application?.applicationContext, resId: Int, vararg resFormat: Any): String {
+        return resContext?.resources?.getString(resId, resFormat) ?: ""
     }
     
     /**
@@ -72,8 +72,8 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getDimension(resContext: Context = ComkitApplication.instance.application.applicationContext, resId: Int): Float {
-        return resContext.resources.getDimension(resId)
+    fun getDimension(resContext: Context? = ComkitApplication.instance.application?.applicationContext, resId: Int): Float {
+        return resContext?.resources?.getDimension(resId) ?: -1F
     }
     
     /**
@@ -87,8 +87,8 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getDimensionPixelSize(resContext: Context = ComkitApplication.instance.application.applicationContext, resId: Int): Int {
-        return resContext.resources.getDimensionPixelSize(resId)
+    fun getDimensionPixelSize(resContext: Context? = ComkitApplication.instance.application?.applicationContext, resId: Int): Int {
+        return resContext?.resources?.getDimensionPixelSize(resId) ?: -1
     }
     
     /**
@@ -102,7 +102,7 @@ object ComkitResUtils {
      * @author Ace Yan
      * @github githubyss
      */
-    fun getDrawable(resContext: Context = ComkitApplication.instance.application.applicationContext, resId: Int): Drawable? {
-        return ContextCompat.getDrawable(resContext, resId)
+    fun getDrawable(resContext: Context? = ComkitApplication.instance.application?.applicationContext, resId: Int): Drawable? {
+        return ContextCompat.getDrawable(resContext ?: return null, resId)
     }
 }
