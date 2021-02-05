@@ -15,8 +15,8 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
-import com.githubyss.mobile.common.kit.logcat.LogcatUtils
-import com.githubyss.mobile.common.kit.info.ScreenInfo
+import com.githubyss.mobile.common.kit.util.LogcatUtils
+import com.githubyss.mobile.common.kit.util.ScreenUtils
 import com.githubyss.mobile.common.kit.processor.ComkitThreadProcessor
 import com.githubyss.mobile.common.kit.processor.ComkitTimeProcessor
 import java.lang.Exception
@@ -84,10 +84,10 @@ class ComkitScreenshotDetectManager private constructor() {
     }
 
 
-    fun startDetect(application: Application?, onScreenshotDetectListener: OnScreenshotDetectListener) {
+    fun startDetect(application: Application, onScreenshotDetectListener: OnScreenshotDetectListener) {
         ComkitThreadProcessor.assertMainThread()
 
-        actualScreenPoint = ScreenInfo.screenPointPx(application) ?: return
+        actualScreenPoint = ScreenUtils.screenPointPx(application) ?: return
         callbackPathList?.clear()
         this@ComkitScreenshotDetectManager.onScreenshotDetectListener = onScreenshotDetectListener
         startDetectTime = System.currentTimeMillis()
@@ -95,25 +95,25 @@ class ComkitScreenshotDetectManager private constructor() {
         internalObserver = MediaContentObserver(WeakReference(this@ComkitScreenshotDetectManager), application, MediaStore.Images.Media.INTERNAL_CONTENT_URI, uiHandler)
         externalObserver = MediaContentObserver(WeakReference(this@ComkitScreenshotDetectManager), application, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, uiHandler)
 
-        internalObserver?.let { application?.contentResolver?.registerContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, false, it) }
-        externalObserver?.let { application?.contentResolver?.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, it) }
+        internalObserver?.let { application.contentResolver?.registerContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, false, it) }
+        externalObserver?.let { application.contentResolver?.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, it) }
     }
 
-    fun stopDetect(application: Application?) {
+    fun stopDetect(application: Application) {
         ComkitThreadProcessor.assertMainThread()
 
         callbackPathList?.clear()
         startDetectTime = -1L
 
         try {
-            internalObserver?.let { application?.contentResolver?.unregisterContentObserver(it) }
+            internalObserver?.let { application.contentResolver?.unregisterContentObserver(it) }
             internalObserver = null
         } catch (e: Exception) {
             LogcatUtils.e(msg = e.toString())
         }
 
         try {
-            externalObserver?.let { application?.contentResolver?.unregisterContentObserver(it) }
+            externalObserver?.let { application.contentResolver?.unregisterContentObserver(it) }
             externalObserver = null
         } catch (e: Exception) {
             LogcatUtils.e(msg = e.toString())

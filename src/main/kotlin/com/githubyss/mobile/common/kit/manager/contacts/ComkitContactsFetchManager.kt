@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.os.AsyncTask
 import android.provider.ContactsContract
 import android.text.TextUtils
-import com.githubyss.mobile.common.kit.logcat.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogcatUtils
 import com.githubyss.mobile.common.kit.processor.ComkitSociologicalNumberProcessor
 import java.lang.Exception
 import java.lang.ref.WeakReference

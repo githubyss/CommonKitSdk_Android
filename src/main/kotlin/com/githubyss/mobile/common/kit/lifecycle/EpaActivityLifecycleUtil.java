@@ -53,7 +53,7 @@
 //      */
 //     private Activity currentShowActivity;
 //
-//     private int count;
+//     private int foregroundCount;
 //
 //     private static Object lock = new Object();
 //
@@ -76,7 +76,7 @@
 //     private static String SMP_ACTIVITY_NAME = "com.suning.epa.sminip.SNFMPActivity";
 //
 //     private EpaActivityLifecycleUtil(){
-//         count = 0;
+//         foregroundCount = 0;
 //         isForeground = false;
 //         activityList = new ArrayList<>();
 //     }
@@ -149,7 +149,7 @@
 //                 CustomStatisticsProxy.recordLogStatus("suspendView", "addView");
 //                 SuspendViewController.Companion.getSington().addView(activity);
 //                 if (bean != null) {
-//                     SuspendViewController.Companion.getSington().setCount(0);
+//                     SuspendViewController.Companion.getSington().setForegroundCount(0);
 //                     LogUtils.d(TAG, "show SuspendView");
 //                     CustomStatisticsProxy.recordLogStatus("suspendView", "addView");
 //                     SuspendViewController.Companion.getSington().show(bean.getCountDownTime());
@@ -163,7 +163,7 @@
 //
 //     @Override
 //     public void onActivityStarted(Activity activity) {
-//         count ++;
+//         foregroundCount ++;
 //         LogUtils.d(TAG,"onActivityStarted:"+activity.getClass().getSimpleName()+"  isForeground:"+isForeground);
 //     }
 //
@@ -234,8 +234,8 @@
 //     @Override
 //     public void onActivityStopped(Activity activity) {
 //         //重要，如果Activity的stop中判断应用再前后台，一定要报super.stop()放在第一行
-//         count--;
-//         if (count == 0) {
+//         foregroundCount--;
+//         if (foregroundCount == 0) {
 //             isForeground = false;
 //             sendBroadcast(activity);
 //             //切换到后台,提示用户

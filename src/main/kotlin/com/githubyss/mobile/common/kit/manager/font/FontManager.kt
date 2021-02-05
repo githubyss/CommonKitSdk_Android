@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.githubyss.mobile.common.kit.logcat.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogcatUtils
 import java.lang.ref.SoftReference
 
 

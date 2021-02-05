@@ -5,9 +5,8 @@ import android.content.Context
 import android.hardware.fingerprint.FingerprintManager
 import android.os.Build
 import android.os.CancellationSignal
-import androidx.annotation.RequiresApi
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
-import com.githubyss.mobile.common.kit.logcat.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogcatUtils
 import java.lang.Exception
 
 /**
