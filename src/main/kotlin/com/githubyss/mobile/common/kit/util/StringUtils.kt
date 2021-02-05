@@ -19,13 +19,6 @@ object StringUtils {
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
-    
-    init {
-        throw UnsupportedOperationException("u can't instantiate me...")
-    }
-    
-    
     /** ********** ********** ********** Public ********** ********** ********** */
     
     /**

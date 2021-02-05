@@ -38,9 +38,9 @@ object ComkitUtils {
     
     /** ********** ********** ********** Constructors ********** ********** ********** */
     
-    init {
-        throw UnsupportedOperationException("u can't instantiate me...")
-    }
+    // init {
+    //     throw UnsupportedOperationException("u can't instantiate me...")
+    // }
     
     
     /** ********** ********** ********** Public ********** ********** ********** */

@@ -30,13 +30,6 @@ import java.io.*
  */
 object ImageUtils {
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
-    
-    init {
-        throw UnsupportedOperationException("u can't instantiate me...")
-    }
-    
-    
     /** ********** ********** ********** Public ********** ********** ********** */
     
     /** ********** ********** Converter ********** ********** */

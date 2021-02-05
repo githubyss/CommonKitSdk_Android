@@ -64,13 +64,6 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     private var destroyedListenerMap: MutableMap<Activity?, Set<OnActivityDestroyedListener?>?> = HashMap()
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
-    
-    init {
-        throw UnsupportedOperationException("u can't instantiate me...")
-    }
-    
-    
     /** ********** ********** ********** Override Methods ********** ********** ********** */
     
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

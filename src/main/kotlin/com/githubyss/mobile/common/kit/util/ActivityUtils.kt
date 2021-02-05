@@ -54,13 +54,6 @@ object ActivityUtils {
     }
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
-    
-    init {
-        throw UnsupportedOperationException("u can't instantiate me...")
-    }
-    
-    
     /** ********** ********** ********** Public ********** ********** ********** */
     
     /** ********** ********** Getter ********** ********** */
