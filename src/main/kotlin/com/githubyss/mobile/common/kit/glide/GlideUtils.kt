@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.util.Util
 import com.githubyss.mobile.common.kit.ComkitUtils
@@ -277,7 +277,7 @@ object GlideUtils {
         Glide.with(context)
                 .asBitmap()
                 .load(loadPath)
-                .into(object : SimpleTarget<Bitmap?>() {
+                .into(object : CustomTarget<Bitmap?>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
                         listener.success(resource)
                     }
@@ -285,6 +285,9 @@ object GlideUtils {
                     override fun onLoadFailed(errorDrawable: Drawable?) {
                         super.onLoadFailed(errorDrawable)
                         listener.failed()
+                    }
+                    
+                    override fun onLoadCleared(placeholder: Drawable?) {
                     }
                 })
     }
@@ -299,7 +302,7 @@ object GlideUtils {
         Glide.with(context)
                 .asBitmap()
                 .load(loadPath)
-                .into(object : SimpleTarget<Bitmap?>() {
+                .into(object : CustomTarget<Bitmap?>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
                         listener.success(resource)
                     }
@@ -307,6 +310,9 @@ object GlideUtils {
                     override fun onLoadFailed(errorDrawable: Drawable?) {
                         super.onLoadFailed(errorDrawable)
                         listener.failed()
+                    }
+                    
+                    override fun onLoadCleared(placeholder: Drawable?) {
                     }
                 })
     }

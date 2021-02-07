@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -54,6 +55,9 @@ dependencies {
 
     implementation project(':CommonLibSdk_Android')
 
+    /* Glide */
+    kapt "com.github.bumptech.glide:compiler:$glide_compile_version"
+
 
     // /* Kotlin */
     // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -66,4 +70,10 @@ dependencies {
     // testImplementation "junit:junit:$junit_version"
     // androidTestImplementation "androidx.test.ext:junit:$androidx_test_junit_version"
     // androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso_core_version"
+}
+
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
 }

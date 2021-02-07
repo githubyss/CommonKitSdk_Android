@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.Drawable
+import android.nfc.Tag
 import android.view.View
 import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
@@ -54,10 +55,10 @@ object ConvertUtils {
                     if (field.type.name.equals(type, ignoreCase = true)) {
                         flag = true
                         var value: Any? = null
-                        value = try {
-                            field.get(`object`)
+                        try {
+                            value = field.get(`object`)
                         } catch (e: IllegalAccessException) {
-                            e
+                            LogcatUtils.e(TAG, e)
                         } finally {
                             stringBuilder.append(String.format("%s=%s, ", field.name, value?.toString() ?: "null"))
                             break

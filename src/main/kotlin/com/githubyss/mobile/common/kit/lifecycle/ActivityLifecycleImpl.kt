@@ -130,7 +130,7 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     
     fun getTopActivity(): Activity? {
         if (activityList.isNotEmpty()) {
-            val topActivity: Activity = activityList.last
+            val topActivity: Activity? = activityList.last
             if (topActivity != null) {
                 return topActivity
             }
@@ -160,7 +160,7 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     fun getActivityNum(): Int {
-        return activityList.size ?: 0
+        return activityList.size
     }
     
     fun addOnAppStatusChangedListener(`object`: Any?, listener: OnAppStatusChangedListener?) {
@@ -274,7 +274,7 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
                     .invoke(null)
             val activityListField = activityThreadClass.getDeclaredField("mActivityList")
             activityListField.isAccessible = true
-            val activities = activityListField[currentActivityThreadMethod] as Map<*, *> ?: return null
+            val activities = activityListField[currentActivityThreadMethod] as Map<*, *>
             for (activityRecord in activities.values) {
                 if (activityRecord != null) {
                     val activityRecordClass: Class<Any> = activityRecord.javaClass
@@ -303,11 +303,11 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     
     private fun fixSoftInputLeaks(activity: Activity?) {
         if (activity == null) return
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager ?: return
+        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val leakViews = arrayOf("mLastSrvView", "mCurRootView", "mServedView", "mNextServedView")
         for (leakView in leakViews) {
             try {
-                val leakViewField = InputMethodManager::class.java.getDeclaredField(leakView) ?: continue
+                val leakViewField = InputMethodManager::class.java.getDeclaredField(leakView)
                 if (!leakViewField.isAccessible) {
                     leakViewField.isAccessible = true
                 }

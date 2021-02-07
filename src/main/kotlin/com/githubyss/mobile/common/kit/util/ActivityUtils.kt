@@ -138,6 +138,7 @@ object ActivityUtils {
      * @return the icon of activity
      */
     fun getActivityIcon(@NonNull context: Context = ComkitUtils.getApp(), @NonNull activityName: ComponentName?): Drawable? {
+        if (activityName == null) return null
         val pm: PackageManager = context.packageManager
         return try {
             pm.getActivityIcon(activityName)
@@ -177,6 +178,7 @@ object ActivityUtils {
      * @return the logo of activity
      */
     fun getActivityLogo(@NonNull context: Context = ComkitUtils.getApp(), @NonNull activityName: ComponentName?): Drawable? {
+        if (activityName == null) return null
         val pm: PackageManager = context.packageManager
         return try {
             pm.getActivityLogo(activityName)
@@ -916,7 +918,7 @@ object ActivityUtils {
                 .toBundle()
     }
     
-    private fun getOptionsBundle(activity: Activity, sharedElements: Array<out View>): Bundle? {
+    private fun getOptionsBundle(activity: Activity, sharedElements: Array<out View>?): Bundle? {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return null
         if (sharedElements == null) return null
         val len = sharedElements.size

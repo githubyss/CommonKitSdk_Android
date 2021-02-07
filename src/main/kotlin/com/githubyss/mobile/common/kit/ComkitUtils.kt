@@ -152,7 +152,7 @@ object ComkitUtils {
     }
     
     fun getCurrentProcessNameByAms(): String {
-        val am = getApp().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager ?: return ""
+        val am = getApp().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val info = am.runningAppProcesses
         if (info == null || info.size == 0) return ""
         val pid = Process.myPid()
