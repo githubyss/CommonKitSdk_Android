@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources.NotFoundException
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 
 
@@ -226,7 +227,7 @@ object StringUtils {
      * @param id The desired resource identifier.
      * @return The string value associated with a particular resource ID.
      */
-    fun getString(context: Context = ComkitUtils.getApp(), @StringRes id: Int): String {
+    fun getString(context: Context = ComkitApplicationConfig.getApp(), @StringRes id: Int): String {
         return try {
             context.resources.getString(id)
         } catch (ignore: NotFoundException) {
@@ -241,7 +242,7 @@ object StringUtils {
      * @param formatArgs The format arguments that will be used for substitution.
      * @return The string value associated with a particular resource ID.
      */
-    fun getString(context: Context = ComkitUtils.getApp(), @StringRes id: Int, vararg formatArgs: Any?): String {
+    fun getString(context: Context = ComkitApplicationConfig.getApp(), @StringRes id: Int, vararg formatArgs: Any?): String {
         return try {
             context.resources.getString(id, formatArgs)
         } catch (ignore: NotFoundException) {
@@ -255,7 +256,7 @@ object StringUtils {
      * @param id The desired resource identifier.
      * @return The string array associated with the resource.
      */
-    fun getStringArray(context: Context = ComkitUtils.getApp(), @ArrayRes id: Int): Array<String?>? {
+    fun getStringArray(context: Context = ComkitApplicationConfig.getApp(), @ArrayRes id: Int): Array<String?>? {
         return try {
             context.resources?.getStringArray(id)
         } catch (ignore: NotFoundException) {

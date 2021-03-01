@@ -7,6 +7,7 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.WindowManager
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 
@@ -32,7 +33,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The window manager.
      */
-    fun windowManager(context: Context = ComkitUtils.getApp()): WindowManager? {
+    fun windowManager(context: Context = ComkitApplicationConfig.getApp()): WindowManager? {
         return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     }
     
@@ -42,7 +43,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The default display.
      */
-    fun defaultDisplay(context: Context = ComkitUtils.getApp()): Display? {
+    fun defaultDisplay(context: Context = ComkitApplicationConfig.getApp()): Display? {
         return windowManager(context = context)?.defaultDisplay
     }
     
@@ -61,7 +62,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The default metrics.
      */
-    fun displayMetrics(context: Context = ComkitUtils.getApp()): DisplayMetrics? {
+    fun displayMetrics(context: Context = ComkitApplicationConfig.getApp()): DisplayMetrics? {
         return context.resources.displayMetrics
     }
     
@@ -80,7 +81,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The density.
      */
-    fun density(context: Context = ComkitUtils.getApp()): Float? {
+    fun density(context: Context = ComkitApplicationConfig.getApp()): Float? {
         return displayMetrics(context = context)?.density
     }
     
@@ -99,7 +100,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The scaled density.
      */
-    fun scaledDensity(context: Context = ComkitUtils.getApp()): Float? {
+    fun scaledDensity(context: Context = ComkitApplicationConfig.getApp()): Float? {
         return displayMetrics(context = context)?.scaledDensity
     }
     
@@ -118,7 +119,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The width in pixels.
      */
-    fun widthPx(context: Context = ComkitUtils.getApp()): Int? {
+    fun widthPx(context: Context = ComkitApplicationConfig.getApp()): Int? {
         windowManager(context = context) ?: return displayMetrics(context = context)?.widthPixels
         return screenPointPx(context = context)?.x
     }
@@ -138,7 +139,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The height in pixels.
      */
-    fun heightPx(context: Context = ComkitUtils.getApp()): Int? {
+    fun heightPx(context: Context = ComkitApplicationConfig.getApp()): Int? {
         windowManager(context = context) ?: return displayMetrics(context = context)?.heightPixels
         return screenPointPx(context = context)?.y
     }
@@ -149,7 +150,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The screen point in pixels.
      */
-    fun screenPointPx(context: Context = ComkitUtils.getApp()): Point? {
+    fun screenPointPx(context: Context = ComkitApplicationConfig.getApp()): Point? {
         val point: Point? = Point()
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             defaultDisplay(context = context)?.getRealSize(point) ?: return null
@@ -182,7 +183,7 @@ object ScreenUtils {
      * @param context The context.
      * @return The status bar height.
      */
-    fun getStatusBarHeight(context: Context = ComkitUtils.getApp()): Int? {
+    fun getStatusBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int? {
         var result: Int? = null
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resourceId > 0) {

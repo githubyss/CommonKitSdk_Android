@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Looper
 import android.view.Gravity
 import android.widget.Toast
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 
 
@@ -29,7 +30,7 @@ object ToastUtils {
      * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
      * @param centerable Is toast show in center.
      */
-    fun showMessage(context: Context = ComkitUtils.getApp(), msgId: Int, duration: Int = if (ResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
+    fun showMessage(context: Context = ComkitApplicationConfig.getApp(), msgId: Int, duration: Int = if (ResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
         showMessage(context, ResUtils.getString(context, msgId), duration, centerable)
     }
     
@@ -41,7 +42,7 @@ object ToastUtils {
      * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
      * @param centerable Is toast show in center.
      */
-    fun showMessage(context: Context = ComkitUtils.getApp(), msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
+    fun showMessage(context: Context = ComkitApplicationConfig.getApp(), msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
         ToastUtils.centerable = centerable
         
         if (Looper.myLooper() == null) {
@@ -75,7 +76,7 @@ object ToastUtils {
      *
      * @param context The context to use. Usually your Application or Activity object.
      */
-    fun close(context: Context = ComkitUtils.getApp()) {
+    fun close(context: Context = ComkitApplicationConfig.getApp()) {
         try {
             if (toast != null) {
                 toast?.cancel()

@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -40,7 +41,7 @@ object NetworkUtils {
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getActiveNetworkInfo(context: Context = ComkitUtils.getApp()): NetworkInfo {
+    fun getActiveNetworkInfo(context: Context = ComkitApplicationConfig.getApp()): NetworkInfo {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo
     }
@@ -83,7 +84,7 @@ object NetworkUtils {
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getNetworkType(context: Context = ComkitUtils.getApp()): String {
+    fun getNetworkType(context: Context = ComkitApplicationConfig.getApp()): String {
         val networkInfo = getActiveNetworkInfo(context)
         val typeName = networkInfo.typeName
         return when (typeName.toLowerCase()) {
@@ -93,7 +94,7 @@ object NetworkUtils {
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getApnProxy(context: Context = ComkitUtils.getApp()): String {
+    fun getApnProxy(context: Context = ComkitApplicationConfig.getApp()): String {
         val networkInfo = getActiveNetworkInfo(context)
         val typeName = networkInfo.typeName
         return when (typeName.toLowerCase()) {

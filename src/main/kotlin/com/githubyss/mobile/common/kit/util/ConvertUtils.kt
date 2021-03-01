@@ -7,6 +7,7 @@ import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.Drawable
 import android.nfc.Tag
 import android.view.View
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import com.githubyss.mobile.common.kit.enumeration.TimeUnit
@@ -577,7 +578,7 @@ object ConvertUtils {
         return ImageUtils.bytes2Bitmap(bytes)
     }
     
-    fun bitmap2Drawable(context: Context = ComkitUtils.getApp(), bitmap: Bitmap?): Drawable? {
+    fun bitmap2Drawable(context: Context = ComkitApplicationConfig.getApp(), bitmap: Bitmap?): Drawable? {
         return ImageUtils.bitmap2Drawable(context, bitmap)
     }
     
@@ -589,7 +590,7 @@ object ConvertUtils {
         return ImageUtils.drawable2Bytes(drawable, format)
     }
     
-    fun bytes2Drawable(context: Context = ComkitUtils.getApp(), bytes: ByteArray?): Drawable? {
+    fun bytes2Drawable(context: Context = ComkitApplicationConfig.getApp(), bytes: ByteArray?): Drawable? {
         return ImageUtils.bytes2Drawable(context, bytes)
     }
     

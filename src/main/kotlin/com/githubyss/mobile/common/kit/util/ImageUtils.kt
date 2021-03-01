@@ -17,6 +17,7 @@ import android.view.View
 import androidx.annotation.*
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import java.io.*
@@ -64,7 +65,7 @@ object ImageUtils {
      * @param bitmap The bitmap.
      * @return The drawable.
      */
-    fun bitmap2Drawable(context: Context = ComkitUtils.getApp(), bitmap: Bitmap?): Drawable? {
+    fun bitmap2Drawable(context: Context = ComkitApplicationConfig.getApp(), bitmap: Bitmap?): Drawable? {
         return if (bitmap == null) null else BitmapDrawable(context.resources, bitmap)
     }
     
@@ -109,7 +110,7 @@ object ImageUtils {
      * @param bytes The bytes.
      * @return The drawable.
      */
-    fun bytes2Drawable(context: Context = ComkitUtils.getApp(), bytes: ByteArray?): Drawable? {
+    fun bytes2Drawable(context: Context = ComkitApplicationConfig.getApp(), bytes: ByteArray?): Drawable? {
         return if (bytes == null) null else bitmap2Drawable(context, bytes2Bitmap(bytes))
     }
     
@@ -252,7 +253,7 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(@DrawableRes resId: Int): Bitmap? {
-        val drawable: Drawable = ContextCompat.getDrawable(ComkitUtils.getApp(), resId) ?: return null
+        val drawable: Drawable = ContextCompat.getDrawable(ComkitApplicationConfig.getApp(), resId) ?: return null
         val canvas = Canvas()
         val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
         canvas.setBitmap(bitmap)
@@ -271,7 +272,7 @@ object ImageUtils {
      */
     fun getBitmap(@DrawableRes resId: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
         val options = BitmapFactory.Options()
-        val resources: Resources = ComkitUtils.getApp().resources
+        val resources: Resources = ComkitApplicationConfig.getApp().resources
         options.inJustDecodeBounds = true
         BitmapFactory.decodeResource(resources, resId, options)
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
@@ -781,7 +782,7 @@ object ImageUtils {
         var rs: RenderScript? = null
         val ret = if (recycle) src else src.copy(src.config, true)
         try {
-            rs = RenderScript.create(ComkitUtils.getApp())
+            rs = RenderScript.create(ComkitApplicationConfig.getApp())
             rs.messageHandler = RSMessageHandler()
             val input = Allocation.createFromBitmap(rs, ret, Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT)
             val output = Allocation.createTyped(rs, input.type)

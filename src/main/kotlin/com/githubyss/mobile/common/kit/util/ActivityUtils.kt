@@ -17,6 +17,7 @@ import androidx.annotation.Nullable
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleImpl
 
@@ -41,16 +42,16 @@ object ActivityUtils {
     var activityList: List<Activity> = activityLifecycle.activityList
     
     /** The name of launcher activity. */
-    var launcherActivity: String = getLauncherActivity(ComkitUtils.getApp(), ComkitUtils.getApp().packageName)
+    var launcherActivity: String = getLauncherActivity(ComkitApplicationConfig.getApp(), ComkitApplicationConfig.getApp().packageName)
     
     /** The top activity in activity's stack. */
     var topActivity: Activity? = activityLifecycle.getTopActivity()
     
     var topActivityOrApp: Context = if (ComkitUtils.isAppForeground()) {
         val topActivity: Activity? = activityLifecycle.getTopActivity()
-        topActivity ?: ComkitUtils.getApp()
+        topActivity ?: ComkitApplicationConfig.getApp()
     } else {
-        ComkitUtils.getApp()
+        ComkitApplicationConfig.getApp()
     }
     
     
@@ -74,7 +75,7 @@ object ActivityUtils {
      * @param context The context.
      * @return the activity by context.
      */
-    fun getActivityByContext(@NonNull context: Context = ComkitUtils.getApp()): Activity? {
+    fun getActivityByContext(@NonNull context: Context = ComkitApplicationConfig.getApp()): Activity? {
         var context = context
         while (context is ContextWrapper) {
             if (context is Activity) {
@@ -92,7 +93,7 @@ object ActivityUtils {
      * @param pkg     The name of the package.
      * @return the name of launcher activity
      */
-    fun getLauncherActivity(@NonNull context: Context = ComkitUtils.getApp(), @NonNull pkg: String): String {
+    fun getLauncherActivity(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull pkg: String): String {
         val intent = Intent(Intent.ACTION_MAIN, null)
         intent.addCategory(Intent.CATEGORY_LAUNCHER)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -115,7 +116,7 @@ object ActivityUtils {
      * @param clz     The activity class.
      * @return the icon of activity
      */
-    fun getActivityIcon(@NonNull context: Context = ComkitUtils.getApp(), @NonNull clz: Class<out Activity?>): Drawable? {
+    fun getActivityIcon(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull clz: Class<out Activity?>): Drawable? {
         return getActivityIcon(context, ComponentName(context, clz))
     }
     
@@ -126,7 +127,7 @@ object ActivityUtils {
      * @param activity The activity.
      * @return the icon of activity
      */
-    fun getActivityIcon(@NonNull context: Context = ComkitUtils.getApp(), @NonNull activity: Activity): Drawable? {
+    fun getActivityIcon(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activity: Activity): Drawable? {
         return getActivityIcon(context, activity.componentName)
     }
     
@@ -137,7 +138,7 @@ object ActivityUtils {
      * @param activityName The name of activity.
      * @return the icon of activity
      */
-    fun getActivityIcon(@NonNull context: Context = ComkitUtils.getApp(), @NonNull activityName: ComponentName?): Drawable? {
+    fun getActivityIcon(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activityName: ComponentName?): Drawable? {
         if (activityName == null) return null
         val pm: PackageManager = context.packageManager
         return try {
@@ -155,7 +156,7 @@ object ActivityUtils {
      * @param clz     The activity class.
      * @return the logo of activity
      */
-    fun getActivityLogo(@NonNull context: Context = ComkitUtils.getApp(), @NonNull clz: Class<out Activity?>): Drawable? {
+    fun getActivityLogo(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull clz: Class<out Activity?>): Drawable? {
         return getActivityLogo(context, ComponentName(context, clz))
     }
     
@@ -166,7 +167,7 @@ object ActivityUtils {
      * @param activity The activity.
      * @return the logo of activity
      */
-    fun getActivityLogo(@NonNull context: Context = ComkitUtils.getApp(), @NonNull activity: Activity): Drawable? {
+    fun getActivityLogo(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activity: Activity): Drawable? {
         return getActivityLogo(context, activity.componentName)
     }
     
@@ -177,7 +178,7 @@ object ActivityUtils {
      * @param activityName The name of activity.
      * @return the logo of activity
      */
-    fun getActivityLogo(@NonNull context: Context = ComkitUtils.getApp(), @NonNull activityName: ComponentName?): Drawable? {
+    fun getActivityLogo(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activityName: ComponentName?): Drawable? {
         if (activityName == null) return null
         val pm: PackageManager = context.packageManager
         return try {
@@ -198,7 +199,7 @@ object ActivityUtils {
      * @param cls     The name of the class.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isActivityExists(@NonNull context: Context = ComkitUtils.getApp(), @NonNull pkg: String, @NonNull cls: String): Boolean {
+    fun isActivityExists(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull pkg: String, @NonNull cls: String): Boolean {
         val intent = Intent()
         intent.setClassName(pkg, cls)
         return !(context.packageManager.resolveActivity(intent, 0) == null || context.packageManager?.let { intent.resolveActivity(it) } == null || context.packageManager.queryIntentActivities(intent, 0).size == 0)
@@ -909,7 +910,7 @@ object ActivityUtils {
     
     /** ********** ********** ********** Private ********** ********** ********** */
     
-    private fun isIntentAvailable(context: Context = ComkitUtils.getApp(), intent: Intent): Boolean {
+    private fun isIntentAvailable(context: Context = ComkitApplicationConfig.getApp(), intent: Intent): Boolean {
         return context.packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)?.size ?: -1 > 0
     }
     

@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.util.Util
+import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import com.githubyss.mobile.common.kit.util.ActivityUtils
@@ -43,7 +44,7 @@ object GlideUtils {
      * @param loadPath  The image path, see top description.
      * @param imageView The image view to load.
      */
-    fun loadImage(context: Context = ComkitUtils.getApp(), loadPath: String?, imageView: ImageView?) {
+    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -58,7 +59,7 @@ object GlideUtils {
                 .into(imageView)
     }
     
-    fun loadImage(context: Context = ComkitUtils.getApp(), loadPath: Int, imageView: ImageView?) {
+    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -81,7 +82,7 @@ object GlideUtils {
      * @param imageView The image view to load.
      * @param errorIcon The error icon when load failed.
      */
-    fun loadImage(context: Context = ComkitUtils.getApp(), loadPath: String?, imageView: ImageView?, errorIcon: Int) {
+    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?, errorIcon: Int) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -97,7 +98,7 @@ object GlideUtils {
                 .into(imageView)
     }
     
-    fun loadImage(context: Context = ComkitUtils.getApp(), loadPath: Int, imageView: ImageView?, errorIcon: Int) {
+    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?, errorIcon: Int) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -122,7 +123,7 @@ object GlideUtils {
      * @param defIcon   The error icon when load failed.
      * @param errorIcon The error icon when load failed.
      */
-    fun loadImage(context: Context = ComkitUtils.getApp(), loadPath: String?, imageView: ImageView?, defIcon: Int, errorIcon: Int) {
+    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?, defIcon: Int, errorIcon: Int) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -139,7 +140,7 @@ object GlideUtils {
                 .into(imageView)
     }
     
-    fun loadImage(context: Context = ComkitUtils.getApp(), loadPath: Int, imageView: ImageView?, defIcon: Int, errorIcon: Int) {
+    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?, defIcon: Int, errorIcon: Int) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -163,7 +164,7 @@ object GlideUtils {
      * @param loadPath  The image path, see top description.
      * @param imageView The image view to load.
      */
-    fun loadImageAsGif(context: Context = ComkitUtils.getApp(), loadPath: String?, imageView: ImageView?) {
+    fun loadImageAsGif(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -177,7 +178,7 @@ object GlideUtils {
                 .into(imageView)
     }
     
-    fun loadImageAsGif(context: Context = ComkitUtils.getApp(), loadPath: Int, imageView: ImageView?) {
+    fun loadImageAsGif(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -198,7 +199,7 @@ object GlideUtils {
      * @param loadPath  The image path, see top description.
      * @param imageView The image view to load.
      */
-    fun loadCircleImage(context: Context = ComkitUtils.getApp(), loadPath: String?, imageView: ImageView?) {
+    fun loadCircleImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -213,7 +214,7 @@ object GlideUtils {
                 .into(imageView)
     }
     
-    fun loadCircleImage(context: Context = ComkitUtils.getApp(), loadPath: Int, imageView: ImageView?) {
+    fun loadCircleImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -234,7 +235,7 @@ object GlideUtils {
      * @param context  The context.
      * @param loadPath The image path, see top description.
      */
-    fun preloadImage(context: Context = ComkitUtils.getApp(), loadPath: String?) {
+    fun preloadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -247,7 +248,7 @@ object GlideUtils {
                 .preload()
     }
     
-    fun preloadImage(context: Context = ComkitUtils.getApp(), loadPath: Int) {
+    fun preloadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -267,7 +268,7 @@ object GlideUtils {
      * @param loadPath The image path, see top description.
      * @param listener Get bitmap listener.
      */
-    fun getBitmapByUrl(context: Context = ComkitUtils.getApp(), loadPath: String?, listener: GlideGetBitmapListener?) {
+    fun getBitmapByUrl(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, listener: GlideGetBitmapListener?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
@@ -292,7 +293,7 @@ object GlideUtils {
                 })
     }
     
-    fun getBitmapByUrl(context: Context = ComkitUtils.getApp(), loadPath: Int, listener: GlideGetBitmapListener?) {
+    fun getBitmapByUrl(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, listener: GlideGetBitmapListener?) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
