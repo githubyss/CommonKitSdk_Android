@@ -9,7 +9,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.text.TextUtils
-import com.githubyss.mobile.common.kit.util.ActivityUtils
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -32,9 +31,6 @@ object ComkitUtils {
     
     val UTIL_HANDLER = Handler(Looper.getMainLooper())
     
-    @SuppressLint("StaticFieldLeak")
-    private var application: Application? = null
-    
     
     /** ********** ********** ********** Constructors ********** ********** ********** */
     
@@ -45,61 +41,14 @@ object ComkitUtils {
     
     /** ********** ********** ********** Public ********** ********** ********** */
     
-    /**
-     * Init utils.
-     * Init it in the class of Application.
-     *
-     * @param context context
-     */
-    fun init(context: Context?) {
-        if (context == null) {
-            init(getApplicationByReflect())
-            return
-        }
-        init(context.applicationContext as Application)
-    }
-    
-    /**
-     * Init utils.
-     * Init it in the class of Application.
-     *
-     * @param app application
-     */
-    fun init(app: Application?) {
-        if (application == null) {
-            application = app ?: getApplicationByReflect()
-            application?.registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
-        } else {
-            if (app != null && app.javaClass != application?.javaClass) {
-                application?.unregisterActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
-                ActivityUtils.activityLifecycle.activityList.clear()
-                application = app
-                application?.registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
-            }
-        }
-    }
-    
-    /**
-     * Return the context of Application object.
-     *
-     * @return the context of Application object
-     */
-    fun getApp(): Application {
-        if (application != null) {
-            return application ?: throw NullPointerException("application is null...")
-        }
-        val app: Application = getApplicationByReflect()
-        init(app)
-        return app
-    }
-    
     fun isAppForeground(): Boolean {
-        val am = getApp().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val am = ComkitApplicationConfig.getApp()
+                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val info = am.runningAppProcesses
         if (info == null || info.size == 0) return false
         for (aInfo in info) {
             if (aInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                if (aInfo.processName == getApp().packageName) {
+                if (aInfo.processName == ComkitApplicationConfig.getApp().packageName) {
                     return true
                 }
             }
@@ -152,7 +101,8 @@ object ComkitUtils {
     }
     
     fun getCurrentProcessNameByAms(): String {
-        val am = getApp().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val am = ComkitApplicationConfig.getApp()
+                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val info = am.runningAppProcesses
         if (info == null || info.size == 0) return ""
         val pid = Process.myPid()
@@ -169,7 +119,7 @@ object ComkitUtils {
     fun getCurrentProcessNameByReflect(): String {
         var processName = ""
         try {
-            val app: Application? = getApp()
+            val app: Application? = ComkitApplicationConfig.getApp()
             app?.let {
                 val loadedApkField = app.javaClass.getField("mLoadedApk")
                 loadedApkField.isAccessible = true
