@@ -1,24 +1,26 @@
 package com.githubyss.mobile.common.kit.manager.audio.enumeration;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import androidx.annotation.IntDef;
+
 
 /**
  * VoiceType
- * <Description> 声音类型类
- * <Details>
+ * 声音类型
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2020/12/10 11:06:31
+ * @createdTime 2021/02/24 14:07:53
  */
-public enum VoiceType {
-    /**
-     * 声音类型类
-     */
-    MALE(0x15), FEMALE(0x25);
-
-    private int type;
-
-    VoiceType(int type) {
-        this.type = type;
-    }
+@IntDef({VoiceType.MALE, VoiceType.FEMALE})
+@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.SOURCE)
+public @interface VoiceType {
+    
+    final int MALE   = 0x15;
+    final int FEMALE = 0x25;
 }

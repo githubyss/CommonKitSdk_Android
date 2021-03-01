@@ -479,7 +479,7 @@ object ImageUtils {
         if (src == null || isEmptyBitmap(src)) return null
         val width = src.width
         val height = src.height
-        val size = width.coerceAtMost(height)
+        val size = Math.min(width, height)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         val ret = Bitmap.createBitmap(width, height, src.config)
         val center = size / 2f
@@ -831,7 +831,7 @@ object ImageUtils {
         var yp: Int
         var yi: Int
         var yw: Int
-        val vmin = IntArray(w.coerceAtLeast(h))
+        val vmin = IntArray(Math.max(w, h))
         var divsum = div + 1 shr 1
         divsum *= divsum
         val dv = IntArray(256 * divsum)
@@ -867,7 +867,7 @@ object ImageUtils {
             rinsum = ginsum
             i = -radius
             while (i <= radius) {
-                p = pix[yi + wm.coerceAtMost(i.coerceAtLeast(0))]
+                p = pix[yi + Math.min(wm, Math.max(i, 0))]
                 sir = stack[i + radius]
                 sir[0] = p and 0xff0000 shr 16
                 sir[1] = p and 0x00ff00 shr 8

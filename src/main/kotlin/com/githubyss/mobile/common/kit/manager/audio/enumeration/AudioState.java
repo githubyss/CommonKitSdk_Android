@@ -1,24 +1,34 @@
 package com.githubyss.mobile.common.kit.manager.audio.enumeration;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import androidx.annotation.IntDef;
+
 
 /**
  * AudioState
- * <Description> 播放状态类
- * <Details>
+ * 播放状态
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2020/12/10 11:06:31
+ * @createdTime 2021/02/24 14:07:42
  */
-public enum AudioState {
-    /**
-     * 播放状态类
-     */
-    START(0x15), PREPARE(0x25), PLAYING(0x35), STOP(0x45), END(0x45), PAUSE(0x55), READY(0x65), SWITCH(0x75);
+@Documented
+@IntDef({AudioState.START, AudioState.PREPARE, AudioState.PLAYING, AudioState.STOP, AudioState.END, AudioState.PAUSE, AudioState.READY, AudioState.SWITCH})
+@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.SOURCE)
+public @interface AudioState {
     
-    private int state;
-    
-    AudioState(int state) {
-        this.state = state;
-    }
+    final int START   = 0x15;
+    final int PREPARE = 0x25;
+    final int PLAYING = 0x35;
+    final int STOP    = 0x45;
+    final int END     = 0x55;
+    final int PAUSE   = 0x65;
+    final int READY   = 0x75;
+    final int SWITCH  = 0x85;
 }

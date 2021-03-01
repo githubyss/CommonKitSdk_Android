@@ -106,12 +106,30 @@ object ScreenUtils {
     /**
      * Get the width in pixels.
      *
+     * @return The width in pixels.
+     */
+    fun widthPx(): Int? {
+        return displayMetrics()?.widthPixels
+    }
+    
+    /**
+     * Get the width in pixels.
+     *
      * @param context The context.
      * @return The width in pixels.
      */
     fun widthPx(context: Context = ComkitUtils.getApp()): Int? {
         windowManager(context = context) ?: return displayMetrics(context = context)?.widthPixels
         return screenPointPx(context = context)?.x
+    }
+    
+    /**
+     * Get the height in pixels.
+     *
+     * @return The height in pixels.
+     */
+    fun heightPx(): Int? {
+        return displayMetrics()?.heightPixels
     }
     
     /**
@@ -145,6 +163,22 @@ object ScreenUtils {
     /**
      * Get the status bar height.
      *
+     * @return The status bar height.
+     */
+    fun getStatusBarHeight(): Int? {
+        var result: Int? = null
+        val resourceId = Resources.getSystem()
+                .getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = Resources.getSystem()
+                    .getDimensionPixelSize(resourceId)
+        }
+        return result
+    }
+    
+    /**
+     * Get the status bar height.
+     *
      * @param context The context.
      * @return The status bar height.
      */
@@ -152,7 +186,7 @@ object ScreenUtils {
         var result: Int? = null
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resourceId > 0) {
-            result = context.resources?.getDimensionPixelSize(resourceId)
+            result = context.resources.getDimensionPixelSize(resourceId)
         }
         return result
     }

@@ -4,7 +4,7 @@ package com.githubyss.mobile.common.kit.enumeration
 class SexTypeTest {
     
     @SexType
-    private var sex = SexType.MAN
+    private var sex: Int = SexType.MAN
     
     // 获取性别
     @SexType
@@ -24,13 +24,12 @@ class SexTypeTest {
         setSex(SexType.MAN)
         setSex(-1)
         this.sex = -1
-        // setSex(999)
         
         val resultSex: Int = getSex()
         println("resultSex: ${when (resultSex) {
-            SexType.MAN   -> println("男")
+            SexType.MAN -> println("男")
             SexType.WOMEN -> println("女")
-            else          -> println("未知")
+            else -> println("未知")
         }}")
         // 输出：resultSex: 男
     }
