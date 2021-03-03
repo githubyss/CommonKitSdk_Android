@@ -36,7 +36,7 @@ object ActivityUtils {
     private val TAG = ActivityUtils::class.simpleName ?: "simpleName is null"
     
     /** The activity lifecycle callbacks impl. */
-    var activityLifecycle: ActivityLifecycleImpl = ActivityLifecycleImpl()
+    var activityLifecycle: ActivityLifecycleImpl = ActivityLifecycleImpl.INSTANCE
     
     /** The list of activity. */
     var activityList: List<Activity> = activityLifecycle.activityList

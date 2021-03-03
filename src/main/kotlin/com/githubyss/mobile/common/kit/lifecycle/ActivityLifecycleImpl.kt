@@ -8,19 +8,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.constant.Constants
 import com.githubyss.mobile.common.kit.listener.OnActivityDestroyedListener
 import com.githubyss.mobile.common.kit.listener.OnAppStatusChangedListener
-import com.githubyss.mobile.common.kit.util.LogcatUtils
 import com.githubyss.mobile.common.kit.util.ActivityUtils
+import com.githubyss.mobile.common.kit.util.LogcatUtils
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
+
 
 /**
  * ActivityLifecycleImpl
@@ -29,7 +30,7 @@ import kotlin.collections.HashSet
  * @github githubyss
  * @createdTime 2020/12/17 17:46:15
  */
-class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
+open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
@@ -40,6 +41,12 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         
         private val TAG = ActivityLifecycleImpl::class.simpleName ?: "simpleName is null"
         private val PERMISSION_ACTIVITY_CLASS_NAME: String? = "com.blankj.utilcode.util.PermissionUtils\$PermissionActivity"
+        
+        // 锁屏延迟时间（毫秒）
+        private const val LOCK_DELAY = 5 * 60 * 1000.toLong()
+        
+        // 自动登录延迟时间（毫秒）
+        private const val AUTO_LOGON_DELAY = 14 * 60 * 1000.toLong()
     }
     
     /** Is app in foreground. */
@@ -57,6 +64,15 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     /** The activity list */
     var activityList: LinkedList<Activity> = LinkedList()
     
+    /** 手势计时是否触发 */
+    private var isGestureTimerOpened = false
+    
+    /** 用户离开时刻 */
+    private var userLeaveMoment: Long = 0
+    
+    /** 切换到后台，自动登录时刻 */
+    private var autoLogonLeaveMoment = 0L
+    
     /** The status listener map */
     private var statusListenerMap: MutableMap<Any?, OnAppStatusChangedListener?> = HashMap()
     
@@ -67,6 +83,19 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     /** ********** ********** ********** Override Methods ********** ********** ********** */
     
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        // 应用放置后台，内存回收后，重新启动应用
+        // if (activity != null && activity !is SplashActivity && EPApp.getApp().isColdStart && savedInstanceState != null) {
+        //     // 恢复到最底层页面，进行跳转到Splash
+        //     if (activity is LauncherActivity) {
+        //         val intent = Intent(activity, SplashActivity::class.java)
+        //         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        //         activity.startActivity(intent)
+        //     }
+        //     activity.finish()
+        //     StaticVariable.IS_EXIT_APPLICATION = true
+        //     return
+        // }
+        
         setAnimatorsEnabled()
         setTopActivity(activity)
         // currentShowActivity = activity
@@ -84,13 +113,44 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     override fun onActivityResumed(activity: Activity) {
-        setTopActivity(activity)
         if (!isForeground) {
             isForeground = true
             postStatus(true)
             sendBroadcast(activity)
         }
+        setTopActivity(activity)
         // currentShowActivity = activity
+        
+        // 如果手势计时器开启，说明用户已经离开应用，现在刚回来
+        // if (isGestureTimerOpened) {
+        //     // 用户回来时刻
+        //     val userBackMoment = SystemClock.elapsedRealtime()
+        //     val userLeaveDuration = userBackMoment - userLeaveMoment
+        //     // 用户处于后台的时长大于设置的默认锁定时长，并且登录状态是已登录，则更新用户离开时刻，并跳转到手势登录页
+        //     if ((userLeaveDuration > LOCK_DELAY)) {
+        //         if (isLogon()) {
+        //             userLeaveMoment = userBackMoment
+        //             // TODO 跳转到手势验证页
+        //         }
+        //     }
+        //     // 将手势计时器状态重置
+        //     isGestureTimerOpened = false
+        // }
+        
+        // 如果离开时间不是0，说明从后台切换过来的，当前后台切换时间大于自动登录间隔时间，做一次自动登录;
+        // 启动页面不做该操作
+        // 用户回来时刻
+        // if (autoLogonLeaveMoment != 0L && activity != null) {
+        //     val autoLogonBackMoment = SystemClock.elapsedRealtime()
+        //     val autoLogonLeaveDuration = autoLogonBackMoment - autoLogonLeaveMoment
+        //     if (activity !is SplashActivity) {
+        //         if (autoLogonLeaveDuration > AUTO_LOGON_DELAY) {
+        //             // TODO 自动登录逻辑
+        //         }
+        //     }
+        //     // 将离开时间还原
+        //     autoLogonLeaveMoment = 0L
+        // }
     }
     
     override fun onActivityPaused(activity: Activity) {
@@ -106,6 +166,28 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
                 isForeground = false
                 postStatus(false)
                 sendBroadcast(activity)
+                
+                // 切换到后台，提示用户
+                // if (activity != null) {
+                //     ToastUtil.showMessage(ResUtil.getString(EPApp.getApp(), R.string.lifecycle_in_background))
+                // }
+                
+                // 非启动页，切换到后台，记录离开时间
+                // if (activity != null && activity !is SplashActivity) {
+                //     autoLogonLeaveMoment = SystemClock.elapsedRealtime()
+                // }
+                
+                // if (!activity.javaClass.name.equals(GestureLogonActivity::class.java.getName())) {
+                //     val isFpEnable: Boolean = UserAccountDAO.getInstance()
+                //             .isFingerprintEnable()
+                //     if (GestureSqliteOpenHelper.getInstance()
+                //                     .isGestureBeenActivated() || isFpEnable) {
+                //         if (ConfigEPA.IS_GESTURE_OPEND) {
+                //             userLeaveMoment = SystemClock.elapsedRealtime()
+                //             isGestureTimerOpened = true
+                //         }
+                //     }
+                // }
             }
         }
     }
@@ -188,6 +270,59 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         }
         listeners.add(listener)
     }
+    
+    /**
+     * 栈内是否存在解锁页
+     *
+     * @param
+     * @return
+     */
+    // fun isGestureExist(): Boolean {
+    //     if (!activityList.isEmpty()) {
+    //         for (activity in activityList) {
+    //             if (activity is GestureLogonActivity) {
+    //                 return true
+    //             }
+    //         }
+    //     }
+    //     return false
+    // }
+    
+    /**
+     * 栈内是否存在启动页
+     *
+     * @param
+     * @return
+     */
+    // fun isSplashExist(): Boolean {
+    //     if (!activityList.isEmpty()) {
+    //         for (activity in activityList) {
+    //             if (activity is SplashActivity) {
+    //                 return true
+    //             }
+    //         }
+    //     }
+    //     return false
+    // }
+    
+    /**
+     * 应用在后台是否超出设定时间
+     *
+     * @param
+     * @return
+     */
+    // fun isOverTime(): Boolean {
+    //     if (isGestureTimerOpened) {
+    //         val currentTime = SystemClock.elapsedRealtime()
+    //         if (currentTime - userLeaveMoment > LOCK_DELAY) {
+    //             // if (isLogon()) {
+    //             isGestureTimerOpened = false
+    //             return true
+    //             // }
+    //         }
+    //     }
+    //     return false
+    // }
     
     
     /** ********** ********** ********** Private ********** ********** ********** */
@@ -319,4 +454,13 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
             }
         }
     }
+    
+    /**
+     * 去解锁页
+     */
+    // private fun jumpToGestureLogonActivity(currentShowActivity: Activity) {
+    //     val intent = Intent(currentShowActivity, GestureLogonActivity::class.java)
+    //     intent.putExtra("isFromLife", true)
+    //     currentShowActivity.startActivity(intent)
+    // }
 }
