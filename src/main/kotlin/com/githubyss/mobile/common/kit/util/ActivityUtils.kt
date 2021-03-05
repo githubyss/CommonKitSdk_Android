@@ -140,9 +140,9 @@ object ActivityUtils {
      */
     fun getActivityIcon(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activityName: ComponentName?): Drawable? {
         if (activityName == null) return null
-        val pm: PackageManager = context.packageManager
+        val packageManager: PackageManager = context.packageManager
         return try {
-            pm.getActivityIcon(activityName)
+            packageManager.getActivityIcon(activityName)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
@@ -180,9 +180,9 @@ object ActivityUtils {
      */
     fun getActivityLogo(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activityName: ComponentName?): Drawable? {
         if (activityName == null) return null
-        val pm: PackageManager = context.packageManager
+        val packageManager: PackageManager = context.packageManager
         return try {
-            pm.getActivityLogo(activityName)
+            packageManager.getActivityLogo(activityName)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null

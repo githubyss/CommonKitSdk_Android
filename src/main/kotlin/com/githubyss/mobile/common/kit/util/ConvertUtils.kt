@@ -2,13 +2,12 @@ package com.githubyss.mobile.common.kit.util
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.Drawable
-import android.nfc.Tag
+import android.net.Uri
 import android.view.View
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import com.githubyss.mobile.common.kit.enumeration.TimeUnit
 import java.io.*
@@ -50,7 +49,7 @@ object ConvertUtils {
         return StringUtils.list2String(list)
     }
     
-    /** ********** Bytes, Bits, Chars, Hex string ********** */
+    /** ********** Bytes, Bits, Chars, HexString ********** */
     
     /**
      * Bytes to bits.
@@ -77,7 +76,7 @@ object ConvertUtils {
      */
     fun bits2Bytes(bits: String?): ByteArray? {
         if (StringUtils.isSpace(bits)) return null
-        var bits: String = bits ?: return null
+        var bits = bits ?: return null
         
         val bitsLenMod = bits.length % 8
         var bytesSize = bits.length / 8
@@ -142,53 +141,30 @@ object ConvertUtils {
      * @param hexString The hex string.
      * @return The bytes.
      */
-    fun hexString2Bytes(hexString: String): ByteArray? {
+    fun hexString2Bytes(hexString: String?): ByteArray? {
         if (StringUtils.isSpace(hexString)) return null
-        var hexString = hexString
+        var hexString = hexString ?: return null
         var len = hexString.length
         if (len % 2 != 0) {
             hexString = "0$hexString"
             len += 1
         }
-        val hexBytes = hexString.toUpperCase()
-                .toCharArray()
+        val hexBytes = hexString.toUpperCase().toCharArray()
         val ret = ByteArray(len shr 1)
         for (i in 0 until len step 2) {
-            ret[i shr 1] = (hexChar2Int(hexBytes[i]) shl 4 or hexChar2Int(hexBytes[i + 1])).toByte()
+            ret[i shr 1] = (hex2Dec(hexBytes[i]) shl 4 or hex2Dec(hexBytes[i + 1])).toByte()
         }
         return ret
     }
     
-    /** ********** Hex char, Int ********** */
+    /** ********** Bin, Oct, Dec, Hex ********** */
     
-    /**
-     * Hex char to int.
-     *
-     * @param hexChar The hex char.
-     * @return The int.
-     */
-    fun hexChar2Int(hexChar: Char): Int {
-        return when (hexChar) {
-            in '0'..'9' -> {
-                hexChar - '0'
-            }
-            in 'A'..'F' -> {
-                hexChar - 'A' + 10
-            }
-            else -> {
-                throw IllegalArgumentException()
-            }
-        }
+    fun dec2Hex(dec: Int): Char {
+        return NumberUtils.dec2Hex(dec)
     }
     
-    /**
-     * Int to hex char.
-     *
-     * @param int The int.
-     * @return The hex char.
-     */
-    fun int2HexChar(int: Int): Char {
-        return int.toChar()
+    fun hex2Dec(hex: Char): Int {
+        return NumberUtils.hex2Dec(hex)
     }
     
     /** ********** Memory size, Bytes,  ********** */
@@ -322,8 +298,7 @@ object ConvertUtils {
             if (millis >= unitLens[i]) {
                 val mode = millis / unitLens[i]
                 millis -= mode * unitLens[i]
-                stringBuilder.append(mode)
-                        .append(units[i])
+                stringBuilder.append(mode).append(units[i])
             }
         }
         return stringBuilder.toString()
@@ -342,8 +317,7 @@ object ConvertUtils {
             val baos = ByteArrayOutputStream()
             val bytes = ByteArray(MemoryUnit.KB)
             var len: Int
-            while (`is`.read(bytes, 0, MemoryUnit.KB)
-                            .also { len = it } != -1) {
+            while (`is`.read(bytes, 0, MemoryUnit.KB).also { len = it } != -1) {
                 baos.write(bytes, 0, len)
             }
             baos
@@ -487,6 +461,16 @@ object ConvertUtils {
             e.printStackTrace()
             null
         }
+    }
+    
+    /** ********** File, Uri ********** */
+    
+    fun file2Uri(file: File?): Uri? {
+        return UriUtils.file2Uri(file)
+    }
+    
+    fun uri2File(uri: Uri?): File? {
+        return UriUtils.uri2File(uri)
     }
     
     /** ********** Bitmap, Bytes, Drawable, View ********** */

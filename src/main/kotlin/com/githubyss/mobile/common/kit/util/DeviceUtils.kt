@@ -379,7 +379,7 @@ object DeviceUtils {
      * @param reason code to pass to the kernel (e.g., "recovery") to
      * request special boot modes, or null.
      */
-    fun reboot(context: Context = ComkitApplicationConfig.getApp(), reason: String?) {
+    fun reboot(reason: String?, context: Context = ComkitApplicationConfig.getApp()) {
         val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         pm.reboot(reason)
     }

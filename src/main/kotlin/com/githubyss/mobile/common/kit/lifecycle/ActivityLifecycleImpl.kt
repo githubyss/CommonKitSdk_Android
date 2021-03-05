@@ -8,13 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.githubyss.mobile.common.kit.constant.Constants
-import com.githubyss.mobile.common.kit.listener.OnActivityDestroyedListener
-import com.githubyss.mobile.common.kit.listener.OnAppStatusChangedListener
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.LogcatUtils
 import java.lang.reflect.InvocationTargetException
@@ -348,7 +345,7 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         val intent = Intent(Constants.INTENT_ACTION_IS_FOREGROUND)
         intent.putExtra("isForeground", isForeground)
         LocalBroadcastManager.getInstance(activity)
-                .sendBroadcast(intent)
+            .sendBroadcast(intent)
     }
     
     private fun setTopActivity(activity: Activity) {
@@ -406,7 +403,7 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
             @SuppressLint("PrivateApi")
             val activityThreadClass = Class.forName("android.app.ActivityThread")
             val currentActivityThreadMethod = activityThreadClass.getMethod("currentActivityThread")
-                    .invoke(null)
+                .invoke(null)
             val activityListField = activityThreadClass.getDeclaredField("mActivityList")
             activityListField.isAccessible = true
             val activities = activityListField[currentActivityThreadMethod] as Map<*, *>
@@ -463,4 +460,16 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     //     intent.putExtra("isFromLife", true)
     //     currentShowActivity.startActivity(intent)
     // }
+    
+    
+    /** ********** ********** ********** Interface ********** ********** ********** */
+    
+    interface OnAppStatusChangedListener {
+        fun onForeground()
+        fun onBackground()
+    }
+    
+    interface OnActivityDestroyedListener {
+        fun onActivityDestroyed(activity: Activity?)
+    }
 }

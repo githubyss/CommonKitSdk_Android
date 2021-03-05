@@ -5,15 +5,12 @@ import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.app.Application
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.os.Process
 import android.text.TextUtils
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.lang.reflect.InvocationTargetException
-import java.util.concurrent.Executors
 
 
 /**
