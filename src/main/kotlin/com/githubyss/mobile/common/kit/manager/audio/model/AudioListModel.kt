@@ -30,7 +30,7 @@ class AudioListModel : Serializable {
     var audioList: List<AudioModel?>? = null
     
     
-    /** ********** ********** ********** Public ********** ********** ********** */
+    /** ********** ********** ********** Functions ********** ********** ********** */
     
     fun reprocessAudioModel() {
         for (audio in audioList ?: return) {

@@ -18,7 +18,6 @@ import androidx.annotation.*
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import java.io.*
 
@@ -28,10 +27,329 @@ import java.io.*
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2021/03/05 10:00:50
  */
 object ImageUtils {
     
-    /** ********** ********** ********** Public ********** ********** ********** */
+    /** ********** ********** ********** Properties ********** ********** ********** */
+    
+    private val TAG = ImageUtils::class.simpleName ?: "simpleName is null"
+    
+    
+    /** ********** ********** ********** Functions ********** ********** ********** */
+    
+    /** ********** getBitmap by no option ********** */
+    
+    /**
+     * Return bitmap.
+     *
+     * @param filePath The path of file.
+     * @return bitmap
+     */
+    fun getBitmap(filePath: String?): Bitmap? {
+        return if (StringUtils.isSpace(filePath)) null else BitmapFactory.decodeFile(filePath)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param file The file.
+     * @return bitmap
+     */
+    fun getBitmap(file: File?): Bitmap? {
+        return if (file == null) null else BitmapFactory.decodeFile(file.absolutePath)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param `is` The input stream.
+     * @return bitmap
+     */
+    fun getBitmap(`is`: InputStream?): Bitmap? {
+        return if (`is` == null) null else BitmapFactory.decodeStream(`is`)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param bytes  The data.
+     * @param offset The offset.
+     * @return bitmap
+     */
+    fun getBitmap(bytes: ByteArray?, offset: Int): Bitmap? {
+        return if (bytes == null || bytes.isEmpty()) null else BitmapFactory.decodeByteArray(bytes, offset, bytes.size)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param fileDescriptor The file descriptor.
+     * @return bitmap
+     */
+    fun getBitmap(fileDescriptor: FileDescriptor?): Bitmap? {
+        return if (fileDescriptor == null) null else BitmapFactory.decodeFileDescriptor(fileDescriptor)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param resId The resource id.
+     * @return bitmap
+     */
+    fun getBitmap(@DrawableRes resId: Int): Bitmap? {
+        val drawable: Drawable = ContextCompat.getDrawable(ComkitApplicationConfig.getApp(), resId) ?: return null
+        val canvas = Canvas()
+        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        canvas.setBitmap(bitmap)
+        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        drawable.draw(canvas)
+        return bitmap
+    }
+    
+    /** ********** getBitmap by maxWidth, maxHeight ********** */
+    
+    /**
+     * Return bitmap.
+     *
+     * @param filePath  The path of file.
+     * @param maxWidth  The maximum width.
+     * @param maxHeight The maximum height.
+     * @return bitmap
+     */
+    fun getBitmap(filePath: String?, maxWidth: Int, maxHeight: Int): Bitmap? {
+        if (StringUtils.isSpace(filePath)) return null
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(filePath, options)
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
+        options.inJustDecodeBounds = false
+        return BitmapFactory.decodeFile(filePath, options)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param file      The file.
+     * @param maxWidth  The maximum width.
+     * @param maxHeight The maximum height.
+     * @return bitmap
+     */
+    fun getBitmap(file: File?, maxWidth: Int, maxHeight: Int): Bitmap? {
+        if (file == null) return null
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(file.absolutePath, options)
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
+        options.inJustDecodeBounds = false
+        return BitmapFactory.decodeFile(file.absolutePath, options)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param `is` The input stream.
+     * @param maxWidth    The maximum width.
+     * @param maxHeight   The maximum height.
+     * @return bitmap
+     */
+    fun getBitmap(`is`: InputStream?, maxWidth: Int, maxHeight: Int): Bitmap? {
+        if (`is` == null) return null
+        val bytes: ByteArray? = input2Byte(`is`)
+        return getBitmap(bytes, 0, maxWidth, maxHeight)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param bytes     The data.
+     * @param offset    The offset.
+     * @param maxWidth  The maximum width.
+     * @param maxHeight The maximum height.
+     * @return bitmap
+     */
+    fun getBitmap(bytes: ByteArray?, offset: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
+        if (bytes == null || bytes.isEmpty()) return null
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeByteArray(bytes, offset, bytes.size, options)
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
+        options.inJustDecodeBounds = false
+        return BitmapFactory.decodeByteArray(bytes, offset, bytes.size, options)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param fileDescriptor The file descriptor
+     * @param maxWidth       The maximum width.
+     * @param maxHeight      The maximum height.
+     * @return bitmap
+     */
+    fun getBitmap(fileDescriptor: FileDescriptor?, maxWidth: Int, maxHeight: Int): Bitmap? {
+        if (fileDescriptor == null) return null
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options)
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
+        options.inJustDecodeBounds = false
+        return BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options)
+    }
+    
+    /**
+     * Return bitmap.
+     *
+     * @param resId     The resource id.
+     * @param maxWidth  The maximum width.
+     * @param maxHeight The maximum height.
+     * @return bitmap
+     */
+    fun getBitmap(@DrawableRes resId: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
+        val options = BitmapFactory.Options()
+        val resources: Resources = ComkitApplicationConfig.getApp().resources
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeResource(resources, resId, options)
+        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
+        options.inJustDecodeBounds = false
+        return BitmapFactory.decodeResource(resources, resId, options)
+    }
+    
+    /** ********** getImageType ********** */
+    
+    /**
+     * Return the type of image.
+     *
+     * @param filePath The path of file.
+     * @return the type of image
+     */
+    fun getImageType(filePath: String?): String? {
+        return getImageType(FileUtils.getFileByPath(filePath))
+    }
+    
+    /**
+     * Return the type of image.
+     *
+     * @param file The file.
+     * @return the type of image
+     */
+    fun getImageType(file: File?): String? {
+        if (file == null) return ""
+        var `is`: InputStream? = null
+        try {
+            `is` = FileInputStream(file)
+            val type = getImageType(`is`)
+            if (type != null) {
+                return type
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            try {
+                `is`?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return getFileExtension(file.absolutePath).toUpperCase()
+    }
+    
+    fun getImageType(`is`: InputStream?): String? {
+        return if (`is` == null) null else try {
+            val bytes = ByteArray(8)
+            if (`is`.read(bytes, 0, 8) != -1) getImageType(bytes) else null
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+    
+    fun getImageType(bytes: ByteArray): String? {
+        if (ImageUtils.isJPEG(bytes)) return "JPEG"
+        if (ImageUtils.isGIF(bytes)) return "GIF"
+        if (ImageUtils.isPNG(bytes)) return "PNG"
+        return if (ImageUtils.isBMP(bytes)) "BMP" else null
+    }
+    
+    fun getFileExtension(filePath: String): String {
+        if (StringUtils.isSpace(filePath)) return filePath
+        val lastPoi = filePath.lastIndexOf('.')
+        val lastSep = filePath.lastIndexOf(File.separator)
+        return if (lastPoi == -1 || lastSep >= lastPoi) "" else filePath.substring(lastPoi + 1)
+    }
+    
+    /**
+     * Return the size of bitmap.
+     *
+     * @param filePath The path of file.
+     * @return the size of bitmap
+     */
+    fun getSize(filePath: String?): IntArray? {
+        return getSize(FileUtils.getFileByPath(filePath))
+    }
+    
+    /**
+     * Return the size of bitmap.
+     *
+     * @param file The file.
+     * @return the size of bitmap
+     */
+    fun getSize(file: File?): IntArray? {
+        if (file == null) return intArrayOf(0, 0)
+        val opts = BitmapFactory.Options()
+        opts.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(file.absolutePath, opts)
+        return intArrayOf(opts.outWidth, opts.outHeight)
+    }
+    
+    /** ********** ********** Checker ********** ********** */
+    
+    /**
+     * Return whether it is a image according to the file name.
+     *
+     * @param file The file.
+     * @return `true`: yes<br></br>`false`: no
+     */
+    fun isImage(file: File?): Boolean {
+        return if (file == null || !file.exists()) false
+        else isImage(file.path)
+    }
+    
+    /**
+     * Return whether it is a image according to the file name.
+     *
+     * @param filePath The path of file.
+     * @return `true`: yes<br></br>`false`: no
+     */
+    fun isImage(filePath: String?): Boolean {
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        return try {
+            val bitmap = BitmapFactory.decodeFile(filePath, options)
+            options.outWidth != -1 && options.outHeight != -1
+        } catch (e: Exception) {
+            false
+        }
+    }
+    
+    fun isJPEG(b: ByteArray): Boolean {
+        return b.size >= 2 && b[0] == 0xFF.toByte() && b[1] == 0xD8.toByte()
+    }
+    
+    fun isGIF(b: ByteArray): Boolean {
+        return b.size >= 6 && b[0].equals('G') && b[1].equals('I') && b[2].equals('F') && b[3].equals('8') && (b[4].equals('7') || b[4].equals('9')) && b[5].equals('a')
+    }
+    
+    fun isPNG(b: ByteArray): Boolean {
+        return b.size >= 8 && b[0] == 137.toByte() && b[1] == 80.toByte() && b[2] == 78.toByte() && b[3] == 71.toByte() && b[4] == 13.toByte() && b[5] == 10.toByte() && b[6] == 26.toByte() && b[7] == 10.toByte()
+    }
+    
+    fun isBMP(b: ByteArray): Boolean {
+        return b.size >= 2 && b[0].equals(0x42) && b[1].equals(0x4d)
+    }
+    
+    fun isEmptyBitmap(src: Bitmap?): Boolean {
+        return src == null || src.width == 0 || src.height == 0
+    }
     
     /** ********** ********** Converter ********** ********** */
     
@@ -134,181 +452,9 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Getter ********** ********** */
-    
-    /**
-     * Return bitmap.
-     *
-     * @param file The file.
-     * @return bitmap
-     */
-    fun getBitmap(file: File?): Bitmap? {
-        return if (file == null) null else BitmapFactory.decodeFile(file.absolutePath)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param file      The file.
-     * @param maxWidth  The maximum width.
-     * @param maxHeight The maximum height.
-     * @return bitmap
-     */
-    fun getBitmap(file: File?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (file == null) return null
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        BitmapFactory.decodeFile(file.absolutePath, options)
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
-        options.inJustDecodeBounds = false
-        return BitmapFactory.decodeFile(file.absolutePath, options)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param filePath The path of file.
-     * @return bitmap
-     */
-    fun getBitmap(filePath: String?): Bitmap? {
-        return if (StringUtils.isSpace(filePath)) null else BitmapFactory.decodeFile(filePath)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param filePath  The path of file.
-     * @param maxWidth  The maximum width.
-     * @param maxHeight The maximum height.
-     * @return bitmap
-     */
-    fun getBitmap(filePath: String?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (StringUtils.isSpace(filePath)) return null
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        BitmapFactory.decodeFile(filePath, options)
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
-        options.inJustDecodeBounds = false
-        return BitmapFactory.decodeFile(filePath, options)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param is The input stream.
-     * @return bitmap
-     */
-    fun getBitmap(`is`: InputStream?): Bitmap? {
-        return if (`is` == null) null else BitmapFactory.decodeStream(`is`)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param is        The input stream.
-     * @param maxWidth  The maximum width.
-     * @param maxHeight The maximum height.
-     * @return bitmap
-     */
-    fun getBitmap(`is`: InputStream?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (`is` == null) return null
-        val bytes: ByteArray? = input2Byte(`is`)
-        return getBitmap(bytes, 0, maxWidth, maxHeight)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param data   The data.
-     * @param offset The offset.
-     * @return bitmap
-     */
-    fun getBitmap(data: ByteArray?, offset: Int): Bitmap? {
-        return if (data == null || data.isEmpty()) null else BitmapFactory.decodeByteArray(data, offset, data.size)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param data      The data.
-     * @param offset    The offset.
-     * @param maxWidth  The maximum width.
-     * @param maxHeight The maximum height.
-     * @return bitmap
-     */
-    fun getBitmap(data: ByteArray?, offset: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (data == null || data.isEmpty()) return null
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        BitmapFactory.decodeByteArray(data, offset, data.size, options)
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
-        options.inJustDecodeBounds = false
-        return BitmapFactory.decodeByteArray(data, offset, data.size, options)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param resId The resource id.
-     * @return bitmap
-     */
-    fun getBitmap(@DrawableRes resId: Int): Bitmap? {
-        val drawable: Drawable = ContextCompat.getDrawable(ComkitApplicationConfig.getApp(), resId) ?: return null
-        val canvas = Canvas()
-        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        canvas.setBitmap(bitmap)
-        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-        drawable.draw(canvas)
-        return bitmap
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param resId     The resource id.
-     * @param maxWidth  The maximum width.
-     * @param maxHeight The maximum height.
-     * @return bitmap
-     */
-    fun getBitmap(@DrawableRes resId: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
-        val options = BitmapFactory.Options()
-        val resources: Resources = ComkitApplicationConfig.getApp().resources
-        options.inJustDecodeBounds = true
-        BitmapFactory.decodeResource(resources, resId, options)
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
-        options.inJustDecodeBounds = false
-        return BitmapFactory.decodeResource(resources, resId, options)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param fd The file descriptor.
-     * @return bitmap
-     */
-    fun getBitmap(fd: FileDescriptor?): Bitmap? {
-        return if (fd == null) null else BitmapFactory.decodeFileDescriptor(fd)
-    }
-    
-    /**
-     * Return bitmap.
-     *
-     * @param fd        The file descriptor
-     * @param maxWidth  The maximum width.
-     * @param maxHeight The maximum height.
-     * @return bitmap
-     */
-    fun getBitmap(fd: FileDescriptor?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (fd == null) return null
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        BitmapFactory.decodeFileDescriptor(fd, null, options)
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
-        options.inJustDecodeBounds = false
-        return BitmapFactory.decodeFileDescriptor(fd, null, options)
-    }
-    
-    /** ********** ********** Draw ********** ********** */
+    /** ********** ********** Processor ********** ********** */
+
+    /** ********** draw ********** */
     
     /**
      * Return the bitmap with the specified color.
@@ -326,7 +472,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Scale ********** ********** */
+    /** ********** scale ********** */
     
     /**
      * Return the scaled bitmap.
@@ -379,7 +525,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Clip ********** ********** */
+    /** ********** clip ********** */
     
     /**
      * Return the clipped bitmap.
@@ -399,7 +545,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Skew ********** ********** */
+    /** ********** skew ********** */
     
     /**
      * Return the skewed bitmap.
@@ -421,7 +567,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Rotate ********** ********** */
+    /** ********** rotate ********** */
     
     /**
      * Return the rotated bitmap.
@@ -465,7 +611,7 @@ object ImageUtils {
         }
     }
     
-    /** ********** ********** toRound ********** ********** */
+    /** ********** toRound ********** */
     
     /**
      * Return the round bitmap.
@@ -543,7 +689,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** toAlpha ********** ********** */
+    /** ********** toAlpha ********** */
     
     /**
      * Return the alpha bitmap.
@@ -559,7 +705,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** toGray ********** ********** */
+    /** ********** toGray ********** */
     
     /**
      * Return the gray bitmap.
@@ -582,7 +728,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** addBorder ********** ********** */
+    /** ********** addBorder ********** */
     
     /**
      * Return the round corner bitmap with border.
@@ -643,7 +789,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** addReflection ********** ********** */
+    /** ********** addReflection ********** */
     
     /**
      * Return the bitmap with reflection.
@@ -675,7 +821,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** addWatermark ********** ********** */
+    /** ********** addWatermark ********** */
     
     /**
      * Return the bitmap with text watermarking.
@@ -727,7 +873,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** fastBlur ********** ********** */
+    /** ********** fastBlur ********** */
     
     /**
      * Return the blur bitmap fast.
@@ -1010,7 +1156,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Save ********** ********** */
+    /** ********** save ********** */
     
     /**
      * Save the bitmap.
@@ -1022,7 +1168,7 @@ object ImageUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun save(src: Bitmap?, filePath: String?, format: CompressFormat?, recycle: Boolean = false): Boolean {
-        return save(src, getFileByPath(filePath), format, recycle)
+        return save(src, FileUtils.getFileByPath(filePath), format, recycle)
     }
     
     /**
@@ -1054,118 +1200,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Image check ********** ********** */
-    
-    /**
-     * Return whether it is a image according to the file name.
-     *
-     * @param file The file.
-     * @return `true`: yes<br></br>`false`: no
-     */
-    fun isImage(file: File?): Boolean {
-        return if (file == null || !file.exists()) false
-        else isImage(file.path)
-    }
-    
-    /**
-     * Return whether it is a image according to the file name.
-     *
-     * @param filePath The path of file.
-     * @return `true`: yes<br></br>`false`: no
-     */
-    fun isImage(filePath: String?): Boolean {
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        return try {
-            val bitmap = BitmapFactory.decodeFile(filePath, options)
-            options.outWidth != -1 && options.outHeight != -1
-        } catch (e: Exception) {
-            false
-        }
-    }
-    
-    /**
-     * Return the type of image.
-     *
-     * @param filePath The path of file.
-     * @return the type of image
-     */
-    fun getImageType(filePath: String?): String? {
-        return getImageType(getFileByPath(filePath))
-    }
-    
-    /**
-     * Return the type of image.
-     *
-     * @param file The file.
-     * @return the type of image
-     */
-    fun getImageType(file: File?): String? {
-        if (file == null) return ""
-        var `is`: InputStream? = null
-        try {
-            `is` = FileInputStream(file)
-            val type = getImageType(`is`)
-            if (type != null) {
-                return type
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            try {
-                `is`?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-        return getFileExtension(file.absolutePath).toUpperCase()
-    }
-    
-    private fun getFileExtension(filePath: String): String {
-        if (StringUtils.isSpace(filePath)) return filePath
-        val lastPoi = filePath.lastIndexOf('.')
-        val lastSep = filePath.lastIndexOf(File.separator)
-        return if (lastPoi == -1 || lastSep >= lastPoi) "" else filePath.substring(lastPoi + 1)
-    }
-    
-    private fun getImageType(`is`: InputStream?): String? {
-        return if (`is` == null) null else try {
-            val bytes = ByteArray(8)
-            if (`is`.read(bytes, 0, 8) != -1) getImageType(bytes) else null
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        }
-    }
-    
-    private fun getImageType(bytes: ByteArray): String? {
-        if (ImageUtils.isJPEG(bytes)) return "JPEG"
-        if (ImageUtils.isGIF(bytes)) return "GIF"
-        if (ImageUtils.isPNG(bytes)) return "PNG"
-        return if (ImageUtils.isBMP(bytes)) "BMP" else null
-    }
-    
-    private fun isJPEG(b: ByteArray): Boolean {
-        return b.size >= 2 && b[0] == 0xFF.toByte() && b[1] == 0xD8.toByte()
-    }
-    
-    private fun isGIF(b: ByteArray): Boolean {
-        return b.size >= 6 && b[0].equals('G') && b[1].equals('I') && b[2].equals('F') && b[3].equals('8') && (b[4].equals('7') || b[4].equals('9')) && b[5].equals('a')
-    }
-    
-    private fun isPNG(b: ByteArray): Boolean {
-        return b.size >= 8 && b[0] == 137.toByte() && b[1] == 80.toByte() && b[2] == 78.toByte() && b[3] == 71.toByte() && b[4] == 13.toByte() && b[5] == 10.toByte() && b[6] == 26.toByte() && b[7] == 10.toByte()
-    }
-    
-    private fun isBMP(b: ByteArray): Boolean {
-        return b.size >= 2 && b[0].equals(0x42) && b[1].equals(0x4d)
-    }
-    
-    private fun isEmptyBitmap(src: Bitmap?): Boolean {
-        return src == null || src.width == 0 || src.height == 0
-    }
-    
-    /** ********** ********** Compress by Scale ********** ********** */
+    /** ********** compressByScale ********** */
     
     /**
      * Return the compressed bitmap using scale.
@@ -1193,7 +1228,7 @@ object ImageUtils {
         return scale(src, scaleWidth, scaleHeight, recycle)
     }
     
-    /** ********** ********** Compress by Quality ********** ********** */
+    /** ********** compressByQuality ********** */
     
     /**
      * Return the compressed bitmap using quality.
@@ -1261,7 +1296,7 @@ object ImageUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     }
     
-    /** ********** ********** Compress by SampleSize ********** ********** */
+    /** ********** compressBySampleSize ********** */
     
     /**
      * Return the compressed bitmap using sample size.
@@ -1305,30 +1340,6 @@ object ImageUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)
     }
     
-    /**
-     * Return the size of bitmap.
-     *
-     * @param filePath The path of file.
-     * @return the size of bitmap
-     */
-    fun getSize(filePath: String?): IntArray? {
-        return getSize(getFileByPath(filePath))
-    }
-    
-    /**
-     * Return the size of bitmap.
-     *
-     * @param file The file.
-     * @return the size of bitmap
-     */
-    fun getSize(file: File?): IntArray? {
-        if (file == null) return intArrayOf(0, 0)
-        val opts = BitmapFactory.Options()
-        opts.inJustDecodeBounds = true
-        BitmapFactory.decodeFile(file.absolutePath, opts)
-        return intArrayOf(opts.outWidth, opts.outHeight)
-    }
-    
     
     /** ********** ********** ********** Private ********** ********** ********** */
     
@@ -1355,10 +1366,6 @@ object ImageUtils {
         //     inSampleSize = (int) Math.round(options.outHeight * 1.0 / maxWidth);
         // }
         return inSampleSize
-    }
-    
-    private fun getFileByPath(filePath: String?): File? {
-        return if (StringUtils.isSpace(filePath)) null else File(filePath)
     }
     
     private fun createFileByDeleteOldFile(file: File?): Boolean {

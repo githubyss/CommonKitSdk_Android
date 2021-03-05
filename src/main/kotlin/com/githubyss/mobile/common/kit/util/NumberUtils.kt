@@ -1,59 +1,122 @@
 package com.githubyss.mobile.common.kit.util
 
+import com.githubyss.mobile.common.kit.constant.RegexSyntax
+
+
 /**
  * NumberUtils
- * <Description>
- * <Details>
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2021/03/05 10:15:04
  */
 object NumberUtils {
-    fun checkInteger(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.INTEGER)
-
-    fun checkIntegerZero(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.INTEGER_ZERO)
-
-    fun checkIntegerNonNegative(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.INTEGER_NON_NEGATIVE)
-
-    fun checkIntegerNonPositive(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.INTEGER_NON_POSITIVE)
-
-
-    fun checkConventionalIntegerZero(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.CONVENTIONAL_INTEGER_ZERO)
-
-    fun checkConventionalInteger(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.CONVENTIONAL_INTEGER)
-
-    fun checkConventionalIntegerPositive(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.CONVENTIONAL_INTEGER_POSITIVE)
-
-    fun checkConventionalIntegerNegative(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NEGATIVE)
-
-    fun checkConventionalIntegerNonNegative(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NON_NEGATIVE)
-
-    fun checkConventionalIntegerNonPositive(input: String): Boolean
-            = RegexUtils.regExPatternMatches(input, RegexConfig.MathematicalNumber.CONVENTIONAL_INTEGER_NON_POSITIVE)
-
-
+    
+    /** ********** ********** ********** Properties ********** ********** ********** */
+    
+    private val TAG = NumberUtils::class.simpleName ?: "simpleName is null"
+    
+    
+    /** ********** ********** ********** Functions ********** ********** ********** */
+    
+    /** ********** ********** Checker ********** ********** */
+    
+    /** ********** Mathematical Number ********** */
+    
+    fun isInteger(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_INTEGER)
+    }
+    
+    fun isZeroInteger(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_ZERO_INTEGER)
+    }
+    
+    fun isNonNegativeInteger(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_NOT_NEGATIVE_INTEGER)
+    }
+    
+    fun isNonPositiveInteger(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_NOT_POSITIVE_INTEGER)
+    }
+    
+    /** ********** Sociological Number ********** */
+    
+    fun isCellphone(input: String?): Boolean {
+        return isSimpleCellphone(input) || isSimpleCellphoneWithDash(input) || isSimpleCellphoneWithSpace(input) || isExactCellphone(input) || isExactCellphoneWithDash(input) || isExactCellphoneWithSpace(input)
+    }
+    
+    fun isSimpleCellphone(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_SIMPLE)
+    }
+    
+    fun isSimpleCellphoneWithDash(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_SIMPLE_WITH_DASH)
+    }
+    
+    fun isSimpleCellphoneWithSpace(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_SIMPLE_WITH_SPACE)
+    }
+    
+    fun isExactCellphone(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_EXACT)
+    }
+    
+    fun isExactCellphoneWithDash(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_EXACT_WITH_DASH)
+    }
+    
+    fun isExactCellphoneWithSpace(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_EXACT_WITH_SPACE)
+    }
+    
+    fun isTelephone(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_TELEPHONE)
+    }
+    
+    fun isIdentityCard(input: String?): Boolean {
+        return isIdentityCard15(input) || isIdentityCard18(input)
+    }
+    
+    fun isIdentityCard15(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_ID_CARD15)
+    }
+    
+    fun isIdentityCard18(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_ID_CARD18)
+    }
+    
+    fun isPassportCard(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_PASSPORT_CARD)
+    }
+    
+    fun isQq(input: String?): Boolean {
+        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_QQ)
+    }
+    
+    
+    /** ********** ********** Converter ********** ********** */
+    
+    /** ********** Mathematical Number ********** */
+    
     /**
-     * NumberUtils.string2ConventionalIntegerNonNegative(input)
-     * <Description> Format the input to conventional non negative integer.
-     * <Details>
+     * Format the input to conventional non negative integer.
      *
      * @param input String to be formatted.
      * @return Conventional non negative integer, such as "0", "1", "10", "1234".
-     * @author Ace Yan
-     * @github githubyss
      */
-    fun string2ConventionalIntegerNonNegative(input: String): String
-            = when {
-        checkInteger(input) -> input.toLong().toString().replace("-", "")
-        else -> ""
+    fun string2NonNegativeInteger(input: String?): String {
+        return if (isInteger(input)) input?.toLong()
+                .toString()
+                .replace("-", "")
+        else ""
+    }
+    
+    /** ********** Sociological Number ********** */
+    
+    fun cellphone2Normal(input: String?): String {
+        return when {
+            isCellphone(input) -> ""
+            else -> ""
+        }
     }
 }

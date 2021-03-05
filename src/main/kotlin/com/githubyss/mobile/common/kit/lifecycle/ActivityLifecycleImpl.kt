@@ -208,7 +208,7 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     
-    /** ********** ********** ********** Public ********** ********** ********** */
+    /** ********** ********** ********** Functions ********** ********** ********** */
     
     fun getTopActivity(): Activity? {
         if (activityList.isNotEmpty()) {

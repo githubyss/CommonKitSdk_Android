@@ -12,8 +12,14 @@ import com.githubyss.mobile.common.kit.ComkitUtils
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2021/03/05 10:15:26
  */
 object ResUtils {
+    
+    /** ********** ********** ********** Properties ********** ********** ********** */
+    
+    private val TAG = ResUtils::class.simpleName ?: "simpleName is null"
+    
     
     /**
      * Get string.

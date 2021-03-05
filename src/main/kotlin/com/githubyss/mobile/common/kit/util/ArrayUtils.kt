@@ -3,8 +3,6 @@ package com.githubyss.mobile.common.kit.util
 
 /**
  * ArrayUtils
- * <Description> Array
- * <Details>
  *
  * @author Ace Yan
  * @github githubyss
@@ -14,8 +12,12 @@ object ArrayUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
+    private val TAG = ArrayUtils::class.simpleName ?: "simpleName is null"
     
-    /** ********** ********** ********** Public ********** ********** ********** */
+    
+    /** ********** ********** ********** Functions ********** ********** ********** */
+    
+    /** ********** ********** Checker ********** ********** */
     
     /**
      * <Description> Return whether the array is null or 0-length.

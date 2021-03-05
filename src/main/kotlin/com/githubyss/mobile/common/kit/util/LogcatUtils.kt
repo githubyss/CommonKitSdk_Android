@@ -12,6 +12,7 @@ import org.json.JSONObject
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2021/03/05 10:00:59
  */
 object LogcatUtils {
     
@@ -42,6 +43,8 @@ object LogcatUtils {
     
     var logLevel = LOG_LEVEL_VERBOSE
     
+    
+    /** ********** ********** ********** Functions ********** ********** ********** */
     
     fun v(tag: String = LOG_PREFIX, msg: String) {
         if (logLevel <= LOG_LEVEL_VERBOSE) {
@@ -90,6 +93,8 @@ object LogcatUtils {
             printObject(StackTraceElementUtils.getStackTrace(), `object`)
         }
     }
+    
+    /** ********** ********** ********** Private ********** ********** ********** */
     
     private fun printJson(element: StackTraceElement, jsonString: String) {
         val values = StackTraceElementUtils.generateValues(element)

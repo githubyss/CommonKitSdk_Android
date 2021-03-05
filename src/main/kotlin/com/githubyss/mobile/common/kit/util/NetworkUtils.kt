@@ -14,13 +14,17 @@ import java.net.UnknownHostException
 
 /**
  * NetworkUtils
- * <Description>
- * <Details>
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2021/03/05 10:14:56
  */
 object NetworkUtils {
+    
+    /** ********** ********** ********** Properties ********** ********** ********** */
+    
+    private val TAG = NetworkUtils::class.simpleName ?: "simpleName is null"
+    
     /** China Mobile Communications Corporation Proxy */
     private val CMCC_PROXY = "10.0.0.172"
     
@@ -39,6 +43,9 @@ object NetworkUtils {
         NETWORK_UNKNOWN,
         NETWORK_NO
     }
+    
+    
+    /** ********** ********** ********** Functions ********** ********** ********** */
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     fun getActiveNetworkInfo(context: Context = ComkitApplicationConfig.getApp()): NetworkInfo {

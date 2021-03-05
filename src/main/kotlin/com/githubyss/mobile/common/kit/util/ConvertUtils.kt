@@ -28,93 +28,29 @@ object ConvertUtils {
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     private val TAG = ConvertUtils::class.simpleName ?: "simpleName is null"
-    private val TYPES = arrayOf("int", "java.lang.String", "boolean", "char", "float", "double", "long", "short", "byte")
-    private val HEX_DIGITS = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
     
     
-    /** ********** ********** ********** Public ********** ********** ********** */
+    /** ********** ********** ********** Functions ********** ********** ********** */
     
-    /** ********** ********** Object, Array, List, String ********** ********** */
+    /** ********** 2String ********** */
     
-    /**
-     * Object to string.
-     * e.g. object2String({name=value, name=value, name=value}) returns "Object{ name=value, name=value, name=value }".
-     *
-     * @param object The Object.
-     * @return The object string.
-     */
+    fun null2Length0(s: String?): String {
+        return StringUtils.null2Length0(s)
+    }
+    
     fun <T : Any> object2String(`object`: T?): String {
-        if (`object` == null) return "Object{ object is null }"
-        if (`object`.toString()
-                        .startsWith(`object`.javaClass.name + "@")) {
-            val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object{ ")
-            val fields = `object`.javaClass.declaredFields
-            for (field in fields) {
-                field.isAccessible = true
-                var flag = false
-                for (type in TYPES) {
-                    if (field.type.name.equals(type, ignoreCase = true)) {
-                        flag = true
-                        var value: Any? = null
-                        try {
-                            value = field.get(`object`)
-                        } catch (e: IllegalAccessException) {
-                            LogcatUtils.e(TAG, e)
-                        } finally {
-                            stringBuilder.append(String.format("%s=%s, ", field.name, value?.toString() ?: "null"))
-                            break
-                        }
-                    }
-                }
-                if (!flag) {
-                    stringBuilder.append(String.format("%s=%s, ", field.name, "Object"))
-                }
-            }
-            return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, " }")
-                    .toString()
-        } else {
-            return `object`.toString()
-        }
+        return StringUtils.object2String(`object`)
     }
     
-    /**
-     * Array to string.
-     * e.g. object2String([item, item, item]) returns "Array[ item, item, item ]".
-     *
-     * @param array The array.
-     * @return The array string.
-     */
     fun array2String(array: Array<*>?): String {
-        if (array == null) return "Array[ array is null ]"
-        val stringBuilder = StringBuilder()
-        val arraySize = array.size
-        for (idx in 0 until arraySize) {
-            if (idx == 0) {
-                stringBuilder.append("Array[ ")
-            }
-            stringBuilder.append(array[idx].toString())
-            if (idx == (arraySize - 1)) {
-                stringBuilder.append(" ]")
-            } else {
-                stringBuilder.append(", ")
-            }
-        }
-        return stringBuilder.toString()
+        return StringUtils.array2String(array)
     }
     
-    /**
-     * List to string.
-     * e.g.
-     *
-     * @param list The list.
-     * @return The list string.
-     */
     fun list2String(list: List<*>?): String {
-        if (list == null) return "List[ list is null ]"
-        return list.toString()
+        return StringUtils.list2String(list)
     }
     
-    /** ********** ********** Bytes, Bits, Chars, Hex string ********** ********** */
+    /** ********** Bytes, Bits, Chars, Hex string ********** */
     
     /**
      * Bytes to bits.
@@ -195,23 +131,8 @@ object ConvertUtils {
         return ret
     }
     
-    /**
-     * Bytes to hex string.
-     * e.g. bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns "00A8".
-     *
-     * @param bytes The bytes.
-     * @return The hex string.
-     */
     fun bytes2HexString(bytes: ByteArray?): String {
-        if (bytes == null || bytes.isEmpty()) return ""
-        val bytesSize = bytes.size
-        val chars = CharArray(bytesSize shl 1)
-        var j = 0
-        for (i in 0 until bytesSize) {
-            chars[j++] = HEX_DIGITS[(bytes[i].toInt() shr 4) and 0x0f]
-            chars[j++] = HEX_DIGITS[(bytes[i] and 0x0f).toInt()]
-        }
-        return String(chars)
+        return StringUtils.bytes2HexString(bytes)
     }
     
     /**
@@ -238,7 +159,7 @@ object ConvertUtils {
         return ret
     }
     
-    /** ********** ********** Hex char, Int ********** ********** */
+    /** ********** Hex char, Int ********** */
     
     /**
      * Hex char to int.
@@ -270,7 +191,7 @@ object ConvertUtils {
         return int.toChar()
     }
     
-    /** ********** ********** Memory size, Bytes,  ********** ********** */
+    /** ********** Memory size, Bytes,  ********** */
     
     /**
      * Size of memory in unit to size of byte.
@@ -334,7 +255,7 @@ object ConvertUtils {
         }
     }
     
-    /** ********** ********** Time ********** ********** */
+    /** ********** Time ********** */
     
     /**
      * Time span in unit to milliseconds.
@@ -408,20 +329,20 @@ object ConvertUtils {
         return stringBuilder.toString()
     }
     
-    /** ********** ********** Stream, Bytes, String ********** ********** */
+    /** ********** Stream, Bytes, String ********** */
     
     /**
      * Input stream to output stream.
      *
-     * @param input The input stream.
+     * @param `is` The input stream.
      * @return The output stream.
      */
-    fun inputStream2ByteArrayOutputStream(input: InputStream?): ByteArrayOutputStream? {
-        return if (input == null) null else try {
+    fun inputStream2ByteArrayOutputStream(`is`: InputStream?): ByteArrayOutputStream? {
+        return if (`is` == null) null else try {
             val baos = ByteArrayOutputStream()
             val bytes = ByteArray(MemoryUnit.KB)
             var len: Int
-            while (input.read(bytes, 0, MemoryUnit.KB)
+            while (`is`.read(bytes, 0, MemoryUnit.KB)
                             .also { len = it } != -1) {
                 baos.write(bytes, 0, len)
             }
@@ -431,7 +352,7 @@ object ConvertUtils {
             null
         } finally {
             try {
-                input.close()
+                `is`.close()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -441,21 +362,21 @@ object ConvertUtils {
     /**
      * Output stream to input stream.
      *
-     * @param output The output stream.
+     * @param os The output stream.
      * @return The input stream.
      */
-    fun outputStream2ByteArrayInputStream(output: OutputStream?): ByteArrayInputStream? {
-        return if (output == null) null else ByteArrayInputStream((output as ByteArrayOutputStream).toByteArray())
+    fun outputStream2ByteArrayInputStream(os: OutputStream?): ByteArrayInputStream? {
+        return if (os == null) null else ByteArrayInputStream((os as ByteArrayOutputStream).toByteArray())
     }
     
     /**
      * Input stream to bytes.
      *
-     * @param input The input stream.
+     * @param `is` The input stream.
      * @return The bytes.
      */
-    fun inputStream2Bytes(input: InputStream?): ByteArray? {
-        return if (input == null) null else inputStream2ByteArrayOutputStream(input)?.toByteArray()
+    fun inputStream2Bytes(`is`: InputStream?): ByteArray? {
+        return if (`is` == null) null else inputStream2ByteArrayOutputStream(`is`)?.toByteArray()
     }
     
     /**
@@ -506,13 +427,13 @@ object ConvertUtils {
     /**
      * Input stream to string.
      *
-     * @param input       The input stream.
+     * @param `is`       The input stream.
      * @param charsetName The name of charset.
      * @return The string.
      */
-    fun inputStream2String(input: InputStream?, charsetName: String): String {
-        return if (input == null || StringUtils.isSpace(charsetName)) "" else try {
-            val baos = inputStream2ByteArrayOutputStream(input) ?: return ""
+    fun inputStream2String(`is`: InputStream?, charsetName: String): String {
+        return if (`is` == null || StringUtils.isSpace(charsetName)) "" else try {
+            val baos = inputStream2ByteArrayOutputStream(`is`) ?: return ""
             baos.toString(charsetName)
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
@@ -568,7 +489,7 @@ object ConvertUtils {
         }
     }
     
-    /** ********** ********** Bitmap, Bytes, Drawable, View ********** ********** */
+    /** ********** Bitmap, Bytes, Drawable, View ********** */
     
     fun bitmap2Bytes(bitmap: Bitmap?, format: CompressFormat?): ByteArray? {
         return ImageUtils.bitmap2Bytes(bitmap, format)
@@ -598,7 +519,7 @@ object ConvertUtils {
         return ImageUtils.view2Bitmap(view)
     }
     
-    /** ********** ********** Dp, Px, Sp ********** ********** */
+    /** ********** Dp, Px, Sp ********** */
     
     fun dp2Px(dpValue: Float): Int? {
         return ScreenUtils.dp2Px(dpValue)

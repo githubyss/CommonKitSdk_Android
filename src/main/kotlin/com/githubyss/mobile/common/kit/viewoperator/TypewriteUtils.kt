@@ -10,6 +10,7 @@ import kotlin.concurrent.thread
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2021/03/05 10:16:32
  */
 object TypewriteUtils {
     fun textViewTypewriteBySetting(textView: TextView, string: String, delayMillis: Long, startIdx: Int, canAutoScrollBottom: Boolean) {

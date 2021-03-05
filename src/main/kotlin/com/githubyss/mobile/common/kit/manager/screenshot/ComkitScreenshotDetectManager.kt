@@ -87,7 +87,7 @@ class ComkitScreenshotDetectManager private constructor() {
     fun startDetect(application: Application, onScreenshotDetectListener: OnScreenshotDetectListener) {
         ComkitThreadProcessor.assertMainThread()
 
-        actualScreenPoint = ScreenUtils.screenPointPx(application) ?: return
+        actualScreenPoint = ScreenUtils.getScreenPointPx(application) ?: return
         callbackPathList?.clear()
         this@ComkitScreenshotDetectManager.onScreenshotDetectListener = onScreenshotDetectListener
         startDetectTime = System.currentTimeMillis()

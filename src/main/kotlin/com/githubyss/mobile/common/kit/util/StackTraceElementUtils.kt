@@ -6,6 +6,7 @@ package com.githubyss.mobile.common.kit.util
  *
  * @author Ace Yan
  * @github githubyss
+ * @createdTime 2021/03/05 10:16:00
  */
 object StackTraceElementUtils {
     fun getStackTrace(): StackTraceElement {

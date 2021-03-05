@@ -50,7 +50,7 @@ class AudioModel : Serializable {
     }
     
     
-    /** ********** ********** ********** Public ********** ********** ********** */
+    /** ********** ********** ********** Functions ********** ********** ********** */
     
     fun processVoiceAndUrl() {
         if (!TextUtils.isEmpty(maleUrl) && TextUtils.isEmpty(femaleUrl)) {
