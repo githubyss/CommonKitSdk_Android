@@ -18,7 +18,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.ComkitUtils
 import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleImpl
 
 
@@ -47,7 +46,7 @@ object ActivityUtils {
     /** The top activity in activity's stack. */
     var topActivity: Activity? = activityLifecycle.getTopActivity()
     
-    var topActivityOrApp: Context = if (ComkitUtils.isAppForeground()) {
+    var topActivityOrApp: Context = if (AppUtils.isAppForeground()) {
         val topActivity: Activity? = activityLifecycle.getTopActivity()
         topActivity ?: ComkitApplicationConfig.getApp()
     } else {

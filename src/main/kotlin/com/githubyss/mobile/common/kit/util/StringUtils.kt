@@ -5,7 +5,6 @@ import android.content.res.Resources.NotFoundException
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.ComkitUtils
 import kotlin.experimental.and
 
 

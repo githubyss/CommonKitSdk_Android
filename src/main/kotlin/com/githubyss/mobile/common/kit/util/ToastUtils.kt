@@ -5,7 +5,6 @@ import android.os.Looper
 import android.view.Gravity
 import android.widget.Toast
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.ComkitUtils
 
 
 /**

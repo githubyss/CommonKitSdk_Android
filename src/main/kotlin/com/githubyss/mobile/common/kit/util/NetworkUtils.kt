@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.ComkitUtils
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException

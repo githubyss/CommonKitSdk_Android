@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.app.AppOpsManager
+import android.app.Application
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.Context
@@ -18,10 +19,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Process
 import android.provider.Settings
+import android.text.TextUtils
 import androidx.annotation.NonNull
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleImpl
+import java.io.BufferedReader
 import java.io.File
+import java.io.FileReader
+import java.lang.reflect.InvocationTargetException
 import java.util.*
 
 
@@ -42,6 +47,25 @@ object AppUtils {
     /** ********** ********** ********** Functions ********** ********** ********** */
     
     /** ********** ********** Getter ********** ********** */
+    
+    fun getApplicationByReflect(): Application {
+        try {
+            @SuppressLint("PrivateApi")
+            val activityThread = Class.forName("android.app.ActivityThread")
+            val thread = activityThread.getMethod("currentActivityThread").invoke(null)
+            val app = activityThread.getMethod("getApplication").invoke(thread) ?: throw NullPointerException("u should init first")
+            return app as Application
+        } catch (e: NoSuchMethodException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: InvocationTargetException) {
+            e.printStackTrace()
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        }
+        throw NullPointerException("u should init first")
+    }
     
     /**
      * Return the application's icon.
@@ -287,8 +311,8 @@ object AppUtils {
         return if (apkFile == null || !apkFile.isFile || !apkFile.exists()) null else getApkInfo(apkFilePath = apkFile.absolutePath)
     }
     
-    private fun getForegroundProcessName(context: Context = ComkitApplicationConfig.getApp()): String {
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    fun getForegroundProcessName(application: Application = ComkitApplicationConfig.getApp()): String {
+        val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val processInfo = activityManager.runningAppProcesses
         
         if (processInfo != null && processInfo.size > 0) {
@@ -300,7 +324,7 @@ object AppUtils {
         }
         
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            val packageManager: PackageManager = context.packageManager
+            val packageManager: PackageManager = application.packageManager
             val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
             val list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
             LogcatUtils.i("ProcessUtils", list.toString())
@@ -312,12 +336,12 @@ object AppUtils {
             
             try {
                 // Access to usage information.
-                val applicationInfo = packageManager.getApplicationInfo(context.packageName, 0)
-                val appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+                val applicationInfo = packageManager.getApplicationInfo(application.packageName, 0)
+                val appOpsManager = application.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
                 
                 if (appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName) != AppOpsManager.MODE_ALLOWED) {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent)
+                    application.startActivity(intent)
                 }
                 
                 if (appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName) != AppOpsManager.MODE_ALLOWED) {
@@ -325,7 +349,7 @@ object AppUtils {
                     return ""
                 }
                 
-                val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager?
+                val usageStatsManager = application.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager?
                 var usageStatsList: List<UsageStats>? = null
                 if (usageStatsManager != null) {
                     val endTime = System.currentTimeMillis()
@@ -347,6 +371,65 @@ object AppUtils {
         }
         
         return ""
+    }
+    
+    fun getCurrentProcessName(application: Application = ComkitApplicationConfig.getApp()): String? {
+        var name: String? = getCurrentProcessNameByFile()
+        if (!TextUtils.isEmpty(name)) return name
+        name = getCurrentProcessNameByAms(application)
+        if (!TextUtils.isEmpty(name)) return name
+        name = getCurrentProcessNameByReflect(application)
+        return name
+    }
+    
+    fun getCurrentProcessNameByFile(): String {
+        return try {
+            val file = File("/proc/" + Process.myPid() + "/" + "cmdline")
+            val mBufferedReader = BufferedReader(FileReader(file))
+            val processName = mBufferedReader.readLine().trim { it <= ' ' }
+            mBufferedReader.close()
+            processName
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
+    }
+    
+    fun getCurrentProcessNameByAms(application: Application = ComkitApplicationConfig.getApp()): String {
+        val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val info = activityManager.runningAppProcesses
+        if (info == null || info.size == 0) return ""
+        val pid = Process.myPid()
+        for (aInfo in info) {
+            if (aInfo.pid == pid) {
+                if (aInfo.processName != null) {
+                    return aInfo.processName
+                }
+            }
+        }
+        return ""
+    }
+    
+    fun getCurrentProcessNameByReflect(application: Application = ComkitApplicationConfig.getApp()): String {
+        var processName = ""
+        try {
+            val app: Application? = application
+            app?.let {
+                val loadedApkField = app.javaClass.getField("mLoadedApk")
+                loadedApkField.isAccessible = true
+                val loadedApk = loadedApkField[app]
+                
+                val activityThreadField = loadedApk.javaClass.getDeclaredField("mActivityThread")
+                activityThreadField.isAccessible = true
+                val activityThread = activityThreadField[loadedApk]
+                
+                val getProcessName = activityThread.javaClass.getDeclaredMethod("getProcessName")
+                processName = getProcessName.invoke(activityThread) as String
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return processName
     }
     
     /** ********** ********** Checker ********** ********** */
@@ -426,7 +509,7 @@ object AppUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isAppForeground(@NonNull packageName: String? = getAppPackageName()): Boolean {
-        return !StringUtils.isSpace(packageName) && packageName == AppUtils.getForegroundProcessName()
+        return !StringUtils.isSpace(packageName) && packageName == getForegroundProcessName()
     }
     
     /**
