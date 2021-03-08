@@ -17,6 +17,7 @@ object StreamUtils {
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     private val TAG = StreamUtils::class.simpleName ?: "simpleName is null"
+    private const val BUFFER_SIZE = 8 * MemoryUnit.KB
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */
@@ -32,9 +33,9 @@ object StreamUtils {
     fun input2BytesOutput(`is`: InputStream?): ByteArrayOutputStream? {
         return if (`is` == null) null else try {
             val baos = ByteArrayOutputStream()
-            val bytes = ByteArray(MemoryUnit.KB)
+            val bytes = ByteArray(BUFFER_SIZE)
             var len: Int
-            while (`is`.read(bytes, 0, MemoryUnit.KB).also { len = it } != -1) {
+            while (`is`.read(bytes, 0, BUFFER_SIZE).also { len = it } != -1) {
                 baos.write(bytes, 0, len)
             }
             baos
@@ -209,6 +210,39 @@ object StreamUtils {
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
             null
+        }
+    }
+    
+    /** ********** writeFileFromInput ********** */
+    
+    fun writeFileFromInput(filePath: String?, `is`: InputStream, append: Boolean = false): Boolean {
+        return writeFileFromInput(FileUtils.getFileByPath(filePath), `is`, append)
+    }
+    
+    fun writeFileFromInput(file: File?, `is`: InputStream, append: Boolean = false): Boolean {
+        var os: OutputStream? = null
+        return try {
+            os = BufferedOutputStream(FileOutputStream(file ?: return false, append))
+            val data = ByteArray(BUFFER_SIZE)
+            var len: Int
+            while (`is`.read(data, 0, BUFFER_SIZE).also { len = it } != -1) {
+                os.write(data, 0, len)
+            }
+            true
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        } finally {
+            try {
+                `is`.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
+                os?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
     }
 }

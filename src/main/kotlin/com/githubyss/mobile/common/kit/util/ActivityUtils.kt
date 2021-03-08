@@ -64,8 +64,8 @@ object ActivityUtils {
      * @param view  The view.
      * @return the activity by view.
      */
-    fun getActivityByView(@NonNull view: View): Activity? {
-        return getActivityByContext(view.context)
+    fun getActivityByView(view: View?): Activity? {
+        return getActivityByContext(view?.context ?: return null)
     }
     
     /**
@@ -74,7 +74,7 @@ object ActivityUtils {
      * @param context The context.
      * @return the activity by context.
      */
-    fun getActivityByContext(@NonNull context: Context = ComkitApplicationConfig.getApp()): Activity? {
+    fun getActivityByContext(context: Context? = ComkitApplicationConfig.getApp()): Activity? {
         var context = context
         while (context is ContextWrapper) {
             if (context is Activity) {
@@ -279,7 +279,7 @@ object ActivityUtils {
     }
     
     /** ********** ********** Operator ********** ********** */
-
+    
     /** ********** startActivity by options ********** */
     
     /**
@@ -387,7 +387,7 @@ object ActivityUtils {
     }
     
     /** ********** startActivity by enterAnim, exitAnim ********** */
-
+    
     /**
      * Start the activity.
      *
@@ -866,7 +866,7 @@ object ActivityUtils {
     }
     
     /** ********** finishAllActivities by enterAnim, exitAnim ********** */
-
+    
     /**
      * Finish all of activities.
      *
@@ -888,7 +888,7 @@ object ActivityUtils {
     }
     
     /** ********** finishAllActivitiesExceptNewest by enterAnim, exitAnim ********** */
-
+    
     /**
      * Finish all of activities except the newest activity.
      *
@@ -912,8 +912,7 @@ object ActivityUtils {
     }
     
     private fun getOptionsBundle(context: Context, enterAnim: Int, exitAnim: Int): Bundle? {
-        return ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim)
-                .toBundle()
+        return ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim).toBundle()
     }
     
     private fun getOptionsBundle(activity: Activity, sharedElements: Array<out View>?): Bundle? {
@@ -925,7 +924,6 @@ object ActivityUtils {
         for (i in 0 until len) {
             pairs[i] = Pair.create(sharedElements[i], sharedElements[i].transitionName)
         }
-        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs)
-                .toBundle()
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
     }
 }

@@ -802,43 +802,10 @@ object FileUtils {
             }
         }
         return if (!createOrExistsDir(destFile.parentFile)) false else try {
-            writeFileFromInput(destFile, FileInputStream(srcFile)) && !(isMove && !deleteFile(srcFile))
+            StreamUtils.writeFileFromInput(destFile, FileInputStream(srcFile)) && !(isMove && !deleteFile(srcFile))
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
             false
-        }
-    }
-    
-    /** ********** writeFileFromInput ********** */
-    
-    fun writeFileFromInput(filePath: String?, `is`: InputStream, append: Boolean = false): Boolean {
-        return writeFileFromInput(getFileByPath(filePath), `is`, append)
-    }
-    
-    fun writeFileFromInput(file: File?, `is`: InputStream, append: Boolean = false): Boolean {
-        var os: OutputStream? = null
-        return try {
-            os = BufferedOutputStream(FileOutputStream(file ?: return false, append))
-            val data = ByteArray(8192)
-            var len: Int
-            while (`is`.read(data, 0, 8192).also { len = it } != -1) {
-                os.write(data, 0, len)
-            }
-            true
-        } catch (e: IOException) {
-            e.printStackTrace()
-            false
-        } finally {
-            try {
-                `is`.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            try {
-                os?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
         }
     }
     

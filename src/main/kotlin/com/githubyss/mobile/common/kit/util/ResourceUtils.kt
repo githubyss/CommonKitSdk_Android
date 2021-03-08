@@ -23,8 +23,6 @@ object ResourceUtils {
     
     private val TAG = ResourceUtils::class.simpleName ?: "simpleName is null"
     
-    private const val BUFFER_SIZE = 8192
-    
     
     /** ********** ********** ********** Functions ********** ********** ********** */
     

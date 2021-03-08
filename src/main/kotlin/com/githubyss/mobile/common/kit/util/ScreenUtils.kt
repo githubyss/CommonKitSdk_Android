@@ -46,8 +46,8 @@ object ScreenUtils {
      *
      * @return The width of screen in pixels.
      */
-    fun getScreenWidthPx(): Int? {
-        return getDisplayMetrics()?.widthPixels
+    fun getScreenWidthPx(): Int {
+        return getDisplayMetrics().widthPixels
     }
     
     /**
@@ -55,8 +55,8 @@ object ScreenUtils {
      *
      * @return The height of screen in pixels.
      */
-    fun getScreenHeightPx(): Int? {
-        return getDisplayMetrics()?.heightPixels
+    fun getScreenHeightPx(): Int {
+        return getDisplayMetrics().heightPixels
     }
     
     /**
@@ -131,35 +131,12 @@ object ScreenUtils {
         return point
     }
     
-    /**
-     * Get the status bar height.
-     *
-     * @return The status bar height.
-     */
-    fun getStatusBarHeight(): Int? {
-        var ret: Int? = null
-        val resourceId = Resources.getSystem()
-                .getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            ret = Resources.getSystem()
-                    .getDimensionPixelSize(resourceId)
-        }
-        return ret
+    fun getStatusBarHeight(): Int {
+        return BarUtils.getStatusBarHeight()
     }
     
-    /**
-     * Get the status bar height.
-     *
-     * @param context The context.
-     * @return The status bar height.
-     */
-    fun getStatusBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int? {
-        var ret: Int? = null
-        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            ret = context.resources.getDimensionPixelSize(resourceId)
-        }
-        return ret
+    fun getStatusBarHeight(context: Context?): Int {
+        return BarUtils.getStatusBarHeight(context)
     }
     
     /**
@@ -197,8 +174,8 @@ object ScreenUtils {
      *
      * @return The getScreenDensity.
      */
-    fun getScreenDensity(): Float? {
-        return getDisplayMetrics()?.density
+    fun getScreenDensity(): Float {
+        return getDisplayMetrics().density
     }
     
     /**
@@ -236,8 +213,8 @@ object ScreenUtils {
      *
      * @return The scaled getScreenDensity.
      */
-    fun getScaledDensity(): Float? {
-        return getDisplayMetrics()?.scaledDensity
+    fun getScaledDensity(): Float {
+        return getDisplayMetrics().scaledDensity
     }
     
     /**
@@ -255,7 +232,7 @@ object ScreenUtils {
      *
      * @return The default metrics.
      */
-    fun getDisplayMetrics(): DisplayMetrics? {
+    fun getDisplayMetrics(): DisplayMetrics {
         return Resources.getSystem().displayMetrics
     }
     
@@ -426,16 +403,6 @@ object ScreenUtils {
     /** ********** ********** Converter ********** ********** */
     
     /**
-     * Value of dp to value of px.
-     *
-     * @param dpValue The value of dp.
-     * @return The value of px.
-     */
-    fun dp2Px(dpValue: Float): Int? {
-        return (dpValue * (getScreenDensity() ?: return null) + 0.5F).toInt()
-    }
-    
-    /**
      * Value of px to value of dp.
      *
      * @param pxValue The value of px.
@@ -446,13 +413,13 @@ object ScreenUtils {
     }
     
     /**
-     * Value of sp to value of px.
+     * Value of dp to value of px.
      *
-     * @param spValue The value of sp.
+     * @param dpValue The value of dp.
      * @return The value of px.
      */
-    fun sp2Px(spValue: Float): Int? {
-        return (spValue * (getScaledDensity() ?: return null) + 0.5F).toInt()
+    fun dp2Px(dpValue: Float): Int {
+        return (dpValue * (getScreenDensity()) + 0.5F).toInt()
     }
     
     /**
@@ -461,7 +428,37 @@ object ScreenUtils {
      * @param pxValue The value of px.
      * @return The value of sp.
      */
-    fun px2Sp(pxValue: Float): Int? {
-        return (pxValue / (getScaledDensity() ?: return null) + 0.5F).toInt()
+    fun px2Sp(pxValue: Float): Int {
+        return (pxValue / (getScaledDensity()) + 0.5F).toInt()
+    }
+    
+    /**
+     * Value of sp to value of px.
+     *
+     * @param spValue The value of sp.
+     * @return The value of px.
+     */
+    fun sp2Px(spValue: Float): Int {
+        return (spValue * (getScaledDensity()) + 0.5F).toInt()
+    }
+    
+    /**
+     * Value of px to value of pt.
+     *
+     * @param pxValue The value of px.
+     * @return value of pt
+     */
+    fun px2Pt(pxValue: Float): Int {
+        return (pxValue * 72 / getDisplayMetrics().xdpi + 0.5).toInt()
+    }
+    
+    /**
+     * Value of pt to value of px.
+     *
+     * @param ptValue The value of pt.
+     * @return value of px
+     */
+    fun pt2Px(ptValue: Float): Int {
+        return (ptValue * getDisplayMetrics().xdpi / 72f + 0.5).toInt()
     }
 }
