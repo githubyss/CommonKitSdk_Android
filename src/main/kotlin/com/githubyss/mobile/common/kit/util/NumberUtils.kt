@@ -19,81 +19,6 @@ object NumberUtils {
     
     /** ********** ********** ********** Functions ********** ********** ********** */
     
-    /** ********** ********** Checker ********** ********** */
-    
-    /** ********** Mathematical Number ********** */
-    
-    fun isInteger(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_INTEGER)
-    }
-    
-    fun isZeroInteger(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_ZERO_INTEGER)
-    }
-    
-    fun isNonNegativeInteger(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_NOT_NEGATIVE_INTEGER)
-    }
-    
-    fun isNonPositiveInteger(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_NOT_POSITIVE_INTEGER)
-    }
-    
-    /** ********** Sociological Number ********** */
-    
-    fun isCellphone(input: String?): Boolean {
-        return isSimpleCellphone(input) || isSimpleCellphoneWithDash(input) || isSimpleCellphoneWithSpace(input) || isExactCellphone(input) || isExactCellphoneWithDash(input) || isExactCellphoneWithSpace(input)
-    }
-    
-    fun isSimpleCellphone(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_SIMPLE)
-    }
-    
-    fun isSimpleCellphoneWithDash(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_SIMPLE_WITH_DASH)
-    }
-    
-    fun isSimpleCellphoneWithSpace(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_SIMPLE_WITH_SPACE)
-    }
-    
-    fun isExactCellphone(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_EXACT)
-    }
-    
-    fun isExactCellphoneWithDash(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_EXACT_WITH_DASH)
-    }
-    
-    fun isExactCellphoneWithSpace(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_CELLPHONE_EXACT_WITH_SPACE)
-    }
-    
-    fun isTelephone(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_TELEPHONE)
-    }
-    
-    fun isIdentityCard(input: String?): Boolean {
-        return isIdentityCard15(input) || isIdentityCard18(input)
-    }
-    
-    fun isIdentityCard15(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_ID_CARD15)
-    }
-    
-    fun isIdentityCard18(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_ID_CARD18)
-    }
-    
-    fun isPassportCard(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_PASSPORT_CARD)
-    }
-    
-    fun isQq(input: String?): Boolean {
-        return RegexUtils.regExPatternMatches(input, RegexSyntax.REGEX_QQ)
-    }
-    
-    
     /** ********** ********** Converter ********** ********** */
     
     /** ********** Mathematical Number ********** */
@@ -131,7 +56,7 @@ object NumberUtils {
      * @return Conventional non negative integer, such as "0", "1", "10", "1234".
      */
     fun string2NonNegativeInteger(input: String?): String {
-        return if (isInteger(input)) input?.toLong().toString().replace("-", "")
+        return if (RegexUtils.isInteger(input)) input?.toLong().toString().replace("-", "")
         else ""
     }
     
@@ -139,7 +64,7 @@ object NumberUtils {
     
     fun cellphone2Normal(input: String?): String {
         return when {
-            isCellphone(input) -> ""
+            RegexUtils.isCellphone(input) -> ""
             else -> ""
         }
     }

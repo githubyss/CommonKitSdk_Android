@@ -42,27 +42,17 @@ object StringUtils {
     /**
      * Return the string value associated with a particular resource ID.
      *
-     * @param id The desired resource identifier.
-     * @return The string value associated with a particular resource ID.
-     */
-    fun getString(context: Context = ComkitApplicationConfig.getApp(), @StringRes id: Int): String {
-        return try {
-            context.resources.getString(id)
-        } catch (ignore: NotFoundException) {
-            ""
-        }
-    }
-    
-    /**
-     * Return the string value associated with a particular resource ID.
-     *
      * @param id         The desired resource identifier.
      * @param formatArgs The format arguments that will be used for substitution.
      * @return The string value associated with a particular resource ID.
      */
-    fun getString(context: Context = ComkitApplicationConfig.getApp(), @StringRes id: Int, vararg formatArgs: Any?): String {
+    fun getString(context: Context = ComkitApplicationConfig.getApp(), @StringRes id: Int, vararg formatArgs: Any? = emptyArray()): String {
         return try {
-            context.resources.getString(id, formatArgs)
+            if (formatArgs.isEmpty()) {
+                context.resources.getString(id)
+            } else {
+                context.resources.getString(id, formatArgs)
+            }
         } catch (ignore: NotFoundException) {
             ""
         }
@@ -101,8 +91,7 @@ object StringUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isTrimEmpty(s: String?): Boolean {
-        return s == null || s.trim()
-                .isEmpty()
+        return s == null || s.trim().isEmpty()
     }
     
     /**
@@ -181,8 +170,7 @@ object StringUtils {
      */
     fun <T : Any> object2String(`object`: T?): String {
         if (`object` == null) return "Object{ object is null }"
-        if (`object`.toString()
-                        .startsWith(`object`.javaClass.name + "@")) {
+        if (`object`.toString().startsWith(`object`.javaClass.name + "@")) {
             val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object{ ")
             val fields = `object`.javaClass.declaredFields
             for (field in fields) {
@@ -206,8 +194,7 @@ object StringUtils {
                     stringBuilder.append(String.format("%s=%s, ", field.name, "Object"))
                 }
             }
-            return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, " }")
-                    .toString()
+            return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, " }").toString()
         } else {
             return `object`.toString()
         }
@@ -279,8 +266,7 @@ object StringUtils {
         if (isSpace(s)) return ""
         // 首字符可能会是数字，所以不能直接用 Character.isUpperCase 判断
         if (!Character.isLowerCase(s?.get(0) ?: return "")) return s
-        return (s[0].toInt() - 32).toChar()
-                .toString() + s.substring(1)
+        return (s[0].toInt() - 32).toChar().toString() + s.substring(1)
     }
     
     /**
@@ -293,8 +279,7 @@ object StringUtils {
         if (isSpace(s)) return ""
         // 首字符可能会是数字，所以不能直接用 Character.isLowerCase 判断
         if (!Character.isUpperCase(s?.get(0) ?: return "")) return s
-        return (s[0].toInt() + 32).toChar()
-                .toString() + s.substring(1)
+        return (s[0].toInt() + 32).toChar().toString() + s.substring(1)
     }
     
     /**
@@ -352,7 +337,7 @@ object StringUtils {
      * @param s The string.
      * @return The SBC string.
      */
-    fun toSBC(s: String?): String? {
+    fun toSBC(s: String?): String {
         if (isSpace(s)) return ""
         
         val chars = s?.toCharArray() ?: return ""

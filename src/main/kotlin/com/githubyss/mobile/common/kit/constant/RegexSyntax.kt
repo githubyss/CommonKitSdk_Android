@@ -129,9 +129,9 @@ object RegexSyntax {
     const val REGEX_PASSPORT_CARD = "^$"
     
     /**
-     * Regex of email.
+     * Regex of postal code in China.
      */
-    const val REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
+    const val REGEX_POSTAL_CODE = "^[1-9]\\d{5}(?!\\d)$"
     
     /**
      * Regex of QQ number.
@@ -140,9 +140,9 @@ object RegexSyntax {
     const val REGEX_QQ = "^[1-9][0-9]{4,}$"
     
     /**
-     * Regex of postal code in China.
+     * Regex of email.
      */
-    const val REGEX_CHINA_POSTAL_CODE = "^[1-9]\\d{5}(?!\\d)$"
+    const val REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
     
     /** ********** Net ********** */
     

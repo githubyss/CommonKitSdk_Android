@@ -29,8 +29,8 @@ object ToastUtils {
      * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
      * @param centerable Is toast show in center.
      */
-    fun showMessage(context: Context = ComkitApplicationConfig.getApp(), msgId: Int, duration: Int = if (ResUtils.getString(context, msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
-        showMessage(context, ResUtils.getString(context, msgId), duration, centerable)
+    fun showMessage(context: Context = ComkitApplicationConfig.getApp(), msgId: Int, duration: Int = if (ResourceUtils.getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
+        showMessage(context, ResourceUtils.getString(msgId), duration, centerable)
     }
     
     /**

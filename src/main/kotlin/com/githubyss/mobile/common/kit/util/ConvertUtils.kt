@@ -11,6 +11,7 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import com.githubyss.mobile.common.kit.enumeration.TimeUnit
 import java.io.*
+import java.util.*
 import kotlin.experimental.and
 import kotlin.math.min
 
@@ -304,163 +305,50 @@ object ConvertUtils {
         return stringBuilder.toString()
     }
     
-    /** ********** Stream, Bytes, String ********** */
+    /** ********** Stream, Bytes, List, String ********** */
     
-    /**
-     * Input stream to output stream.
-     *
-     * @param `is` The input stream.
-     * @return The output stream.
-     */
-    fun inputStream2ByteArrayOutputStream(`is`: InputStream?): ByteArrayOutputStream? {
-        return if (`is` == null) null else try {
-            val baos = ByteArrayOutputStream()
-            val bytes = ByteArray(MemoryUnit.KB)
-            var len: Int
-            while (`is`.read(bytes, 0, MemoryUnit.KB).also { len = it } != -1) {
-                baos.write(bytes, 0, len)
-            }
-            baos
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        } finally {
-            try {
-                `is`.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+    fun input2BytesOutput(`is`: InputStream?): ByteArrayOutputStream? {
+        return StreamUtils.input2BytesOutput(`is`)
     }
     
-    /**
-     * Output stream to input stream.
-     *
-     * @param os The output stream.
-     * @return The input stream.
-     */
-    fun outputStream2ByteArrayInputStream(os: OutputStream?): ByteArrayInputStream? {
-        return if (os == null) null else ByteArrayInputStream((os as ByteArrayOutputStream).toByteArray())
+    fun output2BytesInput(os: OutputStream?): ByteArrayInputStream? {
+        return StreamUtils.output2BytesInput(os)
     }
     
-    /**
-     * Input stream to bytes.
-     *
-     * @param `is` The input stream.
-     * @return The bytes.
-     */
-    fun inputStream2Bytes(`is`: InputStream?): ByteArray? {
-        return if (`is` == null) null else inputStream2ByteArrayOutputStream(`is`)?.toByteArray()
+    fun input2Bytes(`is`: InputStream?): ByteArray? {
+        return StreamUtils.input2Bytes(`is`)
     }
     
-    /**
-     * Bytes to input stream.
-     *
-     * @param bytes The bytes.
-     * @return The input stream.
-     */
-    fun bytes2InputStream(bytes: ByteArray?): InputStream? {
-        return if (bytes == null || bytes.isEmpty()) null else ByteArrayInputStream(bytes)
+    fun bytes2Input(bytes: ByteArray?): InputStream? {
+        return StreamUtils.bytes2Input(bytes)
     }
     
-    /**
-     * Output stream to bytes.
-     *
-     * @param output The output stream.
-     * @return The bytes.
-     */
-    fun outputStream2Bytes(output: OutputStream?): ByteArray? {
-        return if (output == null) null else (output as ByteArrayOutputStream).toByteArray()
+    fun output2Bytes(os: OutputStream?): ByteArray? {
+        return StreamUtils.output2Bytes(os)
     }
     
-    /**
-     * Bytes to output stream.
-     *
-     * @param bytes The bytes.
-     * @return The output stream.
-     */
-    fun bytes2OutputStream(bytes: ByteArray?): OutputStream? {
-        if (bytes == null || bytes.isEmpty()) return null
-        var baos: ByteArrayOutputStream? = null
-        return try {
-            baos = ByteArrayOutputStream()
-            baos.write(bytes)
-            baos
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        } finally {
-            try {
-                baos?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+    fun bytes2Output(bytes: ByteArray?): OutputStream? {
+        return StreamUtils.bytes2Output(bytes)
     }
     
-    /**
-     * Input stream to string.
-     *
-     * @param `is`       The input stream.
-     * @param charsetName The name of charset.
-     * @return The string.
-     */
-    fun inputStream2String(`is`: InputStream?, charsetName: String): String {
-        return if (`is` == null || StringUtils.isSpace(charsetName)) "" else try {
-            val baos = inputStream2ByteArrayOutputStream(`is`) ?: return ""
-            baos.toString(charsetName)
-        } catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
-            ""
-        }
+    fun input2List(`is`: InputStream, charsetName: String?): List<String>? {
+        return StreamUtils.input2List(`is`, charsetName)
     }
     
-    /**
-     * String to input stream.
-     *
-     * @param string      The string.
-     * @param charsetName The name of charset.
-     * @return The input stream.
-     */
-    fun string2InputStream(string: String, charsetName: String): InputStream? {
-        return if (StringUtils.isSpace(charsetName)) null else try {
-            ByteArrayInputStream(string.toByteArray(charset(charsetName)))
-        } catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
-            null
-        }
+    fun input2String(`is`: InputStream?, charsetName: String?): String {
+        return StreamUtils.input2String(`is`, charsetName)
     }
     
-    /**
-     * Output stream to string.
-     *
-     * @param output      The output stream.
-     * @param charsetName The name of charset.
-     * @return The string
-     */
-    fun outputStream2String(output: OutputStream?, charsetName: String): String {
-        return if (output == null || StringUtils.isSpace(charsetName)) "" else try {
-            String(outputStream2Bytes(output) ?: ByteArray(0), charset(charsetName))
-        } catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
-            ""
-        }
+    fun string2Input(string: String?, charsetName: String?): InputStream? {
+        return StreamUtils.string2Input(string, charsetName)
     }
     
-    /**
-     * String to output stream.
-     *
-     * @param string      The string.
-     * @param charsetName The name of charset.
-     * @return The output stream.
-     */
-    fun string2OutputStream(string: String, charsetName: String): OutputStream? {
-        return if (StringUtils.isSpace(charsetName)) null else try {
-            bytes2OutputStream(string.toByteArray(charset(charsetName)))
-        } catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
-            null
-        }
+    fun output2String(output: OutputStream?, charsetName: String?): String {
+        return StreamUtils.output2String(output, charsetName)
+    }
+    
+    fun string2Output(string: String?, charsetName: String?): OutputStream? {
+        return StreamUtils.string2Output(string, charsetName)
     }
     
     /** ********** File, Uri ********** */

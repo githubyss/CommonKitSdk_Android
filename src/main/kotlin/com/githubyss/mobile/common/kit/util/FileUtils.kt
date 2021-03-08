@@ -1,5 +1,6 @@
 package com.githubyss.mobile.common.kit.util
 
+import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import java.io.*
 import java.net.URL
 import java.security.DigestInputStream
@@ -128,15 +129,13 @@ object FileUtils {
             val buffer = ByteArray(1024)
             var readChars: Int
             if (LINE_SEP?.endsWith("\n") ?: return -1) {
-                while (`is`.read(buffer, 0, 1024)
-                                .also { readChars = it } != -1) {
+                while (`is`.read(buffer, 0, 1024).also { readChars = it } != -1) {
                     for (i in 0 until readChars) {
                         if (buffer[i].toChar() == '\n') ++count
                     }
                 }
             } else {
-                while (`is`.read(buffer, 0, 1024)
-                                .also { readChars = it } != -1) {
+                while (`is`.read(buffer, 0, 1024).also { readChars = it } != -1) {
                     for (i in 0 until readChars) {
                         if (buffer[i].toChar() == '\r') ++count
                     }
@@ -631,32 +630,14 @@ object FileUtils {
      *
      * @param srcDirPath  The path of source directory.
      * @param destDirPath The path of destination directory.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun copyDir(srcDirPath: String?, destDirPath: String?): Boolean {
-        return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath))
-    }
-    
-    /**
-     * Copy the directory.
-     *
-     * @param srcDir  The source directory.
-     * @param destDir The destination directory.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun copyDir(srcDir: File?, destDir: File?): Boolean {
-        return copyOrMoveDir(srcDir, destDir, false)
-    }
-    
-    /**
-     * Copy the directory.
-     *
-     * @param srcDirPath  The path of source directory.
-     * @param destDirPath The path of destination directory.
      * @param listener    The replace listener.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun copyDir(srcDirPath: String?, destDirPath: String?, listener: OnReplaceListener?): Boolean {
+    fun copyDir(srcDirPath: String?, destDirPath: String?, listener: OnReplaceListener? = object : OnReplaceListener {
+        override fun onReplace(): Boolean {
+            return true
+        }
+    }): Boolean {
         return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener)
     }
     
@@ -668,30 +649,12 @@ object FileUtils {
      * @param listener The replace listener.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun copyDir(srcDir: File?, destDir: File?, listener: OnReplaceListener?): Boolean {
-        return copyOrMoveDir(srcDir, destDir, listener, false)
-    }
-    
-    /**
-     * Copy the file.
-     *
-     * @param srcFilePath  The path of source file.
-     * @param destFilePath The path of destination file.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun copyFile(srcFilePath: String?, destFilePath: String?): Boolean {
-        return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath))
-    }
-    
-    /**
-     * Copy the file.
-     *
-     * @param srcFile  The source file.
-     * @param destFile The destination file.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun copyFile(srcFile: File?, destFile: File?): Boolean {
-        return copyOrMoveFile(srcFile, destFile, false)
+    fun copyDir(srcDir: File?, destDir: File?, listener: OnReplaceListener? = object : OnReplaceListener {
+        override fun onReplace(): Boolean {
+            return true
+        }
+    }): Boolean {
+        return copyOrMoveDir(srcDir, destDir, false, listener)
     }
     
     /**
@@ -702,7 +665,11 @@ object FileUtils {
      * @param listener     The replace listener.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun copyFile(srcFilePath: String?, destFilePath: String?, listener: OnReplaceListener?): Boolean {
+    fun copyFile(srcFilePath: String?, destFilePath: String?, listener: OnReplaceListener? = object : OnReplaceListener {
+        override fun onReplace(): Boolean {
+            return true
+        }
+    }): Boolean {
         return copyFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener)
     }
     
@@ -714,8 +681,12 @@ object FileUtils {
      * @param listener The replace listener.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun copyFile(srcFile: File?, destFile: File?, listener: OnReplaceListener?): Boolean {
-        return copyOrMoveFile(srcFile, destFile, listener, false)
+    fun copyFile(srcFile: File?, destFile: File?, listener: OnReplaceListener? = object : OnReplaceListener {
+        override fun onReplace(): Boolean {
+            return true
+        }
+    }): Boolean {
+        return copyOrMoveFile(srcFile, destFile, false, listener)
     }
     
     /** ********** move ********** */
@@ -725,32 +696,14 @@ object FileUtils {
      *
      * @param srcDirPath  The path of source directory.
      * @param destDirPath The path of destination directory.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun moveDir(srcDirPath: String?, destDirPath: String?): Boolean {
-        return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath))
-    }
-    
-    /**
-     * Move the directory.
-     *
-     * @param srcDir  The source directory.
-     * @param destDir The destination directory.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun moveDir(srcDir: File?, destDir: File?): Boolean {
-        return copyOrMoveDir(srcDir, destDir, true)
-    }
-    
-    /**
-     * Move the directory.
-     *
-     * @param srcDirPath  The path of source directory.
-     * @param destDirPath The path of destination directory.
      * @param listener    The replace listener.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun moveDir(srcDirPath: String?, destDirPath: String?, listener: OnReplaceListener?): Boolean {
+    fun moveDir(srcDirPath: String?, destDirPath: String?, listener: OnReplaceListener? = object : OnReplaceListener {
+        override fun onReplace(): Boolean {
+            return true
+        }
+    }): Boolean {
         return moveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), listener)
     }
     
@@ -763,29 +716,7 @@ object FileUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun moveDir(srcDir: File?, destDir: File?, listener: OnReplaceListener?): Boolean {
-        return copyOrMoveDir(srcDir, destDir, listener, true)
-    }
-    
-    /**
-     * Move the file.
-     *
-     * @param srcFilePath  The path of source file.
-     * @param destFilePath The path of destination file.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun moveFile(srcFilePath: String?, destFilePath: String?): Boolean {
-        return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath))
-    }
-    
-    /**
-     * Move the file.
-     *
-     * @param srcFile  The source file.
-     * @param destFile The destination file.
-     * @return `true`: success<br></br>`false`: fail
-     */
-    fun moveFile(srcFile: File?, destFile: File?): Boolean {
-        return copyOrMoveFile(srcFile, destFile, true)
+        return copyOrMoveDir(srcDir, destDir, true, listener)
     }
     
     /**
@@ -796,7 +727,11 @@ object FileUtils {
      * @param listener     The replace listener.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun moveFile(srcFilePath: String?, destFilePath: String?, listener: OnReplaceListener?): Boolean {
+    fun moveFile(srcFilePath: String?, destFilePath: String?, listener: OnReplaceListener? = object : OnReplaceListener {
+        override fun onReplace(): Boolean {
+            return true
+        }
+    }): Boolean {
         return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), listener)
     }
     
@@ -809,20 +744,16 @@ object FileUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun moveFile(srcFile: File?, destFile: File?, listener: OnReplaceListener?): Boolean {
-        return copyOrMoveFile(srcFile, destFile, listener, true)
+        return copyOrMoveFile(srcFile, destFile, true, listener)
     }
     
     /** ********** copyOrMove ********** */
     
-    private fun copyOrMoveDir(srcDir: File?, destDir: File?, isMove: Boolean): Boolean {
-        return copyOrMoveDir(srcDir, destDir, object : OnReplaceListener {
-            override fun onReplace(): Boolean {
-                return true
-            }
-        }, isMove)
+    fun copyOrMoveDir(srcDirPath: String?, destDir: File?, isMove: Boolean, listener: OnReplaceListener?): Boolean {
+        return copyOrMoveDir(getFileByPath(srcDirPath), destDir, isMove, listener)
     }
     
-    private fun copyOrMoveDir(srcDir: File?, destDir: File?, listener: OnReplaceListener?, isMove: Boolean): Boolean {
+    fun copyOrMoveDir(srcDir: File?, destDir: File?, isMove: Boolean, listener: OnReplaceListener?): Boolean {
         if (srcDir == null || destDir == null) return false
         // destDir's path locate in srcDir's path then return false
         val srcPath = srcDir.path + File.separator
@@ -843,23 +774,19 @@ object FileUtils {
         for (file in files) {
             val oneDestFile = File(destPath + file.name)
             if (file.isFile) {
-                if (!copyOrMoveFile(file, oneDestFile, listener, isMove)) return false
+                if (!copyOrMoveFile(file, oneDestFile, isMove, listener)) return false
             } else if (file.isDirectory) {
-                if (!copyOrMoveDir(file, oneDestFile, listener, isMove)) return false
+                if (!copyOrMoveDir(file, oneDestFile, isMove, listener)) return false
             }
         }
         return !isMove || deleteDir(srcDir)
     }
     
-    private fun copyOrMoveFile(srcFile: File?, destFile: File?, isMove: Boolean): Boolean {
-        return copyOrMoveFile(srcFile, destFile, object : OnReplaceListener {
-            override fun onReplace(): Boolean {
-                return true
-            }
-        }, isMove)
+    fun copyOrMoveFile(srcFilePath: String?, destFile: File?, isMove: Boolean, listener: OnReplaceListener?): Boolean {
+        return copyOrMoveFile(getFileByPath(srcFilePath), destFile, isMove, listener)
     }
     
-    private fun copyOrMoveFile(srcFile: File?, destFile: File?, listener: OnReplaceListener?, isMove: Boolean): Boolean {
+    fun copyOrMoveFile(srcFile: File?, destFile: File?, isMove: Boolean, listener: OnReplaceListener?): Boolean {
         if (srcFile == null || destFile == null) return false
         // srcFile equals destFile then return false
         if (srcFile == destFile) return false
@@ -875,10 +802,43 @@ object FileUtils {
             }
         }
         return if (!createOrExistsDir(destFile.parentFile)) false else try {
-            writeFileFromIS(destFile, FileInputStream(srcFile)) && !(isMove && !deleteFile(srcFile))
+            writeFileFromInput(destFile, FileInputStream(srcFile)) && !(isMove && !deleteFile(srcFile))
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
             false
+        }
+    }
+    
+    /** ********** writeFileFromInput ********** */
+    
+    fun writeFileFromInput(filePath: String?, `is`: InputStream, append: Boolean = false): Boolean {
+        return writeFileFromInput(getFileByPath(filePath), `is`, append)
+    }
+    
+    fun writeFileFromInput(file: File?, `is`: InputStream, append: Boolean = false): Boolean {
+        var os: OutputStream? = null
+        return try {
+            os = BufferedOutputStream(FileOutputStream(file ?: return false, append))
+            val data = ByteArray(8192)
+            var len: Int
+            while (`is`.read(data, 0, 8192).also { len = it } != -1) {
+                os.write(data, 0, len)
+            }
+            true
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        } finally {
+            try {
+                `is`.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
+                os?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
     }
     
@@ -887,11 +847,11 @@ object FileUtils {
     /**
      * Delete the directory.
      *
-     * @param filePath The path of file.
+     * @param path The path of file.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun delete(filePath: String?): Boolean {
-        return delete(getFileByPath(filePath))
+    fun delete(path: String?): Boolean {
+        return delete(getFileByPath(path))
     }
     
     /**
@@ -1100,37 +1060,6 @@ object FileUtils {
             }
         }
         return list
-    }
-    
-    
-    /** ********** ********** ********** Private ********** ********** ********** */
-    
-    private fun writeFileFromIS(file: File, `is`: InputStream): Boolean {
-        var os: OutputStream? = null
-        return try {
-            os = BufferedOutputStream(FileOutputStream(file))
-            val data = ByteArray(8192)
-            var len: Int
-            while (`is`.read(data, 0, 8192)
-                            .also { len = it } != -1) {
-                os.write(data, 0, len)
-            }
-            true
-        } catch (e: IOException) {
-            e.printStackTrace()
-            false
-        } finally {
-            try {
-                `is`.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            try {
-                os?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
     }
     
     
