@@ -114,7 +114,7 @@ object ResourceUtils {
                     res = res and copyFileFromAssets("$assetsFilePath/$asset", "$destFilePath/$asset")
                 }
             } else {
-                res = FileUtils.writeFileFromInput(destFilePath ?: return false, context.assets.open(assetsFilePath), false)
+                res = StreamUtils.writeFileFromInput(destFilePath ?: return false, context.assets.open(assetsFilePath), false)
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -177,7 +177,7 @@ object ResourceUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun copyFileFromRaw(@RawRes resId: Int, destFilePath: String?, context: Context = ComkitApplicationConfig.getApp()): Boolean {
-        return FileUtils.writeFileFromInput(destFilePath, context.resources.openRawResource(resId), false)
+        return StreamUtils.writeFileFromInput(destFilePath, context.resources.openRawResource(resId), false)
     }
     
     /**

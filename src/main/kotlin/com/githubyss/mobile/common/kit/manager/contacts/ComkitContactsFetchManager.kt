@@ -8,6 +8,7 @@ import android.provider.ContactsContract
 import android.text.TextUtils
 import com.githubyss.mobile.common.kit.util.LogcatUtils
 import com.githubyss.mobile.common.kit.util.NumberUtils
+import com.githubyss.mobile.common.kit.util.RegexUtils
 import java.lang.Exception
 import java.lang.ref.WeakReference
 
@@ -138,7 +139,7 @@ class ComkitContactsFetchManager private constructor() {
                 while (contactsFetchAsyncTask?.isCancelled == false && tableDataCursor.moveToNext()) {
                     val cellphoneStr = formatCellphone(tableDataCursor.getString(tableDataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)))
                     
-                    if (NumberUtils.isCellphone(cellphoneStr)) {
+                    if (RegexUtils.isCellphone(cellphoneStr)) {
                         cellphoneList.add(cellphoneStr)
                         cellphoneSet.add(cellphoneStr)
                     }

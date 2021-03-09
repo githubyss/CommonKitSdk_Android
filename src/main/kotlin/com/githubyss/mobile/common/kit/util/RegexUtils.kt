@@ -51,8 +51,8 @@ object RegexUtils {
      * @param regex The regex.
      * @return the array of strings computed by splitting input around matches of regex
      */
-    fun getSplits(input: String?, regex: String): Array<String?>? {
-        return input?.split(regex.toRegex())?.toTypedArray() ?: arrayOfNulls(0)
+    fun getSplits(input: String?, regex: String): Array<String>? {
+        return input?.split(regex.toRegex())?.toTypedArray()
     }
     
     /**
@@ -347,7 +347,7 @@ object RegexUtils {
     }
     
     /** ********** Date time ********** */
-
+    
     /**
      * Return whether input matches regex of date which pattern is "yyyy-MM-dd".
      *
