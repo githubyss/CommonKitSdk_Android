@@ -43,34 +43,24 @@ object GlideUtils {
      * @param loadPath  The image path, see top description.
      * @param imageView The image view to load.
      */
-    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?) {
+    fun loadImage(loadPath: String?, imageView: ImageView?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
     }
     
-    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?) {
+    fun loadImage(loadPath: Int, imageView: ImageView?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
     }
     
     /**
@@ -81,36 +71,24 @@ object GlideUtils {
      * @param imageView The image view to load.
      * @param errorIcon The error icon when load failed.
      */
-    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?, errorIcon: Int) {
+    fun loadImage(loadPath: String?, imageView: ImageView?, errorIcon: Int, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(errorIcon)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).error(errorIcon).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
     }
     
-    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?, errorIcon: Int) {
+    fun loadImage(loadPath: Int, imageView: ImageView?, errorIcon: Int, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(errorIcon)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).error(errorIcon).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
     }
     
     /**
@@ -122,38 +100,24 @@ object GlideUtils {
      * @param defIcon   The error icon when load failed.
      * @param errorIcon The error icon when load failed.
      */
-    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?, defIcon: Int, errorIcon: Int) {
+    fun loadImage(loadPath: String?, imageView: ImageView?, defIcon: Int, errorIcon: Int, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(defIcon)
-                .error(errorIcon)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(defIcon).error(errorIcon).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
     }
     
-    fun loadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?, defIcon: Int, errorIcon: Int) {
+    fun loadImage(loadPath: Int, imageView: ImageView?, defIcon: Int, errorIcon: Int, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(defIcon)
-                .error(errorIcon)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(defIcon).error(errorIcon).transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
     }
     
     /**
@@ -163,32 +127,24 @@ object GlideUtils {
      * @param loadPath  The image path, see top description.
      * @param imageView The image view to load.
      */
-    fun loadImageAsGif(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?) {
+    fun loadImageAsGif(loadPath: String?, imageView: ImageView?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .asGif()
-                .load(loadPath)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(imageView)
+        Glide.with(context).asGif().load(loadPath).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(imageView)
     }
     
-    fun loadImageAsGif(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?) {
+    fun loadImageAsGif(loadPath: Int, imageView: ImageView?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .asGif()
-                .load(loadPath)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(imageView)
+        Glide.with(context).asGif().load(loadPath).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(imageView)
     }
     
     /**
@@ -198,34 +154,24 @@ object GlideUtils {
      * @param loadPath  The image path, see top description.
      * @param imageView The image view to load.
      */
-    fun loadCircleImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, imageView: ImageView?) {
+    fun loadCircleImage(loadPath: String?, imageView: ImageView?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .apply(RequestOptions.circleCropTransform())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).apply(RequestOptions.circleCropTransform()).into(imageView)
     }
     
-    fun loadCircleImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, imageView: ImageView?) {
+    fun loadCircleImage(loadPath: Int, imageView: ImageView?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (imageView == null) return
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .apply(RequestOptions.circleCropTransform())
-                .into(imageView)
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).apply(RequestOptions.circleCropTransform()).into(imageView)
     }
     
     /**
@@ -234,30 +180,22 @@ object GlideUtils {
      * @param context  The context.
      * @param loadPath The image path, see top description.
      */
-    fun preloadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?) {
+    fun preloadImage(loadPath: String?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .preload()
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).preload()
     }
     
-    fun preloadImage(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int) {
+    fun preloadImage(loadPath: Int, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
-        Glide.with(context)
-                .load(loadPath)
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .preload()
+        Glide.with(context).load(loadPath).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).preload()
     }
     
     /**
@@ -267,54 +205,48 @@ object GlideUtils {
      * @param loadPath The image path, see top description.
      * @param listener Get bitmap listener.
      */
-    fun getBitmapByUrl(context: Context = ComkitApplicationConfig.getApp(), loadPath: String?, listener: GlideGetBitmapListener?) {
+    fun getBitmapByUrl(loadPath: String?, listener: GlideGetBitmapListener?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (listener == null) return
-        Glide.with(context)
-                .asBitmap()
-                .load(loadPath)
-                .into(object : CustomTarget<Bitmap?>() {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                        listener.success(resource)
-                    }
-                    
-                    override fun onLoadFailed(errorDrawable: Drawable?) {
-                        super.onLoadFailed(errorDrawable)
-                        listener.failed()
-                    }
-                    
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                    }
-                })
+        Glide.with(context).asBitmap().load(loadPath).into(object : CustomTarget<Bitmap?>() {
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+                listener.success(resource)
+            }
+            
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                super.onLoadFailed(errorDrawable)
+                listener.failed()
+            }
+            
+            override fun onLoadCleared(placeholder: Drawable?) {
+            }
+        })
     }
     
-    fun getBitmapByUrl(context: Context = ComkitApplicationConfig.getApp(), loadPath: Int, listener: GlideGetBitmapListener?) {
+    fun getBitmapByUrl(loadPath: Int, listener: GlideGetBitmapListener?, context: Context = ComkitApplicationConfig.getApp()) {
         if (Util.isOnMainThread() && context is Activity) {
             if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
                 if (ActivityUtils.isActivityDestroy(context)) return
             }
         }
         if (listener == null) return
-        Glide.with(context)
-                .asBitmap()
-                .load(loadPath)
-                .into(object : CustomTarget<Bitmap?>() {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                        listener.success(resource)
-                    }
-                    
-                    override fun onLoadFailed(errorDrawable: Drawable?) {
-                        super.onLoadFailed(errorDrawable)
-                        listener.failed()
-                    }
-                    
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                    }
-                })
+        Glide.with(context).asBitmap().load(loadPath).into(object : CustomTarget<Bitmap?>() {
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+                listener.success(resource)
+            }
+            
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                super.onLoadFailed(errorDrawable)
+                listener.failed()
+            }
+            
+            override fun onLoadCleared(placeholder: Drawable?) {
+            }
+        })
     }
     
     interface GlideGetBitmapListener {

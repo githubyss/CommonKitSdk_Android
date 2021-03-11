@@ -23,7 +23,6 @@ import androidx.annotation.IntDef;
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TimeUnit {
-    
     final int MSEC = 1;
     final int SEC  = 1000;
     final int MIN  = 60000;
