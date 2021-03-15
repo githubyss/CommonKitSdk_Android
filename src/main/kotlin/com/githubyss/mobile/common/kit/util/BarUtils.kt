@@ -413,7 +413,7 @@ object BarUtils {
     
     private fun applyStatusBarColor(activity: Activity?, color: Int, isDecor: Boolean): View? {
         if (activity == null) return null
-        val parent = (if (isDecor) activity.window.decorView as ViewGroup else activity.findViewById<View>(R.id.content) as ViewGroup)
+        val parent = (if (isDecor) activity.window.decorView as ViewGroup else activity.findViewById(R.id.content) as ViewGroup)
         var fakeStatusBarView = parent.findViewWithTag<View>(TAG_STATUS_BAR)
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.visibility == View.GONE) {
