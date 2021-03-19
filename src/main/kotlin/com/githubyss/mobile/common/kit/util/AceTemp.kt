@@ -1,25 +1,27 @@
 package com.githubyss.mobile.common.kit.util
 
 
-object AceTemp {
+class AceTemp {
     
     /** ********** ********** ********** Companion ********** ********** ********** */
     
+    companion object {
+        val TAG = AceTemp::class.simpleName ?: "simpleName is null"
+    }
+    
     
     /** ********** ********** ********** Properties ********** ********** ********** */
-    
-    private val TAG = AceTemp::class.simpleName ?: "simpleName is null"
     
     
     /** ********** ********** ********** Constructors ********** ********** ********** */
     
     
     /** ********* ********** ********** Override ********** ********** ********** */
-
-
+    
+    
     /** ********* ********** ********** Open ********** ********** ********** */
-
-
+    
+    
     /** ********** ********** ********** Functions ********** ********** ********** */
     
     /** ********** ********** Getter ********** ********** */

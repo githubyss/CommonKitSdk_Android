@@ -11,7 +11,6 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import com.githubyss.mobile.common.kit.enumeration.TimeUnit
 import java.io.*
-import java.util.*
 import kotlin.experimental.and
 import kotlin.math.min
 
@@ -393,19 +392,19 @@ object ConvertUtils {
     
     /** ********** Dp, Px, Sp ********** */
     
-    fun dp2Px(dpValue: Float): Int? {
+    fun dp2Px(dpValue: Float): Int {
         return ScreenUtils.dp2Px(dpValue)
     }
     
-    fun px2Dp(pxValue: Float): Int? {
+    fun px2Dp(pxValue: Float): Int {
         return ScreenUtils.px2Dp(pxValue)
     }
     
-    fun sp2Px(spValue: Float): Int? {
+    fun sp2Px(spValue: Float): Int {
         return ScreenUtils.sp2Px(spValue)
     }
     
-    fun px2Sp(pxValue: Float): Int? {
+    fun px2Sp(pxValue: Float): Int {
         return ScreenUtils.px2Sp(pxValue)
     }
 }

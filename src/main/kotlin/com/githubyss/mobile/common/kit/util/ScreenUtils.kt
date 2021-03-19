@@ -408,8 +408,8 @@ object ScreenUtils {
      * @param pxValue The value of px.
      * @return The value of dp.
      */
-    fun px2Dp(pxValue: Float): Int? {
-        return (pxValue / (getScreenDensity() ?: return null) + 0.5F).toInt()
+    fun px2Dp(pxValue: Float): Int {
+        return (pxValue / (getScreenDensity()) + 0.5F).toInt()
     }
     
     /**
