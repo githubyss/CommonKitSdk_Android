@@ -24,24 +24,24 @@ object ToastUtils {
     /**
      * Show toast.
      *
-     * @param context    The context to use. Usually your Application or Activity object.
      * @param msgId      The text ID to show.
      * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
      * @param centerable Is toast show in center.
+     * @param context    The context to use. Usually your Application or Activity object.
      */
-    fun showMessage(context: Context = ComkitApplicationConfig.getApp(), msgId: Int, duration: Int = if (ResourceUtils.getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
-        showMessage(context, ResourceUtils.getString(msgId), duration, centerable)
+    fun showMessage(msgId: Int, duration: Int = if (ResourceUtils.getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context = ComkitApplicationConfig.getApp()) {
+        showMessage(ResourceUtils.getString(msgId), duration, centerable, context)
     }
     
     /**
      * Show toast.
      *
-     * @param context    The context to use. Usually your Application or Activity object.
      * @param msgStr     The text to show.
      * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
      * @param centerable Is toast show in center.
+     * @param context    The context to use. Usually your Application or Activity object.
      */
-    fun showMessage(context: Context = ComkitApplicationConfig.getApp(), msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false) {
+    fun showMessage(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context = ComkitApplicationConfig.getApp()) {
         ToastUtils.centerable = centerable
         
         if (Looper.myLooper() == null) {
@@ -56,7 +56,7 @@ object ToastUtils {
         if (ToastUtils.centerable) {
             toast?.setGravity(Gravity.CENTER, 0, 0)
         }
-    
+        
         show()
     }
     
