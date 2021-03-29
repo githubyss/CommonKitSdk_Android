@@ -65,9 +65,9 @@ object ScreenUtils {
      * @param context The context.
      * @return The width of screen in pixels.
      */
-    fun getScreenWidthPx(context: Context = ComkitApplicationConfig.getApp()): Int? {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.widthPixels
-        return getScreenPointPx(context = context)?.x
+    fun getScreenWidthPx(context: Context = ComkitApplicationConfig.getApp()): Int {
+        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.widthPixels ?: 0
+        return getScreenPointPx(context = context)?.x ?: 0
     }
     
     /**
@@ -76,9 +76,9 @@ object ScreenUtils {
      * @param context The context.
      * @return The height of screen in pixels.
      */
-    fun getScreenHeightPx(context: Context = ComkitApplicationConfig.getApp()): Int? {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.heightPixels
-        return getScreenPointPx(context = context)?.y
+    fun getScreenHeightPx(context: Context = ComkitApplicationConfig.getApp()): Int {
+        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.heightPixels ?: 0
+        return getScreenPointPx(context = context)?.y ?: 0
     }
     
     /**
@@ -86,9 +86,9 @@ object ScreenUtils {
      *
      * @return the application's width of screen in pixel
      */
-    fun getAppScreenWidthPx(context: Context = ComkitApplicationConfig.getApp()): Int? {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.widthPixels
-        return getAppScreenPointPx(context = context)?.x
+    fun getAppScreenWidthPx(context: Context = ComkitApplicationConfig.getApp()): Int {
+        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.widthPixels ?: 0
+        return getAppScreenPointPx(context = context)?.x ?: 0
     }
     
     /**
@@ -96,9 +96,9 @@ object ScreenUtils {
      *
      * @return the application's height of screen in pixel
      */
-    fun getAppScreenHeightPx(context: Context = ComkitApplicationConfig.getApp()): Int? {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.heightPixels
-        return getAppScreenPointPx(context = context)?.y
+    fun getAppScreenHeightPx(context: Context = ComkitApplicationConfig.getApp()): Int {
+        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.heightPixels ?: 0
+        return getAppScreenPointPx(context = context)?.y ?: 0
     }
     
     /**
