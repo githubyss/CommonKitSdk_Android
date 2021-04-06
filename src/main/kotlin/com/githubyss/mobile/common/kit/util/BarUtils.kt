@@ -44,20 +44,30 @@ object BarUtils {
     
     /** ********** StatusBar ********** */
     
+    // /**
+    //  * Return the status bar's height.
+    //  *
+    //  * @return the status bar's height
+    //  */
+    // fun getStatusBarHeight(): Int {
+    //     val resources = Resources.getSystem()
+    //     val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+    //     return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
+    // }
+    
     /**
      * Return the status bar's height.
      *
+     * @param context The context.
      * @return the status bar's height
      */
-    fun getStatusBarHeight(): Int {
-        val resources = Resources.getSystem()
+    fun getStatusBarHeight(context: Context? = null): Int {
+        val resources: Resources = if (context == null) {
+            Resources.getSystem()
+        } else {
+            context.resources
+        }
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
-    }
-    
-    fun getStatusBarHeight(context: Context?): Int {
-        val resources = context?.resources
-        val resourceId = resources?.getIdentifier("status_bar_height", "dimen", "android") ?: return 0
         return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
     }
     

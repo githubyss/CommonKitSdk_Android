@@ -41,23 +41,23 @@ object ScreenUtils {
     
     /** ********** ********** Getter ********** ********** */
     
-    /**
-     * Get the width of screen in pixels.
-     *
-     * @return The width of screen in pixels.
-     */
-    fun getScreenWidthPx(): Int {
-        return getDisplayMetrics().widthPixels
-    }
+    // /**
+    //  * Get the width of screen in pixels.
+    //  *
+    //  * @return The width of screen in pixels.
+    //  */
+    // fun getScreenWidthPx(): Int {
+    //     return getDisplayMetrics().widthPixels
+    // }
     
-    /**
-     * Get the height of screen in pixels.
-     *
-     * @return The height of screen in pixels.
-     */
-    fun getScreenHeightPx(): Int {
-        return getDisplayMetrics().heightPixels
-    }
+    // /**
+    //  * Get the height of screen in pixels.
+    //  *
+    //  * @return The height of screen in pixels.
+    //  */
+    // fun getScreenHeightPx(): Int {
+    //     return getDisplayMetrics().heightPixels
+    // }
     
     /**
      * Get the width of screen in pixels.
@@ -65,9 +65,12 @@ object ScreenUtils {
      * @param context The context.
      * @return The width of screen in pixels.
      */
-    fun getScreenWidthPx(context: Context = ComkitApplicationConfig.getApp()): Int {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.widthPixels ?: 0
-        return getScreenPointPx(context = context)?.x ?: 0
+    fun getScreenWidthPx(context: Context? = null): Int {
+        return if (context == null) {
+            getDisplayMetrics().widthPixels
+        } else {
+            getScreenPointPx(context = context)?.x ?: 0
+        }
     }
     
     /**
@@ -76,9 +79,12 @@ object ScreenUtils {
      * @param context The context.
      * @return The height of screen in pixels.
      */
-    fun getScreenHeightPx(context: Context = ComkitApplicationConfig.getApp()): Int {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.heightPixels ?: 0
-        return getScreenPointPx(context = context)?.y ?: 0
+    fun getScreenHeightPx(context: Context? = null): Int {
+        return if (context == null) {
+            getDisplayMetrics().heightPixels
+        } else {
+            getScreenPointPx(context = context)?.y ?: 0
+        }
     }
     
     /**
@@ -87,7 +93,7 @@ object ScreenUtils {
      * @return the application's width of screen in pixel
      */
     fun getAppScreenWidthPx(context: Context = ComkitApplicationConfig.getApp()): Int {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.widthPixels ?: 0
+        getWindowManager(context = context) ?: return getDisplayMetrics(context = context).widthPixels
         return getAppScreenPointPx(context = context)?.x ?: 0
     }
     
@@ -97,7 +103,7 @@ object ScreenUtils {
      * @return the application's height of screen in pixel
      */
     fun getAppScreenHeightPx(context: Context = ComkitApplicationConfig.getApp()): Int {
-        getWindowManager(context = context) ?: return getDisplayMetrics(context = context)?.heightPixels ?: 0
+        getWindowManager(context = context) ?: return getDisplayMetrics(context = context).heightPixels
         return getAppScreenPointPx(context = context)?.y ?: 0
     }
     
@@ -131,12 +137,16 @@ object ScreenUtils {
         return point
     }
     
-    fun getStatusBarHeight(): Int {
-        return BarUtils.getStatusBarHeight()
-    }
+    // fun getStatusBarHeight(): Int {
+    //     return BarUtils.getStatusBarHeight()
+    // }
     
-    fun getStatusBarHeight(context: Context?): Int {
-        return BarUtils.getStatusBarHeight(context)
+    fun getStatusBarHeight(context: Context? = null): Int {
+        return if (context == null) {
+            BarUtils.getStatusBarHeight()
+        } else {
+            BarUtils.getStatusBarHeight(context = context)
+        }
     }
     
     /**
@@ -169,14 +179,14 @@ object ScreenUtils {
         }
     }
     
-    /**
-     * Get the screen density.
-     *
-     * @return The getScreenDensity.
-     */
-    fun getScreenDensity(): Float {
-        return getDisplayMetrics().density
-    }
+    // /**
+    //  * Get the screen density.
+    //  *
+    //  * @return The getScreenDensity.
+    //  */
+    // fun getScreenDensity(): Float {
+    //     return getDisplayMetrics().density
+    // }
     
     /**
      * Get the screen density.
@@ -184,9 +194,19 @@ object ScreenUtils {
      * @param context The context.
      * @return The getScreenDensity.
      */
-    fun getScreenDensity(context: Context = ComkitApplicationConfig.getApp()): Float? {
-        return getDisplayMetrics(context = context)?.density
+    fun getScreenDensity(context: Context? = null): Float {
+        return getDisplayMetrics(context = context).density
     }
+    
+    // /**
+    //  * Get the screen density dpi.
+    //  *
+    //  * @param
+    //  * @return
+    //  */
+    // fun getScreenDensityDpi(): Int {
+    //     return getDisplayMetrics().densityDpi
+    // }
     
     /**
      * Get the screen density dpi.
@@ -194,28 +214,18 @@ object ScreenUtils {
      * @param
      * @return
      */
-    fun getScreenDensityDpi(): Int? {
-        return getDisplayMetrics()?.densityDpi
+    fun getScreenDensityDpi(context: Context? = null): Int {
+        return getDisplayMetrics(context = context).densityDpi
     }
     
-    /**
-     * Get the screen density dpi.
-     *
-     * @param
-     * @return
-     */
-    fun getScreenDensityDpi(context: Context = ComkitApplicationConfig.getApp()): Int? {
-        return getDisplayMetrics(context = context)?.densityDpi
-    }
-    
-    /**
-     * Get the scaled density.
-     *
-     * @return The scaled getScreenDensity.
-     */
-    fun getScaledDensity(): Float {
-        return getDisplayMetrics().scaledDensity
-    }
+    // /**
+    //  * Get the scaled density.
+    //  *
+    //  * @return The scaled getScreenDensity.
+    //  */
+    // fun getScaledDensity(): Float {
+    //     return getDisplayMetrics().scaledDensity
+    // }
     
     /**
      * Get the scaled density.
@@ -223,18 +233,18 @@ object ScreenUtils {
      * @param context The context.
      * @return The scaled getScreenDensity.
      */
-    fun getScaledDensity(context: Context = ComkitApplicationConfig.getApp()): Float? {
-        return getDisplayMetrics(context = context)?.scaledDensity
+    fun getScaledDensity(context: Context? = null): Float {
+        return getDisplayMetrics(context = context).scaledDensity
     }
     
-    /**
-     * Get the default metrics.
-     *
-     * @return The default metrics.
-     */
-    fun getDisplayMetrics(): DisplayMetrics {
-        return Resources.getSystem().displayMetrics
-    }
+    // /**
+    //  * Get the default metrics.
+    //  *
+    //  * @return The default metrics.
+    //  */
+    // fun getDisplayMetrics(): DisplayMetrics {
+    //     return Resources.getSystem().displayMetrics
+    // }
     
     /**
      * Get the default metrics.
@@ -242,8 +252,12 @@ object ScreenUtils {
      * @param context The context.
      * @return The default metrics.
      */
-    fun getDisplayMetrics(context: Context = ComkitApplicationConfig.getApp()): DisplayMetrics? {
-        return context.resources.displayMetrics
+    fun getDisplayMetrics(context: Context? = null): DisplayMetrics {
+        return if (context == null) {
+            Resources.getSystem().displayMetrics
+        } else {
+            context.resources.displayMetrics
+        }
     }
     
     /**
@@ -408,8 +422,8 @@ object ScreenUtils {
      * @param pxValue The value of px.
      * @return The value of dp.
      */
-    fun px2Dp(pxValue: Float): Int {
-        return (pxValue / (getScreenDensity()) + 0.5F).toInt()
+    fun px2Dp(pxValue: Float, context: Context? = null): Int {
+        return (pxValue / (getScreenDensity(context = context)) + 0.5F).toInt()
     }
     
     /**
@@ -418,8 +432,8 @@ object ScreenUtils {
      * @param dpValue The value of dp.
      * @return The value of px.
      */
-    fun dp2Px(dpValue: Float): Int {
-        return (dpValue * (getScreenDensity()) + 0.5F).toInt()
+    fun dp2Px(dpValue: Float, context: Context? = null): Int {
+        return (dpValue * (getScreenDensity(context = context)) + 0.5F).toInt()
     }
     
     /**
@@ -428,8 +442,8 @@ object ScreenUtils {
      * @param pxValue The value of px.
      * @return The value of sp.
      */
-    fun px2Sp(pxValue: Float): Int {
-        return (pxValue / (getScaledDensity()) + 0.5F).toInt()
+    fun px2Sp(pxValue: Float, context: Context? = null): Int {
+        return (pxValue / (getScaledDensity(context = context)) + 0.5F).toInt()
     }
     
     /**
@@ -438,8 +452,8 @@ object ScreenUtils {
      * @param spValue The value of sp.
      * @return The value of px.
      */
-    fun sp2Px(spValue: Float): Int {
-        return (spValue * (getScaledDensity()) + 0.5F).toInt()
+    fun sp2Px(spValue: Float, context: Context? = null): Int {
+        return (spValue * (getScaledDensity(context = context)) + 0.5F).toInt()
     }
     
     /**
@@ -448,8 +462,8 @@ object ScreenUtils {
      * @param pxValue The value of px.
      * @return value of pt
      */
-    fun px2Pt(pxValue: Float): Int {
-        return (pxValue * 72 / getDisplayMetrics().xdpi + 0.5).toInt()
+    fun px2Pt(pxValue: Float, context: Context? = null): Int {
+        return (pxValue * 72 / getDisplayMetrics(context = context).xdpi + 0.5).toInt()
     }
     
     /**
@@ -458,7 +472,7 @@ object ScreenUtils {
      * @param ptValue The value of pt.
      * @return value of px
      */
-    fun pt2Px(ptValue: Float): Int {
-        return (ptValue * getDisplayMetrics().xdpi / 72f + 0.5).toInt()
+    fun pt2Px(ptValue: Float, context: Context? = null): Int {
+        return (ptValue * getDisplayMetrics(context = context).xdpi / 72f + 0.5).toInt()
     }
 }
