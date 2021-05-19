@@ -58,7 +58,9 @@ object ConvertUtils {
      * @return The bits.
      */
     fun bytes2Bits(bytes: ByteArray?): String {
-        if (bytes == null || bytes.isEmpty()) return ""
+        bytes ?: return ""
+        if (bytes.isEmpty()) return ""
+        
         val stringBuilder = StringBuilder()
         for (byte in bytes) {
             for (j in 7 downTo 0) {
@@ -75,9 +77,10 @@ object ConvertUtils {
      * @return The bytes.
      */
     fun bits2Bytes(bits: String?): ByteArray? {
+        bits ?: return null
         if (StringUtils.isSpace(bits)) return null
-        var bits = bits ?: return null
         
+        var bits: String = bits
         val bitsLenMod = bits.length % 8
         var bytesSize = bits.length / 8
         
@@ -105,7 +108,9 @@ object ConvertUtils {
      * @return The chars.
      */
     fun bytes2Chars(bytes: ByteArray?): CharArray? {
-        if (bytes == null || bytes.isEmpty()) return null
+        bytes ?: return null
+        if (bytes.isEmpty()) return null
+        
         val bytesSize = bytes.size
         val ret = CharArray(bytesSize)
         for (i in 0 until bytesSize) {
@@ -121,7 +126,9 @@ object ConvertUtils {
      * @return The bytes.
      */
     fun chars2Bytes(chars: CharArray?): ByteArray? {
-        if (chars == null || chars.isEmpty()) return null
+        chars ?: return null
+        if (chars.isEmpty()) return null
+        
         val charsSize = chars.size
         val ret = ByteArray(charsSize)
         for (i in 0 until charsSize) {
@@ -142,14 +149,17 @@ object ConvertUtils {
      * @return The bytes.
      */
     fun hexString2Bytes(hexString: String?): ByteArray? {
+        hexString ?: return null
         if (StringUtils.isSpace(hexString)) return null
-        var hexString = hexString ?: return null
+        
+        var hexString: String = hexString
         var len = hexString.length
         if (len % 2 != 0) {
             hexString = "0$hexString"
             len += 1
         }
-        val hexBytes = hexString.toUpperCase().toCharArray()
+        val hexBytes = hexString.toUpperCase()
+            .toCharArray()
         val ret = ByteArray(len shr 1)
         for (i in 0 until len step 2) {
             ret[i shr 1] = (hex2Dec(hexBytes[i]) shl 4 or hex2Dec(hexBytes[i + 1])).toByte()
@@ -287,8 +297,8 @@ object ConvertUtils {
      */
     @SuppressLint("DefaultLocale")
     fun millis2FitTimeSpan(millis: Long, precision: Int): String {
-        var millis = millis
-        var precision = precision
+        var millis: Long = millis
+        var precision: Int = precision
         if (millis <= 0 || precision <= 0) return ""
         val stringBuilder = StringBuilder()
         val units = arrayOf("天", "小时", "分钟", "秒", "毫秒")
@@ -298,7 +308,8 @@ object ConvertUtils {
             if (millis >= unitLens[i]) {
                 val mode = millis / unitLens[i]
                 millis -= mode * unitLens[i]
-                stringBuilder.append(mode).append(units[i])
+                stringBuilder.append(mode)
+                    .append(units[i])
             }
         }
         return stringBuilder.toString()
@@ -370,8 +381,8 @@ object ConvertUtils {
         return ImageUtils.bytes2Bitmap(bytes)
     }
     
-    fun bitmap2Drawable(context: Context = ComkitApplicationConfig.getApp(), bitmap: Bitmap?): Drawable? {
-        return ImageUtils.bitmap2Drawable(context, bitmap)
+    fun bitmap2Drawable(context: Context? = ComkitApplicationConfig.getApp(), bitmap: Bitmap?): Drawable? {
+        return ImageUtils.bitmap2Drawable(bitmap, context)
     }
     
     fun drawable2Bitmap(drawable: Drawable): Bitmap? {
@@ -382,8 +393,8 @@ object ConvertUtils {
         return ImageUtils.drawable2Bytes(drawable, format)
     }
     
-    fun bytes2Drawable(context: Context = ComkitApplicationConfig.getApp(), bytes: ByteArray?): Drawable? {
-        return ImageUtils.bytes2Drawable(context, bytes)
+    fun bytes2Drawable(context: Context? = ComkitApplicationConfig.getApp(), bytes: ByteArray?): Drawable? {
+        return ImageUtils.bytes2Drawable(bytes, context)
     }
     
     fun view2Bitmap(view: View?): Bitmap? {

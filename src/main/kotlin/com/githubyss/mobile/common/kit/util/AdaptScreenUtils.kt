@@ -27,12 +27,14 @@ object AdaptScreenUtils {
     
     /** ********** ********** Getter ********** ********** */
     
-    fun getNavBarHeight(resources: Resources): Int {
+    fun getNavBarHeight(resources: Resources?): Int {
+        resources ?: return -1
+        
         val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
         return if (resourceId != 0) {
             resources.getDimensionPixelSize(resourceId)
         } else {
-            0
+            -1
         }
     }
     
@@ -43,7 +45,9 @@ object AdaptScreenUtils {
     /**
      * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
      */
-    fun adaptWidth(resources: Resources, designWidth: Int): Resources? {
+    fun adaptWidth(resources: Resources?, designWidth: Int): Resources? {
+        resources ?: return null
+        
         val newXdpi = resources.displayMetrics.widthPixels * 72f / designWidth
         applyDisplayMetrics(resources, newXdpi)
         return resources
@@ -52,14 +56,18 @@ object AdaptScreenUtils {
     /**
      * Adapt for the vertical screen, and call it in [android.app.Activity.getResources].
      */
-    fun adaptHeight(resources: Resources, designHeight: Int): Resources? {
+    fun adaptHeight(resources: Resources?, designHeight: Int): Resources? {
+        resources ?: return null
+        
         return adaptHeight(resources, designHeight, false)
     }
     
     /**
      * Adapt for the vertical screen, and call it in [android.app.Activity.getResources].
      */
-    fun adaptHeight(resources: Resources, designHeight: Int, includeNavBar: Boolean): Resources? {
+    fun adaptHeight(resources: Resources?, designHeight: Int, includeNavBar: Boolean): Resources? {
+        resources ?: return null
+        
         val screenHeight = resources.displayMetrics.heightPixels * 72f + if (includeNavBar) getNavBarHeight(resources) else 0
         val newXdpi = screenHeight / designHeight
         applyDisplayMetrics(resources, newXdpi)
@@ -70,19 +78,25 @@ object AdaptScreenUtils {
      * @param resources The resources.
      * @return the resource
      */
-    fun closeAdapt(resources: Resources): Resources? {
+    fun closeAdapt(resources: Resources?): Resources? {
+        resources ?: return null
+        
         val newXdpi = ScreenUtils.getScreenDensity() * 72f
         applyDisplayMetrics(resources, newXdpi)
         return resources
     }
     
-    private fun applyDisplayMetrics(resources: Resources, newXdpi: Float) {
+    private fun applyDisplayMetrics(resources: Resources?, newXdpi: Float) {
+        resources ?: return
+        
         resources.displayMetrics.xdpi = newXdpi
-        ScreenUtils.getDisplayMetrics().xdpi = newXdpi
+        ScreenUtils.getDisplayMetrics()?.xdpi = newXdpi
         applyOtherDisplayMetrics(resources, newXdpi)
     }
     
-    private fun applyOtherDisplayMetrics(resources: Resources, newXdpi: Float) {
+    private fun applyOtherDisplayMetrics(resources: Resources?, newXdpi: Float) {
+        resources ?: return
+        
         if (metricsFields == null) {
             metricsFields = ArrayList<Field>()
             var resCls: Class<*>? = resources.javaClass
@@ -106,7 +120,9 @@ object AdaptScreenUtils {
         }
     }
     
-    private fun applyMetricsFields(resources: Resources, newXdpi: Float) {
+    private fun applyMetricsFields(resources: Resources?, newXdpi: Float) {
+        resources ?: return
+        
         for (metricsField in metricsFields ?: return) {
             try {
                 val dm: DisplayMetrics? = metricsField[resources] as DisplayMetrics?
@@ -117,7 +133,10 @@ object AdaptScreenUtils {
         }
     }
     
-    private fun getMetricsFromField(resources: Resources, field: Field): DisplayMetrics? {
+    private fun getMetricsFromField(resources: Resources?, field: Field?): DisplayMetrics? {
+        resources ?: return null
+        field ?: return null
+        
         return try {
             field[resources] as DisplayMetrics
         } catch (e: Exception) {

@@ -25,11 +25,15 @@ object TaskUtils {
     /** ********** ********** ********** Functions ********** ********** ********** */
     
     fun <T> doAsync(task: Task<T>?): Task<T>? {
+        task ?: return null
+        
         UTIL_POOL.execute(task)
         return task
     }
     
-    fun runOnUiThread(runnable: Runnable) {
+    fun runOnUiThread(runnable: Runnable?) {
+        runnable ?: return
+        
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run()
         } else {
@@ -37,7 +41,9 @@ object TaskUtils {
         }
     }
     
-    fun runOnUiThreadDelayed(runnable: Runnable, delayMillis: Long) {
+    fun runOnUiThreadDelayed(runnable: Runnable?, delayMillis: Long) {
+        runnable ?: return
+        
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run()
         } else {

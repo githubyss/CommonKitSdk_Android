@@ -1,7 +1,5 @@
 package com.githubyss.mobile.common.kit.util
 
-import com.githubyss.mobile.common.kit.constant.RegexSyntax
-
 
 /**
  * NumberUtils

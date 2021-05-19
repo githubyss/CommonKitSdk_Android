@@ -27,7 +27,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(array: Array<*>?): Boolean {
-        return array == null || array.isEmpty()
+        array ?: return true
+        
+        return array.isEmpty()
     }
     
     /**
@@ -38,7 +40,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(bytes: ByteArray?): Boolean {
-        return bytes == null || bytes.isEmpty()
+        bytes ?: return true
+        
+        return bytes.isEmpty()
     }
     
     /**
@@ -49,7 +53,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(chars: CharArray?): Boolean {
-        return chars == null || chars.isEmpty()
+        chars ?: return true
+        
+        return chars.isEmpty()
     }
     
     /**
@@ -60,7 +66,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(shorts: ShortArray?): Boolean {
-        return shorts == null || shorts.isEmpty()
+        shorts ?: return true
+        
+        return shorts.isEmpty()
     }
     
     /**
@@ -71,7 +79,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(ints: IntArray?): Boolean {
-        return ints == null || ints.isEmpty()
+        ints ?: return true
+        
+        return ints.isEmpty()
     }
     
     /**
@@ -82,7 +92,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(longs: LongArray?): Boolean {
-        return longs == null || longs.isEmpty()
+        longs ?: return true
+        
+        return longs.isEmpty()
     }
     
     /**
@@ -93,7 +105,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(floats: FloatArray?): Boolean {
-        return floats == null || floats.isEmpty()
+        floats ?: return true
+        
+        return floats.isEmpty()
     }
     
     /**
@@ -104,7 +118,9 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(doubles: DoubleArray?): Boolean {
-        return doubles == null || doubles.isEmpty()
+        doubles ?: return true
+        
+        return doubles.isEmpty()
     }
     
     /**
@@ -115,6 +131,8 @@ object ArrayUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(booleans: BooleanArray?): Boolean {
-        return booleans == null || booleans.isEmpty()
+        booleans ?: return true
+        
+        return booleans.isEmpty()
     }
 }

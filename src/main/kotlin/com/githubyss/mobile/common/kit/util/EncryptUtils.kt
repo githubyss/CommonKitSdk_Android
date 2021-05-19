@@ -42,7 +42,10 @@ object EncryptUtils {
      * @return the hex string of MD2 encryption
      */
     fun encryptMD2ToString(data: String?): String {
-        return if (data == null || data.isEmpty()) "" else encryptMD2ToString(data.toByteArray())
+        data ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        
+        return encryptMD2ToString(data.toByteArray())
     }
     
     /**
@@ -74,7 +77,10 @@ object EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     fun encryptMD5ToString(data: String?): String {
-        return if (data == null || data.isEmpty()) "" else encryptMD5ToString(data.toByteArray())
+        data ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        
+        return encryptMD5ToString(data.toByteArray())
     }
     
     /**
@@ -85,10 +91,13 @@ object EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     fun encryptMD5ToString(data: String?, salt: String?): String {
-        if (data == null && salt == null) return ""
-        if (salt == null) return ConvertUtils.bytes2HexString(encryptMD5(data?.toByteArray()))
-        if (data == null) return ConvertUtils.bytes2HexString(encryptMD5(salt.toByteArray()))
-        return ConvertUtils.bytes2HexString(encryptMD5((data + salt).toByteArray()))
+        return when {
+            data == null && salt == null -> ""
+            data != null && salt == null -> ConvertUtils.bytes2HexString(encryptMD5(data.toByteArray()))
+            data == null && salt != null -> ConvertUtils.bytes2HexString(encryptMD5(salt.toByteArray()))
+            data != null && salt != null -> ConvertUtils.bytes2HexString(encryptMD5((data + salt).toByteArray()))
+            else -> ""
+        }
     }
     
     /**
@@ -109,13 +118,18 @@ object EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     fun encryptMD5ToString(data: ByteArray?, salt: ByteArray?): String {
-        if (data == null && salt == null) return ""
-        if (salt == null) return ConvertUtils.bytes2HexString(encryptMD5(data))
-        if (data == null) return ConvertUtils.bytes2HexString(encryptMD5(salt))
-        val dataSalt = ByteArray(data.size + salt.size)
-        System.arraycopy(data, 0, dataSalt, 0, data.size)
-        System.arraycopy(salt, 0, dataSalt, data.size, salt.size)
-        return ConvertUtils.bytes2HexString(encryptMD5(dataSalt))
+        return when {
+            data == null && salt == null -> ""
+            data != null && salt == null -> ConvertUtils.bytes2HexString(encryptMD5(data))
+            data == null && salt != null -> ConvertUtils.bytes2HexString(encryptMD5(salt))
+            data != null && salt != null -> {
+                val dataSalt = ByteArray(data.size + salt.size)
+                System.arraycopy(data, 0, dataSalt, 0, data.size)
+                System.arraycopy(salt, 0, dataSalt, data.size, salt.size)
+                ConvertUtils.bytes2HexString(encryptMD5(dataSalt))
+            }
+            else -> ""
+        }
     }
     
     /**
@@ -137,6 +151,8 @@ object EncryptUtils {
      * @return the hex string of file's MD5 encryption
      */
     fun encryptMD5File2String(filePath: String?): String {
+        filePath ?: return ""
+        
         val file = if (StringUtils.isSpace(filePath)) null else File(filePath)
         return encryptMD5File2String(file)
     }
@@ -148,6 +164,8 @@ object EncryptUtils {
      * @return the bytes of file's MD5 encryption
      */
     fun encryptMD5File(filePath: String?): ByteArray? {
+        filePath ?: return null
+        
         val file = if (StringUtils.isSpace(filePath)) null else File(filePath)
         return encryptMD5File(file)
     }
@@ -169,7 +187,8 @@ object EncryptUtils {
      * @return the bytes of file's MD5 encryption
      */
     fun encryptMD5File(file: File?): ByteArray? {
-        if (file == null) return null
+        file ?: return null
+        
         var fis: FileInputStream? = null
         val digestInputStream: DigestInputStream
         return try {
@@ -206,7 +225,10 @@ object EncryptUtils {
      * @return the hex string of SHA1 encryption
      */
     fun encryptSHA1ToString(data: String?): String {
-        return if (data == null || data.isEmpty()) "" else encryptSHA1ToString(data.toByteArray())
+        data ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        
+        return encryptSHA1ToString(data.toByteArray())
     }
     
     /**
@@ -238,7 +260,10 @@ object EncryptUtils {
      * @return the hex string of SHA224 encryption
      */
     fun encryptSHA224ToString(data: String?): String {
-        return if (data == null || data.isEmpty()) "" else encryptSHA224ToString(data.toByteArray())
+        data ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        
+        return encryptSHA224ToString(data.toByteArray())
     }
     
     /**
@@ -270,7 +295,10 @@ object EncryptUtils {
      * @return the hex string of SHA256 encryption
      */
     fun encryptSHA256ToString(data: String?): String {
-        return if (data == null || data.isEmpty()) "" else encryptSHA256ToString(data.toByteArray())
+        data ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        
+        return encryptSHA256ToString(data.toByteArray())
     }
     
     /**
@@ -302,7 +330,10 @@ object EncryptUtils {
      * @return the hex string of SHA384 encryption
      */
     fun encryptSHA384ToString(data: String?): String {
-        return if (data == null || data.isEmpty()) "" else encryptSHA384ToString(data.toByteArray())
+        data ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        
+        return encryptSHA384ToString(data.toByteArray())
     }
     
     /**
@@ -334,7 +365,10 @@ object EncryptUtils {
      * @return the hex string of SHA512 encryption
      */
     fun encryptSHA512ToString(data: String?): String {
-        return if (data == null || data.length == 0) "" else encryptSHA512ToString(data.toByteArray())
+        data ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        
+        return encryptSHA512ToString(data.toByteArray())
     }
     
     /**
@@ -369,7 +403,12 @@ object EncryptUtils {
      * @return the hex string of HmacMD5 encryption
      */
     fun encryptHmacMD5ToString(data: String?, key: String?): String {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) "" else encryptHmacMD5ToString(data.toByteArray(), key.toByteArray())
+        data ?: return ""
+        key ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        if (StringUtils.isEmpty(key)) return ""
+        
+        return encryptHmacMD5ToString(data.toByteArray(), key.toByteArray())
     }
     
     /**
@@ -404,7 +443,12 @@ object EncryptUtils {
      * @return the hex string of HmacSHA1 encryption
      */
     fun encryptHmacSHA1ToString(data: String?, key: String?): String {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) "" else encryptHmacSHA1ToString(data.toByteArray(), key.toByteArray())
+        data ?: return ""
+        key ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        if (StringUtils.isEmpty(key)) return ""
+        
+        return encryptHmacSHA1ToString(data.toByteArray(), key.toByteArray())
     }
     
     /**
@@ -439,7 +483,12 @@ object EncryptUtils {
      * @return the hex string of HmacSHA224 encryption
      */
     fun encryptHmacSHA224ToString(data: String?, key: String?): String {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) "" else encryptHmacSHA224ToString(data.toByteArray(), key.toByteArray())
+        data ?: return ""
+        key ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        if (StringUtils.isEmpty(key)) return ""
+        
+        return encryptHmacSHA224ToString(data.toByteArray(), key.toByteArray())
     }
     
     /**
@@ -474,7 +523,12 @@ object EncryptUtils {
      * @return the hex string of HmacSHA256 encryption
      */
     fun encryptHmacSHA256ToString(data: String?, key: String?): String {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) "" else encryptHmacSHA256ToString(data.toByteArray(), key.toByteArray())
+        data ?: return ""
+        key ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        if (StringUtils.isEmpty(key)) return ""
+        
+        return encryptHmacSHA256ToString(data.toByteArray(), key.toByteArray())
     }
     
     /**
@@ -509,7 +563,12 @@ object EncryptUtils {
      * @return the hex string of HmacSHA384 encryption
      */
     fun encryptHmacSHA384ToString(data: String?, key: String?): String {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) "" else encryptHmacSHA384ToString(data.toByteArray(), key.toByteArray())
+        data ?: return ""
+        key ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        if (StringUtils.isEmpty(key)) return ""
+        
+        return encryptHmacSHA384ToString(data.toByteArray(), key.toByteArray())
     }
     
     /**
@@ -544,7 +603,12 @@ object EncryptUtils {
      * @return the hex string of HmacSHA512 encryption
      */
     fun encryptHmacSHA512ToString(data: String?, key: String?): String {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) "" else encryptHmacSHA512ToString(data.toByteArray(), key.toByteArray())
+        data ?: return ""
+        key ?: return ""
+        if (StringUtils.isEmpty(data)) return ""
+        if (StringUtils.isEmpty(key)) return ""
+        
+        return encryptHmacSHA512ToString(data.toByteArray(), key.toByteArray())
     }
     
     /**
@@ -928,7 +992,10 @@ object EncryptUtils {
      * @return the bytes of hash encryption
      */
     fun hashTemplate(data: ByteArray?, algorithm: String): ByteArray? {
-        return if (data == null || data.isEmpty()) null else try {
+        data ?: return null
+        if (ArrayUtils.isEmpty(data)) return null
+        
+        return try {
             val messageDigest = MessageDigest.getInstance(algorithm)
             messageDigest.update(data)
             messageDigest.digest()
@@ -947,7 +1014,12 @@ object EncryptUtils {
      * @return the bytes of hmac encryption
      */
     private fun hmacTemplate(data: ByteArray?, key: ByteArray?, algorithm: String): ByteArray? {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) null else try {
+        data ?: return null
+        key ?: return null
+        if (ArrayUtils.isEmpty(data)) return null
+        if (ArrayUtils.isEmpty(key)) return null
+        
+        return try {
             val secretKey = SecretKeySpec(key, algorithm)
             val mac = Mac.getInstance(algorithm)
             mac.init(secretKey)
@@ -972,7 +1044,12 @@ object EncryptUtils {
      * @return the bytes of symmetric encryption or decryption
      */
     private fun symmetricTemplate(data: ByteArray?, key: ByteArray?, algorithm: String, transformation: String?, iv: ByteArray?, isEncrypt: Boolean): ByteArray? {
-        return if (data == null || data.isEmpty() || key == null || key.isEmpty()) null else try {
+        data ?: return null
+        key ?: return null
+        if (ArrayUtils.isEmpty(data)) return null
+        if (ArrayUtils.isEmpty(key)) return null
+        
+        return try {
             val secretKey: SecretKey
             secretKey = if ("DES" == algorithm) {
                 val desKey = DESKeySpec(key)
@@ -1006,9 +1083,11 @@ object EncryptUtils {
      * @return the bytes of RSA encryption or decryption
      */
     private fun rsaTemplate(data: ByteArray?, key: ByteArray?, isPublicKey: Boolean, transformation: String?, isEncrypt: Boolean): ByteArray? {
-        if (data == null || data.isEmpty() || key == null || key.isEmpty()) {
-            return null
-        }
+        data ?: return null
+        key ?: return null
+        if (ArrayUtils.isEmpty(data)) return null
+        if (ArrayUtils.isEmpty(key)) return null
+        
         try {
             val rsaKey: Key?
             rsaKey = if (isPublicKey) {
@@ -1072,7 +1151,9 @@ object EncryptUtils {
     /** ********** joins ********** */
     
     private fun joins(prefix: ByteArray?, suffix: ByteArray?): ByteArray? {
-        if (prefix == null || suffix == null) return null
+        prefix ?: return null
+        suffix ?: return null
+        
         val ret = ByteArray(prefix.size + suffix.size)
         System.arraycopy(prefix, 0, ret, 0, prefix.size)
         System.arraycopy(suffix, 0, ret, prefix.size, suffix.size)

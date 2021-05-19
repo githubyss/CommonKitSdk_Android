@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.util
 
 import android.view.View
 import androidx.annotation.IntRange
-import androidx.annotation.NonNull
 
 
 /**
@@ -26,11 +25,15 @@ object AntiShakeUtils {
     
     /** ********** ********** Checker ********** ********** */
     
-    fun isValid(@NonNull view: View): Boolean {
+    fun isValid(view: View?): Boolean {
+        view ?: return false
+        
         return isValid(view, DEFAULT_DURATION)
     }
     
-    fun isValid(@NonNull view: View, @IntRange(from = 0) duration: Long): Boolean {
+    fun isValid(view: View?, @IntRange(from = 0) duration: Long): Boolean {
+        view ?: return false
+        
         val curTime = System.currentTimeMillis()
         val tag = view.getTag(TAG_KEY)
         if (tag !is Long) {

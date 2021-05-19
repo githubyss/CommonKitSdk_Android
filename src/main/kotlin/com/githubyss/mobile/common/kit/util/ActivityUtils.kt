@@ -12,8 +12,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.AnimRes
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
@@ -41,14 +39,13 @@ object ActivityUtils {
     var activityList: List<Activity> = activityLifecycle.activityList
     
     /** The name of launcher activity. */
-    var launcherActivity: String = getLauncherActivity(ComkitApplicationConfig.getApp(), ComkitApplicationConfig.getApp().packageName)
+    var launcherActivityName: String = getLauncherActivityName(ComkitApplicationConfig.getApp()?.packageName)
     
     /** The top activity in activity's stack. */
     var topActivity: Activity? = activityLifecycle.getTopActivity()
     
-    var topActivityOrApp: Context = if (AppUtils.isAppForeground()) {
-        val topActivity: Activity? = activityLifecycle.getTopActivity()
-        topActivity ?: ComkitApplicationConfig.getApp()
+    var topActivityOrApp: Context? = if (AppUtils.isAppForeground()) {
+        activityLifecycle.getTopActivity()
     } else {
         ComkitApplicationConfig.getApp()
     }
@@ -65,7 +62,9 @@ object ActivityUtils {
      * @return the activity by view.
      */
     fun getActivityByView(view: View?): Activity? {
-        return getActivityByContext(view?.context ?: return null)
+        view ?: return null
+        
+        return getActivityByContext(view.context ?: return null)
     }
     
     /**
@@ -75,6 +74,8 @@ object ActivityUtils {
      * @return the activity by context.
      */
     fun getActivityByContext(context: Context? = ComkitApplicationConfig.getApp()): Activity? {
+        context ?: return null
+        
         var context = context
         while (context is ContextWrapper) {
             if (context is Activity) {
@@ -88,57 +89,68 @@ object ActivityUtils {
     /**
      * Return the name of launcher activity.
      *
-     * @param context The context.
-     * @param pkg     The name of the package.
+     * @param packageName The name of the package.
+     * @param context     The context.
      * @return the name of launcher activity
      */
-    fun getLauncherActivity(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull pkg: String): String {
+    fun getLauncherActivityName(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()): String {
+        packageName ?: return ""
+        context ?: return ""
+        if (StringUtils.isSpace(packageName)) return ""
+        
         val intent = Intent(Intent.ACTION_MAIN, null)
         intent.addCategory(Intent.CATEGORY_LAUNCHER)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        val pm: PackageManager? = context.packageManager
-        val info = pm?.queryIntentActivities(intent, 0)
-        if (info != null) {
-            for (aInfo in info) {
-                if (aInfo.activityInfo.packageName == pkg) {
-                    return aInfo.activityInfo.name
-                }
+        val pm = context.packageManager ?: return ""
+        val info = pm.queryIntentActivities(intent, 0)
+        for (aInfo in info) {
+            if (aInfo.activityInfo.packageName == packageName) {
+                return aInfo.activityInfo.name
             }
         }
-        return "no $pkg"
+        LogcatUtils.d(TAG, "no $packageName")
+        return ""
     }
     
     /**
      * Return the icon of activity.
      *
-     * @param context The context.
      * @param clz     The activity class.
+     * @param context The context.
      * @return the icon of activity
      */
-    fun getActivityIcon(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull clz: Class<out Activity?>): Drawable? {
-        return getActivityIcon(context, ComponentName(context, clz))
+    fun getActivityIcon(clz: Class<out Activity?>?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        clz ?: return null
+        context ?: return null
+        
+        return getActivityIcon(ComponentName(context, clz), context)
     }
     
     /**
      * Return the icon of activity.
      *
-     * @param context  The context.
      * @param activity The activity.
+     * @param context  The context.
      * @return the icon of activity
      */
-    fun getActivityIcon(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activity: Activity): Drawable? {
-        return getActivityIcon(context, activity.componentName)
+    fun getActivityIcon(activity: Activity?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        activity ?: return null
+        context ?: return null
+        
+        return getActivityIcon(activity.componentName, context)
     }
     
     /**
      * Return the icon of activity.
      *
-     * @param context      The context.
      * @param activityName The name of activity.
+     * @param context      The context.
      * @return the icon of activity
      */
-    fun getActivityIcon(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activityName: ComponentName?): Drawable? {
-        if (activityName == null) return null
+    fun getActivityIcon(activityName: ComponentName?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        activityName ?: return null
+        context ?: return null
+        
         val packageManager: PackageManager = context.packageManager
         return try {
             packageManager.getActivityIcon(activityName)
@@ -151,35 +163,43 @@ object ActivityUtils {
     /**
      * Return the logo of activity.
      *
-     * @param context The context.
      * @param clz     The activity class.
+     * @param context The context.
      * @return the logo of activity
      */
-    fun getActivityLogo(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull clz: Class<out Activity?>): Drawable? {
-        return getActivityLogo(context, ComponentName(context, clz))
+    fun getActivityLogo(clz: Class<out Activity?>?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        clz ?: return null
+        context ?: return null
+        
+        return getActivityLogo(ComponentName(context, clz), context)
     }
     
     /**
      * Return the logo of activity.
      *
-     * @param context  The context.
      * @param activity The activity.
+     * @param context  The context.
      * @return the logo of activity
      */
-    fun getActivityLogo(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activity: Activity): Drawable? {
-        return getActivityLogo(context, activity.componentName)
+    fun getActivityLogo(activity: Activity?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        activity ?: return null
+        context ?: return null
+        
+        return getActivityLogo(activity.componentName, context)
     }
     
     /**
      * Return the logo of activity.
      *
-     * @param context      The context.
      * @param activityName The name of activity.
+     * @param context      The context.
      * @return the logo of activity
      */
-    fun getActivityLogo(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull activityName: ComponentName?): Drawable? {
-        if (activityName == null) return null
-        val packageManager: PackageManager = context.packageManager
+    fun getActivityLogo(activityName: ComponentName?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        activityName ?: return null
+        context ?: return null
+        
+        val packageManager = context.packageManager
         return try {
             packageManager.getActivityLogo(activityName)
         } catch (e: PackageManager.NameNotFoundException) {
@@ -193,14 +213,18 @@ object ActivityUtils {
     /**
      * Return whether the activity exists.
      *
-     * @param context The context.
-     * @param pkg     The name of the package.
-     * @param cls     The name of the class.
+     * @param packageName The name of the package.
+     * @param cls         The name of the class.
+     * @param context     The context.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isActivityExists(@NonNull context: Context = ComkitApplicationConfig.getApp(), @NonNull pkg: String, @NonNull cls: String): Boolean {
+    fun isActivityExists(packageName: String?, cls: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        packageName ?: return false
+        cls ?: return false
+        context ?: return false
+        
         val intent = Intent()
-        intent.setClassName(pkg, cls)
+        intent.setClassName(packageName, cls)
         return !(context.packageManager.resolveActivity(intent, 0) == null || context.packageManager?.let { intent.resolveActivity(it) } == null || context.packageManager.queryIntentActivities(intent, 0).size == 0)
     }
     
@@ -210,7 +234,9 @@ object ActivityUtils {
      * @param activity The activity.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isActivityExistsInStack(@NonNull activity: Activity): Boolean {
+    fun isActivityExistsInStack(activity: Activity?): Boolean {
+        activity ?: return false
+        
         val activities: List<Activity> = activityList
         for (aActivity in activities) {
             if (aActivity == activity) {
@@ -226,7 +252,9 @@ object ActivityUtils {
      * @param clz The activity class.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isActivityExistsInStack(@NonNull clz: Class<out Activity?>): Boolean {
+    fun isActivityExistsInStack(clz: Class<out Activity?>?): Boolean {
+        clz ?: return false
+        
         val activities: List<Activity> = activityList
         for (aActivity in activities) {
             if (aActivity.javaClass == clz) {
@@ -253,7 +281,9 @@ object ActivityUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isActivityAlive(activity: Activity?): Boolean {
-        return activity != null && !activity.isFinishing && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed)
+        activity ?: return false
+        
+        return !activity.isFinishing && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed)
     }
     
     /**
@@ -275,7 +305,10 @@ object ActivityUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isFragmentAlive(activity: Activity?, fragment: Fragment?): Boolean {
-        return isActivityAlive(activity) && fragment != null && !fragment.isDetached
+        activity ?: return false
+        fragment ?: return false
+        
+        return isActivityAlive(activity) && !fragment.isDetached
     }
     
     /** ********** ********** Operator ********** ********** */
@@ -290,7 +323,10 @@ object ActivityUtils {
      * @param extras  The Bundle of extras to add to this intent.
      * @param options Additional options for how the Activity should be started.
      */
-    fun startActivity(@NonNull context: Context = topActivityOrApp, @NonNull clz: Class<out Activity?>, @Nullable extras: Bundle? = null, @Nullable options: Bundle? = null) {
+    fun startActivity(context: Context? = topActivityOrApp, clz: Class<out Activity?>?, extras: Bundle? = null, options: Bundle? = null) {
+        context ?: return
+        clz ?: return
+        
         startActivity(context, context.packageName, clz.name, extras, options)
     }
     
@@ -302,43 +338,54 @@ object ActivityUtils {
      * @param extras   The Bundle of extras to add to this intent.
      * @param options  Additional options for how the Activity should be started.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull clz: Class<out Activity?>, @Nullable extras: Bundle? = null, @Nullable options: Bundle? = null) {
+    fun startActivity(activity: Activity?, clz: Class<out Activity?>?, extras: Bundle? = null, options: Bundle? = null) {
+        activity ?: return
+        clz ?: return
+        
         startActivity(activity, activity.packageName, clz.name, extras, options)
     }
     
     /**
      * Start the activity.
      *
-     * @param context The context.
-     * @param pkg     The name of the package.
-     * @param cls     The name of the class.
-     * @param extras  The Bundle of extras to add to this intent.
-     * @param options Additional options for how the Activity should be started.
+     * @param context     The context.
+     * @param packageName The name of the package.
+     * @param cls         The name of the class.
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param options     Additional options for how the Activity should be started.
      */
-    fun startActivity(@NonNull context: Context = topActivityOrApp, @NonNull pkg: String, @NonNull cls: String, @Nullable extras: Bundle? = null, @Nullable options: Bundle? = null) {
+    fun startActivity(context: Context? = topActivityOrApp, packageName: String?, cls: String?, extras: Bundle? = null, options: Bundle? = null) {
+        context ?: return
+        packageName ?: return
+        cls ?: return
+        
         val intent = Intent(Intent.ACTION_VIEW)
         if (extras != null) {
             intent.putExtras(extras)
         }
-        intent.component = ComponentName(pkg, cls)
+        intent.component = ComponentName(packageName, cls)
         startActivity(context, intent, options)
     }
     
     /**
      * Start the activity.
      *
-     * @param activity The activity.
-     * @param pkg      The name of the package.
-     * @param cls      The name of the class.
-     * @param extras   The Bundle of extras to add to this intent.
-     * @param options  Additional options for how the Activity should be started.
+     * @param activity    The activity.
+     * @param packageName The name of the package.
+     * @param cls         The name of the class.
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param options     Additional options for how the Activity should be started.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull pkg: String, @NonNull cls: String, @Nullable extras: Bundle? = null, @Nullable options: Bundle? = null) {
+    fun startActivity(activity: Activity?, packageName: String?, cls: String?, extras: Bundle? = null, options: Bundle? = null) {
+        activity ?: return
+        packageName ?: return
+        cls ?: return
+        
         val intent = Intent(Intent.ACTION_VIEW)
         if (extras != null) {
             intent.putExtras(extras)
         }
-        intent.component = ComponentName(pkg, cls)
+        intent.component = ComponentName(packageName, cls)
         startActivity(activity, intent, options)
     }
     
@@ -350,7 +397,10 @@ object ActivityUtils {
      * @param options Additional options for how the Activity should be started.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun startActivity(@NonNull context: Context = topActivityOrApp, @NonNull intent: Intent, @Nullable options: Bundle? = null): Boolean {
+    fun startActivity(context: Context? = topActivityOrApp, intent: Intent?, options: Bundle? = null): Boolean {
+        context ?: return false
+        intent ?: return false
+        
         if (!isIntentAvailable(context, intent)) {
             LogcatUtils.d(TAG, "intent is unavailable")
             return false
@@ -373,7 +423,10 @@ object ActivityUtils {
      * @param intent   The description of the activity to start.
      * @param options  Additional options for how the Activity should be started.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull intent: Intent, @Nullable options: Bundle? = null): Boolean {
+    fun startActivity(activity: Activity?, intent: Intent?, options: Bundle? = null): Boolean {
+        activity ?: return false
+        intent ?: return false
+        
         if (!isIntentAvailable(activity, intent)) {
             Log.e("ActivityUtils", "intent is unavailable")
             return false
@@ -397,7 +450,10 @@ object ActivityUtils {
      * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivity(@NonNull context: Context = topActivityOrApp, @NonNull clz: Class<out Activity?>, @Nullable extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivity(context: Context? = topActivityOrApp, clz: Class<out Activity?>?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        context ?: return
+        clz ?: return
+        
         startActivity(context, context.packageName, clz.name, extras, getOptionsBundle(context, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context is Activity) {
             context.overridePendingTransition(enterAnim, exitAnim)
@@ -413,7 +469,10 @@ object ActivityUtils {
      * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull clz: Class<out Activity?>, @NonNull extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivity(activity: Activity?, clz: Class<out Activity?>?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        clz ?: return
+        
         startActivity(activity, activity.packageName, clz.name, extras, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
@@ -423,15 +482,19 @@ object ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param context   The context.
-     * @param pkg       The name of the package.
-     * @param cls       The name of the class.
-     * @param extras    The Bundle of extras to add to this intent.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param context     The context.
+     * @param packageName The name of the package.
+     * @param cls         The name of the class.
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
+     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivity(@NonNull context: Context = topActivityOrApp, @NonNull pkg: String, @NonNull cls: String, @Nullable extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
-        startActivity(context, pkg, cls, extras, getOptionsBundle(context, enterAnim, exitAnim))
+    fun startActivity(context: Context? = topActivityOrApp, packageName: String?, cls: String?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        context ?: return
+        packageName ?: return
+        cls ?: return
+        
+        startActivity(context, packageName, cls, extras, getOptionsBundle(context, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context is Activity) {
             context.overridePendingTransition(enterAnim, exitAnim)
         }
@@ -440,15 +503,19 @@ object ActivityUtils {
     /**
      * Start the activity.
      *
-     * @param activity  The activity.
-     * @param pkg       The name of the package.
-     * @param cls       The name of the class.
-     * @param extras    The Bundle of extras to add to this intent.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param activity    The activity.
+     * @param packageName The name of the package.
+     * @param cls         The name of the class.
+     * @param extras      The Bundle of extras to add to this intent.
+     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
+     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull pkg: String, @NonNull cls: String, @Nullable extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
-        startActivity(activity, pkg, cls, extras, getOptionsBundle(activity, enterAnim, exitAnim))
+    fun startActivity(activity: Activity?, packageName: String?, cls: String?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        packageName ?: return
+        cls ?: return
+        
+        startActivity(activity, packageName, cls, extras, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
         }
@@ -463,7 +530,10 @@ object ActivityUtils {
      * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
      * @return `true`: success<br></br>`false`: fail
      */
-    fun startActivity(@NonNull context: Context = topActivityOrApp, @NonNull intent: Intent, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int): Boolean {
+    fun startActivity(context: Context? = topActivityOrApp, intent: Intent?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int): Boolean {
+        context ?: return false
+        intent ?: return false
+        
         val isSuccess = startActivity(context, intent, getOptionsBundle(context, enterAnim, exitAnim))
         if (isSuccess) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context is Activity) {
@@ -481,7 +551,10 @@ object ActivityUtils {
      * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull intent: Intent, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivity(activity: Activity?, intent: Intent?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        intent ?: return
+        
         startActivity(activity, intent, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
@@ -498,7 +571,10 @@ object ActivityUtils {
      * @param extras         The Bundle of extras to add to this intent.
      * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull clz: Class<out Activity?>, @Nullable extras: Bundle? = null, vararg sharedElements: View) {
+    fun startActivity(activity: Activity?, clz: Class<out Activity?>?, extras: Bundle? = null, vararg sharedElements: View) {
+        activity ?: return
+        clz ?: return
+        
         startActivity(activity, activity.packageName, clz.name, extras, getOptionsBundle(activity, sharedElements))
     }
     
@@ -506,13 +582,17 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param activity       The activity.
-     * @param pkg            The name of the package.
+     * @param packageName    The name of the package.
      * @param cls            The name of the class.
      * @param extras         The Bundle of extras to add to this intent.
      * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull pkg: String, @NonNull cls: String, @Nullable extras: Bundle? = null, vararg sharedElements: View) {
-        startActivity(activity, pkg, cls, extras, getOptionsBundle(activity, sharedElements))
+    fun startActivity(activity: Activity?, packageName: String?, cls: String?, extras: Bundle? = null, vararg sharedElements: View) {
+        activity ?: return
+        packageName ?: return
+        cls ?: return
+        
+        startActivity(activity, packageName, cls, extras, getOptionsBundle(activity, sharedElements))
     }
     
     /**
@@ -522,7 +602,10 @@ object ActivityUtils {
      * @param intent         The description of the activity to start.
      * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
      */
-    fun startActivity(@NonNull activity: Activity, @NonNull intent: Intent, vararg sharedElements: View) {
+    fun startActivity(activity: Activity?, intent: Intent?, vararg sharedElements: View) {
+        activity ?: return
+        intent ?: return
+        
         startActivity(activity, intent, getOptionsBundle(activity, sharedElements))
     }
     
@@ -537,7 +620,10 @@ object ActivityUtils {
      * @param extras      The Bundle of extras to add to this intent.
      * @param options     Additional options for how the Activity should be started.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull clz: Class<out Activity?>, requestCode: Int, @Nullable extras: Bundle? = null, @Nullable options: Bundle? = null) {
+    fun startActivityForResult(activity: Activity?, clz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, options: Bundle? = null) {
+        activity ?: return
+        clz ?: return
+        
         startActivityForResult(activity, activity.packageName, clz.name, requestCode, extras, options)
     }
     
@@ -545,16 +631,20 @@ object ActivityUtils {
      * Start the activity for result.
      *
      * @param activity    The activity.
-     * @param pkg         The name of the package.
+     * @param packageName The name of the package.
      * @param cls         The name of the class.
      * @param requestCode if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param extras      The Bundle of extras to add to this intent.
      * @param options     Additional options for how the Activity should be started.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull pkg: String, @NonNull cls: String, requestCode: Int, @Nullable extras: Bundle? = null, @Nullable options: Bundle? = null): Boolean {
+    fun startActivityForResult(activity: Activity?, packageName: String?, cls: String?, requestCode: Int, extras: Bundle? = null, options: Bundle? = null): Boolean {
+        activity ?: return false
+        packageName ?: return false
+        cls ?: return false
+        
         val intent = Intent(Intent.ACTION_VIEW)
         if (extras != null) intent.putExtras(extras)
-        intent.component = ComponentName(pkg, cls)
+        intent.component = ComponentName(packageName, cls)
         return startActivityForResult(activity, intent, requestCode, options)
     }
     
@@ -566,7 +656,10 @@ object ActivityUtils {
      * @param requestCode if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param options     Additional options for how the Activity should be started.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull intent: Intent, requestCode: Int, @Nullable options: Bundle? = null): Boolean {
+    fun startActivityForResult(activity: Activity?, intent: Intent?, requestCode: Int, options: Bundle? = null): Boolean {
+        activity ?: return false
+        intent ?: return false
+        
         if (!isIntentAvailable(activity, intent)) {
             Log.e("ActivityUtils", "intent is unavailable")
             return false
@@ -591,7 +684,10 @@ object ActivityUtils {
      * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull clz: Class<out Activity?>, requestCode: Int, @Nullable extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivityForResult(activity: Activity?, clz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        clz ?: return
+        
         startActivityForResult(activity, activity.packageName, clz.name, requestCode, extras, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
@@ -602,15 +698,19 @@ object ActivityUtils {
      * Start the activity for result.
      *
      * @param activity    The activity.
-     * @param pkg         The name of the package.
+     * @param packageName The name of the package.
      * @param cls         The name of the class.
      * @param requestCode if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param extras      The Bundle of extras to add to this intent.
      * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull pkg: String, @NonNull cls: String, requestCode: Int, @Nullable extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
-        startActivityForResult(activity, pkg, cls, requestCode, extras, getOptionsBundle(activity, enterAnim, exitAnim))
+    fun startActivityForResult(activity: Activity?, packageName: String?, cls: String?, requestCode: Int, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        packageName ?: return
+        cls ?: return
+        
+        startActivityForResult(activity, packageName, cls, requestCode, extras, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
         }
@@ -625,7 +725,10 @@ object ActivityUtils {
      * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull intent: Intent, requestCode: Int, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivityForResult(activity: Activity?, intent: Intent?, requestCode: Int, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        intent ?: return
+        
         startActivityForResult(activity, intent, requestCode, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
@@ -643,7 +746,10 @@ object ActivityUtils {
      * @param extras         The Bundle of extras to add to this intent.
      * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull clz: Class<out Activity?>, requestCode: Int, @Nullable extras: Bundle? = null, vararg sharedElements: View) {
+    fun startActivityForResult(activity: Activity?, clz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, vararg sharedElements: View) {
+        activity ?: return
+        clz ?: return
+        
         startActivityForResult(activity, activity.packageName, clz.name, requestCode, extras, getOptionsBundle(activity, sharedElements))
     }
     
@@ -651,14 +757,18 @@ object ActivityUtils {
      * Start the activity for result.
      *
      * @param activity       The activity.
-     * @param pkg            The name of the package.
+     * @param packageName    The name of the package.
      * @param cls            The name of the class.
      * @param requestCode    if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param extras         The Bundle of extras to add to this intent.
      * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull pkg: String, @NonNull cls: String, requestCode: Int, @Nullable extras: Bundle? = null, vararg sharedElements: View) {
-        startActivityForResult(activity, pkg, cls, requestCode, extras, getOptionsBundle(activity, sharedElements))
+    fun startActivityForResult(activity: Activity?, packageName: String?, cls: String?, requestCode: Int, extras: Bundle? = null, vararg sharedElements: View) {
+        activity ?: return
+        packageName ?: return
+        cls ?: return
+        
+        startActivityForResult(activity, packageName, cls, requestCode, extras, getOptionsBundle(activity, sharedElements))
     }
     
     /**
@@ -669,7 +779,10 @@ object ActivityUtils {
      * @param requestCode    if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param sharedElements The names of the shared elements to transfer to the called Activity and their associated Views.
      */
-    fun startActivityForResult(@NonNull activity: Activity, @NonNull intent: Intent, requestCode: Int, vararg sharedElements: View) {
+    fun startActivityForResult(activity: Activity?, intent: Intent?, requestCode: Int, vararg sharedElements: View) {
+        activity ?: return
+        intent ?: return
+        
         startActivityForResult(activity, intent, requestCode, getOptionsBundle(activity, sharedElements))
     }
     
@@ -682,7 +795,10 @@ object ActivityUtils {
      * @param intents The descriptions of the activities to start.
      * @param options Additional options for how the Activity should be started.
      */
-    fun startActivities(@NonNull context: Context = topActivityOrApp, @NonNull intents: Array<Intent>, @Nullable options: Bundle? = null) {
+    fun startActivities(context: Context? = topActivityOrApp, intents: Array<Intent>?, options: Bundle? = null) {
+        context ?: return
+        intents ?: return
+        
         if (context !is Activity) {
             for (intent in intents) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -702,7 +818,10 @@ object ActivityUtils {
      * @param intents  The descriptions of the activities to start.
      * @param options  Additional options for how the Activity should be started.
      */
-    fun startActivities(@NonNull activity: Activity, @NonNull intents: Array<Intent>, @Nullable options: Bundle? = null) {
+    fun startActivities(activity: Activity?, intents: Array<Intent>?, options: Bundle? = null) {
+        activity ?: return
+        intents ?: return
+        
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             activity.startActivities(intents, options)
         } else {
@@ -720,7 +839,10 @@ object ActivityUtils {
      * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivities(@NonNull context: Context = topActivityOrApp, @NonNull intents: Array<Intent>, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivities(context: Context? = topActivityOrApp, intents: Array<Intent>?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        context ?: return
+        intents ?: return
+        
         startActivities(context, intents, getOptionsBundle(context, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context is Activity) {
             context.overridePendingTransition(enterAnim, exitAnim)
@@ -735,7 +857,10 @@ object ActivityUtils {
      * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
      * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
      */
-    fun startActivities(@NonNull activity: Activity, @NonNull intents: Array<Intent>, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivities(activity: Activity?, intents: Array<Intent>?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        intents ?: return
+        
         startActivities(activity, intents, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
@@ -764,8 +889,10 @@ object ActivityUtils {
      * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishActivity(@NonNull clz: Class<out Activity?>, @NonNull isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
-        val activities: List<Activity> = activityList
+    fun finishActivity(clz: Class<out Activity?>?, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+        clz ?: return
+        
+        val activities = activityList
         for (activity in activities) {
             if (activity.javaClass == clz) {
                 activity.finish()
@@ -785,7 +912,9 @@ object ActivityUtils {
      * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishActivity(@NonNull activity: Activity, @NonNull isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+    fun finishActivity(activity: Activity?, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+        activity ?: return
+        
         activity.finish()
         if (!isLoadAnim) {
             activity.overridePendingTransition(enterAnim, exitAnim)
@@ -804,8 +933,10 @@ object ActivityUtils {
      * @param exitAnim      A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishToActivity(@NonNull clz: Class<out Activity?>, @NonNull isIncludeSelf: Boolean, @NonNull isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0): Boolean {
-        val activities: List<Activity> = activityList
+    fun finishToActivity(clz: Class<out Activity?>?, isIncludeSelf: Boolean, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0): Boolean {
+        clz ?: return false
+        
+        val activities = activityList
         for (i in activities.indices.reversed()) {
             val aActivity = activities[i]
             if (aActivity.javaClass == clz) {
@@ -829,8 +960,10 @@ object ActivityUtils {
      * @param exitAnim      A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishToActivity(@NonNull activity: Activity, isIncludeSelf: Boolean, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0): Boolean {
-        val activities: List<Activity> = activityList
+    fun finishToActivity(activity: Activity?, isIncludeSelf: Boolean, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0): Boolean {
+        activity ?: return false
+        
+        val activities = activityList
         for (i in activities.indices.reversed()) {
             val aActivity = activities[i]
             if (aActivity == activity) {
@@ -855,8 +988,10 @@ object ActivityUtils {
      * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishOtherActivities(@NonNull clz: Class<out Activity?>, @NonNull isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
-        val activities: List<Activity> = activityList
+    fun finishOtherActivities(clz: Class<out Activity?>?, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+        clz ?: return
+        
+        val activities = activityList
         for (i in activities.indices.reversed()) {
             val activity = activities[i]
             if (activity.javaClass != clz) {
@@ -875,8 +1010,8 @@ object ActivityUtils {
      * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishAllActivities(@NonNull isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
-        val activityList: List<Activity> = activityList
+    fun finishAllActivities(isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+        val activityList = activityList
         for (i in activityList.indices.reversed()) { // remove from top
             val activity = activityList[i]
             // sActivityList remove the index activity at onActivityDestroyed
@@ -898,7 +1033,7 @@ object ActivityUtils {
      */
     @JvmOverloads
     fun finishAllActivitiesExceptNewest(isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
-        val activities: List<Activity> = activityList
+        val activities = activityList
         for (i in activities.size - 2 downTo 0) {
             finishActivity(activities[i], isLoadAnim, enterAnim, exitAnim)
         }
@@ -907,15 +1042,22 @@ object ActivityUtils {
     
     /** ********** ********** ********** Private ********** ********** ********** */
     
-    private fun isIntentAvailable(context: Context = ComkitApplicationConfig.getApp(), intent: Intent): Boolean {
+    private fun isIntentAvailable(context: Context? = ComkitApplicationConfig.getApp(), intent: Intent?): Boolean {
+        context ?: return false
+        intent ?: return false
+        
         return context.packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)?.size ?: -1 > 0
     }
     
-    private fun getOptionsBundle(context: Context, enterAnim: Int, exitAnim: Int): Bundle? {
+    private fun getOptionsBundle(context: Context? = ComkitApplicationConfig.getApp(), enterAnim: Int, exitAnim: Int): Bundle? {
+        context ?: return null
+        
         return ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim).toBundle()
     }
     
-    private fun getOptionsBundle(activity: Activity, sharedElements: Array<out View>?): Bundle? {
+    private fun getOptionsBundle(activity: Activity?, sharedElements: Array<out View>?): Bundle? {
+        activity ?: return null
+        
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return null
         if (sharedElements == null) return null
         val len = sharedElements.size

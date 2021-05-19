@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -51,10 +50,6 @@ android {
         main {
             java.srcDirs += 'src/main/kotlin'
         }
-    }
-
-    androidExtensions {
-        experimental = true
     }
 
     // lintOptions {

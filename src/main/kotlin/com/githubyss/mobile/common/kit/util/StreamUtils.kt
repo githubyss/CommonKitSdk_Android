@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.util
 
 import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import java.io.*
-import java.util.ArrayList
+import java.util.*
 
 
 /**
@@ -31,11 +31,14 @@ object StreamUtils {
      * @return The output stream.
      */
     fun input2BytesOutput(`is`: InputStream?): ByteArrayOutputStream? {
-        return if (`is` == null) null else try {
+        `is` ?: return null
+        
+        return try {
             val baos = ByteArrayOutputStream()
             val bytes = ByteArray(BUFFER_SIZE)
             var len: Int
-            while (`is`.read(bytes, 0, BUFFER_SIZE).also { len = it } != -1) {
+            while (`is`.read(bytes, 0, BUFFER_SIZE)
+                        .also { len = it } != -1) {
                 baos.write(bytes, 0, len)
             }
             baos
@@ -58,7 +61,9 @@ object StreamUtils {
      * @return The input stream.
      */
     fun output2BytesInput(os: OutputStream?): ByteArrayInputStream? {
-        return if (os == null) null else ByteArrayInputStream(output2Bytes(os))
+        os ?: return null
+        
+        return ByteArrayInputStream(output2Bytes(os))
     }
     
     /**
@@ -68,7 +73,9 @@ object StreamUtils {
      * @return The bytes.
      */
     fun input2Bytes(`is`: InputStream?): ByteArray? {
-        return if (`is` == null) null else input2BytesOutput(`is`)?.toByteArray()
+        `is` ?: return null
+        
+        return input2BytesOutput(`is`)?.toByteArray()
     }
     
     /**
@@ -78,7 +85,10 @@ object StreamUtils {
      * @return The input stream.
      */
     fun bytes2Input(bytes: ByteArray?): InputStream? {
-        return if (ArrayUtils.isEmpty(bytes)) null else ByteArrayInputStream(bytes)
+        bytes ?: return null
+        if (ArrayUtils.isEmpty(bytes)) return null
+        
+        return ByteArrayInputStream(bytes)
     }
     
     /**
@@ -88,7 +98,9 @@ object StreamUtils {
      * @return The bytes.
      */
     fun output2Bytes(os: OutputStream?): ByteArray? {
-        return if (os == null) null else (os as ByteArrayOutputStream).toByteArray()
+        os ?: return null
+        
+        return (os as ByteArrayOutputStream).toByteArray()
     }
     
     /**
@@ -98,7 +110,9 @@ object StreamUtils {
      * @return The output stream.
      */
     fun bytes2Output(bytes: ByteArray?): OutputStream? {
+        bytes ?: return null
         if (ArrayUtils.isEmpty(bytes)) return null
+        
         var baos: ByteArrayOutputStream? = null
         return try {
             baos = ByteArrayOutputStream()
@@ -122,17 +136,21 @@ object StreamUtils {
      * @param `is` The input stream.
      * @return The list.
      */
-    fun input2List(`is`: InputStream, charsetName: String?): List<String>? {
+    fun input2List(`is`: InputStream?, charsetName: String?): List<String>? {
+        `is` ?: return null
+        charsetName ?: return null
+        
         var reader: BufferedReader? = null
         return try {
             val list: MutableList<String> = ArrayList()
             reader = if (StringUtils.isSpace(charsetName)) {
                 BufferedReader(InputStreamReader(`is`))
             } else {
-                BufferedReader(InputStreamReader(`is`, charsetName ?: return null))
+                BufferedReader(InputStreamReader(`is`, charsetName))
             }
             var line: String
-            while (reader.readLine().also { line = it } != null) {
+            while (reader.readLine()
+                        .also { line = it } != null) {
                 list.add(line)
             }
             list
@@ -151,12 +169,16 @@ object StreamUtils {
     /**
      * Input stream to string.
      *
-     * @param `is`       The input stream.
+     * @param `is`        The input stream.
      * @param charsetName The name of charset.
      * @return The string.
      */
     fun input2String(`is`: InputStream?, charsetName: String?): String {
-        return if (`is` == null || StringUtils.isSpace(charsetName)) "" else try {
+        `is` ?: return ""
+        charsetName ?: return ""
+        if (StringUtils.isSpace(charsetName)) return ""
+        
+        return try {
             val baos = input2BytesOutput(`is`) ?: return ""
             baos.toString(charsetName ?: return "")
         } catch (e: UnsupportedEncodingException) {
@@ -173,8 +195,13 @@ object StreamUtils {
      * @return The input stream.
      */
     fun string2Input(string: String?, charsetName: String?): InputStream? {
-        return if (StringUtils.isSpace(charsetName)) null else try {
-            ByteArrayInputStream(string?.toByteArray(charset(charsetName ?: return null)))
+        string ?: return null
+        charsetName ?: return null
+        if (StringUtils.isSpace(string)) return null
+        if (StringUtils.isSpace(charsetName)) return null
+        
+        return try {
+            ByteArrayInputStream(string.toByteArray(charset(charsetName)))
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
             null
@@ -184,13 +211,17 @@ object StreamUtils {
     /**
      * Output stream to string.
      *
-     * @param output      The output stream.
+     * @param os      The output stream.
      * @param charsetName The name of charset.
      * @return The string
      */
-    fun output2String(output: OutputStream?, charsetName: String?): String {
-        return if (output == null || StringUtils.isSpace(charsetName)) "" else try {
-            String(output2Bytes(output) ?: ByteArray(0), charset(charsetName ?: return ""))
+    fun output2String(os: OutputStream?, charsetName: String?): String {
+        os ?: return ""
+        charsetName ?: return ""
+        if (StringUtils.isSpace(charsetName)) return ""
+        
+        return try {
+            String(output2Bytes(os) ?: ByteArray(0), charset(charsetName))
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
             ""
@@ -205,8 +236,13 @@ object StreamUtils {
      * @return The output stream.
      */
     fun string2Output(string: String?, charsetName: String?): OutputStream? {
-        return if (StringUtils.isSpace(charsetName)) null else try {
-            bytes2Output(string?.toByteArray(charset(charsetName ?: return null)))
+        string ?: return null
+        charsetName ?: return null
+        if (StringUtils.isSpace(string)) return null
+        if (StringUtils.isSpace(charsetName)) return null
+        
+        return try {
+            bytes2Output(string.toByteArray(charset(charsetName)))
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
             null
@@ -215,17 +251,21 @@ object StreamUtils {
     
     /** ********** writeFileFromInput ********** */
     
-    fun writeFileFromInput(filePath: String?, `is`: InputStream, append: Boolean = false): Boolean {
+    fun writeFileFromInput(filePath: String?, `is`: InputStream?, append: Boolean = false): Boolean {
         return writeFileFromInput(FileUtils.getFileByPath(filePath), `is`, append)
     }
     
-    fun writeFileFromInput(file: File?, `is`: InputStream, append: Boolean = false): Boolean {
+    fun writeFileFromInput(file: File?, `is`: InputStream?, append: Boolean = false): Boolean {
+        file ?: return false
+        `is` ?: return false
+        
         var os: OutputStream? = null
         return try {
-            os = BufferedOutputStream(FileOutputStream(file ?: return false, append))
+            os = BufferedOutputStream(FileOutputStream(file, append))
             val data = ByteArray(BUFFER_SIZE)
             var len: Int
-            while (`is`.read(data, 0, BUFFER_SIZE).also { len = it } != -1) {
+            while (`is`.read(data, 0, BUFFER_SIZE)
+                        .also { len = it } != -1) {
                 os.write(data, 0, len)
             }
             true

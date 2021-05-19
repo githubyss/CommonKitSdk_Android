@@ -20,7 +20,6 @@ import android.os.Build
 import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
-import androidx.annotation.NonNull
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleImpl
 import java.io.BufferedReader
@@ -48,7 +47,7 @@ object AppUtils {
     
     /** ********** ********** Getter ********** ********** */
     
-    fun getApplicationByReflect(): Application {
+    fun getApplicationByReflect(): Application? {
         try {
             @SuppressLint("PrivateApi")
             val activityThread = Class.forName("android.app.ActivityThread")
@@ -71,13 +70,18 @@ object AppUtils {
      * Return the application's icon.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's icon
      */
-    fun getAppIcon(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): Drawable? {
-        return if (StringUtils.isSpace(packageName)) null else try {
-            val packageManager: PackageManager = context.packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName ?: return null, 0)
-            packageInfo?.applicationInfo?.loadIcon(packageManager)
+    fun getAppIcon(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        packageName ?: return null
+        context ?: return null
+        if (StringUtils.isSpace(packageName)) return null
+        
+        return try {
+            val packageManager = context.packageManager ?: return null
+            val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return null
+            packageInfo.applicationInfo?.loadIcon(packageManager)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
@@ -87,23 +91,29 @@ object AppUtils {
     /**
      * Return the application's package name.
      *
+     * @param context The context.
      * @return the application's package name
      */
-    fun getAppPackageName(context: Context = ComkitApplicationConfig.getApp()): String {
-        return context.packageName
+    fun getAppPackageName(context: Context? = ComkitApplicationConfig.getApp()): String {
+        return context?.packageName ?: ""
     }
     
     /**
      * Return the application's name.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's name
      */
-    fun getAppName(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): String {
-        return if (StringUtils.isSpace(packageName)) "" else try {
-            val packageManager: PackageManager = context.packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName ?: return "", 0)
-            packageInfo?.applicationInfo?.loadLabel(packageManager)?.toString() ?: ""
+    fun getAppName(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): String {
+        packageName ?: return ""
+        context ?: return ""
+        if (StringUtils.isSpace(packageName)) return ""
+        
+        return try {
+            val packageManager = context.packageManager ?: return ""
+            val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
+            packageInfo.applicationInfo?.loadLabel(packageManager)?.toString() ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             ""
@@ -114,13 +124,18 @@ object AppUtils {
      * Return the application's path.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's path
      */
-    fun getAppPath(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): String {
-        return if (StringUtils.isSpace(packageName)) "" else try {
-            val packageManager: PackageManager = context.packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName ?: return "", 0)
-            packageInfo?.applicationInfo?.sourceDir ?: ""
+    fun getAppPath(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): String {
+        packageName ?: return ""
+        context ?: return ""
+        if (StringUtils.isSpace(packageName)) return ""
+        
+        return try {
+            val packageManager = context.packageManager ?: return ""
+            val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
+            packageInfo.applicationInfo?.sourceDir ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             ""
@@ -131,13 +146,18 @@ object AppUtils {
      * Return the application's version name.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's version name
      */
-    fun getAppVersionName(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): String {
-        return if (StringUtils.isSpace(packageName)) "" else try {
-            val packageManager: PackageManager = context.packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName ?: return "", 0)
-            packageInfo?.versionName ?: ""
+    fun getAppVersionName(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): String {
+        packageName ?: return ""
+        context ?: return ""
+        if (StringUtils.isSpace(packageName)) return ""
+        
+        return try {
+            val packageManager = context.packageManager ?: return ""
+            val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
+            packageInfo.versionName ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             ""
@@ -148,13 +168,18 @@ object AppUtils {
      * Return the application's version code.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's version code
      */
-    fun getAppVersionCode(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): Int {
-        return if (StringUtils.isSpace(packageName)) -1 else try {
-            val packageManager: PackageManager = context.packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName ?: return -1, 0)
-            packageInfo?.versionCode ?: -1
+    fun getAppVersionCode(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Int {
+        packageName ?: return -1
+        context ?: return -1
+        if (StringUtils.isSpace(packageName)) return -1
+        
+        return try {
+            val packageManager = context.packageManager ?: return -1
+            val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return -1
+            packageInfo.versionCode
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             -1
@@ -165,15 +190,20 @@ object AppUtils {
      * Return the application's signature.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's signature
      */
-    fun getAppSignature(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): Array<Signature?>? {
-        return if (StringUtils.isSpace(packageName)) null else try {
-            val packageManager: PackageManager = context.packageManager
+    fun getAppSignature(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Array<Signature?>? {
+        packageName ?: return null
+        context ?: return null
+        if (StringUtils.isSpace(packageName)) return null
+        
+        return try {
+            val packageManager = context.packageManager ?: return null
             
             @SuppressLint("PackageManagerGetSignatures")
-            val packageInfo = packageManager.getPackageInfo(packageName ?: return null, PackageManager.GET_SIGNATURES)
-            packageInfo?.signatures
+            val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES) ?: return null
+            packageInfo.signatures
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
@@ -210,28 +240,34 @@ object AppUtils {
         return getAppSignatureHash(packageName, "MD5")
     }
     
-    private fun getAppSignatureHash(packageName: String?, algorithm: String): String {
+    private fun getAppSignatureHash(packageName: String?, algorithm: String?): String {
+        packageName ?: return ""
+        algorithm ?: return ""
         if (StringUtils.isSpace(packageName)) return ""
-        val signature = getAppSignature(packageName)
-        return if (signature == null || signature.isEmpty()) "" else ConvertUtils.bytes2HexString(EncryptUtils.hashTemplate(signature[0]?.toByteArray(), algorithm)).replace("(?<=[0-9A-F]{2})[0-9A-F]{2}".toRegex(), ":$0")
+        
+        val signature = getAppSignature(packageName) ?: return ""
+        return if (signature.isEmpty()) "" else ConvertUtils.bytes2HexString(EncryptUtils.hashTemplate(signature[0]?.toByteArray(), algorithm)).replace("(?<=[0-9A-F]{2})[0-9A-F]{2}".toRegex(), ":$0")
     }
     
     /**
      * Return the application's user-ID.
      *
-     * @param pkgName The name of the package.
+     * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's signature for MD5 value
      */
-    fun getAppUid(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): Int {
-        try {
-            val applicationInfo: ApplicationInfo? = context.packageManager.getApplicationInfo(packageName ?: return -1, 0)
-            if (applicationInfo != null) {
-                return applicationInfo.uid
-            }
+    fun getAppUid(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Int {
+        packageName ?: return -1
+        context ?: return -1
+        if (StringUtils.isSpace(packageName)) return -1
+        
+        return try {
+            val applicationInfo = context.packageManager?.getApplicationInfo(packageName, 0) ?: return -1
+            applicationInfo.uid
         } catch (e: Exception) {
             e.printStackTrace()
+            -1
         }
-        return -1
     }
     
     /**
@@ -246,12 +282,17 @@ object AppUtils {
      *  * is system
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return the application's information
      */
-    fun getAppInfo(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): AppInfo? {
+    fun getAppInfo(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): AppInfo? {
+        packageName ?: return null
+        context ?: return null
+        if (StringUtils.isSpace(packageName)) return null
+        
         return try {
-            val packageManager: PackageManager = context.packageManager ?: return null
-            getBean(packageManager, packageManager.getPackageInfo(packageName ?: return null, 0))
+            val packageManager = context.packageManager ?: return null
+            getBean(packageManager, packageManager.getPackageInfo(packageName, 0))
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
@@ -261,12 +302,15 @@ object AppUtils {
     /**
      * Return the applications' information.
      *
+     * @param context The context.
      * @return the applications' information
      */
-    fun getAppsInfo(context: Context = ComkitApplicationConfig.getApp()): List<AppInfo>? {
+    fun getAppsInfo(context: Context? = ComkitApplicationConfig.getApp()): List<AppInfo>? {
+        context ?: return null
+        
         val list: MutableList<AppInfo> = ArrayList()
-        val packageManager: PackageManager = context.packageManager ?: return list
-        val installedPackages = packageManager.getInstalledPackages(0)
+        val packageManager = context.packageManager ?: return list
+        val installedPackages = packageManager.getInstalledPackages(0) ?: return list
         for (aPackage in installedPackages) {
             val appInfo: AppInfo = getBean(packageManager, aPackage) ?: continue
             list.add(appInfo)
@@ -274,8 +318,44 @@ object AppUtils {
         return list
     }
     
-    private fun getBean(packageManager: PackageManager, packageInfo: PackageInfo?): AppInfo? {
-        if (packageInfo == null) return null
+    /**
+     * Return the application's package information.
+     *
+     * @param apkFile The file of apk.
+     * @param context The context.
+     * @return the application's package information
+     */
+    fun getApkInfo(apkFile: File?, context: Context? = ComkitApplicationConfig.getApp()): AppInfo? {
+        apkFile ?: return null
+        if (!apkFile.isFile || !apkFile.exists()) return null
+        
+        return getApkInfo(apkFile.absolutePath, context)
+    }
+    
+    /**
+     * Return the application's package information.
+     *
+     * @param apkFilePath The path of apk file.
+     * @param context     The context.
+     * @return the application's package information
+     */
+    fun getApkInfo(apkFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): AppInfo? {
+        apkFilePath ?: return null
+        context ?: return null
+        if (StringUtils.isSpace(apkFilePath)) return null
+        
+        val packageManager = context.packageManager ?: return null
+        val packageInfo = packageManager.getPackageArchiveInfo(apkFilePath, 0) ?: return null
+        val appInfo = packageInfo.applicationInfo
+        appInfo?.sourceDir = apkFilePath
+        appInfo?.publicSourceDir = apkFilePath
+        return getBean(packageManager, packageInfo)
+    }
+    
+    private fun getBean(packageManager: PackageManager?, packageInfo: PackageInfo?): AppInfo? {
+        packageManager ?: return null
+        packageInfo ?: return null
+        
         val applicationInfo = packageInfo.applicationInfo
         val packageName = packageInfo.packageName
         val name = applicationInfo.loadLabel(packageManager).toString()
@@ -287,35 +367,14 @@ object AppUtils {
         return AppInfo(packageName, name, icon, packagePath, versionName, versionCode, isSystem)
     }
     
-    /**
-     * Return the application's package information.
-     *
-     * @return the application's package information
-     */
-    fun getApkInfo(apkFilePath: String?, context: Context = ComkitApplicationConfig.getApp()): AppInfo? {
-        if (StringUtils.isSpace(apkFilePath)) return null
-        val packageManager: PackageManager = context.packageManager ?: return null
-        val packageInfo = packageManager.getPackageArchiveInfo(apkFilePath ?: return null, 0) ?: return null
-        val appInfo = packageInfo.applicationInfo
-        appInfo.sourceDir = apkFilePath
-        appInfo.publicSourceDir = apkFilePath
-        return getBean(packageManager, packageInfo)
-    }
-    
-    /**
-     * Return the application's package information.
-     *
-     * @return the application's package information
-     */
-    fun getApkInfo(apkFile: File?): AppInfo? {
-        return if (apkFile == null || !apkFile.isFile || !apkFile.exists()) null else getApkInfo(apkFilePath = apkFile.absolutePath)
-    }
-    
-    fun getForegroundProcessName(application: Application = ComkitApplicationConfig.getApp()): String {
-        val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val processInfo = activityManager.runningAppProcesses
+    fun getForegroundProcessName(application: Application? = ComkitApplicationConfig.getApp()): String {
+        application ?: return ""
         
-        if (processInfo != null && processInfo.size > 0) {
+        val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val processInfo = activityManager.runningAppProcesses ?: return ""
+        if (processInfo.size == 0) return ""
+        
+        if (processInfo.size > 0) {
             for (aInfo in processInfo) {
                 if (aInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
                     return aInfo.processName
@@ -373,8 +432,10 @@ object AppUtils {
         return ""
     }
     
-    fun getCurrentProcessName(application: Application = ComkitApplicationConfig.getApp()): String? {
-        var name: String? = getCurrentProcessNameByFile()
+    fun getCurrentProcessName(application: Application? = ComkitApplicationConfig.getApp()): String {
+        application ?: return ""
+        
+        var name = getCurrentProcessNameByFile()
         if (!TextUtils.isEmpty(name)) return name
         name = getCurrentProcessNameByAms(application)
         if (!TextUtils.isEmpty(name)) return name
@@ -395,12 +456,15 @@ object AppUtils {
         }
     }
     
-    fun getCurrentProcessNameByAms(application: Application = ComkitApplicationConfig.getApp()): String {
+    fun getCurrentProcessNameByAms(application: Application? = ComkitApplicationConfig.getApp()): String {
+        application ?: return ""
+        
         val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val info = activityManager.runningAppProcesses
-        if (info == null || info.size == 0) return ""
+        val processInfo = activityManager.runningAppProcesses ?: return ""
+        if (processInfo.size == 0) return ""
+        
         val pid = Process.myPid()
-        for (aInfo in info) {
+        for (aInfo in processInfo) {
             if (aInfo.pid == pid) {
                 if (aInfo.processName != null) {
                     return aInfo.processName
@@ -410,22 +474,22 @@ object AppUtils {
         return ""
     }
     
-    fun getCurrentProcessNameByReflect(application: Application = ComkitApplicationConfig.getApp()): String {
+    fun getCurrentProcessNameByReflect(application: Application? = ComkitApplicationConfig.getApp()): String {
+        application ?: return ""
+        
         var processName = ""
         try {
-            val app: Application? = application
-            app?.let {
-                val loadedApkField = app.javaClass.getField("mLoadedApk")
-                loadedApkField.isAccessible = true
-                val loadedApk = loadedApkField[app]
-                
-                val activityThreadField = loadedApk.javaClass.getDeclaredField("mActivityThread")
-                activityThreadField.isAccessible = true
-                val activityThread = activityThreadField[loadedApk]
-                
-                val getProcessName = activityThread.javaClass.getDeclaredMethod("getProcessName")
-                processName = getProcessName.invoke(activityThread) as String
-            }
+            val app = application
+            val loadedApkField = app.javaClass.getField("mLoadedApk")
+            loadedApkField.isAccessible = true
+            val loadedApk = loadedApkField[app]
+            
+            val activityThreadField = loadedApk.javaClass.getDeclaredField("mActivityThread")
+            activityThreadField.isAccessible = true
+            val activityThread = activityThreadField[loadedApk]
+            
+            val getProcessName = activityThread.javaClass.getDeclaredMethod("getProcessName")
+            processName = getProcessName.invoke(activityThread) as String
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -438,13 +502,17 @@ object AppUtils {
      * Return whether the app is installed.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isAppInstalled(@NonNull packageName: String?, context: Context = ComkitApplicationConfig.getApp()): Boolean {
+    fun isAppInstalled(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        packageName ?: return false
+        context ?: return false
         if (StringUtils.isSpace(packageName)) return false
-        val packageManager: PackageManager? = context.packageManager
+        
+        val packageManager = context.packageManager
         return try {
-            packageManager?.getApplicationInfo(packageName ?: return false, 0) != null
+            packageManager?.getApplicationInfo(packageName, 0) != null
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
@@ -469,13 +537,18 @@ object AppUtils {
      * Return whether it is a debug application.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isAppDebug(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): Boolean {
-        return if (StringUtils.isSpace(packageName)) false else try {
-            val packageManager: PackageManager? = context.packageManager
-            val applicationInfo = packageManager?.getApplicationInfo(packageName ?: return false, 0)
-            applicationInfo != null && applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+    fun isAppDebug(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        packageName ?: return false
+        context ?: return false
+        if (StringUtils.isSpace(packageName)) return false
+        
+        return try {
+            val packageManager = context.packageManager ?: return false
+            val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
+            applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
@@ -486,13 +559,18 @@ object AppUtils {
      * Return whether it is a system application.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isAppSystem(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()): Boolean {
-        return if (StringUtils.isSpace(packageName)) false else try {
-            val packageManager: PackageManager? = context.packageManager
-            val applicationInfo = packageManager?.getApplicationInfo(packageName ?: return false, 0)
-            applicationInfo != null && applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
+    fun isAppSystem(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        packageName ?: return false
+        context ?: return false
+        if (StringUtils.isSpace(packageName)) return false
+        
+        return try {
+            val packageManager = context.packageManager ?: return false
+            val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
+            applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
@@ -508,7 +586,9 @@ object AppUtils {
      * @param packageName The name of the package.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isAppForeground(@NonNull packageName: String? = getAppPackageName()): Boolean {
+    fun isAppForeground(packageName: String? = getAppPackageName()): Boolean {
+        packageName ?: return false
+        
         return !StringUtils.isSpace(packageName) && packageName == getForegroundProcessName()
     }
     
@@ -516,39 +596,43 @@ object AppUtils {
      * Return whether application is running.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isAppRunning(@NonNull packageName: String?, context: Context = ComkitApplicationConfig.getApp()): Boolean {
+    fun isAppRunning(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        packageName ?: return false
+        context ?: return false
+        if (StringUtils.isSpace(packageName)) return false
+        
         val uid: Int
-        val packageManager: PackageManager = context.packageManager
+        val packageManager = context.packageManager ?: return false
         uid = try {
-            val applicationInfo = packageManager.getApplicationInfo(packageName ?: return false, 0) ?: return false
+            val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
             applicationInfo.uid
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             return false
         }
         
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
-        if (activityManager != null) {
-            val taskInfo = activityManager.getRunningTasks(Int.MAX_VALUE)
-            if (taskInfo != null && taskInfo.size > 0) {
-                for (aInfo in taskInfo) {
-                    if (packageName == aInfo.baseActivity?.packageName) {
-                        return true
-                    }
-                }
-            }
-            
-            val serviceInfo = activityManager.getRunningServices(Int.MAX_VALUE)
-            if (serviceInfo != null && serviceInfo.size > 0) {
-                for (aInfo in serviceInfo) {
-                    if (uid == aInfo.uid) {
-                        return true
-                    }
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager? ?: return false
+        val taskInfo = activityManager.getRunningTasks(Int.MAX_VALUE)
+        if (taskInfo != null && taskInfo.size > 0) {
+            for (aInfo in taskInfo) {
+                if (packageName == aInfo.baseActivity?.packageName) {
+                    return true
                 }
             }
         }
+        
+        val serviceInfo = activityManager.getRunningServices(Int.MAX_VALUE)
+        if (serviceInfo != null && serviceInfo.size > 0) {
+            for (aInfo in serviceInfo) {
+                if (uid == aInfo.uid) {
+                    return true
+                }
+            }
+        }
+        
         return false
     }
     
@@ -561,7 +645,7 @@ object AppUtils {
      * @param obj      The object.
      * @param listener The status of application changed listener
      */
-    fun registerAppStatusChangedListener(@NonNull obj: Any?, @NonNull listener: ActivityLifecycleImpl.OnAppStatusChangedListener?) {
+    fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleImpl.OnAppStatusChangedListener?) {
         ActivityLifecycleImpl.INSTANCE.addOnAppStatusChangedListener(obj, listener)
     }
     
@@ -570,7 +654,7 @@ object AppUtils {
      *
      * @param obj The object.
      */
-    fun unregisterAppStatusChangedListener(@NonNull obj: Any?) {
+    fun unregisterAppStatusChangedListener(obj: Any?) {
         ActivityLifecycleImpl.INSTANCE.removeOnAppStatusChangedListener(obj)
     }
     
@@ -583,9 +667,10 @@ object AppUtils {
      * `<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />`
      *
      * @param filePath The path of file.
+     * @param context  The context.
      */
-    fun installApp(filePath: String?) {
-        installApp(file = FileUtils.getFileByPath(filePath))
+    fun installApp(filePath: String?, context: Context? = ComkitApplicationConfig.getApp()) {
+        installApp(FileUtils.getFileByPath(filePath), context)
     }
     
     /**
@@ -594,10 +679,14 @@ object AppUtils {
      * Target APIs greater than 25 must hold
      * `<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />`
      *
-     * @param file The file.
+     * @param file    The file.
+     * @param context The context.
      */
-    fun installApp(file: File?, context: Context = ComkitApplicationConfig.getApp()) {
+    fun installApp(file: File?, context: Context? = ComkitApplicationConfig.getApp()) {
+        file ?: return
+        context ?: return
         if (!FileUtils.isFileExists(file)) return
+        
         context.startActivity(IntentUtils.getInstallAppIntent(file, true))
     }
     
@@ -607,13 +696,13 @@ object AppUtils {
      * Target APIs greater than 25 must hold
      * `<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />`
      *
-     * @param activity    The activity.
      * @param filePath    The path of file.
      * @param requestCode If &gt;= 0, this code will be returned in
+     * @param activity    The activity.
      * onActivityResult() when the activity exits.
      */
-    fun installApp(activity: Activity?, filePath: String?, requestCode: Int) {
-        installApp(activity, FileUtils.getFileByPath(filePath), requestCode)
+    fun installApp(filePath: String?, requestCode: Int, activity: Activity?) {
+        installApp(FileUtils.getFileByPath(filePath), requestCode, activity)
     }
     
     /**
@@ -622,14 +711,17 @@ object AppUtils {
      * Target APIs greater than 25 must hold
      * `<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />`
      *
-     * @param activity    The activity.
      * @param file        The file.
      * @param requestCode If &gt;= 0, this code will be returned in
+     * @param activity    The activity.
      * onActivityResult() when the activity exits.
      */
-    fun installApp(activity: Activity?, file: File?, requestCode: Int) {
+    fun installApp(file: File?, requestCode: Int, activity: Activity?) {
+        file ?: return
+        activity ?: return
         if (!FileUtils.isFileExists(file)) return
-        activity?.startActivityForResult(IntentUtils.getInstallAppIntent(file), requestCode)
+        
+        activity.startActivityForResult(IntentUtils.getInstallAppIntent(file), requestCode)
     }
     
     /** ********** installAppSilent ********** */
@@ -643,6 +735,7 @@ object AppUtils {
      *
      * @param filePath The path of file.
      * @param params   The params of installation(e.g.,`-r`, `-s`).
+     * @param isRooted True to use root, false otherwise.
      * @return `true`: success<br></br>`false`: fail
      */
     fun installAppSilent(filePath: String?, params: String? = null, isRooted: Boolean = DeviceUtils.isDeviceRooted()): Boolean {
@@ -662,9 +755,12 @@ object AppUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun installAppSilent(file: File?, params: String? = null, isRooted: Boolean = DeviceUtils.isDeviceRooted()): Boolean {
+        file ?: return false
+        params ?: return false
         if (!FileUtils.isFileExists(file)) return false
-        val filePath = '"'.toString() + file?.absolutePath + '"'
-        val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install " + (if (params == null) "" else "$params ") + filePath
+        
+        val filePath = '"'.toString() + file.absolutePath + '"'
+        val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install $params $filePath"
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
         return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase().contains("success")) {
             true
@@ -680,23 +776,30 @@ object AppUtils {
      * Uninstall the app.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      */
-    fun uninstallApp(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()) {
+    fun uninstallApp(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()) {
+        packageName ?: return
+        context ?: return
         if (StringUtils.isSpace(packageName)) return
+        
         context.startActivity(IntentUtils.getUninstallAppIntent(packageName, true))
     }
     
     /**
      * Uninstall the app.
      *
-     * @param activity    The activity.
      * @param packageName The name of the package.
      * @param requestCode If &gt;= 0, this code will be returned in
+     * @param activity    The activity.
      * onActivityResult() when the activity exits.
      */
-    fun uninstallApp(activity: Activity?, packageName: String? = getAppPackageName(), requestCode: Int) {
+    fun uninstallApp(packageName: String? = getAppPackageName(), requestCode: Int, activity: Activity?) {
+        packageName ?: return
+        activity ?: return
         if (StringUtils.isSpace(packageName)) return
-        activity?.startActivityForResult(IntentUtils.getUninstallAppIntent(packageName), requestCode)
+        
+        activity.startActivityForResult(IntentUtils.getUninstallAppIntent(packageName), requestCode)
     }
     
     /** ********** uninstallAppSilent ********** */
@@ -714,7 +817,9 @@ object AppUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun uninstallAppSilent(packageName: String? = getAppPackageName(), isKeepData: Boolean = false, isRooted: Boolean = DeviceUtils.isDeviceRooted()): Boolean {
+        packageName ?: return false
         if (StringUtils.isSpace(packageName)) return false
+        
         val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall " + (if (isKeepData) "-k " else "") + packageName
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
         return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase().contains("success")) {
@@ -731,22 +836,29 @@ object AppUtils {
      * Launch the application.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      */
-    fun launchApp(packageName: String?, context: Context = ComkitApplicationConfig.getApp()) {
+    fun launchApp(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()) {
+        packageName ?: return
+        context ?: return
         if (StringUtils.isSpace(packageName)) return
+        
         context.startActivity(IntentUtils.getLaunchAppIntent(packageName, true))
     }
     
     /**
      * Launch the application.
      *
-     * @param activity    The activity.
      * @param packageName The name of the package.
      * @param requestCode If &gt;= 0, this code will be returned in
+     * @param activity    The activity.
      * onActivityResult() when the activity exits.
      */
-    fun launchApp(activity: Activity, packageName: String?, requestCode: Int) {
+    fun launchApp(packageName: String?, requestCode: Int, activity: Activity?) {
+        packageName ?: return
+        activity ?: return
         if (StringUtils.isSpace(packageName)) return
+        
         activity.startActivityForResult(IntentUtils.getLaunchAppIntent(packageName), requestCode)
     }
     
@@ -756,9 +868,12 @@ object AppUtils {
      * Relaunch the application.
      *
      * @param isKillProcess True to kill the process, false otherwise.
+     * @param context       The context.
      */
-    fun relaunchApp(isKillProcess: Boolean = false, context: Context = ComkitApplicationConfig.getApp()) {
-        val packageManager: PackageManager = context.packageManager
+    fun relaunchApp(isKillProcess: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+        context ?: return
+        
+        val packageManager = context.packageManager ?: return
         val intent = packageManager.getLaunchIntentForPackage(context.packageName) ?: return
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         context.startActivity(intent)
@@ -773,9 +888,13 @@ object AppUtils {
      * Launch the application's details settings.
      *
      * @param packageName The name of the package.
+     * @param context     The context.
      */
-    fun launchAppDetailsSettings(packageName: String? = getAppPackageName(), context: Context = ComkitApplicationConfig.getApp()) {
+    fun launchAppDetailsSettings(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()) {
+        packageName ?: return
+        context ?: return
         if (StringUtils.isSpace(packageName)) return
+        
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         intent.data = Uri.parse("package:$packageName")
         context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -787,7 +906,7 @@ object AppUtils {
      * Exit the application.
      */
     fun exitApp() {
-        val activityList: List<Activity> = ActivityUtils.activityList
+        val activityList = ActivityUtils.activityList
         for (i in activityList.indices.reversed()) { // remove from top
             val activity = activityList[i]
             // sActivityList remove the index activity at onActivityDestroyed
@@ -804,7 +923,7 @@ object AppUtils {
      */
     class AppInfo(var packageName: String? = null, var name: String? = null, var icon: Drawable? = null, var packagePath: String? = null, var versionName: String? = null, var versionCode: Int = 0, var isSystem: Boolean = false) {
         override fun toString(): String {
-            return "{\n  pkg name: $packageName\n  app icon: $icon\n  app name: $name\n  app path: $packagePath\n  app v name: $versionName\n  app v code: $versionCode\n  is system: $isSystem}"
+            return "{\n  package name: $packageName\n  app icon: $icon\n  app name: $name\n  app path: $packagePath\n  app v name: $versionName\n  app v code: $versionCode\n  is system: $isSystem}"
         }
     }
 }

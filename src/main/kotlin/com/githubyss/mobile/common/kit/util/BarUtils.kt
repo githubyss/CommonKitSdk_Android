@@ -1,11 +1,9 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.Manifest.permission
-import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Point
 import android.os.Build
@@ -17,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.drawerlayout.widget.DrawerLayout
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 
 
@@ -44,31 +43,16 @@ object BarUtils {
     
     /** ********** StatusBar ********** */
     
-    // /**
-    //  * Return the status bar's height.
-    //  *
-    //  * @return the status bar's height
-    //  */
-    // fun getStatusBarHeight(): Int {
-    //     val resources = Resources.getSystem()
-    //     val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-    //     return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
-    // }
-    
     /**
      * Return the status bar's height.
      *
      * @param context The context.
      * @return the status bar's height
      */
-    fun getStatusBarHeight(context: Context? = null): Int {
-        val resources: Resources = if (context == null) {
-            Resources.getSystem()
-        } else {
-            context.resources
-        }
+    fun getStatusBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
+        val resources = ResourceUtils.getResources(context) ?: return -1
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
+        return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else -1
     }
     
     /** ********** ActionBar ********** */
@@ -79,10 +63,9 @@ object BarUtils {
      * @return the action bar's height
      */
     fun getActionBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
+        val resources = ResourceUtils.getResources(context) ?: return -1
         val tv = TypedValue()
-        return if (context?.theme?.resolveAttribute(R.attr.actionBarSize, tv, true) ?: return 0) {
-            TypedValue.complexToDimensionPixelSize(tv.data, context.resources.displayMetrics)
-        } else 0
+        return if (context?.theme?.resolveAttribute(R.attr.actionBarSize, tv, true) ?: return -1) TypedValue.complexToDimensionPixelSize(tv.data, ScreenUtils.getDisplayMetrics(context)) else -1
     }
     
     /** ********** NavigationBar ********** */
@@ -92,10 +75,10 @@ object BarUtils {
      *
      * @return the navigation bar's height
      */
-    fun getNavBarHeight(): Int {
-        val resources = Resources.getSystem()
+    fun getNavBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
+        val resources = ResourceUtils.getResources(context) ?: return -1
         val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
+        return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else -1
     }
     
     /**
@@ -106,7 +89,9 @@ object BarUtils {
      */
     @RequiresApi(VersionCode.LOLLIPOP)
     fun getNavBarColor(activity: Activity?): Int {
-        return getNavBarColor(activity?.window)
+        activity ?: return -1
+        
+        return getNavBarColor(activity.window)
     }
     
     /**
@@ -117,7 +102,9 @@ object BarUtils {
      */
     @RequiresApi(VersionCode.LOLLIPOP)
     fun getNavBarColor(window: Window?): Int {
-        return window?.navigationBarColor ?: 0
+        window ?: return -1
+        
+        return window.navigationBarColor
     }
     
     /** ********** ********** Checker ********** ********** */
@@ -131,7 +118,21 @@ object BarUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isStatusBarVisible(activity: Activity?): Boolean {
-        val flags = activity?.window?.attributes?.flags ?: return false
+        activity ?: return false
+        
+        return isStatusBarVisible(activity.window)
+    }
+    
+    /**
+     * Return whether the status bar is visible.
+     *
+     * @param window The window.
+     * @return `true`: yes<br></br>`false`: no
+     */
+    fun isStatusBarVisible(window: Window?): Boolean {
+        window ?: return false
+        
+        val flags = window.attributes?.flags ?: return false
         return flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == 0
     }
     
@@ -142,7 +143,9 @@ object BarUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isStatusBarLightMode(activity: Activity?): Boolean {
-        return isStatusBarLightMode(activity?.window)
+        activity ?: return false
+        
+        return isStatusBarLightMode(activity.window)
     }
     
     /**
@@ -152,12 +155,12 @@ object BarUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isStatusBarLightMode(window: Window?): Boolean {
+        window ?: return false
+        
         if (Build.VERSION.SDK_INT >= VersionCode.M) {
-            val decorView = window?.decorView
-            if (decorView != null) {
-                val vis = decorView.systemUiVisibility
-                return vis and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR != 0
-            }
+            val decorView = window.decorView
+            val vis = decorView.systemUiVisibility
+            return vis and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR != 0
         }
         return false
     }
@@ -173,7 +176,9 @@ object BarUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isNavBarVisible(activity: Activity?): Boolean {
-        return isNavBarVisible(activity?.window)
+        activity ?: return false
+        
+        return isNavBarVisible(activity.window)
     }
     
     /**
@@ -185,7 +190,9 @@ object BarUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isNavBarVisible(window: Window?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
-        if (window == null) return false
+        window ?: return false
+        context ?: return false
+        
         var isVisible = false
         val decorView = window.decorView as ViewGroup
         var i = 0
@@ -194,7 +201,7 @@ object BarUtils {
             val child = decorView.getChildAt(i)
             val id = child.id
             if (id != View.NO_ID) {
-                val resourceEntryName: String? = context?.resources?.getResourceEntryName(id)
+                val resourceEntryName: String? = context.resources?.getResourceEntryName(id)
                 if ("navigationBarBackground" == resourceEntryName && child.visibility == View.VISIBLE) {
                     isVisible = true
                     break

@@ -47,7 +47,10 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(filePath: String?): Bitmap? {
-        return if (StringUtils.isSpace(filePath)) null else BitmapFactory.decodeFile(filePath)
+        filePath ?: return null
+        if (StringUtils.isSpace(filePath)) return null
+        
+        return BitmapFactory.decodeFile(filePath)
     }
     
     /**
@@ -57,7 +60,9 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(file: File?): Bitmap? {
-        return if (file == null) null else BitmapFactory.decodeFile(file.absolutePath)
+        file ?: return null
+        
+        return BitmapFactory.decodeFile(file.absolutePath)
     }
     
     /**
@@ -67,7 +72,9 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(`is`: InputStream?): Bitmap? {
-        return if (`is` == null) null else BitmapFactory.decodeStream(`is`)
+        `is` ?: return null
+        
+        return BitmapFactory.decodeStream(`is`)
     }
     
     /**
@@ -78,7 +85,10 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(bytes: ByteArray?, offset: Int): Bitmap? {
-        return if (bytes == null || bytes.isEmpty()) null else BitmapFactory.decodeByteArray(bytes, offset, bytes.size)
+        bytes ?: return null
+        if (bytes.isEmpty()) return null
+        
+        return BitmapFactory.decodeByteArray(bytes, offset, bytes.size)
     }
     
     /**
@@ -88,7 +98,9 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(fileDescriptor: FileDescriptor?): Bitmap? {
-        return if (fileDescriptor == null) null else BitmapFactory.decodeFileDescriptor(fileDescriptor)
+        fileDescriptor ?: return null
+        
+        return BitmapFactory.decodeFileDescriptor(fileDescriptor)
     }
     
     /**
@@ -97,8 +109,10 @@ object ImageUtils {
      * @param resId The resource id.
      * @return bitmap
      */
-    fun getBitmap(@DrawableRes resId: Int): Bitmap? {
-        val drawable: Drawable = ContextCompat.getDrawable(ComkitApplicationConfig.getApp(), resId) ?: return null
+    fun getBitmap(@DrawableRes resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Bitmap? {
+        context ?: return null
+        
+        val drawable = ContextCompat.getDrawable(context, resId) ?: return null
         val canvas = Canvas()
         val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
         canvas.setBitmap(bitmap)
@@ -118,7 +132,9 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(filePath: String?, maxWidth: Int, maxHeight: Int): Bitmap? {
+        filePath ?: return null
         if (StringUtils.isSpace(filePath)) return null
+        
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(filePath, options)
@@ -136,7 +152,8 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(file: File?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (file == null) return null
+        file ?: return null
+        
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(file.absolutePath, options)
@@ -154,8 +171,9 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(`is`: InputStream?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (`is` == null) return null
-        val bytes: ByteArray? = input2Byte(`is`)
+        `is` ?: return null
+        
+        val bytes = input2Byte(`is`)
         return getBitmap(bytes, 0, maxWidth, maxHeight)
     }
     
@@ -169,7 +187,9 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(bytes: ByteArray?, offset: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (bytes == null || bytes.isEmpty()) return null
+        bytes ?: return null
+        if (bytes.isEmpty()) return null
+        
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeByteArray(bytes, offset, bytes.size, options)
@@ -187,7 +207,8 @@ object ImageUtils {
      * @return bitmap
      */
     fun getBitmap(fileDescriptor: FileDescriptor?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        if (fileDescriptor == null) return null
+        fileDescriptor ?: return null
+        
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options)
@@ -206,7 +227,7 @@ object ImageUtils {
      */
     fun getBitmap(@DrawableRes resId: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
         val options = BitmapFactory.Options()
-        val resources: Resources = ComkitApplicationConfig.getApp().resources
+        val resources: Resources? = ComkitApplicationConfig.getApp()?.resources
         options.inJustDecodeBounds = true
         BitmapFactory.decodeResource(resources, resId, options)
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
@@ -222,7 +243,7 @@ object ImageUtils {
      * @param filePath The path of file.
      * @return the type of image
      */
-    fun getImageType(filePath: String?): String? {
+    fun getImageType(filePath: String?): String {
         return getImageType(FileUtils.getFileByPath(filePath))
     }
     
@@ -232,8 +253,9 @@ object ImageUtils {
      * @param file The file.
      * @return the type of image
      */
-    fun getImageType(file: File?): String? {
-        if (file == null) return ""
+    fun getImageType(file: File?): String {
+        file ?: return ""
+        
         var `is`: InputStream? = null
         try {
             `is` = FileInputStream(file)
@@ -253,25 +275,32 @@ object ImageUtils {
         return getFileExtension(file.absolutePath).toUpperCase()
     }
     
-    fun getImageType(`is`: InputStream?): String? {
-        return if (`is` == null) null else try {
+    fun getImageType(`is`: InputStream?): String {
+        `is` ?: return ""
+        
+        return try {
             val bytes = ByteArray(8)
-            if (`is`.read(bytes, 0, 8) != -1) getImageType(bytes) else null
+            if (`is`.read(bytes, 0, 8) != -1) getImageType(bytes) else ""
         } catch (e: IOException) {
             e.printStackTrace()
-            null
+            ""
         }
     }
     
-    fun getImageType(bytes: ByteArray): String? {
-        if (ImageUtils.isJPEG(bytes)) return "JPEG"
-        if (ImageUtils.isGIF(bytes)) return "GIF"
-        if (ImageUtils.isPNG(bytes)) return "PNG"
-        return if (ImageUtils.isBMP(bytes)) "BMP" else null
+    fun getImageType(bytes: ByteArray?): String {
+        return when {
+            isJPEG(bytes) -> "JPEG"
+            isGIF(bytes) -> "GIF"
+            isPNG(bytes) -> "PNG"
+            isBMP(bytes) -> "BMP"
+            else -> ""
+        }
     }
     
-    fun getFileExtension(filePath: String): String {
-        if (StringUtils.isSpace(filePath)) return filePath
+    fun getFileExtension(filePath: String?): String {
+        filePath ?: return ""
+        if (StringUtils.isSpace(filePath)) return ""
+        
         val lastPoi = filePath.lastIndexOf('.')
         val lastSep = filePath.lastIndexOf(File.separator)
         return if (lastPoi == -1 || lastSep >= lastPoi) "" else filePath.substring(lastPoi + 1)
@@ -294,7 +323,8 @@ object ImageUtils {
      * @return the size of bitmap
      */
     fun getSize(file: File?): IntArray? {
-        if (file == null) return intArrayOf(0, 0)
+        file ?: return null
+        
         val opts = BitmapFactory.Options()
         opts.inJustDecodeBounds = true
         BitmapFactory.decodeFile(file.absolutePath, opts)
@@ -310,8 +340,10 @@ object ImageUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isImage(file: File?): Boolean {
-        return if (file == null || !file.exists()) false
-        else isImage(file.path)
+        file ?: return false
+        if (!file.exists()) return false
+        
+        return isImage(file.path)
     }
     
     /**
@@ -321,6 +353,8 @@ object ImageUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isImage(filePath: String?): Boolean {
+        filePath ?: return false
+        
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         return try {
@@ -331,24 +365,34 @@ object ImageUtils {
         }
     }
     
-    fun isJPEG(b: ByteArray): Boolean {
-        return b.size >= 2 && b[0] == 0xFF.toByte() && b[1] == 0xD8.toByte()
+    fun isJPEG(bytes: ByteArray?): Boolean {
+        bytes ?: return false
+        
+        return bytes.size >= 2 && bytes[0] == 0xFF.toByte() && bytes[1] == 0xD8.toByte()
     }
     
-    fun isGIF(b: ByteArray): Boolean {
-        return b.size >= 6 && b[0].equals('G') && b[1].equals('I') && b[2].equals('F') && b[3].equals('8') && (b[4].equals('7') || b[4].equals('9')) && b[5].equals('a')
+    fun isGIF(bytes: ByteArray?): Boolean {
+        bytes ?: return false
+        
+        return bytes.size >= 6 && bytes[0].equals('G') && bytes[1].equals('I') && bytes[2].equals('F') && bytes[3].equals('8') && (bytes[4].equals('7') || bytes[4].equals('9')) && bytes[5].equals('a')
     }
     
-    fun isPNG(b: ByteArray): Boolean {
-        return b.size >= 8 && b[0] == 137.toByte() && b[1] == 80.toByte() && b[2] == 78.toByte() && b[3] == 71.toByte() && b[4] == 13.toByte() && b[5] == 10.toByte() && b[6] == 26.toByte() && b[7] == 10.toByte()
+    fun isPNG(bytes: ByteArray?): Boolean {
+        bytes ?: return false
+        
+        return bytes.size >= 8 && bytes[0] == 137.toByte() && bytes[1] == 80.toByte() && bytes[2] == 78.toByte() && bytes[3] == 71.toByte() && bytes[4] == 13.toByte() && bytes[5] == 10.toByte() && bytes[6] == 26.toByte() && bytes[7] == 10.toByte()
     }
     
-    fun isBMP(b: ByteArray): Boolean {
-        return b.size >= 2 && b[0].equals(0x42) && b[1].equals(0x4d)
+    fun isBMP(bytes: ByteArray?): Boolean {
+        bytes ?: return false
+        
+        return bytes.size >= 2 && bytes[0].equals(0x42) && bytes[1].equals(0x4d)
     }
     
     fun isEmptyBitmap(src: Bitmap?): Boolean {
-        return src == null || src.width == 0 || src.height == 0
+        src ?: return false
+        
+        return src.width == 0 || src.height == 0
     }
     
     /** ********** ********** Converter ********** ********** */
@@ -360,8 +404,9 @@ object ImageUtils {
      * @param format The format of bitmap.
      * @return The bytes.
      */
-    fun bitmap2Bytes(bitmap: Bitmap?, format: Bitmap.CompressFormat?): ByteArray? {
-        if (bitmap == null) return null
+    fun bitmap2Bytes(bitmap: Bitmap?, format: CompressFormat?): ByteArray? {
+        bitmap ?: return null
+        
         val baos = ByteArrayOutputStream()
         bitmap.compress(format, 100, baos)
         return baos.toByteArray()
@@ -374,7 +419,10 @@ object ImageUtils {
      * @return The bitmap.
      */
     fun bytes2Bitmap(bytes: ByteArray?): Bitmap? {
-        return if (bytes == null || bytes.isEmpty()) null else BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        bytes ?: return null
+        if (bytes.isEmpty()) return null
+        
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     }
     
     /**
@@ -383,8 +431,10 @@ object ImageUtils {
      * @param bitmap The bitmap.
      * @return The drawable.
      */
-    fun bitmap2Drawable(context: Context = ComkitApplicationConfig.getApp(), bitmap: Bitmap?): Drawable? {
-        return if (bitmap == null) null else BitmapDrawable(context.resources, bitmap)
+    fun bitmap2Drawable(bitmap: Bitmap?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        bitmap ?: return null
+        
+        return BitmapDrawable(ResourceUtils.getResources(context), bitmap)
     }
     
     /**
@@ -394,7 +444,8 @@ object ImageUtils {
      * @return The bitmap.
      */
     fun drawable2Bitmap(drawable: Drawable?): Bitmap? {
-        if (drawable == null) return null
+        drawable ?: return null
+        
         if (drawable is BitmapDrawable) {
             if (drawable.bitmap != null) {
                 return drawable.bitmap
@@ -418,8 +469,10 @@ object ImageUtils {
      * @param format   The format of bitmap.
      * @return The bytes.
      */
-    fun drawable2Bytes(drawable: Drawable?, format: Bitmap.CompressFormat?): ByteArray? {
-        return if (drawable == null) null else bitmap2Bytes(drawable2Bitmap(drawable), format)
+    fun drawable2Bytes(drawable: Drawable?, format: CompressFormat?): ByteArray? {
+        drawable ?: return null
+        
+        return bitmap2Bytes(drawable2Bitmap(drawable), format)
     }
     
     /**
@@ -428,8 +481,10 @@ object ImageUtils {
      * @param bytes The bytes.
      * @return The drawable.
      */
-    fun bytes2Drawable(context: Context = ComkitApplicationConfig.getApp(), bytes: ByteArray?): Drawable? {
-        return if (bytes == null) null else bitmap2Drawable(context, bytes2Bitmap(bytes))
+    fun bytes2Drawable(bytes: ByteArray?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        bytes ?: return null
+        
+        return bitmap2Drawable(bytes2Bitmap(bytes), context)
     }
     
     /**
@@ -439,7 +494,8 @@ object ImageUtils {
      * @return The bitmap.
      */
     fun view2Bitmap(view: View?): Bitmap? {
-        if (view == null) return null
+        view ?: return null
+        
         val ret = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(ret)
         val bgDrawable = view.background
@@ -453,7 +509,7 @@ object ImageUtils {
     }
     
     /** ********** ********** Processor ********** ********** */
-
+    
     /** ********** draw ********** */
     
     /**
@@ -465,7 +521,9 @@ object ImageUtils {
      * @return the bitmap with the specified color.
      */
     fun drawColor(src: Bitmap?, @ColorInt color: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = if (recycle) src else src.copy(src.config, true)
         val canvas = Canvas(ret)
         canvas.drawColor(color, PorterDuff.Mode.DARKEN)
@@ -484,7 +542,9 @@ object ImageUtils {
      * @return the scaled bitmap
      */
     fun scale(src: Bitmap?, newWidth: Int, newHeight: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = Bitmap.createScaledBitmap(src, newWidth, newHeight, true)
         if (recycle && !src.isRecycled && ret != src) src.recycle()
         return ret
@@ -512,7 +572,9 @@ object ImageUtils {
      * @return the scaled bitmap
      */
     fun scale(src: Bitmap?, scaleWidth: Float, scaleHeight: Float, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val matrix = Matrix()
         matrix.setScale(scaleWidth, scaleHeight)
         var ret: Bitmap? = null
@@ -539,7 +601,9 @@ object ImageUtils {
      * @return the clipped bitmap
      */
     fun clip(src: Bitmap?, x: Int, y: Int, width: Int, height: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = Bitmap.createBitmap(src, x, y, width, height)
         if (recycle && !src.isRecycled && ret != src) src.recycle()
         return ret
@@ -559,7 +623,9 @@ object ImageUtils {
      * @return the skewed bitmap
      */
     fun skew(src: Bitmap?, kx: Float, ky: Float, px: Float = 0f, py: Float = 0f, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val matrix = Matrix()
         matrix.setSkew(kx, ky, px, py)
         val ret = Bitmap.createBitmap(src, 0, 0, src.width, src.height, matrix, true)
@@ -580,7 +646,9 @@ object ImageUtils {
      * @return the rotated bitmap
      */
     fun rotate(src: Bitmap?, degrees: Int, px: Float = 0f, py: Float = 0f, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         if (degrees == 0) return src
         val matrix = Matrix()
         matrix.setRotate(degrees.toFloat(), px, py)
@@ -596,6 +664,8 @@ object ImageUtils {
      * @return the rotated degree
      */
     fun getRotateDegree(filePath: String?): Int {
+        filePath ?: return -1
+        
         return try {
             val exifInterface = ExifInterface(filePath)
             val orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
@@ -623,7 +693,9 @@ object ImageUtils {
      * @return the round bitmap
      */
     fun toRound(src: Bitmap?, @IntRange(from = 0) borderSize: Int = 0, @ColorInt borderColor: Int = 0, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val width = src.width
         val height = src.height
         val size = Math.min(width, height)
@@ -665,7 +737,9 @@ object ImageUtils {
      * @return the round corner bitmap
      */
     fun toRoundCorner(src: Bitmap?, radius: Float, @IntRange(from = 0) borderSize: Int = 0, @ColorInt borderColor: Int = 0, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val width = src.width
         val height = src.height
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -699,7 +773,9 @@ object ImageUtils {
      * @return the alpha bitmap
      */
     fun toAlpha(src: Bitmap?, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = src.extractAlpha()
         if (recycle && !src.isRecycled && ret != src) src.recycle()
         return ret
@@ -715,7 +791,9 @@ object ImageUtils {
      * @return the gray bitmap
      */
     fun toGray(src: Bitmap?, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = Bitmap.createBitmap(src.width, src.height, src.config)
         val canvas = Canvas(ret)
         val paint = Paint()
@@ -769,7 +847,9 @@ object ImageUtils {
      * @return the bitmap with border
      */
     private fun addBorder(src: Bitmap?, @IntRange(from = 1) borderSize: Int, @ColorInt color: Int, isCircle: Boolean, cornerRadius: Float, recycle: Boolean): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = if (recycle) src else src.copy(src.config, true)
         val width = ret.width
         val height = ret.height
@@ -800,7 +880,9 @@ object ImageUtils {
      * @return the bitmap with reflection
      */
     fun addReflection(src: Bitmap?, reflectionHeight: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val REFLECTION_GAP = 0
         val srcWidth = src.width
         val srcHeight = src.height
@@ -836,7 +918,10 @@ object ImageUtils {
      * @return the bitmap with text watermarking
      */
     fun addTextWatermark(src: Bitmap?, content: String?, textSize: Float, @ColorInt color: Int, x: Float, y: Float, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src) || content == null) return null
+        src ?: return null
+        content ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = src.copy(src.config, true)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         val canvas = Canvas(ret)
@@ -861,7 +946,9 @@ object ImageUtils {
      * @return the bitmap with image watermarking
      */
     fun addImageWatermark(src: Bitmap?, watermark: Bitmap?, x: Int, y: Int, alpha: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val ret = src.copy(src.config, true)
         if (watermark != null && !isEmptyBitmap(watermark)) {
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -888,7 +975,9 @@ object ImageUtils {
      * @return the blur bitmap
      */
     fun fastBlur(src: Bitmap?, @FloatRange(from = 0.0, to = 1.0, fromInclusive = false) scale: Float, @FloatRange(from = 0.0, to = 25.0, fromInclusive = false) radius: Float, recycle: Boolean = false, isReturnScale: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val width = src.width
         val height = src.height
         val matrix = Matrix()
@@ -924,7 +1013,9 @@ object ImageUtils {
      * @return the blur bitmap
      */
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    fun renderScriptBlur(src: Bitmap, @FloatRange(from = 0.0, to = 25.0, fromInclusive = false) radius: Float, recycle: Boolean = false): Bitmap? {
+    fun renderScriptBlur(src: Bitmap?, @FloatRange(from = 0.0, to = 25.0, fromInclusive = false) radius: Float, recycle: Boolean = false): Bitmap? {
+        src ?: return null
+        
         var rs: RenderScript? = null
         val ret = if (recycle) src else src.copy(src.config, true)
         try {
@@ -951,7 +1042,9 @@ object ImageUtils {
      * @param recycle True to recycle the source of bitmap, false otherwise.
      * @return the blur bitmap
      */
-    fun stackBlur(src: Bitmap, radius: Int, recycle: Boolean = false): Bitmap? {
+    fun stackBlur(src: Bitmap?, radius: Int, recycle: Boolean = false): Bitmap? {
+        src ?: return null
+        
         var radius = radius
         val ret = if (recycle) src else src.copy(src.config, true)
         if (radius < 1) {
@@ -1181,7 +1274,10 @@ object ImageUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun save(src: Bitmap?, file: File?, format: CompressFormat?, recycle: Boolean = false): Boolean {
-        if (src == null || isEmptyBitmap(src) || !createFileByDeleteOldFile(file)) return false
+        src ?: return false
+        file ?: return false
+        if (isEmptyBitmap(src) || !createFileByDeleteOldFile(file)) return false
+        
         var os: OutputStream? = null
         var ret = false
         try {
@@ -1239,7 +1335,9 @@ object ImageUtils {
      * @return the compressed bitmap
      */
     fun compressByQuality(src: Bitmap?, @IntRange(from = 0, to = 100) quality: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val baos = ByteArrayOutputStream()
         src.compress(CompressFormat.JPEG, quality, baos)
         val bytes = baos.toByteArray()
@@ -1256,7 +1354,9 @@ object ImageUtils {
      * @return the compressed bitmap
      */
     fun compressByQuality(src: Bitmap?, maxByteSize: Long, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src) || maxByteSize <= 0) return null
+        src ?: return null
+        if (isEmptyBitmap(src) || maxByteSize <= 0) return null
+        
         val baos = ByteArrayOutputStream()
         src.compress(CompressFormat.JPEG, 100, baos)
         val bytes: ByteArray
@@ -1307,7 +1407,9 @@ object ImageUtils {
      * @return the compressed bitmap
      */
     fun compressBySampleSize(src: Bitmap?, sampleSize: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val options = BitmapFactory.Options()
         options.inSampleSize = sampleSize
         val baos = ByteArrayOutputStream()
@@ -1327,7 +1429,9 @@ object ImageUtils {
      * @return the compressed bitmap
      */
     fun compressBySampleSize(src: Bitmap?, maxWidth: Int, maxHeight: Int, recycle: Boolean = false): Bitmap? {
-        if (src == null || isEmptyBitmap(src)) return null
+        src ?: return null
+        if (isEmptyBitmap(src)) return null
+        
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         val baos = ByteArrayOutputStream()
@@ -1351,7 +1455,9 @@ object ImageUtils {
      * @param maxHeight The maximum height.
      * @return the sample size
      */
-    private fun calculateInSampleSize(options: BitmapFactory.Options, maxWidth: Int, maxHeight: Int): Int {
+    private fun calculateInSampleSize(options: BitmapFactory.Options?, maxWidth: Int, maxHeight: Int): Int {
+        options ?: return -1
+        
         var height = options.outHeight
         var width = options.outWidth
         var inSampleSize = 1
@@ -1369,9 +1475,11 @@ object ImageUtils {
     }
     
     private fun createFileByDeleteOldFile(file: File?): Boolean {
-        if (file == null) return false
+        file ?: return false
         if (file.exists() && !file.delete()) return false
-        return if (!createOrExistsDir(file.parentFile)) false else try {
+        if (!createOrExistsDir(file.parentFile)) return false
+        
+        return try {
             file.createNewFile()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -1384,12 +1492,13 @@ object ImageUtils {
     }
     
     private fun input2Byte(`is`: InputStream?): ByteArray? {
-        return if (`is` == null) null else try {
+        `is` ?: return null
+        
+        return try {
             val os = ByteArrayOutputStream()
             val b = ByteArray(1024)
             var len: Int
-            while (`is`.read(b, 0, 1024)
-                            .also { len = it } != -1) {
+            while (`is`.read(b, 0, 1024).also { len = it } != -1) {
                 os.write(b, 0, len)
             }
             os.toByteArray()

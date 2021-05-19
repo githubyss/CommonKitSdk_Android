@@ -77,7 +77,7 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     private var destroyedListenerMap: MutableMap<Activity?, Set<OnActivityDestroyedListener?>?> = HashMap()
     
     
-    /** ********** ********** ********** Override Methods ********** ********** ********** */
+    /** ********** ********** ********** Override ********** ********** ********** */
     
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         // 应用放置后台，内存回收后，重新启动应用
@@ -214,7 +214,7 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
                 return topActivity
             }
         }
-        val topActivityByReflect: Activity? = getTopActivityByReflect()
+        val topActivityByReflect = getTopActivityByReflect()
         if (topActivityByReflect != null) {
             setTopActivity(topActivityByReflect)
         }
@@ -256,7 +256,9 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     fun addOnActivityDestroyedListener(activity: Activity?, listener: OnActivityDestroyedListener?) {
-        if (activity == null || listener == null) return
+        activity ?: return
+        listener ?: return
+        
         val listeners: MutableSet<OnActivityDestroyedListener?>?
         if (!destroyedListenerMap.containsKey(activity)) {
             listeners = HashSet()
@@ -321,11 +323,9 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     //     return false
     // }
     
-    
-    /** ********** ********** ********** Private ********** ********** ********** */
-    
     private fun postStatus(isForeground: Boolean) {
         if (statusListenerMap.isEmpty()) return
+        
         for (onAppStatusChangedListener in statusListenerMap.values) {
             if (onAppStatusChangedListener == null) return
             if (isForeground) {
@@ -341,15 +341,18 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
      *
      * @param activity The activity.
      */
-    private fun sendBroadcast(activity: Activity) {
+    private fun sendBroadcast(activity: Activity?) {
+        activity ?: return
+        
         val intent = Intent(Constants.INTENT_ACTION_IS_FOREGROUND)
         intent.putExtra("isForeground", isForeground)
-        LocalBroadcastManager.getInstance(activity)
-            .sendBroadcast(intent)
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent)
     }
     
-    private fun setTopActivity(activity: Activity) {
+    private fun setTopActivity(activity: Activity?) {
+        activity ?: return
         if (PERMISSION_ACTIVITY_CLASS_NAME == activity.javaClass.name) return
+        
         if (activityList.contains(activity)) {
             if (activityList.last != activity) {
                 activityList.remove(activity)
@@ -364,9 +367,8 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
      * Set animators enabled.
      */
     private fun setAnimatorsEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && ValueAnimator.areAnimatorsEnabled()) {
-            return
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && ValueAnimator.areAnimatorsEnabled()) return
+        
         try {
             val sDurationScaleField = ValueAnimator::class.java.getDeclaredField("sDurationScale")
             sDurationScaleField.isAccessible = true
@@ -382,7 +384,9 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         }
     }
     
-    private fun consumeOnActivityDestroyedListener(activity: Activity) {
+    private fun consumeOnActivityDestroyedListener(activity: Activity?) {
+        activity ?: return
+        
         val iterator: MutableIterator<MutableMap.MutableEntry<Activity?, Set<OnActivityDestroyedListener?>?>> = destroyedListenerMap.entries.iterator()
         while (iterator.hasNext()) {
             val entry = iterator.next()
@@ -402,8 +406,7 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         try {
             @SuppressLint("PrivateApi")
             val activityThreadClass = Class.forName("android.app.ActivityThread")
-            val currentActivityThreadMethod = activityThreadClass.getMethod("currentActivityThread")
-                .invoke(null)
+            val currentActivityThreadMethod = activityThreadClass.getMethod("currentActivityThread").invoke(null)
             val activityListField = activityThreadClass.getDeclaredField("mActivityList")
             activityListField.isAccessible = true
             val activities = activityListField[currentActivityThreadMethod] as Map<*, *>
@@ -434,7 +437,8 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     private fun fixSoftInputLeaks(activity: Activity?) {
-        if (activity == null) return
+        activity ?: return
+        
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val leakViews = arrayOf("mLastSrvView", "mCurRootView", "mServedView", "mNextServedView")
         for (leakView in leakViews) {

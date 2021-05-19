@@ -1,6 +1,5 @@
 package com.githubyss.mobile.common.kit.util
 
-import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import java.io.*
 import java.net.URL
 import java.security.DigestInputStream
@@ -37,7 +36,10 @@ object FileUtils {
      * @return the file
      */
     fun getFileByPath(filePath: String?): File? {
-        return if (StringUtils.isSpace(filePath)) null else File(filePath ?: return null)
+        filePath ?: return null
+        if (StringUtils.isSpace(filePath)) return null
+        
+        return File(filePath)
     }
     
     /** ********** getFileLastModified ********** */
@@ -59,7 +61,9 @@ object FileUtils {
      * @return the time that the file was last modified
      */
     fun getFileLastModified(file: File?): Long {
-        return file?.lastModified() ?: -1
+        file ?: return -1
+        
+        return file.lastModified()
     }
     
     /** ********** getFileCharsetSimple ********** */
@@ -81,10 +85,12 @@ object FileUtils {
      * @return the charset of file simply
      */
     fun getFileCharsetSimple(file: File?): String {
+        file ?: return ""
+        
         var p = 0
         var `is`: InputStream? = null
         try {
-            `is` = BufferedInputStream(FileInputStream(file ?: return ""))
+            `is` = BufferedInputStream(FileInputStream(file))
             p = (`is`.read() shl 8) + `is`.read()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -122,10 +128,12 @@ object FileUtils {
      * @return the number of lines of file
      */
     fun getFileLines(file: File?): Int {
+        file ?: return -1
+        
         var count = 1
         var `is`: InputStream? = null
         try {
-            `is` = BufferedInputStream(FileInputStream(file ?: return -1))
+            `is` = BufferedInputStream(FileInputStream(file))
             val buffer = ByteArray(1024)
             var readChars: Int
             if (LINE_SEP?.endsWith("\n") ?: return -1) {
@@ -172,8 +180,9 @@ object FileUtils {
      * @return the size of directory
      */
     fun getDirSize(dir: File?): String {
-        val len: Long = getDirLength(dir)
-        return if (len == -1L) "" else ConvertUtils.byte2FitMemorySize(len)
+        val len = getDirLength(dir)
+        if (len == -1L) return ""
+        return ConvertUtils.byte2FitMemorySize(len)
     }
     
     /** ********** getFileSize ********** */
@@ -185,8 +194,9 @@ object FileUtils {
      * @return the length of file
      */
     fun getFileSize(filePath: String?): String {
-        val len: Long = getFileLength(filePath)
-        return if (len == -1L) "" else ConvertUtils.byte2FitMemorySize(len)
+        val len = getFileLength(filePath)
+        if (len == -1L) return ""
+        return ConvertUtils.byte2FitMemorySize(len)
     }
     
     /**
@@ -196,8 +206,9 @@ object FileUtils {
      * @return the length of file
      */
     fun getFileSize(file: File?): String {
-        val len: Long = getFileLength(file)
-        return if (len == -1L) "" else ConvertUtils.byte2FitMemorySize(len)
+        val len = getFileLength(file)
+        if (len == -1L) return ""
+        return ConvertUtils.byte2FitMemorySize(len)
     }
     
     /** ********** getDirLength ********** */
@@ -219,10 +230,12 @@ object FileUtils {
      * @return the length of directory
      */
     fun getDirLength(dir: File?): Long {
+        dir ?: return -1
         if (!isDir(dir)) return -1
+        
+        val files = dir.listFiles() ?: return -1
         var len: Long = 0
-        val files = dir?.listFiles()
-        if (files != null && files.isNotEmpty()) {
+        if (files.isNotEmpty()) {
             for (file in files) {
                 len += if (file.isDirectory) {
                     getDirLength(file)
@@ -243,7 +256,9 @@ object FileUtils {
      * @return the length of file
      */
     fun getFileLength(filePath: String?): Long {
-        val isURL = filePath?.matches(Regex("[a-zA-z]+://[^\\s]*")) ?: return -1
+        filePath ?: return -1
+        
+        val isURL = filePath.matches(Regex("[a-zA-z]+://[^\\s]*"))
         if (isURL) {
             try {
                 val conn = URL(filePath).openConnection() as HttpsURLConnection
@@ -266,7 +281,10 @@ object FileUtils {
      * @return the length of file
      */
     fun getFileLength(file: File?): Long {
-        return if (!isFile(file)) -1 else file?.length() ?: -1
+        file ?: return -1
+        if (!isFile(file)) return -1
+        
+        return file.length()
     }
     
     /** ********** getFileMD5ToString ********** */
@@ -278,6 +296,8 @@ object FileUtils {
      * @return the md5 of file
      */
     fun getFileMD5ToString(filePath: String?): String {
+        filePath ?: return ""
+        
         val file = if (StringUtils.isSpace(filePath)) null else File(filePath)
         return getFileMD5ToString(file)
     }
@@ -311,7 +331,8 @@ object FileUtils {
      * @return the md5 of file
      */
     fun getFileMD5(file: File?): ByteArray? {
-        if (file == null) return null
+        file ?: return null
+        
         var dis: DigestInputStream? = null
         try {
             val fis = FileInputStream(file)
@@ -346,8 +367,10 @@ object FileUtils {
      * @return the file's path of directory
      */
     fun getDirName(dirPath: String?): String {
+        dirPath ?: return ""
         if (StringUtils.isSpace(dirPath)) return ""
-        val lastSep = dirPath?.lastIndexOf(File.separator) ?: return ""
+        
+        val lastSep = dirPath.lastIndexOf(File.separator)
         return if (lastSep == -1) "" else dirPath.substring(0, lastSep + 1)
     }
     
@@ -358,7 +381,9 @@ object FileUtils {
      * @return the file's path of directory
      */
     fun getDirName(dir: File?): String {
-        return if (dir == null) "" else getDirName(dir.absolutePath)
+        dir ?: return ""
+        
+        return getDirName(dir.absolutePath)
     }
     
     /** ********** getFileName ********** */
@@ -370,8 +395,10 @@ object FileUtils {
      * @return the name of file
      */
     fun getFileName(filePath: String?): String {
+        filePath ?: return ""
         if (StringUtils.isSpace(filePath)) return ""
-        val lastSep = filePath?.lastIndexOf(File.separator) ?: return ""
+        
+        val lastSep = filePath.lastIndexOf(File.separator)
         return if (lastSep == -1) filePath else filePath.substring(lastSep + 1)
     }
     
@@ -382,7 +409,9 @@ object FileUtils {
      * @return the name of file
      */
     fun getFileName(file: File?): String {
-        return if (file == null) "" else getFileName(file.absolutePath)
+        file ?: return ""
+        
+        return getFileName(file.absolutePath)
     }
     
     /** ********** getFileNameNoExtension ********** */
@@ -394,8 +423,10 @@ object FileUtils {
      * @return the name of file without extension
      */
     fun getFileNameNoExtension(filePath: String?): String {
+        filePath ?: return ""
         if (StringUtils.isSpace(filePath)) return ""
-        val lastPoi = filePath?.lastIndexOf('.') ?: return ""
+        
+        val lastPoi = filePath.lastIndexOf('.')
         val lastSep = filePath.lastIndexOf(File.separator)
         if (lastSep == -1) {
             return if (lastPoi == -1) filePath else filePath.substring(0, lastPoi)
@@ -412,7 +443,9 @@ object FileUtils {
      * @return the name of file without extension
      */
     fun getFileNameNoExtension(file: File?): String {
-        return if (file == null) "" else getFileNameNoExtension(file.path)
+        file ?: return ""
+        
+        return getFileNameNoExtension(file.path)
     }
     
     /** ********** getFileExtension ********** */
@@ -424,8 +457,10 @@ object FileUtils {
      * @return the extension of file
      */
     fun getFileExtension(filePath: String?): String {
+        filePath ?: return ""
         if (StringUtils.isSpace(filePath)) return ""
-        val lastPoi = filePath?.lastIndexOf('.') ?: return ""
+        
+        val lastPoi = filePath.lastIndexOf('.')
         val lastSep = filePath.lastIndexOf(File.separator)
         return if (lastPoi == -1 || lastSep >= lastPoi) "" else filePath.substring(lastPoi + 1)
     }
@@ -437,7 +472,9 @@ object FileUtils {
      * @return the extension of file
      */
     fun getFileExtension(file: File?): String {
-        return if (file == null) "" else getFileExtension(file.path)
+        file ?: return ""
+        
+        return getFileExtension(file.path)
     }
     
     /** ********** ********** Checker ********** ********** */
@@ -549,9 +586,11 @@ object FileUtils {
      * @return `true`: exists or creates successfully<br></br>`false`: otherwise
      */
     fun createOrExistsFile(file: File?): Boolean {
-        if (file == null) return false
+        file ?: return false
         if (file.exists()) return file.isFile
-        return if (!createOrExistsDir(file.parentFile)) false else try {
+        if (!createOrExistsDir(file.parentFile)) return false
+        
+        return try {
             file.createNewFile()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -578,10 +617,12 @@ object FileUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun createFileByDeleteOldFile(file: File?): Boolean {
-        if (file == null) return false
+        file ?: return false
         // file exists and unsuccessfully delete then return false
         if (file.exists() && !file.delete()) return false
-        return if (!createOrExistsDir(file.parentFile)) false else try {
+        if (!createOrExistsDir(file.parentFile)) return false
+        
+        return try {
             file.createNewFile()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -611,15 +652,15 @@ object FileUtils {
      */
     fun rename(file: File?, newName: String?): Boolean {
         // file is null then return false
-        if (file == null) return false
+        file ?: return false
         // file doesn't exist then return false
         if (!file.exists()) return false
         // the new name is space then return false
         if (StringUtils.isSpace(newName)) return false
         // the new name equals old name then return true
         if (newName == file.name) return true
-        val newFile = File(file.parent + File.separator + newName)
         // the new name of file exists then return false
+        val newFile = File(file.parent + File.separator + newName)
         return !newFile.exists() && file.renameTo(newFile)
     }
     
@@ -754,7 +795,9 @@ object FileUtils {
     }
     
     fun copyOrMoveDir(srcDir: File?, destDir: File?, isMove: Boolean, listener: OnReplaceListener?): Boolean {
-        if (srcDir == null || destDir == null) return false
+        srcDir ?: return false
+        destDir ?: return false
+        
         // destDir's path locate in srcDir's path then return false
         val srcPath = srcDir.path + File.separator
         val destPath = destDir.path + File.separator
@@ -787,7 +830,9 @@ object FileUtils {
     }
     
     fun copyOrMoveFile(srcFile: File?, destFile: File?, isMove: Boolean, listener: OnReplaceListener?): Boolean {
-        if (srcFile == null || destFile == null) return false
+        srcFile ?: return false
+        destFile ?: return false
+        
         // srcFile equals destFile then return false
         if (srcFile == destFile) return false
         // srcFile doesn't exist or isn't a file then return false
@@ -828,10 +873,9 @@ object FileUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun delete(file: File?): Boolean {
-        if (file == null) return false
-        return if (file.isDirectory) {
-            deleteDir(file)
-        } else deleteFile(file)
+        file ?: return false
+        
+        return if (file.isDirectory) deleteDir(file) else deleteFile(file)
     }
     
     /**
@@ -851,7 +895,7 @@ object FileUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun deleteDir(dir: File?): Boolean {
-        if (dir == null) return false
+        dir ?: return false
         // dir doesn't exist then return true
         if (!dir.exists()) return true
         // dir isn't a directory then return false
@@ -948,7 +992,7 @@ object FileUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun deleteFilesInDirWithFilter(dir: File?, filter: FileFilter?): Boolean {
-        if (dir == null) return false
+        dir ?: return false
         // dir doesn't exist then return true
         if (!dir.exists()) return true
         // dir isn't a directory then return false
@@ -1013,7 +1057,9 @@ object FileUtils {
      * @return the files that satisfy the filter in directory
      */
     fun listFilesInDirWithFilter(dir: File?, filter: FileFilter?, isRecursive: Boolean = false): List<File?>? {
+        dir ?: return null
         if (!isDir(dir)) return null
+        
         val list: MutableList<File?> = ArrayList()
         val files = dir?.listFiles()
         if (files != null && files.isNotEmpty()) {

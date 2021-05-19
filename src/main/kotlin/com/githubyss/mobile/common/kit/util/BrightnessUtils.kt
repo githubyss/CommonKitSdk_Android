@@ -5,6 +5,7 @@ import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.view.Window
 import androidx.annotation.IntRange
+import com.githubyss.mobile.common.kit.AceTemp
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 
 
@@ -32,11 +33,13 @@ object BrightnessUtils {
      * @return 屏幕亮度 0-255
      */
     fun getBrightness(context: Context? = ComkitApplicationConfig.getApp()): Int {
+        context ?: return -1
+        
         return try {
-            Settings.System.getInt(context?.contentResolver, Settings.System.SCREEN_BRIGHTNESS)
+            Settings.System.getInt(context.contentResolver, Settings.System.SCREEN_BRIGHTNESS)
         } catch (e: SettingNotFoundException) {
             e.printStackTrace()
-            0
+            -1
         }
     }
     
@@ -60,8 +63,10 @@ object BrightnessUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isAutoBrightnessEnabled(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        context ?: return false
+        
         return try {
-            val mode = Settings.System.getInt(context?.contentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE)
+            val mode = Settings.System.getInt(context.contentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE)
             mode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC
         } catch (e: SettingNotFoundException) {
             e.printStackTrace()
@@ -80,7 +85,9 @@ object BrightnessUtils {
      * @return `true`: success<br></br>`false`: fail
      */
     fun setAutoBrightnessEnabled(enabled: Boolean, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
-        return Settings.System.putInt(context?.contentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, if (enabled) Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC else Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL)
+        context ?: return false
+        
+        return Settings.System.putInt(context.contentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, if (enabled) Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC else Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL)
     }
     
     /**
@@ -92,7 +99,9 @@ object BrightnessUtils {
      * @param brightness 亮度值
      */
     fun setBrightness(@IntRange(from = 0, to = 255) brightness: Int, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
-        val resolver = context?.contentResolver
+        context ?: return false
+        
+        val resolver = context.contentResolver
         val b = Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
         resolver?.notifyChange(Settings.System.getUriFor("screen_brightness"), null)
         return b
@@ -104,10 +113,12 @@ object BrightnessUtils {
      * @param window     窗口
      * @param brightness 亮度值
      */
-    fun setWindowBrightness(window: Window?, @IntRange(from = 0, to = 255) brightness: Int) {
-        val lp = window?.attributes
+    fun setWindowBrightness(@IntRange(from = 0, to = 255) brightness: Int, window: Window?) {
+        window ?: return
+        
+        val lp = window.attributes
         lp?.screenBrightness = brightness / 255f
-        window?.attributes = lp
+        window.attributes = lp
     }
     
     

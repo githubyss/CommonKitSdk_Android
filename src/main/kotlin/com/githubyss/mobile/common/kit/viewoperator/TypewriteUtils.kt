@@ -13,7 +13,19 @@ import kotlin.concurrent.thread
  * @createdTime 2021/03/05 10:16:32
  */
 object TypewriteUtils {
-    fun textViewTypewriteBySetting(textView: TextView, string: String, delayMillis: Long, startIdx: Int, canAutoScrollBottom: Boolean) {
+    
+    /** ********** ********** ********** Properties ********** ********** ********** */
+    
+    private val TAG = TypewriteUtils::class.simpleName ?: "simpleName is null"
+    private val DELAY_MILLIS_LONG = 500L
+    
+    
+    /** ********** ********** ********** Functions ********** ********** ********** */
+    
+    fun textViewTypewriteBySetting(textView: TextView?, string: String?, delayMillis: Long = DELAY_MILLIS_LONG, startIdx: Int = 0, canAutoScrollBottom: Boolean = true) {
+        textView ?: return
+        string ?: return
+        
         textView.text = ""
         thread {
             kotlin.run {
@@ -35,9 +47,11 @@ object TypewriteUtils {
         }
     }
     
-    fun textViewTypewriteByAppending(textView: TextView, string: String, delayMillis: Long, startIdx: Int, canAutoScrollBottom: Boolean) {
-        val stringBuilder = StringBuilder(string)
+    fun textViewTypewriteByAppending(textView: TextView?, string: String?, delayMillis: Long = DELAY_MILLIS_LONG, startIdx: Int = 0, canAutoScrollBottom: Boolean = true) {
+        textView ?: return
+        string ?: return
         
+        val stringBuilder = StringBuilder(string)
         textView.text = ""
         thread {
             kotlin.run {
@@ -59,7 +73,9 @@ object TypewriteUtils {
         }
     }
     
-    fun textViewAutoScrollBottom(textView: TextView) {
+    fun textViewAutoScrollBottom(textView: TextView?) {
+        textView ?: return
+        
         val offsetHeight = textView.lineCount * textView.lineHeight
         val actualHeight = textView.height - (textView.paddingTop + textView.paddingBottom)
         if (offsetHeight > actualHeight) {

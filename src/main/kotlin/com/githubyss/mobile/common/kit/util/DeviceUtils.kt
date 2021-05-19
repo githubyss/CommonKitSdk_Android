@@ -6,12 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
-import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Debug
 import android.os.PowerManager
 import android.provider.Settings
-import android.telephony.TelephonyManager
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
@@ -77,9 +75,10 @@ object DeviceUtils {
      * @return the android id of device
      */
     @SuppressLint("HardwareIds")
-    fun getAndroidID(context: Context = ComkitApplicationConfig.getApp()): String {
-        val id = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        return id ?: ""
+    fun getAndroidID(context: Context? = ComkitApplicationConfig.getApp()): String {
+        context ?: return ""
+        
+        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID) ?: ""
     }
     
     /**
@@ -106,27 +105,24 @@ object DeviceUtils {
     @RequiresPermission(allOf = [permission.ACCESS_WIFI_STATE, permission.INTERNET])
     fun getMacAddress(vararg excepts: String?): String {
         var macAddress: String = getMacAddressByNetworkInterface()
-        if (isAddressNotInExcepts(macAddress, *excepts)) {
-            return macAddress
-        }
+        if (isAddressNotInExcepts(macAddress, *excepts)) return macAddress
+        
         macAddress = getMacAddressByInetAddress()
-        if (isAddressNotInExcepts(macAddress, *excepts)) {
-            return macAddress
-        }
+        if (isAddressNotInExcepts(macAddress, *excepts)) return macAddress
+        
         macAddress = getMacAddressByWifiInfo()
-        if (isAddressNotInExcepts(macAddress, *excepts)) {
-            return macAddress
-        }
+        if (isAddressNotInExcepts(macAddress, *excepts)) return macAddress
+        
         macAddress = getMacAddressByFile()
-        return if (isAddressNotInExcepts(macAddress, *excepts)) {
-            macAddress
-        } else ""
+        return if (isAddressNotInExcepts(macAddress, *excepts)) macAddress else ""
     }
     
     @SuppressLint("MissingPermission", "HardwareIds")
-    private fun getMacAddressByWifiInfo(context: Context = ComkitApplicationConfig.getApp()): String {
+    private fun getMacAddressByWifiInfo(context: Context? = ComkitApplicationConfig.getApp()): String {
+        context ?: return ""
+        
         try {
-            val wifi = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+            val wifi = SystemUtils.getWifiManager(context)
             if (wifi != null) {
                 val info = wifi.connectionInfo
                 if (info != null) return info.macAddress
@@ -226,7 +222,7 @@ object DeviceUtils {
      *
      * @return the model of device
      */
-    fun getModel(): String? {
+    fun getModel(): String {
         var model = Build.MODEL
         model = model?.trim { it <= ' ' }?.replace("\\s*".toRegex(), "") ?: ""
         return model
@@ -271,7 +267,9 @@ object DeviceUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    fun isAdbEnabled(context: Context = ComkitApplicationConfig.getApp()): Boolean {
+    fun isAdbEnabled(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        context ?: return false
+        
         return Settings.Secure.getInt(context.contentResolver, Settings.Global.ADB_ENABLED, 0) > 0
     }
     
@@ -280,8 +278,10 @@ object DeviceUtils {
      *
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isTablet(context: Context = ComkitApplicationConfig.getApp()): Boolean {
-        return context.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
+    fun isTablet(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        context ?: return false
+        
+        return (ResourceUtils.getResources(context)?.configuration?.screenLayout ?: return false) and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
     }
     
     /**
@@ -289,25 +289,17 @@ object DeviceUtils {
      *
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isEmulator(context: Context = ComkitApplicationConfig.getApp()): Boolean {
-        val checkProperty = Build.FINGERPRINT.startsWith("generic")
-                || Build.FINGERPRINT.toLowerCase().contains("vbox")
-                || Build.FINGERPRINT.toLowerCase().contains("test-keys")
-                || Build.MODEL.contains("google_sdk")
-                || Build.MODEL.contains("Emulator")
-                || Build.SERIAL.equals("unknown", ignoreCase = true)
-                || Build.SERIAL.equals("android", ignoreCase = true)
-                || Build.MODEL.contains("Android SDK built for x86")
-                || Build.MANUFACTURER.contains("Genymotion")
-                || Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")
-                || "google_sdk" == Build.PRODUCT
+    fun isEmulator(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+        context ?: return false
+        
+        val checkProperty = Build.FINGERPRINT.startsWith("generic") || Build.FINGERPRINT.toLowerCase().contains("vbox") || Build.FINGERPRINT.toLowerCase().contains("test-keys") || Build.MODEL.contains("google_sdk") || Build.MODEL.contains("Emulator") || Build.SERIAL.equals("unknown", ignoreCase = true) || Build.SERIAL.equals("android", ignoreCase = true) || Build.MODEL.contains("Android SDK built for x86") || Build.MANUFACTURER.contains("Genymotion") || Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic") || "google_sdk" == Build.PRODUCT
         if (checkProperty) return true
         
         val checkDebuggerConnected = Debug.isDebuggerConnected()
         if (checkDebuggerConnected) return true
         
         var operatorName = ""
-        val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager?
+        val tm = SystemUtils.getTelephonyManager(context)
         if (tm != null) {
             val name = tm.networkOperatorName
             if (name != null) {
@@ -338,7 +330,6 @@ object DeviceUtils {
     
     /** ********** ********** Processor ********** ********** */
     
-    
     /**
      * Shutdown the device
      *
@@ -347,7 +338,9 @@ object DeviceUtils {
      * `<uses-permission android:name="android.permission.SHUTDOWN/>`
      * in manifest.
      */
-    fun shutdown(context: Context = ComkitApplicationConfig.getApp()) {
+    fun shutdown(context: Context? = ComkitApplicationConfig.getApp()) {
+        context ?: return
+        
         ShellUtils.execCmd("reboot -p", true)
         val intent = Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN")
         intent.putExtra("android.intent.extra.KEY_CONFIRM", false)
@@ -360,7 +353,9 @@ object DeviceUtils {
      * Requires root permission
      * or hold `android:sharedUserId="android.uid.system"` in manifest.
      */
-    fun reboot(context: Context = ComkitApplicationConfig.getApp()) {
+    fun reboot(context: Context? = ComkitApplicationConfig.getApp()) {
+        context ?: return
+        
         ShellUtils.execCmd("reboot", true)
         val intent = Intent(Intent.ACTION_REBOOT)
         intent.putExtra("nowait", 1)
@@ -379,7 +374,9 @@ object DeviceUtils {
      * @param reason code to pass to the kernel (e.g., "recovery") to
      * request special boot modes, or null.
      */
-    fun reboot(reason: String?, context: Context = ComkitApplicationConfig.getApp()) {
+    fun reboot(reason: String?, context: Context? = ComkitApplicationConfig.getApp()) {
+        context ?: return
+        
         val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         pm.reboot(reason)
     }

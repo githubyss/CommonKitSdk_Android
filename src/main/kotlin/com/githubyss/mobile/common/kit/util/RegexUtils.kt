@@ -34,7 +34,8 @@ object RegexUtils {
      * @return the list of input matches the regex
      */
     fun getMatches(input: CharSequence?, regex: String): List<String>? {
-        if (input == null) return emptyList()
+        input ?: return emptyList()
+        
         val matches: MutableList<String> = ArrayList()
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(input)
@@ -67,7 +68,9 @@ object RegexUtils {
      * subsequences as needed
      */
     fun getReplaceFirst(input: String?, regex: String, replacement: String): String {
-        return if (input == null) "" else Pattern.compile(regex).matcher(input).replaceFirst(replacement)
+        input ?: return ""
+        
+        return Pattern.compile(regex).matcher(input).replaceFirst(replacement)
     }
     
     /**
@@ -82,7 +85,9 @@ object RegexUtils {
      * as needed
      */
     fun getReplaceAll(input: String?, regex: String, replacement: String): String {
-        return if (input == null) "" else Pattern.compile(regex).matcher(input).replaceAll(replacement)
+        input ?: return ""
+        
+        return Pattern.compile(regex).matcher(input).replaceAll(replacement)
     }
     
     /** ********** ********** Checker ********** ********** */

@@ -32,7 +32,10 @@ object UriUtils {
     
     /** ********** ********** Getter ********** ********** */
     
-    private fun getFileFromUri(uri: Uri, code: Int, selection: String? = null, selectionArgs: Array<String>? = null, context: Context = ComkitApplicationConfig.getApp()): File? {
+    fun getFileFromUri(uri: Uri?, code: Int, selection: String? = null, selectionArgs: Array<String>? = null, context: Context? = ComkitApplicationConfig.getApp()): File? {
+        uri ?: return null
+        context ?: return null
+        
         val cursor: Cursor? = context.contentResolver.query(uri, arrayOf("_data"), selection, selectionArgs, null)
         if (cursor == null) {
             Log.d("UriUtils", "$uri parse failed(cursor is null). -> $code")
@@ -68,8 +71,10 @@ object UriUtils {
      * @param file The file.
      * @return uri
      */
-    fun file2Uri(file: File?, context: Context = ComkitApplicationConfig.getApp()): Uri? {
-        if (file == null) return null
+    fun file2Uri(file: File?, context: Context? = ComkitApplicationConfig.getApp()): Uri? {
+        file ?: return null
+        context ?: return null
+        
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             val authority: String = context.packageName.toString() + ".utilcode.provider"
             FileProvider.getUriForFile(context, authority, file)
@@ -84,8 +89,10 @@ object UriUtils {
      * @param uri The uri.
      * @return file
      */
-    fun uri2File(uri: Uri?, context: Context = ComkitApplicationConfig.getApp()): File? {
-        if (uri == null) return null
+    fun uri2File(uri: Uri?, context: Context? = ComkitApplicationConfig.getApp()): File? {
+        uri ?: return null
+        context ?: return null
+        
         LogcatUtils.d("UriUtils", uri.toString())
         val authority = uri.authority
         val scheme = uri.scheme
@@ -100,10 +107,12 @@ object UriUtils {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
             if ("com.android.externalstorage.documents" == authority) {
                 val docId = DocumentsContract.getDocumentId(uri)
-                val split = docId.split(":").toTypedArray()
+                val split = docId.split(":")
+                    .toTypedArray()
                 val type = split[0]
                 if ("primary".equals(type, ignoreCase = true)) {
-                    return File(Environment.getExternalStorageDirectory().toString() + "/" + split[1])
+                    return File(Environment.getExternalStorageDirectory()
+                        .toString() + "/" + split[1])
                 }
                 LogcatUtils.d("UriUtils", "$uri parse failed. -> 1")
                 null
@@ -113,7 +122,8 @@ object UriUtils {
                 getFileFromUri(contentUri, 2)
             } else if ("com.android.providers.media.documents" == authority) {
                 val docId = DocumentsContract.getDocumentId(uri)
-                val split = docId.split(":").toTypedArray()
+                val split = docId.split(":")
+                    .toTypedArray()
                 val type = split[0]
                 val contentUri: Uri
                 contentUri = if ("image" == type) {

@@ -64,11 +64,11 @@ object ComkitApplicationConfig {
      *
      * @return the context of Application object
      */
-    fun getApp(): Application {
+    fun getApp(): Application? {
         if (application != null) {
-            return application ?: throw NullPointerException("application is null...")
+            return application /*?: throw NullPointerException("application is null...")*/
         }
-        val app: Application = AppUtils.getApplicationByReflect()
+        val app: Application? = AppUtils.getApplicationByReflect()
         init(app)
         return app
     }

@@ -36,7 +36,9 @@ object StringUtils {
      * @return The length of string.
      */
     fun length(s: CharSequence?): Int {
-        return s?.length ?: 0
+        s ?: return 0
+        
+        return s.length
     }
     
     /**
@@ -44,14 +46,19 @@ object StringUtils {
      *
      * @param id         The desired resource identifier.
      * @param formatArgs The format arguments that will be used for substitution.
+     * @param context    The context.
      * @return The string value associated with a particular resource ID.
      */
-    fun getString(context: Context = ComkitApplicationConfig.getApp(), @StringRes id: Int, vararg formatArgs: Any? = emptyArray()): String {
+    fun getString(@StringRes id: Int, vararg formatArgs: Any? = emptyArray(), context: Context? = ComkitApplicationConfig.getApp()): String {
+        context ?: return ""
+        
         return try {
             if (formatArgs.isEmpty()) {
-                context.resources.getString(id)
+                ResourceUtils.getResources(context)
+                    ?.getString(id) ?: return ""
             } else {
-                context.resources.getString(id, formatArgs)
+                ResourceUtils.getResources(context)
+                    ?.getString(id, formatArgs) ?: return ""
             }
         } catch (ignore: NotFoundException) {
             ""
@@ -61,12 +68,16 @@ object StringUtils {
     /**
      * Return the string array associated with a particular resource ID.
      *
-     * @param id The desired resource identifier.
+     * @param id      The desired resource identifier.
+     * @param context The context.
      * @return The string array associated with the resource.
      */
-    fun getStringArray(context: Context = ComkitApplicationConfig.getApp(), @ArrayRes id: Int): Array<String?>? {
+    fun getStringArray(@ArrayRes id: Int, context: Context? = ComkitApplicationConfig.getApp()): Array<String?>? {
+        context ?: return null
+        
         return try {
-            context.resources?.getStringArray(id)
+            ResourceUtils.getResources(context)
+                ?.getStringArray(id)
         } catch (ignore: NotFoundException) {
             arrayOfNulls(0)
         }
@@ -81,7 +92,9 @@ object StringUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isEmpty(s: CharSequence?): Boolean {
-        return s == null || s.isEmpty()
+        s ?: return true
+        
+        return s.isEmpty()
     }
     
     /**
@@ -91,7 +104,10 @@ object StringUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isTrimEmpty(s: String?): Boolean {
-        return s == null || s.trim().isEmpty()
+        s ?: return true
+        
+        return s.trim()
+            .isEmpty()
     }
     
     /**
@@ -101,7 +117,8 @@ object StringUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun isSpace(s: String?): Boolean {
-        if (s == null || s.isEmpty()) return true
+        s ?: return true
+        if (s.isEmpty()) return true
         
         for (element in s) {
             if (!Character.isWhitespace(element)) {
@@ -146,7 +163,8 @@ object StringUtils {
      * @return {@code true}: yes, {@code false}: no.
      */
     fun equalsIgnoreCase(s1: String?, s2: String?): Boolean {
-        return s1?.equals(s2, ignoreCase = true) ?: (s2 == null)
+        s1 ?: return s2 == null
+        return s1.equals(s2, ignoreCase = true)
     }
     
     /** ********** ********** Converter ********** ********** */
@@ -163,15 +181,17 @@ object StringUtils {
     
     /**
      * Object to string.
-     * e.g. object2String({name=value, name=value, name=value}) returns "Object{ name=value, name=value, name=value }".
+     * e.g. object2String({name=value, name=value, name=value}) returns "Object {name=value, name=value, name=value}".
      *
      * @param object The Object.
      * @return The object string.
      */
     fun <T : Any> object2String(`object`: T?): String {
-        if (`object` == null) return "Object{ object is null }"
-        if (`object`.toString().startsWith(`object`.javaClass.name + "@")) {
-            val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object{ ")
+        `object` ?: return "Object {object is null}"
+        
+        if (`object`.toString()
+                    .startsWith(`object`.javaClass.name + "@")) {
+            val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object {")
             val fields = `object`.javaClass.declaredFields
             for (field in fields) {
                 field.isAccessible = true
@@ -194,7 +214,8 @@ object StringUtils {
                     stringBuilder.append(String.format("%s=%s, ", field.name, "Object"))
                 }
             }
-            return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, " }").toString()
+            return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, "}")
+                .toString()
         } else {
             return `object`.toString()
         }
@@ -202,22 +223,23 @@ object StringUtils {
     
     /**
      * Array to string.
-     * e.g. object2String([item, item, item]) returns "Array[ item, item, item ]".
+     * e.g. object2String([item, item, item]) returns "Array [item, item, item]".
      *
      * @param array The array.
      * @return The array string.
      */
     fun array2String(array: Array<*>?): String {
-        if (array == null) return "Array[ array is null ]"
+        array ?: return "Array [array is null]"
+        
         val stringBuilder = StringBuilder()
         val arraySize = array.size
         for (idx in 0 until arraySize) {
             if (idx == 0) {
-                stringBuilder.append("Array[ ")
+                stringBuilder.append("Array [")
             }
             stringBuilder.append(array[idx].toString())
             if (idx == (arraySize - 1)) {
-                stringBuilder.append(" ]")
+                stringBuilder.append("]")
             } else {
                 stringBuilder.append(", ")
             }
@@ -233,7 +255,8 @@ object StringUtils {
      * @return The list string.
      */
     fun list2String(list: List<*>?): String {
-        if (list == null) return "List[ list is null ]"
+        list ?: return "List[ list is null ]"
+        
         return list.toString()
     }
     
@@ -245,7 +268,9 @@ object StringUtils {
      * @return The hex string.
      */
     fun bytes2HexString(bytes: ByteArray?): String {
-        if (bytes == null || bytes.isEmpty()) return ""
+        bytes ?: return ""
+        if (ArrayUtils.isEmpty(bytes)) return ""
+        
         val bytesSize = bytes.size
         val chars = CharArray(bytesSize shl 1)
         var j = 0
@@ -263,10 +288,13 @@ object StringUtils {
      * @return The string with first letter upper.
      */
     fun uppercaseFirstLetter(s: String?): String {
-        if (isSpace(s)) return ""
+        s ?: return ""
+        if (isSpace(s)) return s
+        
         // 首字符可能会是数字，所以不能直接用 Character.isUpperCase 判断
-        if (!Character.isLowerCase(s?.get(0) ?: return "")) return s
-        return (s[0].toInt() - 32).toChar().toString() + s.substring(1)
+        if (!Character.isLowerCase(s[0])) return s
+        return (s[0].toInt() - 32).toChar()
+            .toString() + s.substring(1)
     }
     
     /**
@@ -276,10 +304,13 @@ object StringUtils {
      * @return The string with first letter lower.
      */
     fun lowercaseFirstLetter(s: String?): String {
-        if (isSpace(s)) return ""
+        s ?: return ""
+        if (isSpace(s)) return s
+        
         // 首字符可能会是数字，所以不能直接用 Character.isLowerCase 判断
-        if (!Character.isUpperCase(s?.get(0) ?: return "")) return s
-        return (s[0].toInt() + 32).toChar().toString() + s.substring(1)
+        if (!Character.isUpperCase(s[0])) return s
+        return (s[0].toInt() + 32).toChar()
+            .toString() + s.substring(1)
     }
     
     /**
@@ -289,7 +320,8 @@ object StringUtils {
      * @return The reverse string.
      */
     fun reverse(s: String?): String {
-        if (s == null) return ""
+        s ?: return ""
+        if (isSpace(s)) return s
         
         val len = s.length
         if (len <= 1) return s
@@ -312,9 +344,10 @@ object StringUtils {
      * @return The DBC string.
      */
     fun toDBC(s: String?): String {
+        s ?: return ""
         if (isSpace(s)) return ""
         
-        val chars = s?.toCharArray() ?: return ""
+        val chars = s.toCharArray()
         for (i in chars.indices) {
             when {
                 chars[i].toInt() == 12288 -> {
@@ -338,9 +371,10 @@ object StringUtils {
      * @return The SBC string.
      */
     fun toSBC(s: String?): String {
+        s ?: return ""
         if (isSpace(s)) return ""
         
-        val chars = s?.toCharArray() ?: return ""
+        val chars = s.toCharArray()
         for (i in chars.indices) {
             when {
                 chars[i] == ' ' -> {

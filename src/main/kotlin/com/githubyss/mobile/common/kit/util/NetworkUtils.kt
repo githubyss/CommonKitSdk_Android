@@ -1,7 +1,6 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.content.Context
-import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
@@ -47,8 +46,10 @@ object NetworkUtils {
     /** ********** ********** ********** Functions ********** ********** ********** */
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getActiveNetworkInfo(context: Context = ComkitApplicationConfig.getApp()): NetworkInfo {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    fun getActiveNetworkInfo(context: Context? = ComkitApplicationConfig.getApp()): NetworkInfo? {
+        context ?: return null
+        
+        val connectivityManager = SystemUtils.getConnectivityManager(context) ?: return null
         return connectivityManager.activeNetworkInfo
     }
     
@@ -66,8 +67,7 @@ object NetworkUtils {
                         } else {
                             if (!isIpv4) {
                                 val index = hostAddress.indexOf('%')
-                                return if (index < 0) hostAddress.toUpperCase() else hostAddress.substring(0, index)
-                                        .toUpperCase()
+                                return if (index < 0) hostAddress.toUpperCase() else hostAddress.substring(0, index).toUpperCase()
                             }
                         }
                     }
@@ -80,7 +80,9 @@ object NetworkUtils {
         }
     }
     
-    fun getDomainAddress(domain: String): String {
+    fun getDomainAddress(domain: String?): String {
+        domain ?: return ""
+        
         return try {
             InetAddress.getByName(domain).hostAddress
         } catch (e: UnknownHostException) {
@@ -90,8 +92,10 @@ object NetworkUtils {
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getNetworkType(context: Context = ComkitApplicationConfig.getApp()): String {
-        val networkInfo = getActiveNetworkInfo(context)
+    fun getNetworkType(context: Context? = ComkitApplicationConfig.getApp()): String {
+        context ?: return ""
+        
+        val networkInfo = getActiveNetworkInfo(context) ?: return ""
         val typeName = networkInfo.typeName
         return when (typeName.toLowerCase()) {
             "mobile" -> networkInfo.extraInfo.toLowerCase()
@@ -100,8 +104,10 @@ object NetworkUtils {
     }
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    fun getApnProxy(context: Context = ComkitApplicationConfig.getApp()): String {
-        val networkInfo = getActiveNetworkInfo(context)
+    fun getApnProxy(context: Context? = ComkitApplicationConfig.getApp()): String {
+        context ?: return ""
+        
+        val networkInfo = getActiveNetworkInfo(context) ?: return ""
         val typeName = networkInfo.typeName
         return when (typeName.toLowerCase()) {
             "mobile" -> {

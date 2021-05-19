@@ -13,21 +13,23 @@ object StackTraceElementUtils {
         return Thread.currentThread().stackTrace[4]
     }
     
-    fun generateValues(element: StackTraceElement): Array<String> {
+    fun generateValues(element: StackTraceElement?): Array<String> {
         val values = Array(2) { String() }
+        
+        element ?: return values
         
         val stringBuilder = StringBuilder()
         val className = element.className
         val fileName = element.fileName
         
         stringBuilder.append(className.substring(className.lastIndexOf("") + 1))
-                .append("")
-                .append(element.methodName)
-                .append(" (")
-                .append(fileName)
-                .append(":")
-                .append(element.lineNumber)
-                .append(") ")
+            .append("")
+            .append(element.methodName)
+            .append(" (")
+            .append(fileName)
+            .append(":")
+            .append(element.lineNumber)
+            .append(") ")
         
         val tag = stringBuilder.toString()
         

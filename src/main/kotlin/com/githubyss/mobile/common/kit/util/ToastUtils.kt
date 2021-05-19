@@ -16,10 +16,14 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
  */
 object ToastUtils {
     
-    private var toast: Toast? = null
+    /** ********** ********** ********** Properties ********** ********** ********** */
     
+    private val TAG = ToastUtils::class.simpleName ?: "simpleName is null"
+    private var toast: Toast? = null
     private var centerable = false
     
+    
+    /** ********** ********** ********** Functions ********** ********** ********** */
     
     /**
      * Show toast.
@@ -29,7 +33,7 @@ object ToastUtils {
      * @param centerable Is toast show in center.
      * @param context    The context to use. Usually your Application or Activity object.
      */
-    fun showMessage(msgId: Int, duration: Int = if (ResourceUtils.getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context = ComkitApplicationConfig.getApp()) {
+    fun showMessage(msgId: Int, duration: Int = if (ResourceUtils.getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
         showMessage(ResourceUtils.getString(msgId), duration, centerable, context)
     }
     
@@ -41,7 +45,9 @@ object ToastUtils {
      * @param centerable Is toast show in center.
      * @param context    The context to use. Usually your Application or Activity object.
      */
-    fun showMessage(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context = ComkitApplicationConfig.getApp()) {
+    fun showMessage(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+        context ?: return
+        
         ToastUtils.centerable = centerable
         
         if (Looper.myLooper() == null) {
@@ -69,13 +75,10 @@ object ToastUtils {
         }
     }
     
-    
     /**
      * Close toast.
-     *
-     * @param context The context to use. Usually your Application or Activity object.
      */
-    fun close(context: Context = ComkitApplicationConfig.getApp()) {
+    fun close() {
         try {
             if (toast != null) {
                 toast?.cancel()
