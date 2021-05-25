@@ -53,7 +53,8 @@ object RegexUtils {
      * @return the array of strings computed by splitting input around matches of regex
      */
     fun getSplits(input: String?, regex: String): Array<String>? {
-        return input?.split(regex.toRegex())?.toTypedArray()
+        return input?.split(regex.toRegex())
+            ?.toTypedArray()
     }
     
     /**
@@ -70,7 +71,9 @@ object RegexUtils {
     fun getReplaceFirst(input: String?, regex: String, replacement: String): String {
         input ?: return ""
         
-        return Pattern.compile(regex).matcher(input).replaceFirst(replacement)
+        return Pattern.compile(regex)
+            .matcher(input)
+            .replaceFirst(replacement)
     }
     
     /**
@@ -87,7 +90,9 @@ object RegexUtils {
     fun getReplaceAll(input: String?, regex: String, replacement: String): String {
         input ?: return ""
         
-        return Pattern.compile(regex).matcher(input).replaceAll(replacement)
+        return Pattern.compile(regex)
+            .matcher(input)
+            .replaceAll(replacement)
     }
     
     /** ********** ********** Checker ********** ********** */
@@ -250,7 +255,8 @@ object RegexUtils {
                 CITY_MAP.put("82", "澳门")
                 CITY_MAP.put("91", "国外")
             }
-            if (CITY_MAP[input.subSequence(0, 2).toString()] != null) {
+            if (CITY_MAP[input.subSequence(0, 2)
+                        .toString()] != null) {
                 var weightSum = 0
                 for (i in 0..16) {
                     weightSum += (input[i] - '0') * factor[i]
