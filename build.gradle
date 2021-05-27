@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion compile_sdk_version
+    compileSdkVersion compile_sdk_version.toInteger()
     buildToolsVersion build_tools_version
 
     defaultConfig {
@@ -11,22 +11,22 @@ android {
         targetSdkVersion target_sdk_version
 
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
         debug {
-            debuggable true
-            minifyEnabled false
+            debuggable isDebuggable.toBoolean()
+            minifyEnabled isMinifyEnabled.toBoolean()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
-            debuggable false
-            minifyEnabled true
+            debuggable isDebuggable.toBoolean()
+            minifyEnabled isMinifyEnabled.toBoolean()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -68,6 +68,6 @@ dependencies {
 
 kapt {
     arguments {
-        arg("moduleName", project.getName())
+        arg('moduleName', project.getName())
     }
 }
