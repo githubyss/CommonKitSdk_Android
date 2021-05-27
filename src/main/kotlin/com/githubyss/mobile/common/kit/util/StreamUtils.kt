@@ -138,7 +138,6 @@ object StreamUtils {
      */
     fun input2List(`is`: InputStream?, charsetName: String?): List<String>? {
         `is` ?: return null
-        charsetName ?: return null
         
         var reader: BufferedReader? = null
         return try {
@@ -146,7 +145,7 @@ object StreamUtils {
             reader = if (StringUtils.isSpace(charsetName)) {
                 BufferedReader(InputStreamReader(`is`))
             } else {
-                BufferedReader(InputStreamReader(`is`, charsetName))
+                BufferedReader(InputStreamReader(`is`, charsetName ?: return null))
             }
             var line: String
             while (reader.readLine()
@@ -175,8 +174,6 @@ object StreamUtils {
      */
     fun input2String(`is`: InputStream?, charsetName: String?): String {
         `is` ?: return ""
-        charsetName ?: return ""
-        if (StringUtils.isSpace(charsetName)) return ""
         
         return try {
             val baos = input2BytesOutput(`is`) ?: return ""

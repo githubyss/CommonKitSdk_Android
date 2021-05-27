@@ -49,6 +49,17 @@ object ResourceUtils {
     }
     
     /**
+     * Get the content string of assets.
+     *
+     * @param assetsFilePath The path of file in assets.
+     * @param context        The context.
+     * @return the content of assets
+     */
+    fun getStringFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): String {
+        return readAssets2String(assetsFilePath, context = context)
+    }
+    
+    /**
      * Get color.
      *
      * @param context The context.
@@ -152,10 +163,8 @@ object ResourceUtils {
      */
     fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
         assetsFilePath ?: return ""
-        charsetName ?: return ""
         context ?: return ""
         if (StringUtils.isSpace(assetsFilePath)) return ""
-        if (StringUtils.isSpace(charsetName)) return ""
         
         val `is`: InputStream
         `is` = try {
@@ -169,7 +178,7 @@ object ResourceUtils {
             String(bytes)
         } else {
             try {
-                String(bytes, charset(charsetName))
+                String(bytes, charset(charsetName ?: return ""))
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
                 ""
@@ -186,9 +195,7 @@ object ResourceUtils {
      */
     fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String?>? {
         assetsFilePath ?: return null
-        charsetName ?: return null
         if (StringUtils.isSpace(assetsFilePath)) return null
-        if (StringUtils.isSpace(charsetName)) return null
         
         return try {
             ConvertUtils.input2List(getResources(context)?.assets?.open(assetsFilePath) ?: return null, charsetName)
