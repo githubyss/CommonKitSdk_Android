@@ -20,65 +20,66 @@ object LogcatUtils {
     
     private val TAG = LogcatUtils::class.simpleName ?: "simpleName is null"
     
-    private val LOG_PREFIX = "githubyss"
+    private const val LOG_PREFIX = "githubyss >>>"
     
-    val SYSTEM_LINE_SEPARATOR = System.getProperty("line.separator") ?: ""
+    private val SYSTEM_LINE_SEPARATOR = System.getProperty("line.separator") ?: ""
     
-    val LOG_LEFT_TOP_CORNER = '╔'
-    val LOG_LEFT_MIDDLE_CORNER = '╟'
-    val LOG_LEFT_BOTTOM_CORNER = '╚'
-    val LOG_VERTICAL_DOUBLE_LINE = '║'
-    val LOG_HORIZONTAL_DOUBLE_LINE = "════════════════════════════════════════════"
-    val LOG_HORIZONTAL_SINGLE_LINE = "────────────────────────────────────────────"
-    val LOG_TOP_BORDER = "$LOG_LEFT_TOP_CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
-    val LOG_BOTTOM_BORDER = "$LOG_LEFT_BOTTOM_CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
-    val LOG_MIDDLE_BORDER = "$LOG_LEFT_MIDDLE_CORNER$LOG_HORIZONTAL_SINGLE_LINE$LOG_HORIZONTAL_SINGLE_LINE"
+    private const val LOG_LEFT_TOP____CORNER = '╔'
+    private const val LOG_LEFT_MIDDLE_CORNER = '╟'
+    private const val LOG_LEFT_BOTTOM_CORNER = '╚'
+    private const val LOG_VERTICAL___DOUBLE_LINE = '║'
+    private const val LOG_HORIZONTAL_DOUBLE_LINE = "════════════════════════════════════════════"
+    private const val LOG_HORIZONTAL_SINGLE_LINE = "────────────────────────────────────────────"
+    private const val LOG_TOP____BORDER = "$LOG_LEFT_TOP____CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
+    private const val LOG_MIDDLE_BORDER = "$LOG_LEFT_MIDDLE_CORNER$LOG_HORIZONTAL_SINGLE_LINE$LOG_HORIZONTAL_SINGLE_LINE"
+    private const val LOG_BOTTOM_BORDER = "$LOG_LEFT_BOTTOM_CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
     
-    val LOG_LEVEL_VERBOSE = 1
-    val LOG_LEVEL_DEBUG = 2
-    val LOG_LEVEL_INFO = 3
-    val LOG_LEVEL_WARN = 4
-    val LOG_LEVEL_ERROR = 5
-    val LOG_LEVEL_NOTHING = 6
+    const val LOG_LEVEL_VERBOSE = Log.VERBOSE
+    const val LOG_LEVEL_DEBUG = Log.DEBUG
+    const val LOG_LEVEL_INFO = Log.INFO
+    const val LOG_LEVEL_WARN = Log.WARN
+    const val LOG_LEVEL_ERROR = Log.ERROR
+    const val LOG_LEVEL_ASSERT = Log.ASSERT
+    const val LOG_LEVEL_NOTHING = Log.ASSERT + 1
     
     var logLevel = LOG_LEVEL_VERBOSE
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */
     
-    fun v(tag: String = LOG_PREFIX, msg: String) {
+    fun v(tag: String = TAG, msg: String) {
         if (logLevel <= LOG_LEVEL_VERBOSE) {
-            Log.v(tag, msg)
+            Log.v("$LOG_PREFIX $tag", msg)
         }
     }
     
-    fun d(tag: String = LOG_PREFIX, msg: String) {
+    fun d(tag: String = TAG, msg: String) {
         if (logLevel <= LOG_LEVEL_DEBUG) {
-            Log.d(tag, msg)
+            Log.d("$LOG_PREFIX $tag", msg)
         }
     }
     
-    fun i(tag: String = LOG_PREFIX, msg: String) {
+    fun i(tag: String = TAG, msg: String) {
         if (logLevel <= LOG_LEVEL_INFO) {
-            Log.i(tag, msg)
+            Log.i("$LOG_PREFIX $tag", msg)
         }
     }
     
-    fun w(tag: String = LOG_PREFIX, msg: String) {
+    fun w(tag: String = TAG, msg: String) {
         if (logLevel <= LOG_LEVEL_WARN) {
-            Log.w(tag, msg)
+            Log.w("$LOG_PREFIX $tag", msg)
         }
     }
     
-    fun e(tag: String = LOG_PREFIX, msg: String) {
+    fun e(tag: String = TAG, msg: String) {
         if (logLevel <= LOG_LEVEL_ERROR) {
-            Log.e(tag, msg)
+            Log.e("$LOG_PREFIX $tag", msg)
         }
     }
     
-    fun e(tag: String = LOG_PREFIX, t: Throwable) {
+    fun e(tag: String = TAG, t: Throwable) {
         if (logLevel <= LOG_LEVEL_ERROR) {
-            Log.e(tag, "", t)
+            Log.e("$LOG_PREFIX $tag", "", t)
         }
     }
     
@@ -119,11 +120,11 @@ object LogcatUtils {
             
             val lines = jsonStringIndented.split(SYSTEM_LINE_SEPARATOR)
             val stringBuilder = StringBuilder()
-            v(fileName, LOG_TOP_BORDER)
-            v(fileName, "$LOG_VERTICAL_DOUBLE_LINE $tag")
+            v(fileName, LOG_TOP____BORDER)
+            v(fileName, "$LOG_VERTICAL___DOUBLE_LINE $tag")
             v(fileName, LOG_MIDDLE_BORDER)
             for (line in lines) {
-                stringBuilder.append("$LOG_VERTICAL_DOUBLE_LINE ")
+                stringBuilder.append("$LOG_VERTICAL___DOUBLE_LINE ")
                     .append(line)
                     .append(SYSTEM_LINE_SEPARATOR)
                 v(fileName, stringBuilder.toString())
@@ -169,10 +170,10 @@ object LogcatUtils {
             
             else -> {
                 val message = ConvertUtils.object2String(`object`)
-                v(fileName, LOG_TOP_BORDER)
-                v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + tag)
+                v(fileName, LOG_TOP____BORDER)
+                v(fileName, LOG_VERTICAL___DOUBLE_LINE + " " + tag)
                 v(fileName, LOG_MIDDLE_BORDER)
-                v(fileName, LOG_VERTICAL_DOUBLE_LINE + " " + message)
+                v(fileName, LOG_VERTICAL___DOUBLE_LINE + " " + message)
                 v(fileName, LOG_BOTTOM_BORDER)
             }
         }
@@ -183,15 +184,15 @@ object LogcatUtils {
         msg = String.format(msg, simpleName, string.length)
         if (!string.isEmpty()) {
             val stringBuilder = StringBuilder()
-            stringBuilder.append(LOG_TOP_BORDER)
+            stringBuilder.append(LOG_TOP____BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(" ")
                 .append(tag)
                 .append(SYSTEM_LINE_SEPARATOR)
                 .append(LOG_MIDDLE_BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(msg)
             stringBuilder.append(string)
             stringBuilder.append("\"\n")
@@ -207,15 +208,15 @@ object LogcatUtils {
         msg = String.format(msg, simpleName, collection.size)
         if (!collection.isEmpty()) {
             val stringBuilder = StringBuilder()
-            stringBuilder.append(LOG_TOP_BORDER)
+            stringBuilder.append(LOG_TOP____BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(" ")
                 .append(tag)
                 .append(SYSTEM_LINE_SEPARATOR)
                 .append(LOG_MIDDLE_BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(msg)
             val iterator = collection.iterator()
             var index = 0
@@ -237,24 +238,24 @@ object LogcatUtils {
         msg = String.format(msg, simpleName, collection.size)
         if (!collection.isEmpty()) {
             val stringBuilder = StringBuilder()
-            stringBuilder.append(LOG_TOP_BORDER)
+            stringBuilder.append(LOG_TOP____BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(" ")
                 .append(tag)
                 .append(SYSTEM_LINE_SEPARATOR)
                 .append(LOG_MIDDLE_BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(msg)
             val iterator = collection.iterator()
             var index = 0
             while (iterator.hasNext()) {
-                val itemString = "$LOG_VERTICAL_DOUBLE_LINE [%d]:%s%s"
+                val itemString = "$LOG_VERTICAL___DOUBLE_LINE [%d]:%s%s"
                 val item = iterator.next()
                 stringBuilder.append(String.format(itemString, index, ConvertUtils.object2String(item), if (index++ < collection.size - 1) ",\n" else "\n"))
             }
-            stringBuilder.append("$LOG_VERTICAL_DOUBLE_LINE ]\n")
+            stringBuilder.append("$LOG_VERTICAL___DOUBLE_LINE ]\n")
                 .append(LOG_BOTTOM_BORDER)
             v(fileName, stringBuilder.toString())
         } else {
@@ -266,25 +267,25 @@ object LogcatUtils {
         val keys = map.keys
         if (keys.isNotEmpty()) {
             val stringBuilder = StringBuilder()
-            stringBuilder.append(LOG_TOP_BORDER)
+            stringBuilder.append(LOG_TOP____BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(" ")
                 .append(tag)
                 .append(SYSTEM_LINE_SEPARATOR)
                 .append(LOG_MIDDLE_BORDER)
                 .append(SYSTEM_LINE_SEPARATOR)
-                .append(LOG_VERTICAL_DOUBLE_LINE)
+                .append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(" ")
                 .append(simpleName)
                 .append(" {\n")
             
             for (key in keys) {
-                stringBuilder.append(LOG_VERTICAL_DOUBLE_LINE)
+                stringBuilder.append(LOG_VERTICAL___DOUBLE_LINE)
                     .append(" ")
                     .append(String.format("[%s -> %s]\n", ConvertUtils.object2String(key), ConvertUtils.object2String(if (map[key] is Array<*>) ConvertUtils.array2String(map[key] as Array<*>) else map[key])))
             }
-            stringBuilder.append(LOG_VERTICAL_DOUBLE_LINE)
+            stringBuilder.append(LOG_VERTICAL___DOUBLE_LINE)
                 .append(" ")
                 .append("}\n")
                 .append(LOG_BOTTOM_BORDER)

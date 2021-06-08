@@ -23,7 +23,7 @@ import com.githubyss.mobile.common.kit.manager.audio.util.ProgressTextUtils
  */
 class AudioPlayManager {
     
-    /** ********** ********** ********** Companion ********** ********** ********** */
+    /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
         val INSTANCE: AudioPlayManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
@@ -34,9 +34,6 @@ class AudioPlayManager {
         private val WHAT_REFRESH = 0x268
         private val MAX_PROGRESS = 100
     }
-    
-    
-    /** ********** ********** ********** Properties ********** ********** ********** */
     
     var MaxProgress = MAX_PROGRESS
     

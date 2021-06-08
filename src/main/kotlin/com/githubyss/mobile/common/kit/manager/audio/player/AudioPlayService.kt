@@ -22,7 +22,7 @@ import com.githubyss.mobile.common.kit.constant.Constants
  */
 class AudioPlayService : Service() {
     
-    /** ********** ********** ********** Companion ********** ********** ********** */
+    /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
         var instance: AudioPlayService? = null
@@ -30,9 +30,6 @@ class AudioPlayService : Service() {
         
         private val TAG = AudioPlayService::class.simpleName ?: "simpleName is null"
     }
-    
-    
-    /** ********** ********** ********** Properties ********** ********** ********** */
     
     private var receiver: MyBroadcastReceiver? = null
     private var closeMusic = true

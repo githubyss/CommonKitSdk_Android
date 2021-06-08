@@ -3,7 +3,6 @@ package com.githubyss.mobile.common.kit
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.AppUtils
 
 
@@ -48,14 +47,11 @@ object ComkitApplicationConfig {
     fun init(app: Application?) {
         if (application == null) {
             application = app ?: AppUtils.getApplicationByReflect()
-            application?.registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
-        } else {
-            if (app != null && app.javaClass != application?.javaClass) {
-                application?.unregisterActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
-                ActivityUtils.activityLifecycle.activityList.clear()
-                application = app
-                application?.registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
-            }
+        } else if (app != null && app.javaClass != application?.javaClass) {
+            // application?.unregisterActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
+            // ActivityUtils.activityLifecycle.activityList.clear()
+            application = app
+            // application?.registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
         }
     }
     

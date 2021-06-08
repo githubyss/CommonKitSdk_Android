@@ -97,6 +97,10 @@ object StringUtils {
         return s.isEmpty()
     }
     
+    fun isNotEmpty(s: CharSequence?): Boolean {
+        return !isEmpty(s)
+    }
+    
     /**
      * Return whether the string is null or whitespace.
      *

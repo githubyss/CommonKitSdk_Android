@@ -12,7 +12,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.githubyss.mobile.common.kit.constant.Constants
-import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.LogcatUtils
 import java.lang.reflect.InvocationTargetException
 import java.util.*
@@ -21,22 +20,22 @@ import kotlin.collections.HashSet
 
 
 /**
- * ActivityLifecycleImpl
+ * ActivityLifecycleSubscriber
  *
  * @author Ace Yan
  * @github githubyss
  * @createdTime 2020/12/17 17:46:15
  */
-open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
+open class ActivityLifecycleSubscriber : Application.ActivityLifecycleCallbacks {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
-        val INSTANCE: ActivityLifecycleImpl by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            ActivityLifecycleImpl()
+        val INSTANCE: ActivityLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            ActivityLifecycleSubscriber()
         }
         
-        private val TAG = ActivityLifecycleImpl::class.simpleName ?: "simpleName is null"
+        private val TAG = ActivityLifecycleSubscriber::class.simpleName ?: "simpleName is null"
         private val PERMISSION_ACTIVITY_CLASS_NAME: String? = "com.blankj.utilcode.util.PermissionUtils\$PermissionActivity"
         
         // 锁屏延迟时间（毫秒）
@@ -61,13 +60,16 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     /** The activity list */
     var activityList: LinkedList<Activity> = LinkedList()
     
-    /** 手势计时是否触发 */
+    /** The activity stack */
+    var activityStack: Stack<Activity> = Stack()
+    
+    /** Gesture timer opened flag */
     private var isGestureTimerOpened = false
     
-    /** 用户离开时刻 */
+    /** User leave moment */
     private var userLeaveMoment: Long = 0
     
-    /** 切换到后台，自动登录时刻 */
+    /** Auto logon moment after leave */
     private var autoLogonLeaveMoment = 0L
     
     /** The status listener map */
@@ -80,6 +82,8 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     /** ********** ********** ********** Override ********** ********** ********** */
     
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityCreated")
+        
         // 应用放置后台，内存回收后，重新启动应用
         // if (activity != null && activity !is SplashActivity && EPApp.getApp().isColdStart && savedInstanceState != null) {
         //     // 恢复到最底层页面，进行跳转到Splash
@@ -99,6 +103,8 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     override fun onActivityStarted(activity: Activity) {
+        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStarted")
+        
         if (isForeground) {
             setTopActivity(activity)
         }
@@ -110,6 +116,8 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     override fun onActivityResumed(activity: Activity) {
+        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityResumed")
+        
         if (!isForeground) {
             isForeground = true
             postStatus(true)
@@ -151,9 +159,12 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     override fun onActivityPaused(activity: Activity) {
+        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityPaused")
     }
     
     override fun onActivityStopped(activity: Activity) {
+        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStopped")
+        
         // 重要，如果 Activity 的 stop 中判断应用再前后台，一定要把 super.stop() 放在第一行
         if (activity.isChangingConfigurations) {
             configCount--
@@ -190,9 +201,12 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     }
     
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivitySaveInstanceState")
     }
     
     override fun onActivityDestroyed(activity: Activity) {
+        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityDestroyed")
+        
         activityList.remove(activity)
         consumeOnActivityDestroyedListener(activity)
         fixSoftInputLeaks(activity)
@@ -219,23 +233,6 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
             setTopActivity(topActivityByReflect)
         }
         return topActivityByReflect
-    }
-    
-    /**
-     * Close all activities.
-     *
-     * @param
-     * @return
-     */
-    fun closeAllActivities() {
-        if (!activityList.isEmpty()) {
-            for (activity in activityList) {
-                if (!ActivityUtils.isActivityDestroy(activity)) {
-                    activity.finish()
-                }
-            }
-            activityList.clear()
-        }
     }
     
     fun getActivityNum(): Int {
@@ -346,7 +343,8 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         
         val intent = Intent(Constants.INTENT_ACTION_IS_FOREGROUND)
         intent.putExtra("isForeground", isForeground)
-        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent)
+        LocalBroadcastManager.getInstance(activity)
+            .sendBroadcast(intent)
     }
     
     private fun setTopActivity(activity: Activity?) {
@@ -406,7 +404,8 @@ open class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         try {
             @SuppressLint("PrivateApi")
             val activityThreadClass = Class.forName("android.app.ActivityThread")
-            val currentActivityThreadMethod = activityThreadClass.getMethod("currentActivityThread").invoke(null)
+            val currentActivityThreadMethod = activityThreadClass.getMethod("currentActivityThread")
+                .invoke(null)
             val activityListField = activityThreadClass.getDeclaredField("mActivityList")
             activityListField.isAccessible = true
             val activities = activityListField[currentActivityThreadMethod] as Map<*, *>

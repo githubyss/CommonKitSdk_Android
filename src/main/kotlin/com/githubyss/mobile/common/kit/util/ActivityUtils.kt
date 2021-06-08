@@ -14,9 +14,8 @@ import android.view.View
 import androidx.annotation.AnimRes
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
-import androidx.fragment.app.Fragment
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleImpl
+import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleSubscriber
 
 
 /**
@@ -33,7 +32,7 @@ object ActivityUtils {
     private val TAG = ActivityUtils::class.simpleName ?: "simpleName is null"
     
     /** The activity lifecycle callbacks impl. */
-    var activityLifecycle: ActivityLifecycleImpl = ActivityLifecycleImpl.INSTANCE
+    var activityLifecycle: ActivityLifecycleSubscriber = ActivityLifecycleSubscriber.INSTANCE
     
     /** The list of activity. */
     var activityList: List<Activity> = activityLifecycle.activityList
@@ -115,15 +114,15 @@ object ActivityUtils {
     /**
      * Return the icon of activity.
      *
-     * @param clz     The activity class.
+     * @param clazz   The activity class.
      * @param context The context.
      * @return the icon of activity
      */
-    fun getActivityIcon(clz: Class<out Activity?>?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
-        clz ?: return null
+    fun getActivityIcon(clazz: Class<out Activity?>?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        clazz ?: return null
         context ?: return null
         
-        return getActivityIcon(ComponentName(context, clz), context)
+        return getActivityIcon(ComponentName(context, clazz), context)
     }
     
     /**
@@ -163,15 +162,15 @@ object ActivityUtils {
     /**
      * Return the logo of activity.
      *
-     * @param clz     The activity class.
+     * @param clazz   The activity class.
      * @param context The context.
      * @return the logo of activity
      */
-    fun getActivityLogo(clz: Class<out Activity?>?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
-        clz ?: return null
+    fun getActivityLogo(clazz: Class<out Activity?>?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        clazz ?: return null
         context ?: return null
         
-        return getActivityLogo(ComponentName(context, clz), context)
+        return getActivityLogo(ComponentName(context, clazz), context)
     }
     
     /**
@@ -249,15 +248,15 @@ object ActivityUtils {
     /**
      * Return whether the activity exists in activity's stack.
      *
-     * @param clz The activity class.
+     * @param clazz The activity class.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isActivityExistsInStack(clz: Class<out Activity?>?): Boolean {
-        clz ?: return false
+    fun isActivityExistsInStack(clazz: Class<out Activity?>?): Boolean {
+        clazz ?: return false
         
         val activities: List<Activity> = activityList
         for (aActivity in activities) {
-            if (aActivity.javaClass == clz) {
+            if (aActivity.javaClass == clazz) {
                 return true
             }
         }
@@ -286,31 +285,6 @@ object ActivityUtils {
         return !activity.isFinishing && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed)
     }
     
-    /**
-     * Return whether the fragment is destroy.
-     *
-     * @param activity The activity.
-     * @param fragment The fragment.
-     * @return `true`: yes<br></br>`false`: no
-     */
-    fun isFragmentDestroy(activity: Activity?, fragment: Fragment?): Boolean {
-        return !isFragmentAlive(activity, fragment)
-    }
-    
-    /**
-     * Return whether the fragment is alive.
-     *
-     * @param activity The activity.
-     * @param fragment The fragment.
-     * @return `true`: yes<br></br>`false`: no
-     */
-    fun isFragmentAlive(activity: Activity?, fragment: Fragment?): Boolean {
-        activity ?: return false
-        fragment ?: return false
-        
-        return isActivityAlive(activity) && !fragment.isDetached
-    }
-    
     /** ********** ********** Operator ********** ********** */
     
     /** ********** startActivity by options ********** */
@@ -319,30 +293,30 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param context The context.
-     * @param clz     The activity class.
+     * @param clazz   The activity class.
      * @param extras  The Bundle of extras to add to this intent.
      * @param options Additional options for how the Activity should be started.
      */
-    fun startActivity(context: Context? = topActivityOrApp, clz: Class<out Activity?>?, extras: Bundle? = null, options: Bundle? = null) {
+    fun startActivity(context: Context? = topActivityOrApp, clazz: Class<out Activity?>?, extras: Bundle? = null, options: Bundle? = null) {
         context ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivity(context, context.packageName, clz.name, extras, options)
+        startActivity(context, context.packageName, clazz.name, extras, options)
     }
     
     /**
      * Start the activity.
      *
      * @param activity The activity.
-     * @param clz      The activity class.
+     * @param clazz    The activity class.
      * @param extras   The Bundle of extras to add to this intent.
      * @param options  Additional options for how the Activity should be started.
      */
-    fun startActivity(activity: Activity?, clz: Class<out Activity?>?, extras: Bundle? = null, options: Bundle? = null) {
+    fun startActivity(activity: Activity?, clazz: Class<out Activity?>?, extras: Bundle? = null, options: Bundle? = null) {
         activity ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivity(activity, activity.packageName, clz.name, extras, options)
+        startActivity(activity, activity.packageName, clazz.name, extras, options)
     }
     
     /**
@@ -445,16 +419,16 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param context   The context.
-     * @param clz       The activity class.
+     * @param clazz     The activity class.
      * @param extras    The Bundle of extras to add to this intent.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
-    fun startActivity(context: Context? = topActivityOrApp, clz: Class<out Activity?>?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivity(context: Context? = topActivityOrApp, clazz: Class<out Activity?>?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         context ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivity(context, context.packageName, clz.name, extras, getOptionsBundle(context, enterAnim, exitAnim))
+        startActivity(context, context.packageName, clazz.name, extras, getOptionsBundle(context, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN && context is Activity) {
             context.overridePendingTransition(enterAnim, exitAnim)
         }
@@ -464,16 +438,16 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param activity  The activity.
-     * @param clz       The activity class.
+     * @param clazz     The activity class.
      * @param extras    The Bundle of extras to add to this intent.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
-    fun startActivity(activity: Activity?, clz: Class<out Activity?>?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivity(activity: Activity?, clazz: Class<out Activity?>?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         activity ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivity(activity, activity.packageName, clz.name, extras, getOptionsBundle(activity, enterAnim, exitAnim))
+        startActivity(activity, activity.packageName, clazz.name, extras, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
         }
@@ -486,8 +460,8 @@ object ActivityUtils {
      * @param packageName The name of the package.
      * @param cls         The name of the class.
      * @param extras      The Bundle of extras to add to this intent.
-     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     fun startActivity(context: Context? = topActivityOrApp, packageName: String?, cls: String?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         context ?: return
@@ -507,8 +481,8 @@ object ActivityUtils {
      * @param packageName The name of the package.
      * @param cls         The name of the class.
      * @param extras      The Bundle of extras to add to this intent.
-     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     fun startActivity(activity: Activity?, packageName: String?, cls: String?, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         activity ?: return
@@ -526,8 +500,8 @@ object ActivityUtils {
      *
      * @param context   The context.
      * @param intent    The description of the activity to start.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      * @return `true`: success<br></br>`false`: fail
      */
     fun startActivity(context: Context? = topActivityOrApp, intent: Intent?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int): Boolean {
@@ -548,8 +522,8 @@ object ActivityUtils {
      *
      * @param activity  The activity.
      * @param intent    The description of the activity to start.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     fun startActivity(activity: Activity?, intent: Intent?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         activity ?: return
@@ -567,15 +541,15 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param activity       The activity.
-     * @param clz            The activity class.
+     * @param clazz          The activity class.
      * @param extras         The Bundle of extras to add to this intent.
      * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
      */
-    fun startActivity(activity: Activity?, clz: Class<out Activity?>?, extras: Bundle? = null, vararg sharedElements: View) {
+    fun startActivity(activity: Activity?, clazz: Class<out Activity?>?, extras: Bundle? = null, vararg sharedElements: View) {
         activity ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivity(activity, activity.packageName, clz.name, extras, getOptionsBundle(activity, sharedElements))
+        startActivity(activity, activity.packageName, clazz.name, extras, getOptionsBundle(activity, sharedElements))
     }
     
     /**
@@ -615,16 +589,16 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param activity    The activity.
-     * @param clz         The activity class.
+     * @param clazz       The activity class.
      * @param requestCode if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param extras      The Bundle of extras to add to this intent.
      * @param options     Additional options for how the Activity should be started.
      */
-    fun startActivityForResult(activity: Activity?, clz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, options: Bundle? = null) {
+    fun startActivityForResult(activity: Activity?, clazz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, options: Bundle? = null) {
         activity ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivityForResult(activity, activity.packageName, clz.name, requestCode, extras, options)
+        startActivityForResult(activity, activity.packageName, clazz.name, requestCode, extras, options)
     }
     
     /**
@@ -678,17 +652,17 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param activity    The activity.
-     * @param clz         The activity class.
+     * @param clazz       The activity class.
      * @param requestCode if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param extras      The Bundle of extras to add to this intent.
-     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
-    fun startActivityForResult(activity: Activity?, clz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+    fun startActivityForResult(activity: Activity?, clazz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         activity ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivityForResult(activity, activity.packageName, clz.name, requestCode, extras, getOptionsBundle(activity, enterAnim, exitAnim))
+        startActivityForResult(activity, activity.packageName, clazz.name, requestCode, extras, getOptionsBundle(activity, enterAnim, exitAnim))
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             activity.overridePendingTransition(enterAnim, exitAnim)
         }
@@ -702,8 +676,8 @@ object ActivityUtils {
      * @param cls         The name of the class.
      * @param requestCode if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param extras      The Bundle of extras to add to this intent.
-     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     fun startActivityForResult(activity: Activity?, packageName: String?, cls: String?, requestCode: Int, extras: Bundle? = null, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         activity ?: return
@@ -722,8 +696,8 @@ object ActivityUtils {
      * @param activity    The activity.
      * @param intent      The description of the activity to start.
      * @param requestCode if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
-     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim   A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim    A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     fun startActivityForResult(activity: Activity?, intent: Intent?, requestCode: Int, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         activity ?: return
@@ -741,16 +715,16 @@ object ActivityUtils {
      * Start the activity.
      *
      * @param activity       The activity.
-     * @param clz            The activity class.
+     * @param clazz          The activity class.
      * @param requestCode    if &gt;= 0, this code will be returned in onActivityResult() when the activity exits.
      * @param extras         The Bundle of extras to add to this intent.
      * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
      */
-    fun startActivityForResult(activity: Activity?, clz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, vararg sharedElements: View) {
+    fun startActivityForResult(activity: Activity?, clazz: Class<out Activity?>?, requestCode: Int, extras: Bundle? = null, vararg sharedElements: View) {
         activity ?: return
-        clz ?: return
+        clazz ?: return
         
-        startActivityForResult(activity, activity.packageName, clz.name, requestCode, extras, getOptionsBundle(activity, sharedElements))
+        startActivityForResult(activity, activity.packageName, clazz.name, requestCode, extras, getOptionsBundle(activity, sharedElements))
     }
     
     /**
@@ -800,8 +774,8 @@ object ActivityUtils {
         intents ?: return
         
         if (context !is Activity) {
-            for (intent in intents) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            for (aIntent in intents) {
+                aIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -836,8 +810,8 @@ object ActivityUtils {
      *
      * @param context   The context.
      * @param intents   The descriptions of the activities to start.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     fun startActivities(context: Context? = topActivityOrApp, intents: Array<Intent>?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         context ?: return
@@ -854,8 +828,8 @@ object ActivityUtils {
      *
      * @param activity  The activity.
      * @param intents   The descriptions of the activities to start.
-     * @param enterAnim A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     fun startActivities(activity: Activity?, intents: Array<Intent>?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         activity ?: return
@@ -878,26 +852,26 @@ object ActivityUtils {
         startActivity(intent = homeIntent)
     }
     
-    /** ********** finishActivity by enterAnim, exitAnim ********** */
+    /** ********** finishActivity by isLoadAnim ********** */
     
     /**
      * Finish the activity.
      *
-     * @param clz        The activity class.
+     * @param clazz      The activity class.
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
-     * @param enterAnim  A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishActivity(clz: Class<out Activity?>?, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
-        clz ?: return
+    fun finishActivity(clazz: Class<out Activity?>?, isLoadAnim: Boolean = false) {
+        clazz ?: return
         
         val activities = activityList
-        for (activity in activities) {
-            if (activity.javaClass == clz) {
-                activity.finish()
-                if (!isLoadAnim) {
-                    activity.overridePendingTransition(enterAnim, exitAnim)
+        for (aActivity in activities) {
+            if (aActivity.javaClass == clazz) {
+                if (isActivityAlive(aActivity)) {
+                    aActivity.finish()
+                    if (!isLoadAnim) {
+                        aActivity.overridePendingTransition(0, 0)
+                    }
                 }
             }
         }
@@ -908,40 +882,78 @@ object ActivityUtils {
      *
      * @param activity   The activity.
      * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
-     * @param enterAnim  A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishActivity(activity: Activity?, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+    fun finishActivity(activity: Activity?, isLoadAnim: Boolean = false) {
         activity ?: return
         
-        activity.finish()
-        if (!isLoadAnim) {
+        if (isActivityAlive(activity)) {
+            activity.finish()
+            if (!isLoadAnim) {
+                activity.overridePendingTransition(0, 0)
+            }
+        }
+    }
+    
+    /** ********** finishActivity by enterAnim, exitAnim ********** */
+    
+    /**
+     * Finish the activity.
+     *
+     * @param clazz     The activity class.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
+     */
+    @JvmOverloads
+    fun finishActivity(clazz: Class<out Activity?>?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        clazz ?: return
+        
+        val activities = activityList
+        for (aActivity in activities) {
+            if (aActivity.javaClass == clazz) {
+                if (isActivityAlive(aActivity)) {
+                    aActivity.finish()
+                    aActivity.overridePendingTransition(enterAnim, exitAnim)
+                }
+            }
+        }
+    }
+    
+    /**
+     * Finish the activity.
+     *
+     * @param activity  The activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
+     */
+    @JvmOverloads
+    fun finishActivity(activity: Activity?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        
+        if (isActivityAlive(activity)) {
+            activity.finish()
             activity.overridePendingTransition(enterAnim, exitAnim)
         }
     }
     
-    /** ********** finishToActivity by enterAnim, exitAnim ********** */
+    /** ********** finishToActivity by isLoadAnim ********** */
     
     /**
      * Finish to the activity.
      *
-     * @param clz           The activity class.
+     * @param clazz         The activity class.
      * @param isIncludeSelf True to include the activity, false otherwise.
      * @param isLoadAnim    True to use animation for the outgoing activity, false otherwise.
-     * @param enterAnim     A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim      A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishToActivity(clz: Class<out Activity?>?, isIncludeSelf: Boolean, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0): Boolean {
-        clz ?: return false
+    fun finishToActivity(clazz: Class<out Activity?>?, isIncludeSelf: Boolean, isLoadAnim: Boolean = false): Boolean {
+        clazz ?: return false
         
         val activities = activityList
-        for (i in activities.indices.reversed()) {
-            val aActivity = activities[i]
-            if (aActivity.javaClass == clz) {
+        for (aActivity in activities.reversed()) {
+            if (aActivity.javaClass == clazz) {
                 if (isIncludeSelf) {
-                    finishActivity(aActivity, isLoadAnim, enterAnim, exitAnim)
+                    finishActivity(aActivity, isLoadAnim)
                 }
                 return true
             }
@@ -956,19 +968,16 @@ object ActivityUtils {
      * @param activity      The activity.
      * @param isIncludeSelf True to include the activity, false otherwise.
      * @param isLoadAnim    True to use animation for the outgoing activity, false otherwise.
-     * @param enterAnim     A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim      A resource ID of the animation resource to use for the outgoing activity.
      */
     @JvmOverloads
-    fun finishToActivity(activity: Activity?, isIncludeSelf: Boolean, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0): Boolean {
+    fun finishToActivity(activity: Activity?, isIncludeSelf: Boolean, isLoadAnim: Boolean = false): Boolean {
         activity ?: return false
         
         val activities = activityList
-        for (i in activities.indices.reversed()) {
-            val aActivity = activities[i]
+        for (aActivity in activities.reversed()) {
             if (aActivity == activity) {
                 if (isIncludeSelf) {
-                    finishActivity(aActivity, isLoadAnim, enterAnim, exitAnim)
+                    finishActivity(aActivity, isLoadAnim)
                 }
                 return true
             }
@@ -977,26 +986,176 @@ object ActivityUtils {
         return false
     }
     
+    /** ********** finishToActivity by enterAnim, exitAnim ********** */
+    
+    /**
+     * Finish to the activity.
+     *
+     * @param clazz         The activity class.
+     * @param isIncludeSelf True to include the activity, false otherwise.
+     * @param enterAnim     A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim      A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
+     */
+    @JvmOverloads
+    fun finishToActivity(clazz: Class<out Activity?>?, isIncludeSelf: Boolean, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int): Boolean {
+        clazz ?: return false
+        
+        val activities = activityList
+        for (aActivity in activities.reversed()) {
+            if (aActivity.javaClass == clazz) {
+                if (isIncludeSelf) {
+                    finishActivity(aActivity, enterAnim, exitAnim)
+                }
+                return true
+            }
+            finishActivity(aActivity, enterAnim, exitAnim)
+        }
+        return false
+    }
+    
+    /**
+     * Finish to the activity.
+     *
+     * @param activity      The activity.
+     * @param isIncludeSelf True to include the activity, false otherwise.
+     * @param enterAnim     A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim      A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
+     */
+    @JvmOverloads
+    fun finishToActivity(activity: Activity?, isIncludeSelf: Boolean, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int): Boolean {
+        activity ?: return false
+        
+        val activities = activityList
+        for (aActivity in activities.reversed()) {
+            if (aActivity == activity) {
+                if (isIncludeSelf) {
+                    finishActivity(aActivity, enterAnim, exitAnim)
+                }
+                return true
+            }
+            finishActivity(aActivity, enterAnim, exitAnim)
+        }
+        return false
+    }
+    
+    /** ********** finishOtherActivities by isLoadAnim ********** */
+    
+    /**
+     * Finish the activities whose type not equals the activity class.
+     *
+     * @param clazz      The activity class.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
+     */
+    @JvmOverloads
+    fun finishOtherActivities(clazz: Class<out Activity?>?, isLoadAnim: Boolean = false) {
+        clazz ?: return
+        
+        val activities = activityList
+        for (aActivity in activities.reversed()) {
+            if (aActivity.javaClass != clazz) {
+                finishActivity(aActivity, isLoadAnim)
+            }
+        }
+    }
+    
+    /**
+     * Finish the activities whose type not equals the activity class.
+     *
+     * @param activity   The activity.
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
+     */
+    @JvmOverloads
+    fun finishOtherActivities(activity: Activity?, isLoadAnim: Boolean = false) {
+        activity ?: return
+        
+        val activities = activityList
+        for (aActivity in activities.reversed()) {
+            if (aActivity != activity) {
+                finishActivity(aActivity, isLoadAnim)
+            }
+        }
+    }
+    
     /** ********** finishOtherActivities by enterAnim, exitAnim ********** */
     
     /**
      * Finish the activities whose type not equals the activity class.
      *
-     * @param clz        The activity class.
-     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
-     * @param enterAnim  A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
+     * @param clazz     The activity class.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     @JvmOverloads
-    fun finishOtherActivities(clz: Class<out Activity?>?, isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
-        clz ?: return
+    fun finishOtherActivities(clazz: Class<out Activity?>?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        clazz ?: return
         
         val activities = activityList
-        for (i in activities.indices.reversed()) {
-            val activity = activities[i]
-            if (activity.javaClass != clz) {
-                finishActivity(activity, isLoadAnim, enterAnim, exitAnim)
+        for (aActivity in activities.reversed()) {
+            if (aActivity.javaClass != clazz) {
+                finishActivity(aActivity, enterAnim, exitAnim)
             }
+        }
+    }
+    
+    /**
+     * Finish the activities whose type not equals the activity class.
+     *
+     * @param activity  The activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
+     */
+    @JvmOverloads
+    fun finishOtherActivities(activity: Activity?, @AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        activity ?: return
+        
+        val activities = activityList
+        for (aActivity in activities.reversed()) {
+            if (aActivity != activity) {
+                finishActivity(aActivity, enterAnim, exitAnim)
+            }
+        }
+    }
+    
+    /** ********** finishTopActivity by isLoadAnim ********** */
+    
+    /**
+     * Finish the top activity.
+     *
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
+     */
+    fun finishTopActivity(isLoadAnim: Boolean = false) {
+        topActivity ?: return
+        
+        finishActivity(topActivity, isLoadAnim)
+    }
+    
+    /** ********** finishTopActivity by enterAnim, exitAnim ********** */
+    
+    /**
+     * Finish the top activity.
+     *
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
+     */
+    fun finishTopActivity(@AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        topActivity ?: return
+        
+        finishActivity(topActivity, enterAnim, exitAnim)
+    }
+    
+    /** ********** finishAllActivities by isLoadAnim ********** */
+    
+    /**
+     * Finish all of activities.
+     *
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
+     */
+    @JvmOverloads
+    fun finishAllActivities(isLoadAnim: Boolean = false) {
+        val activityList = activityList
+        for (aActivity in activityList.reversed()) { // remove from top
+            // activityList remove the index activity at onActivityDestroyed
+            finishActivity(aActivity, isLoadAnim)
         }
     }
     
@@ -1005,20 +1164,31 @@ object ActivityUtils {
     /**
      * Finish all of activities.
      *
-     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
-     * @param enterAnim  A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     @JvmOverloads
-    fun finishAllActivities(isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+    fun finishAllActivities(@AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         val activityList = activityList
-        for (i in activityList.indices.reversed()) { // remove from top
-            val activity = activityList[i]
-            // sActivityList remove the index activity at onActivityDestroyed
-            activity.finish()
-            if (!isLoadAnim) {
-                activity.overridePendingTransition(enterAnim, exitAnim)
-            }
+        for (aActivity in activityList.reversed()) { // remove from top
+            // activityList remove the index activity at onActivityDestroyed
+            finishActivity(aActivity, enterAnim, exitAnim)
+        }
+        activityLifecycle.activityList.clear()
+    }
+    
+    /** ********** finishAllActivitiesExceptNewest by isLoadAnim ********** */
+    
+    /**
+     * Finish all of activities except the newest activity.
+     *
+     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
+     */
+    @JvmOverloads
+    fun finishAllActivitiesExceptNewest(isLoadAnim: Boolean = false) {
+        val activities = activityList
+        for (i in activities.size - 2 downTo 0) {
+            finishActivity(activities[i], isLoadAnim)
         }
     }
     
@@ -1027,15 +1197,14 @@ object ActivityUtils {
     /**
      * Finish all of activities except the newest activity.
      *
-     * @param isLoadAnim True to use animation for the outgoing activity, false otherwise.
-     * @param enterAnim  A resource ID of the animation resource to use for the incoming activity.
-     * @param exitAnim   A resource ID of the animation resource to use for the outgoing activity.
+     * @param enterAnim A resource ID of the animation resource to use for the incoming activity. Use 0 for no animation.
+     * @param exitAnim  A resource ID of the animation resource to use for the outgoing activity. Use 0 for no animation.
      */
     @JvmOverloads
-    fun finishAllActivitiesExceptNewest(isLoadAnim: Boolean = false, @AnimRes enterAnim: Int = 0, @AnimRes exitAnim: Int = 0) {
+    fun finishAllActivitiesExceptNewest(@AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
         val activities = activityList
         for (i in activities.size - 2 downTo 0) {
-            finishActivity(activities[i], isLoadAnim, enterAnim, exitAnim)
+            finishActivity(activities[i], enterAnim, exitAnim)
         }
     }
     
@@ -1052,7 +1221,8 @@ object ActivityUtils {
     private fun getOptionsBundle(context: Context? = ComkitApplicationConfig.getApp(), enterAnim: Int, exitAnim: Int): Bundle? {
         context ?: return null
         
-        return ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim).toBundle()
+        return ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim)
+            .toBundle()
     }
     
     private fun getOptionsBundle(activity: Activity?, sharedElements: Array<out View>?): Bundle? {
@@ -1066,6 +1236,7 @@ object ActivityUtils {
         for (i in 0 until len) {
             pairs[i] = Pair.create(sharedElements[i], sharedElements[i].transitionName)
         }
-        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs)
+            .toBundle()
     }
 }

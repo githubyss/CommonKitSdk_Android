@@ -21,7 +21,7 @@ import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleImpl
+import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleSubscriber
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -51,8 +51,10 @@ object AppUtils {
         try {
             @SuppressLint("PrivateApi")
             val activityThread = Class.forName("android.app.ActivityThread")
-            val thread = activityThread.getMethod("currentActivityThread").invoke(null)
-            val app = activityThread.getMethod("getApplication").invoke(thread) ?: throw NullPointerException("u should init first")
+            val thread = activityThread.getMethod("currentActivityThread")
+                .invoke(null)
+            val app = activityThread.getMethod("getApplication")
+                .invoke(thread) ?: throw NullPointerException("u should init first")
             return app as Application
         } catch (e: NoSuchMethodException) {
             e.printStackTrace()
@@ -113,7 +115,8 @@ object AppUtils {
         return try {
             val packageManager = context.packageManager ?: return ""
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
-            packageInfo.applicationInfo?.loadLabel(packageManager)?.toString() ?: ""
+            packageInfo.applicationInfo?.loadLabel(packageManager)
+                ?.toString() ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             ""
@@ -246,7 +249,8 @@ object AppUtils {
         if (StringUtils.isSpace(packageName)) return ""
         
         val signature = getAppSignature(packageName) ?: return ""
-        return if (signature.isEmpty()) "" else ConvertUtils.bytes2HexString(EncryptUtils.hashTemplate(signature[0]?.toByteArray(), algorithm)).replace("(?<=[0-9A-F]{2})[0-9A-F]{2}".toRegex(), ":$0")
+        return if (signature.isEmpty()) "" else ConvertUtils.bytes2HexString(EncryptUtils.hashTemplate(signature[0]?.toByteArray(), algorithm))
+            .replace("(?<=[0-9A-F]{2})[0-9A-F]{2}".toRegex(), ":$0")
     }
     
     /**
@@ -358,7 +362,8 @@ object AppUtils {
         
         val applicationInfo = packageInfo.applicationInfo
         val packageName = packageInfo.packageName
-        val name = applicationInfo.loadLabel(packageManager).toString()
+        val name = applicationInfo.loadLabel(packageManager)
+            .toString()
         val icon = applicationInfo.loadIcon(packageManager)
         val packagePath = applicationInfo.sourceDir
         val versionName = packageInfo.versionName
@@ -447,7 +452,8 @@ object AppUtils {
         return try {
             val file = File("/proc/" + Process.myPid() + "/" + "cmdline")
             val mBufferedReader = BufferedReader(FileReader(file))
-            val processName = mBufferedReader.readLine().trim { it <= ' ' }
+            val processName = mBufferedReader.readLine()
+                .trim { it <= ' ' }
             mBufferedReader.close()
             processName
         } catch (e: Exception) {
@@ -645,8 +651,8 @@ object AppUtils {
      * @param obj      The object.
      * @param listener The status of application changed listener
      */
-    fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleImpl.OnAppStatusChangedListener?) {
-        ActivityLifecycleImpl.INSTANCE.addOnAppStatusChangedListener(obj, listener)
+    fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleSubscriber.OnAppStatusChangedListener?) {
+        ActivityLifecycleSubscriber.INSTANCE.addOnAppStatusChangedListener(obj, listener)
     }
     
     /**
@@ -655,7 +661,7 @@ object AppUtils {
      * @param obj The object.
      */
     fun unregisterAppStatusChangedListener(obj: Any?) {
-        ActivityLifecycleImpl.INSTANCE.removeOnAppStatusChangedListener(obj)
+        ActivityLifecycleSubscriber.INSTANCE.removeOnAppStatusChangedListener(obj)
     }
     
     /** ********** installApp ********** */
@@ -762,7 +768,8 @@ object AppUtils {
         val filePath = '"'.toString() + file.absolutePath + '"'
         val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install $params $filePath"
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
-        return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase().contains("success")) {
+        return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase()
+                    .contains("success")) {
             true
         } else {
             LogcatUtils.e("AppUtils", "installAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
@@ -822,7 +829,8 @@ object AppUtils {
         
         val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall " + (if (isKeepData) "-k " else "") + packageName
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
-        return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase().contains("success")) {
+        return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase()
+                    .contains("success")) {
             true
         } else {
             LogcatUtils.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
@@ -907,10 +915,9 @@ object AppUtils {
      */
     fun exitApp() {
         val activityList = ActivityUtils.activityList
-        for (i in activityList.indices.reversed()) { // remove from top
-            val activity = activityList[i]
-            // sActivityList remove the index activity at onActivityDestroyed
-            activity.finish()
+        for (aActivity in activityList.reversed()) { // remove from top
+            // activityList remove the index activity at onActivityDestroyed
+            ActivityUtils.finishActivity(aActivity)
         }
         System.exit(0)
     }

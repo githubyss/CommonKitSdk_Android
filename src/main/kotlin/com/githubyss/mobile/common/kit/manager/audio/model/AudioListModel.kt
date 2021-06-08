@@ -16,15 +16,12 @@ import java.util.*
  */
 class AudioListModel : Serializable {
     
-    /** ********** ********** ********** Companion ********** ********** ********** */
+    /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
         @VoiceType
         var savedVoiceType = VoiceType.FEMALE
     }
-    
-    
-    /** ********** ********** ********** Properties ********** ********** ********** */
     
     var currentIndex = 0
     var audioList: List<AudioModel?>? = null
@@ -39,7 +36,7 @@ class AudioListModel : Serializable {
     }
     
     
-    /** ********* ********** ********** Private ********** ********** ********** */
+    /** ********** ********** ********** Private ********** ********** ********** */
     
     private fun filtrateAudioList(audioList: List<AudioModel>): MutableList<AudioModel?>? {
         val filtratedAudioList: MutableList<AudioModel?> = ArrayList()
