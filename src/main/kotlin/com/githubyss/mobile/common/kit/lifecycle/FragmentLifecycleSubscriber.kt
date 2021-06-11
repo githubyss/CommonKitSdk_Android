@@ -15,14 +15,12 @@ import com.githubyss.mobile.common.kit.util.LogcatUtils
  * @github githubyss
  * @createdTime 2021/06/03 10:14:08
  */
-open class FragmentLifecycleSubscriber : FragmentManager.FragmentLifecycleCallbacks() {
+open class FragmentLifecycleSubscriber private constructor() : FragmentManager.FragmentLifecycleCallbacks() {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
-        val INSTANCE: FragmentLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            FragmentLifecycleSubscriber()
-        }
+        val INSTANCE: FragmentLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { FragmentLifecycleSubscriber() }
         
         private val TAG = FragmentLifecycleSubscriber::class.simpleName ?: "simpleName is null"
     }

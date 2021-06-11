@@ -120,7 +120,7 @@ class AudioPlayService : Service() {
     }
     
     
-    /** ********** ********** ********** Class ********** ********** **********  */
+    /** ********** ********** ********** Class ********** ********** ********** */
     
     // client 可以通过Binder获取Service实例
     class MusicBinder : Binder() {

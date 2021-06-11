@@ -6,7 +6,8 @@ class AceTemp {
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
-        val TAG = AceTemp::class.simpleName ?: "simpleName is null"
+        val TAG_ = AceTemp::class.simpleName ?: "simpleName is null"
+        val TAG = AceTemp::class.java.simpleName
     }
     
     
@@ -35,7 +36,7 @@ class AceTemp {
     /** ********** ********** ********** Class ********** ********** ********** */
     
     
-    /** ********** ********** ********** Implementations ********** ********** **********  */
+    /** ********** ********** ********** Implementations ********** ********** ********** */
     
     
     /** ********** ********** ********** Interface ********** ********** ********** */

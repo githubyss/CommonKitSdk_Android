@@ -21,14 +21,12 @@ import com.githubyss.mobile.common.kit.manager.audio.util.ProgressTextUtils
  * @github githubyss
  * @createdTime 2021/02/24 14:07:21
  */
-class AudioPlayManager {
+class AudioPlayManager private constructor() {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
-        val INSTANCE: AudioPlayManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            AudioPlayManager()
-        }
+        val INSTANCE: AudioPlayManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { AudioPlayManager() }
         
         private val TAG = AudioPlayManager::class.simpleName ?: "simpleName is null"
         private val WHAT_REFRESH = 0x268

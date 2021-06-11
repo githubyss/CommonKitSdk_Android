@@ -26,14 +26,12 @@ import kotlin.collections.HashSet
  * @github githubyss
  * @createdTime 2020/12/17 17:46:15
  */
-open class ActivityLifecycleSubscriber : Application.ActivityLifecycleCallbacks {
+open class ActivityLifecycleSubscriber private constructor() : Application.ActivityLifecycleCallbacks {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
-        val INSTANCE: ActivityLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            ActivityLifecycleSubscriber()
-        }
+        val INSTANCE: ActivityLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { ActivityLifecycleSubscriber() }
         
         private val TAG = ActivityLifecycleSubscriber::class.simpleName ?: "simpleName is null"
         private val PERMISSION_ACTIVITY_CLASS_NAME: String? = "com.blankj.utilcode.util.PermissionUtils\$PermissionActivity"
