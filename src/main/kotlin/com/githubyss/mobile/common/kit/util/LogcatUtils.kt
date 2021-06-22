@@ -20,7 +20,7 @@ object LogcatUtils {
     
     private val TAG = LogcatUtils::class.simpleName ?: "simpleName is null"
     
-    private const val LOG_PREFIX = "githubyss >>>"
+    private const val LOG_PREFIX = ">>>>>"
     
     private val SYSTEM_LINE_SEPARATOR = System.getProperty("line.separator") ?: ""
     

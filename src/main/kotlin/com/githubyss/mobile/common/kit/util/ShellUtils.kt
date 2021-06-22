@@ -38,7 +38,7 @@ object ShellUtils {
      * @param callback        The callback.
      * @return the task
      */
-    fun execCmdAsync(command: String?, isRooted: Boolean, isNeedResultMsg: Boolean = true, callback: TaskUtils.Callback<CommandResult?>): TaskUtils.Task<CommandResult?>? {
+    fun execCmdAsync(command: String?, isRooted: Boolean, isNeedResultMsg: Boolean = true, callback: TaskUtils.Callback<CommandResult?>): TaskUtils.TaskRunnable<CommandResult?>? {
         return execCmdAsync(arrayOf(command), isRooted, isNeedResultMsg, callback)
     }
     
@@ -51,7 +51,7 @@ object ShellUtils {
      * @param callback        The callback.
      * @return the task
      */
-    fun execCmdAsync(commands: List<String?>?, isRooted: Boolean, isNeedResultMsg: Boolean = true, callback: TaskUtils.Callback<CommandResult?>): TaskUtils.Task<CommandResult?>? {
+    fun execCmdAsync(commands: List<String?>?, isRooted: Boolean, isNeedResultMsg: Boolean = true, callback: TaskUtils.Callback<CommandResult?>): TaskUtils.TaskRunnable<CommandResult?>? {
         return execCmdAsync(commands?.toTypedArray(), isRooted, isNeedResultMsg, callback)
     }
     
@@ -64,8 +64,8 @@ object ShellUtils {
      * @param callback        The callback.
      * @return the task
      */
-    fun execCmdAsync(commands: Array<String?>?, isRooted: Boolean, isNeedResultMsg: Boolean = true, @NonNull callback: TaskUtils.Callback<CommandResult?>): TaskUtils.Task<CommandResult?>? {
-        return TaskUtils.doAsync(object : TaskUtils.Task<CommandResult?>(callback) {
+    fun execCmdAsync(commands: Array<String?>?, isRooted: Boolean, isNeedResultMsg: Boolean = true, @NonNull callback: TaskUtils.Callback<CommandResult?>): TaskUtils.TaskRunnable<CommandResult?>? {
+        return TaskUtils.doAsync(object : TaskUtils.TaskRunnable<CommandResult?>(callback) {
             override fun doInBackground(): CommandResult? {
                 return execCmd(commands, isRooted, isNeedResultMsg)
             }

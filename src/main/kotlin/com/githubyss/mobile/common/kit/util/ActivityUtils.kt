@@ -270,6 +270,8 @@ object ActivityUtils {
      * @return `true`: yes<br></br>`false`: no
      */
     fun isActivityDestroy(activity: Activity?): Boolean {
+        activity ?: return true
+        
         return !isActivityAlive(activity)
     }
     

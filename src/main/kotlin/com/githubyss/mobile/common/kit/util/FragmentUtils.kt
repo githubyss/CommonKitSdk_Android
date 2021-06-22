@@ -23,9 +23,9 @@ object FragmentUtils {
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */
-
+    
     /** ********** ********** Checker ********** ********** */
-
+    
     /**
      * Return whether the fragment is destroy.
      *
@@ -33,10 +33,17 @@ object FragmentUtils {
      * @param fragment The fragment.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isFragmentDestroy(activity: Activity?, fragment: Fragment?): Boolean {
-        return !isFragmentAlive(activity, fragment)
+    fun isFragmentDestroy(activity: Activity?, fragment: Any?): Boolean {
+        activity ?: return true
+        fragment ?: return true
+        
+        return when (fragment) {
+            is Fragment -> !isFragmentAlive(activity, fragment)
+            is android.app.Fragment -> !isFragmentAlive(activity, fragment)
+            else -> true
+        }
     }
-
+    
     /**
      * Return whether the fragment is alive.
      *
@@ -44,10 +51,14 @@ object FragmentUtils {
      * @param fragment The fragment.
      * @return `true`: yes<br></br>`false`: no
      */
-    fun isFragmentAlive(activity: Activity?, fragment: Fragment?): Boolean {
+    fun isFragmentAlive(activity: Activity?, fragment: Any?): Boolean {
         activity ?: return false
         fragment ?: return false
-
-        return ActivityUtils.isActivityAlive(activity) && !fragment.isDetached
+        
+        return when (fragment) {
+            is Fragment -> ActivityUtils.isActivityAlive(activity) && !fragment.isDetached
+            is android.app.Fragment -> ActivityUtils.isActivityAlive(activity) && !fragment.isDetached
+            else -> false
+        }
     }
 }
