@@ -85,7 +85,7 @@ object GlideUtils {
      * @param placeholderRes The placeholder resource when loading.
      * @param errorRes       The error resource when load failed.
      */
-    fun loadImageAsGif(imageView: ImageView?, context: Context?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
+    fun loadImageAsGif(imageView: ImageView?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
         imageView ?: return
         context ?: return
         loadPath ?: return
