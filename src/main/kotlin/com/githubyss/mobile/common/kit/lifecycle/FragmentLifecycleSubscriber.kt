@@ -34,8 +34,8 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
     }
     
     override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        super.onFragmentCreated(fm, f, savedInstanceState)
         LogcatUtils.d(TAG, "${f::class.java.simpleName} > onFragmentCreated")
+        super.onFragmentCreated(fm, f, savedInstanceState)
     }
     
     override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
@@ -71,6 +71,11 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
     override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
         LogcatUtils.d(TAG, "${f::class.java.simpleName} > onFragmentViewDestroyed")
         super.onFragmentViewDestroyed(fm, f)
+    }
+    
+    override fun onFragmentSaveInstanceState(fm: FragmentManager, f: Fragment, outState: Bundle) {
+        LogcatUtils.d(TAG, "${f::class.java.simpleName} > onFragmentSaveInstanceState")
+        super.onFragmentSaveInstanceState(fm, f, outState)
     }
     
     override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
