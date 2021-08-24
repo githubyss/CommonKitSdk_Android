@@ -249,9 +249,9 @@ object ConvertUtils {
      * @param timeSpan The time span.
      * @param unit     The unit of time span.
      *                 <ul>
-     *                 <li>{@link TimeUnit#MSEC}</li>
-     *                 <li>{@link TimeUnit#SEC }</li>
-     *                 <li>{@link TimeUnit#MIN }</li>
+     *                 <li>{@link TimeUnit#MILLISECOND}</li>
+     *                 <li>{@link TimeUnit#SECOND }</li>
+     *                 <li>{@link TimeUnit#MINUTE }</li>
      *                 <li>{@link TimeUnit#HOUR}</li>
      *                 <li>{@link TimeUnit#DAY }</li>
      *                 </ul>
@@ -267,9 +267,9 @@ object ConvertUtils {
      * @param millis The milliseconds.
      * @param unit   The unit of time span.
      *               <ul>
-     *               <li>{@link TimeUnit#MSEC}</li>
-     *               <li>{@link TimeUnit#SEC }</li>
-     *               <li>{@link TimeUnit#MIN }</li>
+     *               <li>{@link TimeUnit#MILLISECOND}</li>
+     *               <li>{@link TimeUnit#SECOND }</li>
+     *               <li>{@link TimeUnit#MINUTE }</li>
      *               <li>{@link TimeUnit#HOUR}</li>
      *               <li>{@link TimeUnit#DAY }</li>
      *               </ul>
@@ -302,7 +302,7 @@ object ConvertUtils {
         if (millis <= 0 || precision <= 0) return ""
         val stringBuilder = StringBuilder()
         val units = arrayOf("天", "小时", "分钟", "秒", "毫秒")
-        val unitLens = intArrayOf(TimeUnit.DAY, TimeUnit.HOUR, TimeUnit.MIN, TimeUnit.SEC, TimeUnit.MSEC)
+        val unitLens = intArrayOf(TimeUnit.DAY, TimeUnit.HOUR, TimeUnit.MINUTE, TimeUnit.SECOND, TimeUnit.MILLISECOND)
         precision = min(precision, units.size)
         for (i in 0 until precision) {
             if (millis >= unitLens[i]) {
