@@ -1,0 +1,38 @@
+<manifest
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.githubyss.mobile.common.kit"
+        tools:ignore="LockedOrientationActivity">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <!--<application-->
+    <!--    android:name="com.githubyss.mobile.common.debug.application.ComuiApplication"-->
+    <!--    android:allowBackup="false"-->
+    <!--    android:icon="@mipmap/comres_ic_launcher"-->
+    <!--    android:label="@string/comui_appName"-->
+    <!--    android:roundIcon="@mipmap/comres_ic_launcher_round"-->
+    <!--    android:supportsRtl="true"-->
+    <!--    android:theme="@style/comres_app_gray_theme"-->
+    <!--    >-->
+
+    <!--    <activity-->
+    <!--        android:name="com.githubyss.mobile.common.debug.homepage.HomepageActivity"-->
+    <!--        android:launchMode="singleTask"-->
+    <!--        android:screenOrientation="portrait"-->
+    <!--        android:theme="@style/comres_activity_noActionBar_theme"-->
+    <!--        android:windowSoftInputMode="stateAlwaysHidden|adjustResize"-->
+    <!--        >-->
+    <!--        <intent-filter>-->
+    <!--            <action android:name="android.intent.action.MAIN" />-->
+    <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+    <!--        </intent-filter>-->
+    <!--    </activity>-->
+    <!--</application>-->
+</manifest>

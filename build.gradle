@@ -1,4 +1,8 @@
+// if (isRunAlone.toBoolean()) {
+//     apply plugin: 'com.android.application'
+// } else {
 apply plugin: 'com.android.library'
+// }
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
@@ -46,15 +50,40 @@ android {
         exclude 'META-INF/metadata.jvm.kotlin_module'
     }
 
+    // flavorDimensions 'alone'
+    // productFlavors {
+    //     alone {
+    //         applicationId 'com.githubyss.mobile.common.kit'
+    //         dimension 'alone'
+    //     }
+    // }
+
     sourceSets {
         main {
-            java.srcDirs += 'src/main/kotlin'
+            java {
+                srcDirs 'src/main/java'
+                srcDirs 'src/main/kotlin'
+            }
         }
+
+        // alone {
+        //     if (isRunAlone.toBoolean()) {
+        //         java {
+        //             srcDirs 'src/alone/java'
+        //             srcDirs 'src/alone/kotlin'
+        //         }
+        //         res {
+        //             srcDirs 'src/alone/res'
+        //             srcDirs 'src/alone/res/homepage'
+        //         }
+        //         manifest { srcFile 'src/alone/AndroidManifest.xml' }
+        //     }
+        // }
     }
 
-    // lintOptions {
-    //     abortOnError false
-    // }
+    dataBinding {
+        enabled = isDataBindingEnabled.toBoolean()
+    }
 }
 
 dependencies {

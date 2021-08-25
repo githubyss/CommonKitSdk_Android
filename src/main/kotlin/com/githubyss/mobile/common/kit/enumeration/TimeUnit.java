@@ -11,12 +11,12 @@ import java.lang.annotation.Target;
 
 /**
  * TimeUnit
- * <Description> 时间单位
- * <Details> 以毫秒计
+ * 时间单位
+ * 以毫秒计
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2020/12/29 14:09:12
+ * @createdTime 2021/08/24 15:12:35
  */
 @Documented
 @IntDef({TimeUnit.MILLISECOND, TimeUnit.SECOND, TimeUnit.MINUTE, TimeUnit.HOUR, TimeUnit.DAY})
