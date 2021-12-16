@@ -16,7 +16,7 @@ object StreamUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = StreamUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = StreamUtils::class.java.simpleName
     private const val BUFFER_SIZE = 8 * MemoryUnit.KB
     
     

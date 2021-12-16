@@ -19,7 +19,7 @@ object StringUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = StringUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = StringUtils::class.java.simpleName
     
     private val TYPES = arrayOf("int", "java.lang.String", "boolean", "char", "float", "double", "long", "short", "byte")
     private val HEX_DIGITS = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
@@ -56,11 +56,13 @@ object StringUtils {
             if (formatArgs.isEmpty()) {
                 ResourceUtils.getResources(context)
                     ?.getString(id) ?: return ""
-            } else {
+            }
+            else {
                 ResourceUtils.getResources(context)
                     ?.getString(id, formatArgs) ?: return ""
             }
-        } catch (ignore: NotFoundException) {
+        }
+        catch (ignore: NotFoundException) {
             ""
         }
     }
@@ -78,7 +80,8 @@ object StringUtils {
         return try {
             ResourceUtils.getResources(context)
                 ?.getStringArray(id)
-        } catch (ignore: NotFoundException) {
+        }
+        catch (ignore: NotFoundException) {
             arrayOfNulls(0)
         }
     }
@@ -110,8 +113,7 @@ object StringUtils {
     fun isTrimEmpty(s: String?): Boolean {
         s ?: return true
         
-        return s.trim()
-            .isEmpty()
+        return s.trim().isEmpty()
     }
     
     /**
@@ -132,6 +134,10 @@ object StringUtils {
         return true
     }
     
+    fun isNotSpace(s: String?): Boolean {
+        return !isSpace(s)
+    }
+    
     /**
      * Return whether string1 is equals to string2.
      *
@@ -148,7 +154,8 @@ object StringUtils {
             if (s1.length == s2.length) {
                 if (s1 is String && s2 is String) {
                     return s1 == s2
-                } else {
+                }
+                else {
                     for (i in 0 until length) {
                         if (s1[i] != s2[i]) return false
                     }
@@ -194,7 +201,7 @@ object StringUtils {
         `object` ?: return "Object {object is null}"
         
         if (`object`.toString()
-                    .startsWith(`object`.javaClass.name + "@")) {
+                .startsWith(`object`.javaClass.name + "@")) {
             val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object {")
             val fields = `object`.javaClass.declaredFields
             for (field in fields) {
@@ -206,9 +213,11 @@ object StringUtils {
                         var value: Any? = null
                         try {
                             value = field.get(`object`)
-                        } catch (e: IllegalAccessException) {
+                        }
+                        catch (e: IllegalAccessException) {
                             LogUtils.e(TAG, e)
-                        } finally {
+                        }
+                        finally {
                             stringBuilder.append(String.format("%s=%s, ", field.name, value?.toString() ?: "null"))
                             break
                         }
@@ -220,7 +229,8 @@ object StringUtils {
             }
             return stringBuilder.replace(stringBuilder.length - 2, stringBuilder.length - 1, "}")
                 .toString()
-        } else {
+        }
+        else {
             return `object`.toString()
         }
     }
@@ -244,7 +254,8 @@ object StringUtils {
             stringBuilder.append(array[idx].toString())
             if (idx == (arraySize - 1)) {
                 stringBuilder.append("]")
-            } else {
+            }
+            else {
                 stringBuilder.append(", ")
             }
         }

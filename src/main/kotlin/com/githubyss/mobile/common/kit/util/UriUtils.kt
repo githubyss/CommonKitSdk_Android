@@ -26,7 +26,7 @@ object UriUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = UriUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = UriUtils::class.java.simpleName
     
     /** ********** ********** ********** Functions ********** ********** ********** */
     

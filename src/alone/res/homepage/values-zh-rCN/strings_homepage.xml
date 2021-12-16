@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title -->
+    <string name="comkit_homepage_title">Kit调试首页</string>
+
+    <!-- Button -->
+    <string name="comkit_homepage_button_log">Log</string>
+</resources>

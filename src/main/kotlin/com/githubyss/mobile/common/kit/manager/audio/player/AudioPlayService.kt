@@ -28,7 +28,7 @@ class AudioPlayService : Service() {
         var instance: AudioPlayService? = null
             private set
         
-        private val TAG = AudioPlayService::class.simpleName ?: "simpleName is null"
+        private val TAG: String = AudioPlayService::class.java.simpleName
     }
     
     private var receiver: MyBroadcastReceiver? = null
@@ -64,7 +64,7 @@ class AudioPlayService : Service() {
         // if (floatView != null)
         //     floatView.remove();
         if (receiver != null && baseContext != null) LocalBroadcastManager.getInstance(baseContext)
-                .unregisterReceiver(receiver!!)
+            .unregisterReceiver(receiver!!)
         // if (mMusicNotification != null)
         //     mMusicNotification.destroy();
         if (closeMusic) AudioPlayManager.INSTANCE.destroy()
@@ -116,7 +116,7 @@ class AudioPlayService : Service() {
         receiver = MyBroadcastReceiver()
         // 注册广播接收器, LocalBroadcastManager.getInstance(getBaseContext())接不到通知栏的广播
         LocalBroadcastManager.getInstance(baseContext)
-                .registerReceiver(receiver!!, intentFilter)
+            .registerReceiver(receiver!!, intentFilter)
     }
     
     
@@ -145,7 +145,8 @@ class AudioPlayService : Service() {
                 //         }
                 //     }
                 // }
-            } else if (action == Constants.INTENT_ACTION_CLOSE_FLOAT) {
+            }
+            else if (action == Constants.INTENT_ACTION_CLOSE_FLOAT) {
                 instance?.closeMusic = false
                 instance?.stopSelf()
             }

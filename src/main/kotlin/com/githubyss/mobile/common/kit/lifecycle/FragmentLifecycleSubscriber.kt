@@ -22,7 +22,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
     companion object {
         val INSTANCE: FragmentLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { FragmentLifecycleSubscriber() }
         
-        private val TAG = FragmentLifecycleSubscriber::class.simpleName ?: "simpleName is null"
+        private val TAG: String = FragmentLifecycleSubscriber::class.java.simpleName
     }
     
     

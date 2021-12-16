@@ -12,7 +12,7 @@ object ComkitUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ComkitUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ComkitUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Constructors ********** ********** ********** */

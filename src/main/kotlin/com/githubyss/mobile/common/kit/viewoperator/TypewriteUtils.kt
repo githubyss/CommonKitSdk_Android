@@ -16,7 +16,7 @@ object TypewriteUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = TypewriteUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = TypewriteUtils::class.java.simpleName
     private val DELAY_MILLIS_LONG = 500L
     
     

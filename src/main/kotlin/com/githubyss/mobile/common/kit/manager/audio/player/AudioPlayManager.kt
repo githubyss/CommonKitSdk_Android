@@ -28,7 +28,7 @@ class AudioPlayManager private constructor() {
     companion object {
         val INSTANCE: AudioPlayManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { AudioPlayManager() }
         
-        private val TAG = AudioPlayManager::class.simpleName ?: "simpleName is null"
+        private val TAG: String = AudioPlayManager::class.java.simpleName
         private val WHAT_REFRESH = 0x268
         private val MAX_PROGRESS = 100
     }
@@ -429,7 +429,8 @@ class AudioPlayManager private constructor() {
         }
         try {
             mediaPlayer?.setDataSource(audioListModel?.audioList?.get(audioListModel?.currentIndex ?: return)?.url)
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             // LogUtils.e(TAG, e.getStackTrace().toString() + "");
             return
         }

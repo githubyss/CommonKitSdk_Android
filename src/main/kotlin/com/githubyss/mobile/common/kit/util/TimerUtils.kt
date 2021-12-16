@@ -15,7 +15,7 @@ object TimerUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = TimerUtils::class.java.simpleName
+    private val TAG: String = TimerUtils::class.java.simpleName
     
     private var timer: Timer? = null
     // private var handler: Handler? = null

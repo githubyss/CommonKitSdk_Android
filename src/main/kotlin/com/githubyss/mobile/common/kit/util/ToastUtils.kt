@@ -18,7 +18,7 @@ object ToastUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ToastUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ToastUtils::class.java.simpleName
     private var toast: Toast? = null
     private var centerable = false
     

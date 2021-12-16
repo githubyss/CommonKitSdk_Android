@@ -31,7 +31,7 @@ object DeviceUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = DeviceUtils::class.simpleName ?: "simpleName is null"
+    private val TAG : String= DeviceUtils::class.java.simpleName
     
     private val LOCATIONS = arrayOf("/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/", "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/", "/system/sbin/", "/usr/bin/", "/vendor/bin/")
     

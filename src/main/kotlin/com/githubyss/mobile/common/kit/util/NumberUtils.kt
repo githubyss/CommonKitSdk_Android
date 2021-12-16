@@ -12,7 +12,7 @@ object NumberUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = NumberUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = NumberUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

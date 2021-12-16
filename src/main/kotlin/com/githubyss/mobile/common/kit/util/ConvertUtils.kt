@@ -27,7 +27,7 @@ object ConvertUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ConvertUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ConvertUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

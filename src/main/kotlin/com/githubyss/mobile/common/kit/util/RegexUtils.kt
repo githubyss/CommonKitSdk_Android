@@ -17,7 +17,7 @@ object RegexUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = RegexUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = RegexUtils::class.java.simpleName
     
     private val CITY_MAP: SimpleArrayMap<String, String> = SimpleArrayMap()
     

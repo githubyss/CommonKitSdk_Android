@@ -33,8 +33,8 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
     companion object {
         val INSTANCE: ActivityLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { ActivityLifecycleSubscriber() }
         
-        private val TAG = ActivityLifecycleSubscriber::class.simpleName ?: "simpleName is null"
-        private val PERMISSION_ACTIVITY_CLASS_NAME: String? = "com.blankj.utilcode.util.PermissionUtils\$PermissionActivity"
+        private val TAG: String = ActivityLifecycleSubscriber::class.java.simpleName
+        private val PERMISSION_ACTIVITY_CLASS_NAME: String = "com.blankj.utilcode.util.PermissionUtils\$PermissionActivity"
         
         // 锁屏延迟时间（毫秒）
         private const val LOCK_DELAY = 5 * 60 * 1000.toLong()
@@ -121,7 +121,8 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
         }
         if (configCount < 0) {
             configCount++
-        } else {
+        }
+        else {
             foregroundCount++
         }
     }
@@ -197,7 +198,8 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
         // 重要，如果 Activity 的 stop 中判断应用再前后台，一定要把 super.stop() 放在第一行
         if (activity.isChangingConfigurations) {
             configCount--
-        } else {
+        }
+        else {
             foregroundCount--
             if (foregroundCount <= 0) {
                 isForeground = false
@@ -302,7 +304,8 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
         if (!destroyedListenerMap.containsKey(activity)) {
             listeners = HashSet()
             destroyedListenerMap[activity] = listeners
-        } else {
+        }
+        else {
             listeners = destroyedListenerMap[activity] as MutableSet
             if (listeners.contains(listener)) return
         }
@@ -369,7 +372,8 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
             if (onAppStatusChangedListener == null) return
             if (isForeground) {
                 onAppStatusChangedListener.onForeground()
-            } else {
+            }
+            else {
                 onAppStatusChangedListener.onBackground()
             }
         }
@@ -398,7 +402,8 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
                 activityList.remove(activity)
                 activityList.addLast(activity)
             }
-        } else {
+        }
+        else {
             activityList.addLast(activity)
         }
     }
@@ -417,9 +422,11 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
                 sDurationScaleField[null] = 1f
                 LogUtils.d(TAG, "setAnimatorsEnabled: Animators are enabled now!")
             }
-        } catch (e: NoSuchFieldException) {
+        }
+        catch (e: NoSuchFieldException) {
             e.printStackTrace()
-        } catch (e: IllegalAccessException) {
+        }
+        catch (e: IllegalAccessException) {
             e.printStackTrace()
         }
     }
@@ -463,15 +470,20 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
                     }
                 }
             }
-        } catch (e: ClassNotFoundException) {
+        }
+        catch (e: ClassNotFoundException) {
             e.printStackTrace()
-        } catch (e: IllegalAccessException) {
+        }
+        catch (e: IllegalAccessException) {
             e.printStackTrace()
-        } catch (e: InvocationTargetException) {
+        }
+        catch (e: InvocationTargetException) {
             e.printStackTrace()
-        } catch (e: NoSuchMethodException) {
+        }
+        catch (e: NoSuchMethodException) {
             e.printStackTrace()
-        } catch (e: NoSuchFieldException) {
+        }
+        catch (e: NoSuchFieldException) {
             e.printStackTrace()
         }
         return null
@@ -492,7 +504,8 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
                 if (obj.rootView === activity.window.decorView.rootView) {
                     leakViewField[imm] = null
                 }
-            } catch (ignore: Throwable) {
+            }
+            catch (ignore: Throwable) {
             }
         }
     }

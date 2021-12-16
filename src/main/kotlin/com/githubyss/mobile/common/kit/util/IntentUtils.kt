@@ -28,7 +28,7 @@ object IntentUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = IntentUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = IntentUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

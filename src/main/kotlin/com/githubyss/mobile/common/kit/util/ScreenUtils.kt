@@ -32,7 +32,7 @@ object ScreenUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ScreenUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ScreenUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

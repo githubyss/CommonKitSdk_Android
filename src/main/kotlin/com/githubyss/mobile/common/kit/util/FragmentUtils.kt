@@ -16,7 +16,7 @@ object FragmentUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = FragmentUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = FragmentUtils::class.java.simpleName
     
     /** The fragment lifecycle callbacks impl. */
     var fragmentLifecycle: FragmentLifecycleSubscriber = FragmentLifecycleSubscriber.INSTANCE

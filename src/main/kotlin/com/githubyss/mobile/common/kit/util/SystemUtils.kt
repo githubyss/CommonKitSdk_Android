@@ -20,7 +20,7 @@ object SystemUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = SystemUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = SystemUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

@@ -20,7 +20,7 @@ object FileUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = FileUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = FileUtils::class.java.simpleName
     
     private val LINE_SEP = System.getProperty("line.separator")
     

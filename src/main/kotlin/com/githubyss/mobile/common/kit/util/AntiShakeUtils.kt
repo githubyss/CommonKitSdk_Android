@@ -15,7 +15,7 @@ object AntiShakeUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = AntiShakeUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = AntiShakeUtils::class.java.simpleName
     
     private const val DEFAULT_DURATION: Long = 200
     private const val TAG_KEY = 0x7EFFFFFF

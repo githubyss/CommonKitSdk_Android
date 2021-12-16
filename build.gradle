@@ -50,30 +50,32 @@ android {
         exclude 'META-INF/metadata.jvm.kotlin_module'
     }
 
-    // flavorDimensions 'alone'
-    // productFlavors {
-    //     alone {
-    //         applicationId 'com.githubyss.mobile.common.kit'
-    //         dimension 'alone'
-    //     }
-    // }
+    flavorDimensions 'alone'
+    productFlavors {
+        if (isRunAlone.toBoolean()) {
+            alone {
+                applicationId 'com.githubyss.mobile.common.kit'
+                dimension 'alone'
+            }
+        }
+    }
 
     sourceSets {
-        // if (isRunAlone.toBoolean()) {
-        //     alone {
-        //         java {
-        //             srcDirs 'src/alone/java'
-        //             srcDirs 'src/alone/kotlin'
-        //         }
-        //         res {
-        //             srcDirs 'src/alone/res'
-        //             srcDirs 'src/alone/res/common'
-        //             srcDirs 'src/alone/res/value'
-        //             srcDirs 'src/alone/res/homepage'
-        //         }
-        //         manifest { srcFile 'src/alone/AndroidManifest.xml' }
-        //     }
-        // }
+        if (isRunAlone.toBoolean()) {
+            alone {
+                java {
+                    srcDirs 'src/alone/java'
+                    srcDirs 'src/alone/kotlin'
+                }
+                res {
+                    srcDirs 'src/alone/res'
+                    srcDirs 'src/alone/res/common'
+
+                    srcDirs 'src/alone/res/homepage'
+                }
+                manifest { srcFile 'src/alone/AndroidManifest.xml' }
+            }
+        }
 
         main {
             java {
@@ -83,7 +85,6 @@ android {
             res {
                 srcDirs 'src/main/res'
                 srcDirs 'src/main/res/common'
-                srcDirs 'src/main/res/value'
             }
             manifest { srcFile 'src/main/AndroidManifest.xml' }
             jniLibs { srcDirs 'libs' }
@@ -99,6 +100,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':CommonLibSdk_Android')
+    if (isRunAlone.toBoolean()) {
+        implementation project(':CommonResSdk_Android')
+        implementation project(':CommonUiSdk_Android')
+        implementation project(':CommonNetSdk_Android')
+    }
 
     /* Glide */
     kapt "com.github.bumptech.glide:compiler:$glide_compile_version"

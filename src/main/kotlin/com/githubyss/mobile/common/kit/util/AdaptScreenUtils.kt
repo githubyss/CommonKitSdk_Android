@@ -18,7 +18,7 @@ object AdaptScreenUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = AdaptScreenUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = AdaptScreenUtils::class.java.simpleName
     
     private var metricsFields: List<Field>? = null
     
@@ -33,7 +33,8 @@ object AdaptScreenUtils {
         val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
         return if (resourceId != 0) {
             resources.getDimensionPixelSize(resourceId)
-        } else {
+        }
+        else {
             -1
         }
     }
@@ -115,7 +116,8 @@ object AdaptScreenUtils {
                 resCls = resCls?.superclass
                 declaredFields = resCls?.declaredFields ?: break
             }
-        } else {
+        }
+        else {
             applyMetricsFields(resources, newXdpi)
         }
     }
@@ -127,7 +129,8 @@ object AdaptScreenUtils {
             try {
                 val dm: DisplayMetrics? = metricsField[resources] as DisplayMetrics?
                 if (dm != null) dm.xdpi = newXdpi
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 Log.e("AdaptScreenUtils", "applyMetricsFields: $e")
             }
         }
@@ -139,7 +142,8 @@ object AdaptScreenUtils {
         
         return try {
             field[resources] as DisplayMetrics
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             Log.e("AdaptScreenUtils", "getMetricsFromField: $e")
             null
         }

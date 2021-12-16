@@ -33,7 +33,7 @@ object ImageUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ImageUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ImageUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

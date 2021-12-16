@@ -17,7 +17,7 @@ object DateTimeUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = DateTimeUtils::class.java.simpleName
+    private val TAG: String = DateTimeUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

@@ -29,7 +29,7 @@ object ActivityUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ActivityUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ActivityUtils::class.java.simpleName
     
     /** The activity lifecycle callbacks impl. */
     var activityLifecycle: ActivityLifecycleSubscriber = ActivityLifecycleSubscriber.INSTANCE
@@ -45,7 +45,8 @@ object ActivityUtils {
     
     var topActivityOrApp: Context? = if (AppUtils.isAppForeground()) {
         activityLifecycle.getTopActivity()
-    } else {
+    }
+    else {
         ComkitApplicationConfig.getApp()
     }
     
@@ -153,7 +154,8 @@ object ActivityUtils {
         val packageManager: PackageManager = context.packageManager
         return try {
             packageManager.getActivityIcon(activityName)
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
         }
@@ -201,7 +203,8 @@ object ActivityUtils {
         val packageManager = context.packageManager
         return try {
             packageManager.getActivityLogo(activityName)
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
         }
@@ -386,7 +389,8 @@ object ActivityUtils {
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             context.startActivity(intent, options)
-        } else {
+        }
+        else {
             context.startActivity(intent)
         }
         return true
@@ -409,7 +413,8 @@ object ActivityUtils {
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             activity.startActivity(intent, options)
-        } else {
+        }
+        else {
             activity.startActivity(intent)
         }
         return true
@@ -642,7 +647,8 @@ object ActivityUtils {
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             activity.startActivityForResult(intent, requestCode, options)
-        } else {
+        }
+        else {
             activity.startActivityForResult(intent, requestCode)
         }
         return true
@@ -782,7 +788,8 @@ object ActivityUtils {
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             context.startActivities(intents, options)
-        } else {
+        }
+        else {
             context.startActivities(intents)
         }
     }
@@ -800,7 +807,8 @@ object ActivityUtils {
         
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             activity.startActivities(intents, options)
-        } else {
+        }
+        else {
             activity.startActivities(intents)
         }
     }

@@ -16,7 +16,7 @@ object TaskUtils {
 
     /** ********** ********** ********** Properties ********** ********** ********** */
 
-    private val TAG = TaskUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = TaskUtils::class.java.simpleName
 
     private val UTIL_POOL = Executors.newFixedThreadPool(3)
     val UTIL_HANDLER = Handler(Looper.getMainLooper())

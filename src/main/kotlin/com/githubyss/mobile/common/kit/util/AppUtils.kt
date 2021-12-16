@@ -40,7 +40,7 @@ object AppUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = AppUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = AppUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */
@@ -56,13 +56,17 @@ object AppUtils {
             val app = activityThread.getMethod("getApplication")
                 .invoke(thread) ?: throw NullPointerException("u should init first")
             return app as Application
-        } catch (e: NoSuchMethodException) {
+        }
+        catch (e: NoSuchMethodException) {
             e.printStackTrace()
-        } catch (e: IllegalAccessException) {
+        }
+        catch (e: IllegalAccessException) {
             e.printStackTrace()
-        } catch (e: InvocationTargetException) {
+        }
+        catch (e: InvocationTargetException) {
             e.printStackTrace()
-        } catch (e: ClassNotFoundException) {
+        }
+        catch (e: ClassNotFoundException) {
             e.printStackTrace()
         }
         throw NullPointerException("u should init first")
@@ -84,7 +88,8 @@ object AppUtils {
             val packageManager = context.packageManager ?: return null
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return null
             packageInfo.applicationInfo?.loadIcon(packageManager)
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
         }
@@ -117,7 +122,8 @@ object AppUtils {
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
             packageInfo.applicationInfo?.loadLabel(packageManager)
                 ?.toString() ?: ""
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             ""
         }
@@ -139,7 +145,8 @@ object AppUtils {
             val packageManager = context.packageManager ?: return ""
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
             packageInfo.applicationInfo?.sourceDir ?: ""
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             ""
         }
@@ -161,7 +168,8 @@ object AppUtils {
             val packageManager = context.packageManager ?: return ""
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
             packageInfo.versionName ?: ""
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             ""
         }
@@ -183,7 +191,8 @@ object AppUtils {
             val packageManager = context.packageManager ?: return -1
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return -1
             packageInfo.versionCode
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             -1
         }
@@ -207,7 +216,8 @@ object AppUtils {
             @SuppressLint("PackageManagerGetSignatures")
             val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES) ?: return null
             packageInfo.signatures
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
         }
@@ -249,7 +259,8 @@ object AppUtils {
         if (StringUtils.isSpace(packageName)) return ""
         
         val signature = getAppSignature(packageName) ?: return ""
-        return if (signature.isEmpty()) "" else ConvertUtils.bytes2HexString(EncryptUtils.hashTemplate(signature[0]?.toByteArray(), algorithm))
+        return if (signature.isEmpty()) ""
+        else ConvertUtils.bytes2HexString(EncryptUtils.hashTemplate(signature[0]?.toByteArray(), algorithm))
             .replace("(?<=[0-9A-F]{2})[0-9A-F]{2}".toRegex(), ":$0")
     }
     
@@ -268,7 +279,8 @@ object AppUtils {
         return try {
             val applicationInfo = context.packageManager?.getApplicationInfo(packageName, 0) ?: return -1
             applicationInfo.uid
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
             -1
         }
@@ -297,7 +309,8 @@ object AppUtils {
         return try {
             val packageManager = context.packageManager ?: return null
             getBean(packageManager, packageManager.getPackageInfo(packageName, 0))
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             null
         }
@@ -429,7 +442,8 @@ object AppUtils {
                     }
                 }
                 return recentStats?.packageName ?: ""
-            } catch (e: PackageManager.NameNotFoundException) {
+            }
+            catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
         }
@@ -456,7 +470,8 @@ object AppUtils {
                 .trim { it <= ' ' }
             mBufferedReader.close()
             processName
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
             ""
         }
@@ -496,7 +511,8 @@ object AppUtils {
             
             val getProcessName = activityThread.javaClass.getDeclaredMethod("getProcessName")
             processName = getProcessName.invoke(activityThread) as String
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
         }
         return processName
@@ -519,7 +535,8 @@ object AppUtils {
         val packageManager = context.packageManager
         return try {
             packageManager?.getApplicationInfo(packageName, 0) != null
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
         }
@@ -555,7 +572,8 @@ object AppUtils {
             val packageManager = context.packageManager ?: return false
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
             applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
         }
@@ -577,7 +595,8 @@ object AppUtils {
             val packageManager = context.packageManager ?: return false
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
             applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
         }
@@ -615,7 +634,8 @@ object AppUtils {
         uid = try {
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
             applicationInfo.uid
-        } catch (e: PackageManager.NameNotFoundException) {
+        }
+        catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             return false
         }
@@ -769,9 +789,10 @@ object AppUtils {
         val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install $params $filePath"
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
         return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase()
-                    .contains("success")) {
+                .contains("success")) {
             true
-        } else {
+        }
+        else {
             LogUtils.e("AppUtils", "installAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
             false
         }
@@ -830,9 +851,10 @@ object AppUtils {
         val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall " + (if (isKeepData) "-k " else "") + packageName
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
         return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase()
-                    .contains("success")) {
+                .contains("success")) {
             true
-        } else {
+        }
+        else {
             LogUtils.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
             false
         }

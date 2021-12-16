@@ -18,7 +18,7 @@ object ShellUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ShellUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ShellUtils::class.java.simpleName
     
     private val LINE_SEP = System.getProperty("line.separator")
     

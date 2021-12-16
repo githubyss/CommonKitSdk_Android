@@ -30,7 +30,7 @@ object BarUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = BarUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = BarUtils::class.java.simpleName
     
     private const val TAG_STATUS_BAR = "TAG_STATUS_BAR"
     private const val TAG_OFFSET = "TAG_OFFSET"
@@ -261,7 +261,8 @@ object BarUtils {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
             showStatusBarView(window)
             addMarginTopEqualStatusBarHeight(window)
-        } else {
+        }
+        else {
             window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
             hideStatusBarView(window)
             subtractMarginTopEqualStatusBarHeight(window)
@@ -291,7 +292,8 @@ object BarUtils {
                 var vis = decorView.systemUiVisibility
                 vis = if (isLightMode) {
                     vis or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                } else {
+                }
+                else {
                     vis and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
                 }
                 decorView.systemUiVisibility = vis
@@ -392,7 +394,8 @@ object BarUtils {
         if (layoutParams == null) {
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight())
             fakeStatusBar.layoutParams = layoutParams
-        } else {
+        }
+        else {
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
             layoutParams.height = getStatusBarHeight()
         }
@@ -423,7 +426,8 @@ object BarUtils {
         }
         if (isTop) {
             hideStatusBarView(activity)
-        } else {
+        }
+        else {
             setStatusBarColor(activity, color, false)
         }
     }
@@ -437,7 +441,8 @@ object BarUtils {
                 fakeStatusBarView.visibility = View.VISIBLE
             }
             fakeStatusBarView.setBackgroundColor(color)
-        } else {
+        }
+        else {
             fakeStatusBarView = createStatusBarView(activity, color)
             parent.addView(fakeStatusBarView)
         }
@@ -481,11 +486,13 @@ object BarUtils {
             if (Build.VERSION.SDK_INT >= VersionCode.M) {
                 val vis = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 window.decorView.systemUiVisibility = option or vis
-            } else {
+            }
+            else {
                 window.decorView.systemUiVisibility = option
             }
             window.statusBarColor = Color.TRANSPARENT
-        } else {
+        }
+        else {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
     }
@@ -503,7 +510,8 @@ object BarUtils {
     fun setNotificationBarVisibility(isVisible: Boolean) {
         val methodName: String = if (isVisible) {
             if (Build.VERSION.SDK_INT <= VersionCode.JELLY_BEAN) "expand" else "expandNotificationsPanel"
-        } else {
+        }
+        else {
             if (Build.VERSION.SDK_INT <= VersionCode.JELLY_BEAN) "collapse" else "collapsePanels"
         }
         invokePanels(methodName)
@@ -518,7 +526,8 @@ object BarUtils {
             val statusBarManager = Class.forName("android.app.StatusBarManager")
             val expand = statusBarManager.getMethod(methodName)
             expand.invoke(service)
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -562,7 +571,8 @@ object BarUtils {
         val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         if (isVisible) {
             decorView.systemUiVisibility = decorView.systemUiVisibility and uiOptions.inv()
-        } else {
+        }
+        else {
             decorView.systemUiVisibility = decorView.systemUiVisibility or uiOptions
         }
     }

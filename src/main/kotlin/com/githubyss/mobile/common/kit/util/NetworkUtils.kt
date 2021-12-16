@@ -21,7 +21,7 @@ object NetworkUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = NetworkUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = NetworkUtils::class.java.simpleName
     
     /** China Mobile Communications Corporation Proxy */
     private val CMCC_PROXY = "10.0.0.172"

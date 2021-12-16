@@ -4,12 +4,12 @@ package com.githubyss.mobile.common.kit
 class AceTemp {
     
     /** ********** ********** ********** Companion ********** ********** ********** */
-
+    
     /** ********** ********** ********** Properties ********** ********** ********** */
     
     companion object {
-        val TAG = AceTemp::class.java.simpleName
-        val TAG_ = AceTemp::class.simpleName ?: "simpleName is null"
+        val TAG: String = AceTemp::class.java.simpleName
+        val TAG_: String = AceTemp::class.java.simpleName
     }
     
     

@@ -26,7 +26,7 @@ object EncryptUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = EncryptUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = EncryptUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

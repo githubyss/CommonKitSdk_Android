@@ -12,7 +12,7 @@ object ArrayUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ArrayUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ArrayUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

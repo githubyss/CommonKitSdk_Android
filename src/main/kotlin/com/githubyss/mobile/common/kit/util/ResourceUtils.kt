@@ -22,7 +22,7 @@ object ResourceUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = ResourceUtils::class.simpleName ?: "simpleName is null"
+    private val TAG: String = ResourceUtils::class.java.simpleName
     
     
     /** ********** ********** ********** Functions ********** ********** ********** */

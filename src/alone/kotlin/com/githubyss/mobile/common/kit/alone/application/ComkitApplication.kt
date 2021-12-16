@@ -18,7 +18,7 @@
 //         var instance: ComkitApplication by Delegates.notNull()
 //             private set
 //
-//         private val TAG = ComkitApplication::class.java.simpleName
+//         private val TAG: String = ComkitApplication::class.java.simpleName
 //     }
 //
 //

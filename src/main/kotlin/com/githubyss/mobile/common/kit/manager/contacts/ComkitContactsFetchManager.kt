@@ -7,7 +7,6 @@ import android.os.AsyncTask
 import android.provider.ContactsContract
 import android.text.TextUtils
 import com.githubyss.mobile.common.kit.util.LogUtils
-import com.githubyss.mobile.common.kit.util.NumberUtils
 import com.githubyss.mobile.common.kit.util.RegexUtils
 import java.lang.Exception
 import java.lang.ref.WeakReference
