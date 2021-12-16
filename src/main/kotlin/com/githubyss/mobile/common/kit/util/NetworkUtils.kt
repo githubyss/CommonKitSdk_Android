@@ -75,7 +75,7 @@ object NetworkUtils {
             }
             return ""
         } catch (e: SocketException) {
-            LogcatUtils.e(msg = e.toString())
+            LogUtils.e(msg = e.toString())
             return ""
         }
     }
@@ -86,7 +86,7 @@ object NetworkUtils {
         return try {
             InetAddress.getByName(domain).hostAddress
         } catch (e: UnknownHostException) {
-            LogcatUtils.e(msg = e.toString())
+            LogUtils.e(msg = e.toString())
             ""
         }
     }

@@ -84,7 +84,7 @@ object ToastUtils {
                 toast?.cancel()
             }
         } catch (exception: Exception) {
-            LogcatUtils.e(t = exception)
+            LogUtils.e(t = exception)
         }
     }
 }

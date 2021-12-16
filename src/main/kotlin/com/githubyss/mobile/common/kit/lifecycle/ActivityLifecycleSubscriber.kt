@@ -12,7 +12,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.githubyss.mobile.common.kit.constant.Constants
-import com.githubyss.mobile.common.kit.util.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.collections.HashMap
@@ -87,7 +87,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityCreated")
+        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityCreated")
         
         // 应用放置后台，内存回收后，重新启动应用
         // if (activity != null && activity !is SplashActivity && EPApp.getApp().isColdStart && savedInstanceState != null) {
@@ -114,7 +114,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityStarted(activity: Activity) {
-        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStarted")
+        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStarted")
         
         if (isForeground) {
             setTopActivity(activity)
@@ -133,7 +133,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityResumed(activity: Activity) {
-        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityResumed")
+        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityResumed")
         
         if (!isForeground) {
             isForeground = true
@@ -182,7 +182,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityPaused(activity: Activity) {
-        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityPaused")
+        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityPaused")
     }
     
     /**
@@ -192,7 +192,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityStopped(activity: Activity) {
-        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStopped")
+        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStopped")
         
         // 重要，如果 Activity 的 stop 中判断应用再前后台，一定要把 super.stop() 放在第一行
         if (activity.isChangingConfigurations) {
@@ -237,7 +237,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivitySaveInstanceState")
+        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivitySaveInstanceState")
     }
     
     /**
@@ -247,7 +247,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityDestroyed(activity: Activity) {
-        LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityDestroyed")
+        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityDestroyed")
         
         activityList.remove(activity)
         consumeOnActivityDestroyedListener(activity)
@@ -415,7 +415,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
             val sDurationScale = sDurationScaleField[null] as Float
             if (sDurationScale == 0f) {
                 sDurationScaleField[null] = 1f
-                LogcatUtils.d(TAG, "setAnimatorsEnabled: Animators are enabled now!")
+                LogUtils.d(TAG, "setAnimatorsEnabled: Animators are enabled now!")
             }
         } catch (e: NoSuchFieldException) {
             e.printStackTrace()

@@ -1,6 +1,6 @@
 package com.githubyss.mobile.common.kit.manager.audio.util
 
-import com.githubyss.mobile.common.kit.util.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogUtils
 import java.text.DecimalFormat
 import java.util.*
 
@@ -23,10 +23,10 @@ object ProgressTextUtils {
      */
     fun getProgressText(time: Long): String? {
         val calendar = Calendar.getInstance()
-        LogcatUtils.d("getProgressText", "time: $time")
+        LogUtils.d("getProgressText", "time: $time")
         val roundTime = java.lang.Double.valueOf(Math.round(time / 1000f) * 1000.toDouble())
                 .toLong()
-        LogcatUtils.d("getProgressText", "roundTime: $roundTime")
+        LogUtils.d("getProgressText", "roundTime: $roundTime")
         calendar.time = Date(roundTime)
         val minute = calendar[Calendar.MINUTE].toDouble()
         val second = calendar[Calendar.SECOND].toDouble()

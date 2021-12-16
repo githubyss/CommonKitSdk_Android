@@ -107,7 +107,7 @@ object ActivityUtils {
                 return aInfo.activityInfo.name
             }
         }
-        LogcatUtils.d(TAG, "no $packageName")
+        LogUtils.d(TAG, "no $packageName")
         return ""
     }
     
@@ -378,7 +378,7 @@ object ActivityUtils {
         intent ?: return false
         
         if (!isIntentAvailable(context, intent)) {
-            LogcatUtils.d(TAG, "intent is unavailable")
+            LogUtils.d(TAG, "intent is unavailable")
             return false
         }
         if (context !is Activity) {

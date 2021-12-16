@@ -8,17 +8,17 @@ import org.json.JSONObject
 
 
 /**
- * LogcatUtils
+ * LogUtils
  *
  * @author Ace Yan
  * @github githubyss
  * @createdTime 2021/03/05 10:00:59
  */
-object LogcatUtils {
+object LogUtils {
     
     /** ********** ********** ********** Properties ********** ********** ********** */
     
-    private val TAG = LogcatUtils::class.simpleName ?: "simpleName is null"
+    private val TAG = LogUtils::class.simpleName ?: "simpleName is null"
     
     private const val LOG_PREFIX = ">>>>>"
     

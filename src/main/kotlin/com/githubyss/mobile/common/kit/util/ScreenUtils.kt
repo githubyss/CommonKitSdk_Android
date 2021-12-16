@@ -106,7 +106,7 @@ object ScreenUtils {
         } else {
             getDefaultDisplay(context)?.getSize(point) ?: return null
         }
-        // LogcatUtils.d(TAG, "getScreenPointPx(): {screenWidthPx:${point.x}, screenHeightPx:${point.y}}")
+        // LogUtils.d(TAG, "getScreenPointPx(): {screenWidthPx:${point.x}, screenHeightPx:${point.y}}")
         return point
     }
     
@@ -119,7 +119,7 @@ object ScreenUtils {
     fun getAppScreenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point? {
         val point = Point()
         getDefaultDisplay(context)?.getSize(point) ?: return null
-        // LogcatUtils.d(TAG, "getAppScreenPointPx(): {appScreenWidthPx:${point.x}, appScreenHeightPx:${point.y}}")
+        // LogUtils.d(TAG, "getAppScreenPointPx(): {appScreenWidthPx:${point.x}, appScreenHeightPx:${point.y}}")
         return point
     }
     

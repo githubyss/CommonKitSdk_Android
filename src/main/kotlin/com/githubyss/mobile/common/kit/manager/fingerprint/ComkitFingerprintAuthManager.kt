@@ -6,7 +6,7 @@ import android.hardware.fingerprint.FingerprintManager
 import android.os.Build
 import android.os.CancellationSignal
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
-import com.githubyss.mobile.common.kit.util.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.Exception
 
 /**
@@ -111,7 +111,7 @@ class ComkitFingerprintAuthManager private constructor() {
                 fingerprintManager = application?.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
                 hasFingerprintManager = true
             } catch (e: Exception) {
-                LogcatUtils.e(msg = e.toString())
+                LogUtils.e(msg = e.toString())
                 hasFingerprintManager = false
             }
         }
@@ -157,6 +157,6 @@ class ComkitFingerprintAuthManager private constructor() {
     private fun beSdkVersionAfterM(): Boolean = Build.VERSION.SDK_INT >= VersionCode.M
     
     private fun logcatAuthCount(location: String = "") {
-        LogcatUtils.d(msg = "$location: {currentSingleFailedCount:$currentSingleFailedCount, currentTotalFailedCount:$currentTotalFailedCount}\t")
+        LogUtils.d(msg = "$location: {currentSingleFailedCount:$currentSingleFailedCount, currentTotalFailedCount:$currentTotalFailedCount}\t")
     }
 }

@@ -391,10 +391,10 @@ object AppUtils {
             val packageManager: PackageManager = application.packageManager
             val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
             val list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-            LogcatUtils.i("ProcessUtils", list.toString())
+            LogUtils.i("ProcessUtils", list.toString())
             
             if (list.size <= 0) {
-                LogcatUtils.i("ProcessUtils", "getForegroundProcessName: noun of access to usage information.")
+                LogUtils.i("ProcessUtils", "getForegroundProcessName: noun of access to usage information.")
                 return ""
             }
             
@@ -409,7 +409,7 @@ object AppUtils {
                 }
                 
                 if (appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName) != AppOpsManager.MODE_ALLOWED) {
-                    LogcatUtils.i("ProcessUtils", "getForegroundProcessName: refuse to device usage stats.")
+                    LogUtils.i("ProcessUtils", "getForegroundProcessName: refuse to device usage stats.")
                     return ""
                 }
                 
@@ -534,7 +534,7 @@ object AppUtils {
         val result: ShellUtils.CommandResult? = ShellUtils.execCmd("echo root", true)
         if (result?.result == 0) return true
         if (result?.errorMsg != null) {
-            LogcatUtils.d("AppUtils", "isAppRoot() called" + result.errorMsg)
+            LogUtils.d("AppUtils", "isAppRoot() called" + result.errorMsg)
         }
         return false
     }
@@ -772,7 +772,7 @@ object AppUtils {
                     .contains("success")) {
             true
         } else {
-            LogcatUtils.e("AppUtils", "installAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
+            LogUtils.e("AppUtils", "installAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
             false
         }
     }
@@ -833,7 +833,7 @@ object AppUtils {
                     .contains("success")) {
             true
         } else {
-            LogcatUtils.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
+            LogUtils.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult?.successMsg.toString() + ", errorMsg: " + commandResult?.errorMsg)
             false
         }
     }

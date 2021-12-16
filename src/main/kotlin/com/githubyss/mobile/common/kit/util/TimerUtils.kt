@@ -70,7 +70,7 @@ object TimerUtils {
             timer?.schedule(timerTask, delay, period)
             true
         } catch (e: Exception) {
-            LogcatUtils.e(TAG, e)
+            LogUtils.e(TAG, e)
             false
         }
     }
@@ -92,7 +92,7 @@ object TimerUtils {
             timer?.schedule(timerTask, time, period)
             true
         } catch (e: Exception) {
-            LogcatUtils.e(TAG, e)
+            LogUtils.e(TAG, e)
             false
         }
         
@@ -115,7 +115,7 @@ object TimerUtils {
             timer?.scheduleAtFixedRate(timerTask, delay, period)
             true
         } catch (e: Exception) {
-            LogcatUtils.e(TAG, e)
+            LogUtils.e(TAG, e)
             false
         }
     }
@@ -137,7 +137,7 @@ object TimerUtils {
             timer?.scheduleAtFixedRate(timerTask, time, period)
             true
         } catch (e: Exception) {
-            LogcatUtils.e(TAG, e)
+            LogUtils.e(TAG, e)
             false
         }
     }
@@ -159,7 +159,7 @@ object TimerUtils {
             timer?.schedule(timerTask, delay)
             true
         } catch (e: Exception) {
-            LogcatUtils.e(TAG, e)
+            LogUtils.e(TAG, e)
             false
         }
     }
@@ -179,7 +179,7 @@ object TimerUtils {
             timer?.schedule(timerTask, time)
             true
         } catch (e: Exception) {
-            LogcatUtils.e(TAG, e)
+            LogUtils.e(TAG, e)
             false
         }
     }

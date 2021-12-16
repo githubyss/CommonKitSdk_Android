@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.os.AsyncTask
 import android.provider.ContactsContract
 import android.text.TextUtils
-import com.githubyss.mobile.common.kit.util.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogUtils
 import com.githubyss.mobile.common.kit.util.NumberUtils
 import com.githubyss.mobile.common.kit.util.RegexUtils
 import java.lang.Exception
@@ -118,7 +118,7 @@ class ComkitContactsFetchManager private constructor() {
             try {
                 tableRawContactsCursor = contentResolver.query(ContactsContract.RawContacts.CONTENT_URI /* content://com.android.contacts/raw_contacts */, TABLE_RAW_CONTACTS_COLUMNS_ARRAY, null, null, null)
             } catch (e: Exception) {
-                LogcatUtils.e(msg = e.toString())
+                LogUtils.e(msg = e.toString())
             }
             tableRawContactsCursor ?: return
             
@@ -132,7 +132,7 @@ class ComkitContactsFetchManager private constructor() {
                 try {
                     tableDataCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI /* content://com.android.contacts/data */, TABLE_DATA_COLUMNS_ARRAY, "${ContactsContract.Data.RAW_CONTACT_ID} =? AND ${ContactsContract.Data.MIMETYPE} =?", arrayOf(idStr, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE), null)
                 } catch (e: Exception) {
-                    LogcatUtils.e(msg = e.toString())
+                    LogUtils.e(msg = e.toString())
                 }
                 tableDataCursor ?: return
                 
@@ -151,7 +151,7 @@ class ComkitContactsFetchManager private constructor() {
             }
             tableRawContactsCursor.close()
         } catch (e: SecurityException) {
-            LogcatUtils.e(msg = e.toString())
+            LogUtils.e(msg = e.toString())
         }
     }
     

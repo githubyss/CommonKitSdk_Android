@@ -93,7 +93,7 @@ object UriUtils {
         uri ?: return null
         context ?: return null
         
-        LogcatUtils.d("UriUtils", uri.toString())
+        LogUtils.d("UriUtils", uri.toString())
         val authority = uri.authority
         val scheme = uri.scheme
         val path = uri.path
@@ -102,7 +102,7 @@ object UriUtils {
         }
         return if (ContentResolver.SCHEME_FILE == scheme) {
             if (path != null) return File(path)
-            LogcatUtils.d("UriUtils", "$uri parse failed. -> 0")
+            LogUtils.d("UriUtils", "$uri parse failed. -> 0")
             null
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
             if ("com.android.externalstorage.documents" == authority) {
@@ -114,7 +114,7 @@ object UriUtils {
                     return File(Environment.getExternalStorageDirectory()
                         .toString() + "/" + split[1])
                 }
-                LogcatUtils.d("UriUtils", "$uri parse failed. -> 1")
+                LogUtils.d("UriUtils", "$uri parse failed. -> 1")
                 null
             } else if ("com.android.providers.downloads.documents" == authority) {
                 val id = DocumentsContract.getDocumentId(uri)
@@ -133,7 +133,7 @@ object UriUtils {
                 } else if ("audio" == type) {
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
                 } else {
-                    LogcatUtils.d("UriUtils", "$uri parse failed. -> 3")
+                    LogUtils.d("UriUtils", "$uri parse failed. -> 3")
                     return null
                 }
                 val selection = "_id=?"
@@ -142,13 +142,13 @@ object UriUtils {
             } else if (ContentResolver.SCHEME_CONTENT == scheme) {
                 getFileFromUri(uri, 5)
             } else {
-                LogcatUtils.d("UriUtils", "$uri parse failed. -> 6")
+                LogUtils.d("UriUtils", "$uri parse failed. -> 6")
                 null
             }
         } else if (ContentResolver.SCHEME_CONTENT == scheme) {
             getFileFromUri(uri, 7)
         } else {
-            LogcatUtils.d("UriUtils", "$uri parse failed. -> 8")
+            LogUtils.d("UriUtils", "$uri parse failed. -> 8")
             null
         }
     }

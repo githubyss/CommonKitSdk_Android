@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.githubyss.mobile.common.kit.util.LogcatUtils
+import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.ref.SoftReference
 
 
@@ -129,9 +129,9 @@ object FontManager {
             defaultField.isAccessible = true
             defaultField.set(any, typeface)
         } catch (exception: NoSuchFieldException) {
-            LogcatUtils.e(t = exception)
+            LogUtils.e(t = exception)
         } catch (exception: IllegalAccessException) {
-            LogcatUtils.e(t = exception)
+            LogUtils.e(t = exception)
         }
     }
 }

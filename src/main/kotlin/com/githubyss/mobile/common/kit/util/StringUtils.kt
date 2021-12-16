@@ -207,7 +207,7 @@ object StringUtils {
                         try {
                             value = field.get(`object`)
                         } catch (e: IllegalAccessException) {
-                            LogcatUtils.e(TAG, e)
+                            LogUtils.e(TAG, e)
                         } finally {
                             stringBuilder.append(String.format("%s=%s, ", field.name, value?.toString() ?: "null"))
                             break
