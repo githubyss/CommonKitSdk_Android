@@ -79,6 +79,13 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
     
     /** ********** ********** ********** Override ********** ********** ********** */
     
+    /**
+     * 对应 Activity 的 onCreate(savedInstanceState: Bundle?)
+     *
+     * @param activity
+     * @param savedInstanceState
+     * @return
+     */
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityCreated")
         
@@ -100,6 +107,12 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
         // currentShowActivity = activity
     }
     
+    /**
+     * 对应 Activity 的 onStart()
+     *
+     * @param activity
+     * @return
+     */
     override fun onActivityStarted(activity: Activity) {
         LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStarted")
         
@@ -113,6 +126,12 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
         }
     }
     
+    /**
+     * 对应 Activity 的 onResume()
+     *
+     * @param activity
+     * @return
+     */
     override fun onActivityResumed(activity: Activity) {
         LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityResumed")
         
@@ -156,10 +175,22 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
         // }
     }
     
+    /**
+     * 对应 Activity 的 onPause()
+     *
+     * @param activity
+     * @return
+     */
     override fun onActivityPaused(activity: Activity) {
         LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityPaused")
     }
     
+    /**
+     * 对应 Activity 的 onStop()
+     *
+     * @param activity
+     * @return
+     */
     override fun onActivityStopped(activity: Activity) {
         LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStopped")
         
@@ -198,10 +229,23 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
         }
     }
     
+    /**
+     * 对应 Activity 的 onSaveInstanceState(outState: Bundle)
+     *
+     * @param activity
+     * @param outState
+     * @return
+     */
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
         LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivitySaveInstanceState")
     }
     
+    /**
+     * 对应 Activity 的 onDestroy()
+     *
+     * @param activity
+     * @return
+     */
     override fun onActivityDestroyed(activity: Activity) {
         LogcatUtils.d(TAG, "${activity::class.java.simpleName} > onActivityDestroyed")
         

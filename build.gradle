@@ -59,26 +59,35 @@ android {
     // }
 
     sourceSets {
-        main {
-            java {
-                srcDirs 'src/main/java'
-                srcDirs 'src/main/kotlin'
-            }
-        }
-
-        // alone {
-        //     if (isRunAlone.toBoolean()) {
+        // if (isRunAlone.toBoolean()) {
+        //     alone {
         //         java {
         //             srcDirs 'src/alone/java'
         //             srcDirs 'src/alone/kotlin'
         //         }
         //         res {
         //             srcDirs 'src/alone/res'
+        //             srcDirs 'src/alone/res/common'
+        //             srcDirs 'src/alone/res/value'
         //             srcDirs 'src/alone/res/homepage'
         //         }
         //         manifest { srcFile 'src/alone/AndroidManifest.xml' }
         //     }
         // }
+
+        main {
+            java {
+                srcDirs 'src/main/java'
+                srcDirs 'src/main/kotlin'
+            }
+            res {
+                srcDirs 'src/main/res'
+                srcDirs 'src/main/res/common'
+                srcDirs 'src/main/res/value'
+            }
+            manifest { srcFile 'src/main/AndroidManifest.xml' }
+            jniLibs { srcDirs 'libs' }
+        }
     }
 
     dataBinding {
