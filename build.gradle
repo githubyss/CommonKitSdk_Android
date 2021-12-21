@@ -1,8 +1,10 @@
-// if (isRunAlone.toBoolean()) {
-//     apply plugin: 'com.android.application'
-// } else {
-apply plugin: 'com.android.library'
-// }
+boolean isShellApp = project.getName() == shellApp
+boolean isLaunchApp = project.getName() == launchApp
+if (isLaunchApp) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
@@ -10,14 +12,18 @@ android {
     compileSdkVersion compile_sdk_version.toInteger()
     buildToolsVersion build_tools_version
 
+    resourcePrefix 'comkit_'
+
     defaultConfig {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
 
-        versionCode 1
-        versionName '1.0'
+        if (isLaunchApp) {
+            versionCode 1
+            versionName '1.0'
+            testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        }
 
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         consumerProguardFiles 'consumer-rules.pro'
     }
 
@@ -32,6 +38,56 @@ android {
             debuggable isDebuggable.toBoolean()
             minifyEnabled isMinifyEnabled.toBoolean()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    if (isLaunchApp) {
+        flavorDimensions 'isLib'
+        productFlavors {
+            lib {
+                dimension 'isLib'
+            }
+            alone {
+                dimension 'isLib'
+                applicationId 'com.githubyss.mobile.common.kit'
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs 'src/main/java'
+                srcDirs 'src/main/kotlin'
+            }
+            res {
+                srcDirs 'src/main/res'
+                srcDirs 'src/main/res/common'
+            }
+            manifest {
+                srcFile 'src/main/AndroidManifest.xml'
+            }
+            jniLibs {
+                srcDirs 'libs'
+            }
+        }
+
+        if (isLaunchApp) {
+            alone {
+                java {
+                    srcDirs 'src/alone/java'
+                    srcDirs 'src/alone/kotlin'
+                }
+                res {
+                    srcDirs 'src/alone/res'
+                    srcDirs 'src/alone/res/common'
+
+                    srcDirs 'src/alone/res/homepage'
+                }
+                manifest {
+                    srcFile 'src/alone/AndroidManifest.xml'
+                }
+            }
         }
     }
 
@@ -50,47 +106,6 @@ android {
         exclude 'META-INF/metadata.jvm.kotlin_module'
     }
 
-    flavorDimensions 'alone'
-    productFlavors {
-        if (isRunAlone.toBoolean()) {
-            alone {
-                applicationId 'com.githubyss.mobile.common.kit'
-                dimension 'alone'
-            }
-        }
-    }
-
-    sourceSets {
-        if (isRunAlone.toBoolean()) {
-            alone {
-                java {
-                    srcDirs 'src/alone/java'
-                    srcDirs 'src/alone/kotlin'
-                }
-                res {
-                    srcDirs 'src/alone/res'
-                    srcDirs 'src/alone/res/common'
-
-                    srcDirs 'src/alone/res/homepage'
-                }
-                manifest { srcFile 'src/alone/AndroidManifest.xml' }
-            }
-        }
-
-        main {
-            java {
-                srcDirs 'src/main/java'
-                srcDirs 'src/main/kotlin'
-            }
-            res {
-                srcDirs 'src/main/res'
-                srcDirs 'src/main/res/common'
-            }
-            manifest { srcFile 'src/main/AndroidManifest.xml' }
-            jniLibs { srcDirs 'libs' }
-        }
-    }
-
     dataBinding {
         enabled = isDataBindingEnabled.toBoolean()
     }
@@ -100,8 +115,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':CommonLibSdk_Android')
-    if (isRunAlone.toBoolean()) {
-        implementation project(':CommonResSdk_Android')
+    if (isLaunchApp) {
         implementation project(':CommonUiSdk_Android')
         implementation project(':CommonNetSdk_Android')
     }

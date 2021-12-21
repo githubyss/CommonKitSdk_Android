@@ -13,7 +13,7 @@
         android:id="@+id/layout_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/comres_layoutBg_lightGray"
+        android:background="@color/comui_layoutBg_lightGray"
         android:orientation="vertical">
 
         <androidx.core.widget.NestedScrollView
@@ -26,10 +26,10 @@
                 android:id="@+id/layout_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/comres_sideMargin_normal"
-                android:paddingRight="@dimen/comres_sideMargin_normal"
-                android:paddingBottom="@dimen/comres_sideMargin_normal"
-                android:paddingLeft="@dimen/comres_sideMargin_normal"
+                android:paddingTop="@dimen/comui_sideMargin_normal"
+                android:paddingRight="@dimen/comui_sideMargin_normal"
+                android:paddingBottom="@dimen/comui_sideMargin_normal"
+                android:paddingLeft="@dimen/comui_sideMargin_normal"
                 android:gravity="center|top"
                 android:orientation="vertical">
 
