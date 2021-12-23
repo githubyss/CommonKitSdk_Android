@@ -3,16 +3,16 @@ package com.githubyss.mobile.common.kit.processor
 import android.os.Looper
 
 /**
- * ComkitThreadProcessor
+ * ThreadProcessor
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitThreadProcessor {
+object ThreadProcessor {
     /**
-     * ComkitThreadProcessor.assertMainThread()
+     * ThreadProcessor.assertMainThread()
      * <Description> Assert function run in main thread.
      * <Details>
      *

@@ -9,7 +9,7 @@ import com.bumptech.glide.module.AppGlideModule
 
 
 @GlideModule
-class ComkitAppGlideModule : AppGlideModule() {
+class CustomAppGlideModule : AppGlideModule() {
     
     private val MEMORY_CACHE_SIZE = Runtime.getRuntime()
             .maxMemory()

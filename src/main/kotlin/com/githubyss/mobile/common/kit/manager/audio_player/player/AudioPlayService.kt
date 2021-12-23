@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.manager.audio.player
+package com.githubyss.mobile.common.kit.manager.audio_player.player
 
 import android.app.Service
 import android.content.BroadcastReceiver

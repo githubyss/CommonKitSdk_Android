@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.manager.fingerprint
+package com.githubyss.mobile.common.kit.manager.fingerprint_recognition
 
 import android.app.Application
 import android.content.Context
@@ -7,23 +7,22 @@ import android.os.Build
 import android.os.CancellationSignal
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import com.githubyss.mobile.common.kit.util.LogUtils
-import java.lang.Exception
 
 /**
- * ComkitFingerprintAuthManager
+ * FingerprintAuthManager
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-class ComkitFingerprintAuthManager private constructor() {
+class FingerprintAuthManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }
     
     private object Holder {
-        val INSTANCE = ComkitFingerprintAuthManager()
+        val INSTANCE = FingerprintAuthManager()
     }
     
     
@@ -105,7 +104,7 @@ class ComkitFingerprintAuthManager private constructor() {
     
     
     fun startAuth(application: Application?, onFingerprintAuthListener: OnFingerprintAuthListener) {
-        this@ComkitFingerprintAuthManager.onFingerprintAuthListener = onFingerprintAuthListener
+        this@FingerprintAuthManager.onFingerprintAuthListener = onFingerprintAuthListener
         if (beSdkVersionAfterM() && fingerprintManager == null) {
             try {
                 fingerprintManager = application?.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager

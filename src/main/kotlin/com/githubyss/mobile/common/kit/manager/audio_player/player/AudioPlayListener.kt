@@ -1,6 +1,6 @@
-package com.githubyss.mobile.common.kit.manager.audio.player
+package com.githubyss.mobile.common.kit.manager.audio_player.player
 
-import com.githubyss.mobile.common.kit.manager.audio.enumeration.AudioState
+import com.githubyss.mobile.common.kit.manager.audio_player.enumeration.AudioState
 
 
 /**

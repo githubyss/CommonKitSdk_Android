@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.manager.audio.enumeration;
+package com.githubyss.mobile.common.kit.manager.audio_player.enumeration;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

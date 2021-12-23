@@ -8,29 +8,28 @@ import android.provider.ContactsContract
 import android.text.TextUtils
 import com.githubyss.mobile.common.kit.util.LogUtils
 import com.githubyss.mobile.common.kit.util.RegexUtils
-import java.lang.Exception
 import java.lang.ref.WeakReference
 
 /**
- * ComkitContactsFetchManager
+ * ContactsFetchManager
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-class ComkitContactsFetchManager private constructor() {
+class ContactsFetchManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }
     
     private object Holder {
-        val INSTANCE = ComkitContactsFetchManager()
+        val INSTANCE = ContactsFetchManager()
     }
     
     
     interface OnContactsFetchListener {
-        fun onContactsFetch(list: List<ComkitContactsModel>)
+        fun onContactsFetch(list: List<ContactsModel>)
     }
     
     
@@ -43,13 +42,13 @@ class ComkitContactsFetchManager private constructor() {
     private var beFetching = false
     
     
-    private class ContactsFetchAsyncTask constructor(private val contactsFetchManagerWeakRef: WeakReference<ComkitContactsFetchManager>, private val contextWeakRef: WeakReference<Context>) : AsyncTask<String, Int, List<ComkitContactsModel>>() {
-        override fun doInBackground(vararg params: String?): List<ComkitContactsModel> {
+    private class ContactsFetchAsyncTask constructor(private val contactsFetchManagerWeakRef: WeakReference<ContactsFetchManager>, private val contextWeakRef: WeakReference<Context>) : AsyncTask<String, Int, List<ContactsModel>>() {
+        override fun doInBackground(vararg params: String?): List<ContactsModel> {
             if (isCancelled) {
                 return emptyList()
             }
             
-            val contactsModelList = ArrayList<ComkitContactsModel>()
+            val contactsModelList = ArrayList<ContactsModel>()
             val cellphoneSet = HashSet<String>()
             
             contactsFetchManagerWeakRef.get()
@@ -58,7 +57,7 @@ class ComkitContactsFetchManager private constructor() {
             return contactsModelList
         }
         
-        override fun onPostExecute(result: List<ComkitContactsModel>) {
+        override fun onPostExecute(result: List<ContactsModel>) {
             super.onPostExecute(result)
             
             contactsFetchManagerWeakRef.get()?.beFetching = false
@@ -77,8 +76,8 @@ class ComkitContactsFetchManager private constructor() {
             beFetching -> return
             else -> {
                 beFetching = true
-                this@ComkitContactsFetchManager.onContactsFetchListener = onContactsFetchListener
-                contactsFetchAsyncTask = ContactsFetchAsyncTask(WeakReference(this@ComkitContactsFetchManager), WeakReference(application ?: return))
+                this@ContactsFetchManager.onContactsFetchListener = onContactsFetchListener
+                contactsFetchAsyncTask = ContactsFetchAsyncTask(WeakReference(this@ContactsFetchManager), WeakReference(application ?: return))
                 contactsFetchAsyncTask?.execute()
             }
         }
@@ -92,7 +91,7 @@ class ComkitContactsFetchManager private constructor() {
     }
     
     /**
-     * ComkitContactsFetchManager.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
+     * ContactsFetchManager.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
      * <Description> Fetch contacts in cellphone device.
      * <Details>
      *     Traverse table [raw_contacts] to obtain all "display_name" and "_id" in cellphone device.
@@ -110,7 +109,7 @@ class ComkitContactsFetchManager private constructor() {
      * @author Ace Yan
      * @github githubyss
      */
-    private fun getDeviceContacts(contextWeakRef: WeakReference<Context>, contactsModelList: MutableList<ComkitContactsModel>, cellphoneSet: MutableSet<String>) {
+    private fun getDeviceContacts(contextWeakRef: WeakReference<Context>, contactsModelList: MutableList<ContactsModel>, cellphoneSet: MutableSet<String>) {
         try {
             val contentResolver = contextWeakRef.get()?.contentResolver ?: return
             var tableRawContactsCursor: Cursor? = null
@@ -145,7 +144,7 @@ class ComkitContactsFetchManager private constructor() {
                 }
                 tableDataCursor.close()
                 
-                val contactsModel = ComkitContactsModel(idStr, displayNameStr, cellphoneList)
+                val contactsModel = ContactsModel(idStr, displayNameStr, cellphoneList)
                 contactsModelList.add(contactsModel)
             }
             tableRawContactsCursor.close()

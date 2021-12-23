@@ -1,7 +1,7 @@
-package com.githubyss.mobile.common.kit.manager.audio.model
+package com.githubyss.mobile.common.kit.manager.audio_player.model
 
 import android.text.TextUtils
-import com.githubyss.mobile.common.kit.manager.audio.enumeration.VoiceType
+import com.githubyss.mobile.common.kit.manager.audio_player.enumeration.VoiceType
 import java.io.Serializable
 import java.util.*
 

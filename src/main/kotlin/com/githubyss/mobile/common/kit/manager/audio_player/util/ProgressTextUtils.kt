@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.manager.audio.util
+package com.githubyss.mobile.common.kit.manager.audio_player.util
 
 import com.githubyss.mobile.common.kit.util.LogUtils
 import java.text.DecimalFormat

@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.manager.audio.player
+package com.githubyss.mobile.common.kit.manager.audio_player.player
 
 import android.content.Context
 import android.media.AudioManager
@@ -6,11 +6,11 @@ import android.media.AudioManager.OnAudioFocusChangeListener
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Message
-import com.githubyss.mobile.common.kit.manager.audio.enumeration.AudioState
-import com.githubyss.mobile.common.kit.manager.audio.enumeration.VoiceType
-import com.githubyss.mobile.common.kit.manager.audio.model.AudioListModel
-import com.githubyss.mobile.common.kit.manager.audio.model.AudioModel
-import com.githubyss.mobile.common.kit.manager.audio.util.ProgressTextUtils
+import com.githubyss.mobile.common.kit.manager.audio_player.enumeration.AudioState
+import com.githubyss.mobile.common.kit.manager.audio_player.enumeration.VoiceType
+import com.githubyss.mobile.common.kit.manager.audio_player.model.AudioListModel
+import com.githubyss.mobile.common.kit.manager.audio_player.model.AudioModel
+import com.githubyss.mobile.common.kit.manager.audio_player.util.ProgressTextUtils
 
 
 /**

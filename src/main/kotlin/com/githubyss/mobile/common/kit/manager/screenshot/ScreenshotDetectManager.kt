@@ -15,15 +15,14 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
+import com.githubyss.mobile.common.kit.processor.ThreadProcessor
+import com.githubyss.mobile.common.kit.processor.TimeProcessor
 import com.githubyss.mobile.common.kit.util.LogUtils
 import com.githubyss.mobile.common.kit.util.ScreenUtils
-import com.githubyss.mobile.common.kit.processor.ComkitThreadProcessor
-import com.githubyss.mobile.common.kit.processor.ComkitTimeProcessor
-import java.lang.Exception
 import java.lang.ref.WeakReference
 
 /**
- * ComkitScreenshotDetectManager
+ * ScreenshotDetectManager
  * <Description> Detect the action of screenshot.
  * <Details>
  *     Detect data change in media database to decide whether catch screenshot or not.
@@ -36,13 +35,13 @@ import java.lang.ref.WeakReference
  * @author Ace Yan
  * @github githubyss
  */
-class ComkitScreenshotDetectManager private constructor() {
+class ScreenshotDetectManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }
 
     private object Holder {
-        val INSTANCE = ComkitScreenshotDetectManager()
+        val INSTANCE = ScreenshotDetectManager()
     }
 
 
@@ -69,13 +68,13 @@ class ComkitScreenshotDetectManager private constructor() {
 
 
     init {
-        ComkitThreadProcessor.assertMainThread()
+        ThreadProcessor.assertMainThread()
         callbackPathList = ArrayList(10)
         uiHandler = Handler(Looper.getMainLooper())
     }
 
 
-    private class MediaContentObserver constructor(private val screenshotDetectManagerWeakRef: WeakReference<ComkitScreenshotDetectManager>, private val context: Context?, private val uri: Uri, handler: Handler?) : ContentObserver(handler) {
+    private class MediaContentObserver constructor(private val screenshotDetectManagerWeakRef: WeakReference<ScreenshotDetectManager>, private val context: Context?, private val uri: Uri, handler: Handler?) : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
             LogUtils.d(msg = SystemClock.elapsedRealtime().toString())
@@ -85,22 +84,22 @@ class ComkitScreenshotDetectManager private constructor() {
 
 
     fun startDetect(application: Application, onScreenshotDetectListener: OnScreenshotDetectListener) {
-        ComkitThreadProcessor.assertMainThread()
+        ThreadProcessor.assertMainThread()
 
         actualScreenPoint = ScreenUtils.getScreenPointPx(application) ?: return
         callbackPathList?.clear()
-        this@ComkitScreenshotDetectManager.onScreenshotDetectListener = onScreenshotDetectListener
+        this@ScreenshotDetectManager.onScreenshotDetectListener = onScreenshotDetectListener
         startDetectTime = System.currentTimeMillis()
 
-        internalObserver = MediaContentObserver(WeakReference(this@ComkitScreenshotDetectManager), application, MediaStore.Images.Media.INTERNAL_CONTENT_URI, uiHandler)
-        externalObserver = MediaContentObserver(WeakReference(this@ComkitScreenshotDetectManager), application, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, uiHandler)
+        internalObserver = MediaContentObserver(WeakReference(this@ScreenshotDetectManager), application, MediaStore.Images.Media.INTERNAL_CONTENT_URI, uiHandler)
+        externalObserver = MediaContentObserver(WeakReference(this@ScreenshotDetectManager), application, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, uiHandler)
 
         internalObserver?.let { application.contentResolver?.registerContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, false, it) }
         externalObserver?.let { application.contentResolver?.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, it) }
     }
 
     fun stopDetect(application: Application) {
-        ComkitThreadProcessor.assertMainThread()
+        ThreadProcessor.assertMainThread()
 
         callbackPathList?.clear()
         startDetectTime = -1L
@@ -186,7 +185,7 @@ class ComkitScreenshotDetectManager private constructor() {
 
     private fun checkDateTaken(dateTaken: Long): Boolean {
         LogUtils.d(msg = "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentTimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentTimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")
-        return (dateTaken > startDetectTime && (System.currentTimeMillis() - dateTaken) < ComkitTimeProcessor.secondToMillis(10))
+        return (dateTaken > startDetectTime && (System.currentTimeMillis() - dateTaken) < TimeProcessor.secondToMillis(10))
     }
 
     private fun checkImageSize(width: Int, height: Int): Boolean {

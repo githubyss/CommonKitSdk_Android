@@ -6,14 +6,14 @@ import java.util.*
 
 
 /**
- * ComkitTimeProcessor
+ * TimeProcessor
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-object ComkitTimeProcessor {
+object TimeProcessor {
     
     private val DATETIME_FORMAT_DEFAULT = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
     
