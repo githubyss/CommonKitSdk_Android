@@ -4,5 +4,5 @@
     <string name="comkit_homepage_title">Kit调试首页</string>
 
     <!-- Button -->
-    <string name="comkit_homepage_button_log">Log</string>
+    <string name="comkit_homepage_button_log">日志</string>
 </resources>
