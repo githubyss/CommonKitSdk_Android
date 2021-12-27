@@ -13,7 +13,7 @@ import kotlin.properties.Delegates
  */
 class ComkitApplication : BaseApplication() {
 
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
 
     companion object {
         var instance: ComkitApplication by Delegates.notNull()
@@ -23,7 +23,7 @@ class ComkitApplication : BaseApplication() {
     }
 
 
-    /** ********** ********** ********** Override ********** ********** ********** */
+    /** ****************************** Override ****************************** */
 
     override fun onCreate() {
         super.onCreate()

@@ -17,7 +17,7 @@ import com.githubyss.mobile.common.kit.util.LogUtils
  */
 open class FragmentLifecycleSubscriber private constructor() : FragmentManager.FragmentLifecycleCallbacks() {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     companion object {
         val INSTANCE: FragmentLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { FragmentLifecycleSubscriber() }
@@ -26,7 +26,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
     }
     
     
-    /** ********** ********** ********** Override ********** ********** ********** */
+    /** ****************************** Override ****************************** */
     
     /**
      * 对应 Fragment 的 onAttach(context: Context)

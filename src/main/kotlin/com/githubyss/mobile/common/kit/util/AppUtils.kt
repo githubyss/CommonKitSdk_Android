@@ -38,14 +38,14 @@ import java.util.*
  */
 object AppUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = AppUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     fun getApplicationByReflect(): Application? {
         try {
@@ -518,7 +518,7 @@ object AppUtils {
         return processName
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether the app is installed.
@@ -663,7 +663,7 @@ object AppUtils {
     }
     
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /**
      * Register the status of application changed listener.
@@ -945,7 +945,7 @@ object AppUtils {
     }
     
     
-    /** ********** ********** ********** Class ********** ********** ********** */
+    /** ****************************** Class ****************************** */
     
     /**
      * The application's information.

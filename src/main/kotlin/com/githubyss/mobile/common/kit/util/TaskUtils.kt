@@ -14,7 +14,7 @@ import java.util.concurrent.Executors
  */
 object TaskUtils {
 
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
 
     private val TAG: String = TaskUtils::class.java.simpleName
 
@@ -22,7 +22,7 @@ object TaskUtils {
     val UTIL_HANDLER = Handler(Looper.getMainLooper())
 
 
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
 
     fun <T> doAsync(taskRunnable: TaskRunnable<T>?): TaskRunnable<T>? {
         taskRunnable ?: return null
@@ -52,7 +52,7 @@ object TaskUtils {
     }
 
 
-    /** ********** ********** ********** Class ********** ********** ********** */
+    /** ****************************** Class ****************************** */
 
     abstract class TaskRunnable<Result>(callback: Callback<Result>) : Runnable {
         @Volatile
@@ -93,7 +93,7 @@ object TaskUtils {
     }
 
 
-    /** ********** ********** ********** Interface ********** ********** ********** */
+    /** ****************************** Interface ****************************** */
 
     interface Callback<T> {
         fun onCall(data: T)

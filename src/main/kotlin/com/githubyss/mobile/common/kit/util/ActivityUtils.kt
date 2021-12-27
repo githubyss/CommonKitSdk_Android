@@ -27,7 +27,7 @@ import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleSubscriber
  */
 object ActivityUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ActivityUtils::class.java.simpleName
     
@@ -51,9 +51,9 @@ object ActivityUtils {
     }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /**
      * Return the activity by view.
@@ -210,7 +210,7 @@ object ActivityUtils {
         }
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether the activity exists.
@@ -290,7 +290,7 @@ object ActivityUtils {
         return !activity.isFinishing && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed)
     }
     
-    /** ********** ********** Operator ********** ********** */
+    /** ******************** Operator ******************** */
     
     /** ********** startActivity by options ********** */
     
@@ -1219,7 +1219,7 @@ object ActivityUtils {
     }
     
     
-    /** ********** ********** ********** Private ********** ********** ********** */
+    /** ****************************** Private ****************************** */
     
     private fun isIntentAvailable(context: Context? = ComkitApplicationConfig.getApp(), intent: Intent?): Boolean {
         context ?: return false

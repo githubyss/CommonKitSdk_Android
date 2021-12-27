@@ -18,14 +18,14 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
  */
 object BrightnessUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = AceTemp::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /**
      * 获取屏幕亮度
@@ -55,7 +55,7 @@ object BrightnessUtils {
         return if (brightness == null || brightness < 0) getBrightness() else (brightness * 255).toInt()
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether automatic brightness mode is enabled.
@@ -74,7 +74,7 @@ object BrightnessUtils {
         }
     }
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /**
      * Enable or disable automatic brightness mode.
@@ -122,12 +122,12 @@ object BrightnessUtils {
     }
     
     
-    /** ********** ********** ********** Class ********** ********** ********** */
+    /** ****************************** Class ****************************** */
     
     
-    /** ********** ********** ********** Implementations ********** ********** ********** */
+    /** ****************************** Implementations ****************************** */
     
     
-    /** ********** ********** ********** Interface ********** ********** ********** */
+    /** ****************************** Interface ****************************** */
     
 }

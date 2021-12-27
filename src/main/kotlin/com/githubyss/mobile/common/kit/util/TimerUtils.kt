@@ -13,7 +13,7 @@ import java.util.*
  */
 object TimerUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = TimerUtils::class.java.simpleName
     
@@ -21,7 +21,7 @@ object TimerUtils {
     // private var handler: Handler? = null
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
+    /** ****************************** Constructors ****************************** */
     
     // init {
     // val thread = HandlerThread("timer")
@@ -30,7 +30,7 @@ object TimerUtils {
     // }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     // fun post(runnable: Runnable) {
     //     handler?.post(runnable)
@@ -40,7 +40,7 @@ object TimerUtils {
     //     handler?.postDelayed(runnable, delay)
     // }
     
-    /** ********** ********** initTimer ********** ********** */
+    /** ******************** initTimer ******************** */
     
     /**
      * Init the timer to ensure not null.
@@ -51,7 +51,7 @@ object TimerUtils {
         }
     }
     
-    /** ********** ********** runTaskPeriodically ********** ********** */
+    /** ******************** runTaskPeriodically ******************** */
     
     /**
      * Run the timer task periodically.
@@ -142,7 +142,7 @@ object TimerUtils {
         }
     }
     
-    /** ********** ********** runTaskOnce ********** ********** */
+    /** ******************** runTaskOnce ******************** */
     
     /**
      * Run the timer task once.
@@ -184,7 +184,7 @@ object TimerUtils {
         }
     }
     
-    /** ********** ********** cancel ********** ********** */
+    /** ******************** cancel ******************** */
     
     /**
      * Need be called when timer task stopped.

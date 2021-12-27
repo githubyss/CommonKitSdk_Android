@@ -18,14 +18,14 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
  */
 object SystemUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = SystemUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /** ********** Manager ********** */
     

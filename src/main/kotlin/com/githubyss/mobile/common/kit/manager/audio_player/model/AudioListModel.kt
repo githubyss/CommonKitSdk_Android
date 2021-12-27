@@ -16,7 +16,7 @@ import java.util.*
  */
 class AudioListModel : Serializable {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     companion object {
         @VoiceType
@@ -27,7 +27,7 @@ class AudioListModel : Serializable {
     var audioList: List<AudioModel?>? = null
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     fun reprocessAudioModel() {
         for (audio in audioList ?: return) {
@@ -36,7 +36,7 @@ class AudioListModel : Serializable {
     }
     
     
-    /** ********** ********** ********** Private ********** ********** ********** */
+    /** ****************************** Private ****************************** */
     
     private fun filtrateAudioList(audioList: List<AudioModel>): MutableList<AudioModel?>? {
         val filtratedAudioList: MutableList<AudioModel?> = ArrayList()

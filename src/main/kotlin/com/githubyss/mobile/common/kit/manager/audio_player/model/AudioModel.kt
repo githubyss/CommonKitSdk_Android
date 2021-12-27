@@ -15,7 +15,7 @@ import java.io.Serializable
  */
 class AudioModel : Serializable {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     var id: String? = null
     var title: String? = null
@@ -32,7 +32,7 @@ class AudioModel : Serializable {
     var isPlaying = false
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
+    /** ****************************** Constructors ****************************** */
     
     constructor()
     
@@ -50,7 +50,7 @@ class AudioModel : Serializable {
     }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     fun processVoiceAndUrl() {
         if (!TextUtils.isEmpty(maleUrl) && TextUtils.isEmpty(femaleUrl)) {
@@ -79,7 +79,7 @@ class AudioModel : Serializable {
     }
     
     
-    /** ********** ********** ********** Private ********** ********** ********** */
+    /** ****************************** Private ****************************** */
     
     private fun setVoiceType(@VoiceType voiceType: Int) {
         this.voiceType = voiceType

@@ -29,16 +29,16 @@ import java.net.SocketException
  */
 object DeviceUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG : String= DeviceUtils::class.java.simpleName
     
     private val LOCATIONS = arrayOf("/system/bin/", "/system/xbin/", "/sbin/", "/system/sd/xbin/", "/system/bin/failsafe/", "/data/local/xbin/", "/data/local/bin/", "/data/local/", "/system/sbin/", "/usr/bin/", "/vendor/bin/")
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /**
      * Return the version name of device's system.
@@ -244,7 +244,7 @@ object DeviceUtils {
         }
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether device is rooted.
@@ -328,7 +328,7 @@ object DeviceUtils {
         return true
     }
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /**
      * Shutdown the device

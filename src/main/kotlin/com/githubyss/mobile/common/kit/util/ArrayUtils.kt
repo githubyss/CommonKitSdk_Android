@@ -10,14 +10,14 @@ package com.githubyss.mobile.common.kit.util
  */
 object ArrayUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ArrayUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * <Description> Return whether the array is null or 0-length.

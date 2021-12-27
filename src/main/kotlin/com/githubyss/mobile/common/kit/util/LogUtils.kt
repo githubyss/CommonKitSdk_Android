@@ -16,7 +16,7 @@ import org.json.JSONObject
  */
 object LogUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = LogUtils::class.java.simpleName
     
@@ -46,7 +46,7 @@ object LogUtils {
     var logPrefix: String = LOG_PREFIX
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     fun v(tag: String = TAG, msg: String) {
         if (logLevel <= LOG_LEVEL_VERBOSE) {

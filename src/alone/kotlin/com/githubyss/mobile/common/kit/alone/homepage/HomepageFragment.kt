@@ -16,7 +16,7 @@ import com.githubyss.mobile.common.ui.base.view_binding.page.inline.bindView
  */
 class HomepageFragment : BaseToolbarFragment(R.layout.comkit_fragment_homepage) {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     companion object {
         val TAG: String = HomepageFragment::class.java.simpleName
@@ -25,7 +25,7 @@ class HomepageFragment : BaseToolbarFragment(R.layout.comkit_fragment_homepage) 
     private val binding by bindView<ComkitFragmentHomepageBinding>()
     
     
-    /** ********** ********** ********** Override ********** ********** ********** */
+    /** ****************************** Override ****************************** */
     
     override fun init() {
         initView()
@@ -36,14 +36,14 @@ class HomepageFragment : BaseToolbarFragment(R.layout.comkit_fragment_homepage) 
     }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     private fun initView() {
         binding.btnLog.setOnClickListener(onClickListener)
     }
     
     
-    /** ********** ********** ********** Implementations ********** ********** ********** */
+    /** ****************************** Implementations ****************************** */
     
     private val onClickListener = View.OnClickListener { v ->
         when (v.id) {

@@ -19,7 +19,7 @@ import java.net.UnknownHostException
  */
 object NetworkUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = NetworkUtils::class.java.simpleName
     
@@ -43,7 +43,7 @@ object NetworkUtils {
     }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
     fun getActiveNetworkInfo(context: Context? = ComkitApplicationConfig.getApp()): NetworkInfo? {

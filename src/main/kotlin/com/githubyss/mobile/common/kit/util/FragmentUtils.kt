@@ -14,7 +14,7 @@ import com.githubyss.mobile.common.kit.lifecycle.FragmentLifecycleSubscriber
  */
 object FragmentUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = FragmentUtils::class.java.simpleName
     
@@ -22,9 +22,9 @@ object FragmentUtils {
     var fragmentLifecycle: FragmentLifecycleSubscriber = FragmentLifecycleSubscriber.INSTANCE
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether the fragment is destroy.

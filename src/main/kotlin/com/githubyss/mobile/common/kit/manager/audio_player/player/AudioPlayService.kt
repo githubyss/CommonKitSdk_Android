@@ -22,7 +22,7 @@ import com.githubyss.mobile.common.kit.constant.Constants
  */
 class AudioPlayService : Service() {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     companion object {
         var instance: AudioPlayService? = null
@@ -35,10 +35,10 @@ class AudioPlayService : Service() {
     private var closeMusic = true
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
+    /** ****************************** Constructors ****************************** */
     
     
-    /** ********** ********** ********** Override ********** ********** ********** */
+    /** ****************************** Override ****************************** */
     
     override fun onBind(intent: Intent?): IBinder? {
         return MusicBinder()
@@ -74,10 +74,10 @@ class AudioPlayService : Service() {
     }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     
-    /** ********** ********** ********** Private ********** ********** ********** */
+    /** ****************************** Private ****************************** */
     
     private fun initView() {
         // if (floatView == null) {
@@ -120,7 +120,7 @@ class AudioPlayService : Service() {
     }
     
     
-    /** ********** ********** ********** Class ********** ********** ********** */
+    /** ****************************** Class ****************************** */
     
     // client 可以通过Binder获取Service实例
     class MusicBinder : Binder() {

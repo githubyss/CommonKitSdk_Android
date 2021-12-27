@@ -18,16 +18,16 @@ import javax.net.ssl.HttpsURLConnection
  */
 object FileUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = FileUtils::class.java.simpleName
     
     private val LINE_SEP = System.getProperty("line.separator")
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /**
      * Return the file by path.
@@ -477,7 +477,7 @@ object FileUtils {
         return getFileExtension(file.path)
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /** ********** isFileExists ********** */
     
@@ -545,7 +545,7 @@ object FileUtils {
         return file != null && file.exists() && file.isFile
     }
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /** ********** createOrExists ********** */
     
@@ -1076,7 +1076,7 @@ object FileUtils {
     }
     
     
-    /** ********** ********** ********** Interface ********** ********** ********** */
+    /** ****************************** Interface ****************************** */
     
     interface OnReplaceListener {
         fun onReplace(): Boolean

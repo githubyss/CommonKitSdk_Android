@@ -31,12 +31,12 @@ import java.io.*
  */
 object ImageUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ImageUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     /** ********** getBitmap by no option ********** */
     
@@ -331,7 +331,7 @@ object ImageUtils {
         return intArrayOf(opts.outWidth, opts.outHeight)
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether it is a image according to the file name.
@@ -395,7 +395,7 @@ object ImageUtils {
         return src.width == 0 || src.height == 0
     }
     
-    /** ********** ********** Converter ********** ********** */
+    /** ******************** Converter ******************** */
     
     /**
      * Bitmap to bytes.
@@ -508,7 +508,7 @@ object ImageUtils {
         return ret
     }
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /** ********** draw ********** */
     
@@ -1445,7 +1445,7 @@ object ImageUtils {
     }
     
     
-    /** ********** ********** ********** Private ********** ********** ********** */
+    /** ****************************** Private ****************************** */
     
     /**
      * Return the sample size.

@@ -15,16 +15,16 @@ import java.util.regex.Pattern
  */
 object RegexUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = RegexUtils::class.java.simpleName
     
     private val CITY_MAP: SimpleArrayMap<String, String> = SimpleArrayMap()
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /**
      * Return the list of input matches the regex.
@@ -95,7 +95,7 @@ object RegexUtils {
             .replaceAll(replacement)
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether input matches the regex.

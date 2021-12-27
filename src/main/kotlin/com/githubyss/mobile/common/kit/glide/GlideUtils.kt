@@ -475,7 +475,7 @@ object GlideUtils {
     }
     
     
-    /** ********** ********** ********** Interface ********** ********** ********** */
+    /** ****************************** Interface ****************************** */
     
     interface GlideGetBitmapListener {
         fun onSucceed(resource: Bitmap?)

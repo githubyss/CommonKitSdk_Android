@@ -24,14 +24,14 @@ import javax.crypto.spec.SecretKeySpec
  */
 object EncryptUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = EncryptUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Hash encryption ********** ********** */
+    /** ******************** Hash encryption ******************** */
     
     /** ********** MD2 ********** */
     
@@ -391,7 +391,7 @@ object EncryptUtils {
         return hashTemplate(data, "SHA-512")
     }
     
-    /** ********** ********** Hmac encryption ********** ********** */
+    /** ******************** Hmac encryption ******************** */
     
     /** ********** HmacMD5 ********** */
     
@@ -633,7 +633,7 @@ object EncryptUtils {
         return hmacTemplate(data, key, "HmacSHA512")
     }
     
-    /** ********** ********** DES encryption ********** ********** */
+    /** ******************** DES encryption ******************** */
     
     /** ********** DES ********** */
     
@@ -721,7 +721,7 @@ object EncryptUtils {
         return symmetricTemplate(data, key, "DES", transformation, iv, false)
     }
     
-    /** ********** ********** 3DES encryption ********** ********** */
+    /** ******************** 3DES encryption ******************** */
     
     /** ********** 3DES ********** */
     
@@ -809,7 +809,7 @@ object EncryptUtils {
         return symmetricTemplate(data, key, "DESede", transformation, iv, false)
     }
     
-    /** ********** ********** AES encryption ********** ********** */
+    /** ******************** AES encryption ******************** */
     
     /** ********** AES ********** */
     
@@ -897,7 +897,7 @@ object EncryptUtils {
         return symmetricTemplate(data, key, "AES", transformation, iv, false)
     }
     
-    /** ********** ********** RSA encryption ********** ********** */
+    /** ******************** RSA encryption ******************** */
     
     /** ********** RSA ********** */
     
@@ -980,7 +980,7 @@ object EncryptUtils {
     }
     
     
-    /** ********** ********** ********** Private ********** ********** ********** */
+    /** ****************************** Private ****************************** */
     
     /** ********** Template ********** */
     

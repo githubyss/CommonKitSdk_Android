@@ -23,7 +23,7 @@ import com.githubyss.mobile.common.kit.manager.audio_player.util.ProgressTextUti
  */
 class AudioPlayManager private constructor() {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     companion object {
         val INSTANCE: AudioPlayManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { AudioPlayManager() }
@@ -79,14 +79,14 @@ class AudioPlayManager private constructor() {
     }
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
+    /** ****************************** Constructors ****************************** */
     
     init {
         setAudioState(AudioState.STOP)
     }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     /**
      * 外部调用，第一次开始播放
@@ -298,7 +298,7 @@ class AudioPlayManager private constructor() {
     }
     
     
-    /** ********** ********** ********** Private ********** ********** ********** */
+    /** ****************************** Private ****************************** */
     
     private fun audioInit(): Boolean {
         if (mediaPlayer == null) {

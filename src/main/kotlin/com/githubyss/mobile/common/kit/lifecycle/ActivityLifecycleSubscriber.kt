@@ -28,7 +28,7 @@ import kotlin.collections.HashSet
  */
 open class ActivityLifecycleSubscriber private constructor() : Application.ActivityLifecycleCallbacks {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     companion object {
         val INSTANCE: ActivityLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { ActivityLifecycleSubscriber() }
@@ -77,7 +77,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
     private var destroyedListenerMap: MutableMap<Activity?, Set<OnActivityDestroyedListener?>?> = HashMap()
     
     
-    /** ********** ********** ********** Override ********** ********** ********** */
+    /** ****************************** Override ****************************** */
     
     /**
      * 对应 Activity 的 onCreate(savedInstanceState: Bundle?)
@@ -263,7 +263,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
     }
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     fun getTopActivity(): Activity? {
         if (activityList.isNotEmpty()) {
@@ -520,7 +520,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
     // }
     
     
-    /** ********** ********** ********** Interface ********** ********** ********** */
+    /** ****************************** Interface ****************************** */
     
     interface OnAppStatusChangedListener {
         fun onForeground()

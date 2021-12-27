@@ -16,14 +16,14 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
  */
 object ToastUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ToastUtils::class.java.simpleName
     private var toast: Toast? = null
     private var centerable = false
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     /**
      * Show toast.

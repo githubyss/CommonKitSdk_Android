@@ -17,7 +17,7 @@ import kotlin.experimental.and
  */
 object StringUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = StringUtils::class.java.simpleName
     
@@ -25,9 +25,9 @@ object StringUtils {
     private val HEX_DIGITS = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /**
      * Return the length of string.
@@ -86,7 +86,7 @@ object StringUtils {
         }
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether the string is null or 0-length.
@@ -178,7 +178,7 @@ object StringUtils {
         return s1.equals(s2, ignoreCase = true)
     }
     
-    /** ********** ********** Converter ********** ********** */
+    /** ******************** Converter ******************** */
     
     /**
      * Return {@code ""} if string equals null.

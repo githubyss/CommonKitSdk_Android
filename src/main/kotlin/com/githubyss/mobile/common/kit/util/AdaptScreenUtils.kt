@@ -16,16 +16,16 @@ import java.util.*
  */
 object AdaptScreenUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = AdaptScreenUtils::class.java.simpleName
     
     private var metricsFields: List<Field>? = null
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     fun getNavBarHeight(resources: Resources?): Int {
         resources ?: return -1
@@ -39,9 +39,9 @@ object AdaptScreenUtils {
         }
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /**
      * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].

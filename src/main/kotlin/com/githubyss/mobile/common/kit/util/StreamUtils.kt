@@ -14,15 +14,15 @@ import java.util.*
  */
 object StreamUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = StreamUtils::class.java.simpleName
     private const val BUFFER_SIZE = 8 * MemoryUnit.KB
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Converter ********** ********** */
+    /** ******************** Converter ******************** */
     
     /**
      * Input stream to output stream.

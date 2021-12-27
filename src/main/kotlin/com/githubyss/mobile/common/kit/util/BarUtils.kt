@@ -28,7 +28,7 @@ import com.githubyss.mobile.common.kit.enumeration.VersionCode
  */
 object BarUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = BarUtils::class.java.simpleName
     
@@ -37,9 +37,9 @@ object BarUtils {
     private const val KEY_OFFSET = -123
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /** ********** StatusBar ********** */
     
@@ -107,7 +107,7 @@ object BarUtils {
         return window.navigationBarColor
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /** ********** StatusBar ********** */
     
@@ -236,7 +236,7 @@ object BarUtils {
         return !menu && !back
     }
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /** ********** StatusBar ********** */
     

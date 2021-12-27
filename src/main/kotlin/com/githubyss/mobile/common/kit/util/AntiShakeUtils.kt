@@ -13,7 +13,7 @@ import androidx.annotation.IntRange
  */
 object AntiShakeUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = AntiShakeUtils::class.java.simpleName
     
@@ -21,9 +21,9 @@ object AntiShakeUtils {
     private const val TAG_KEY = 0x7EFFFFFF
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     fun isValid(view: View?): Boolean {
         view ?: return false

@@ -10,12 +10,12 @@ package com.githubyss.mobile.common.kit
  */
 object ComkitUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ComkitUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Constructors ********** ********** ********** */
+    /** ****************************** Constructors ****************************** */
     
     // init {
     //     throw UnsupportedOperationException("u can't instantiate me...")

@@ -10,14 +10,14 @@ package com.githubyss.mobile.common.kit.util
  */
 object NumberUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = NumberUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Converter ********** ********** */
+    /** ******************** Converter ******************** */
     
     /** ********** Mathematical Number ********** */
     

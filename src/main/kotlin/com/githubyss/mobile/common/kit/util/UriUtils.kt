@@ -24,13 +24,13 @@ import java.io.File
  */
 object UriUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = UriUtils::class.java.simpleName
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     fun getFileFromUri(uri: Uri?, code: Int, selection: String? = null, selectionArgs: Array<String>? = null, context: Context? = ComkitApplicationConfig.getApp()): File? {
         uri ?: return null
@@ -63,7 +63,7 @@ object UriUtils {
         }
     }
     
-    /** ********** ********** Converter ********** ********** */
+    /** ******************** Converter ******************** */
     
     /**
      * File to uri.

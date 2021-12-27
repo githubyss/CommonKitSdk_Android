@@ -20,14 +20,14 @@ import java.io.UnsupportedEncodingException
  */
 object ResourceUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ResourceUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     fun getResources(context: Context? = ComkitApplicationConfig.getApp()): Resources? {
         context ?: return Resources.getSystem()
@@ -119,7 +119,7 @@ object ResourceUtils {
         return getResources(context)?.getIdentifier(name, "drawable", context.packageName) ?: return -1
     }
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /** ********** Assets ********** */
     

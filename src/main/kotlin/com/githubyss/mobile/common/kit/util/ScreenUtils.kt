@@ -30,14 +30,14 @@ import com.githubyss.mobile.common.kit.enumeration.VersionCode
  */
 object ScreenUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ScreenUtils::class.java.simpleName
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Getter ********** ********** */
+    /** ******************** Getter ******************** */
     
     /**
      * Get the width of screen in pixels.
@@ -225,7 +225,7 @@ object ScreenUtils {
         return SystemUtils.getWindowManager(context)?.defaultDisplay
     }
     
-    /** ********** ********** Checker ********** ********** */
+    /** ******************** Checker ******************** */
     
     /**
      * Return whether screen is full.
@@ -279,7 +279,7 @@ object ScreenUtils {
         return SystemUtils.getKeyguardManager(context)?.inKeyguardRestrictedInputMode() ?: false
     }
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /**
      * Set full screen.
@@ -419,7 +419,7 @@ object ScreenUtils {
     }
     
     
-    /** ********** ********** Converter ********** ********** */
+    /** ******************** Converter ******************** */
     
     /**
      * Value of px to value of dp.

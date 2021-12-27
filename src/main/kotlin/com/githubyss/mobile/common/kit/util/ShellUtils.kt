@@ -16,16 +16,16 @@ import java.io.InputStreamReader
  */
 object ShellUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = ShellUtils::class.java.simpleName
     
     private val LINE_SEP = System.getProperty("line.separator")
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
-    /** ********** ********** Processor ********** ********** */
+    /** ******************** Processor ******************** */
     
     /** ********** execCmdAsync ********** */
     
@@ -179,7 +179,7 @@ object ShellUtils {
     }
     
     
-    /** ********** ********** ********** Class ********** ********** ********** */
+    /** ****************************** Class ****************************** */
     
     /**
      * The result of command.

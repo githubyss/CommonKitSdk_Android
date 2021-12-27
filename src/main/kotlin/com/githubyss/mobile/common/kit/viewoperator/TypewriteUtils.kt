@@ -14,13 +14,13 @@ import kotlin.concurrent.thread
  */
 object TypewriteUtils {
     
-    /** ********** ********** ********** Properties ********** ********** ********** */
+    /** ****************************** Properties ****************************** */
     
     private val TAG: String = TypewriteUtils::class.java.simpleName
     private val DELAY_MILLIS_LONG = 500L
     
     
-    /** ********** ********** ********** Functions ********** ********** ********** */
+    /** ****************************** Functions ****************************** */
     
     fun textViewTypewriteBySetting(textView: TextView?, string: String?, delayMillis: Long = DELAY_MILLIS_LONG, startIdx: Int = 0, canAutoScrollBottom: Boolean = true) {
         textView ?: return
