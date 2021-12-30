@@ -37,11 +37,11 @@ object SpeechRecognitionManager {
      * 0.初始化语音识别组件
      *
      * @param context
-     * @param appId "59898a55"
+     * @param appId 确保 appId 和 MSC 库相匹配，此处为"b579ee15"
      */
-    fun initSdk(context: Context = ComkitApplicationConfig.getApp(), appId: String = "59898a55") {
+    fun initSdk(context: Context = ComkitApplicationConfig.getApp(), appId: String = "b579ee15") {
         // 初始化科大讯飞 SDK
-        SpeechUtility.createUtility(context, SpeechConstant.APPID + "=$appId")
+        SpeechUtility.createUtility(context, "${SpeechConstant.APPID}=$appId")
     }
 
     /**
@@ -159,6 +159,7 @@ object SpeechRecognitionManager {
         // 内部录音机已经准备好了，用户可以开始语音输入
         override fun onBeginOfSpeech() {
             LogUtils.d(TAG, "RecognizerListener.onBeginOfSpeech")
+            onSpeechRecognizerCallback?.onBeginOfSpeech()
         }
 
         // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
@@ -176,14 +177,17 @@ object SpeechRecognitionManager {
                 // 如果用户还是没有松手，则强行听写用户说话内容
                 speechRecognizer?.startListening(this)
             }
+            onSpeechRecognizerCallback?.onEndOfSpeech()
         }
 
         override fun onResult(results: RecognizerResult, isLast: Boolean) {
             LogUtils.d(TAG, "RecognizerListener.onResult >>> resultString:${results.resultString}, isLast:${isLast}")
+            onSpeechRecognizerCallback?.onResult(results.resultString, isLast)
         }
 
         override fun onVolumeChanged(volume: Int, data: ByteArray) {
             LogUtils.d(TAG, "RecognizerListener.onVolumeChanged >>> 返回音频数据 volume:${volume}, data.size:${data.size}")
+            onSpeechRecognizerCallback?.onVolumeChanged(volume, data)
         }
 
         // 以下代码用于获取与云端的会话 id，当业务出错时将会话 id 提供给技术支持人员，可用于查询会话日志，定位出错原因
@@ -194,6 +198,7 @@ object SpeechRecognitionManager {
                 val sid: String? = obj?.getString(SpeechEvent.KEY_EVENT_SESSION_ID)
                 LogUtils.d(TAG, "RecognizerListener.onEvent >>> session id:${sid}")
             }
+            onSpeechRecognizerCallback?.onEvent(eventType, arg1, arg2, obj)
         }
     }
 
@@ -208,6 +213,9 @@ object SpeechRecognitionManager {
 
         override fun onError(error: SpeechError) {
             LogUtils.d(TAG, "TextUnderstanderListener.onError >>> errorCode:${error.errorCode}, errorDescription:${error.errorDescription}")
+
+            // 文本语义不能使用回调错误码14002，请确认您下载sdk时是否勾选语义场景和私有语义的发布
+            // 请到 aiui.xfyun.cn 配置语义，从1115前的SDK更新到1116以上版本SDK后，语义需要重新到 aiui.xfyun.cn 配置
             onTextUnderstanderCallback?.onError(error.errorCode, error.errorDescription)
         }
     }
@@ -224,7 +232,7 @@ object SpeechRecognitionManager {
         fun onEndOfSpeech()
         fun onResult(result: String, isLast: Boolean)
         fun onVolumeChanged(volume: Int, data: ByteArray)
-        fun onEvent(eventType: Int, arg1: Int, arg2: Int, obj: Bundle)
+        fun onEvent(eventType: Int, arg1: Int, arg2: Int, obj: Bundle?)
     }
 
     /**
