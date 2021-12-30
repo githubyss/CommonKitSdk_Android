@@ -21,56 +21,58 @@ import java.lang.ref.WeakReference
 class ContactsFetchManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
+
+        private val TAG: String = ContactsFetchManager::class.java.simpleName
     }
-    
+
     private object Holder {
         val INSTANCE = ContactsFetchManager()
     }
-    
-    
+
+
     interface OnContactsFetchListener {
         fun onContactsFetch(list: List<ContactsModel>)
     }
-    
-    
+
+
     private val TABLE_RAW_CONTACTS_COLUMNS_ARRAY = arrayOf(ContactsContract.RawContacts._ID, ContactsContract.RawContacts.CONTACT_ID, ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY)
-    
+
     private val TABLE_DATA_COLUMNS_ARRAY = arrayOf(ContactsContract.Data._ID, ContactsContract.Data.RAW_CONTACT_ID, ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER)
-    
+
     private var onContactsFetchListener: OnContactsFetchListener? = null
     private var contactsFetchAsyncTask: ContactsFetchAsyncTask? = null
     private var beFetching = false
-    
-    
+
+
     private class ContactsFetchAsyncTask constructor(private val contactsFetchManagerWeakRef: WeakReference<ContactsFetchManager>, private val contextWeakRef: WeakReference<Context>) : AsyncTask<String, Int, List<ContactsModel>>() {
         override fun doInBackground(vararg params: String?): List<ContactsModel> {
             if (isCancelled) {
                 return emptyList()
             }
-            
+
             val contactsModelList = ArrayList<ContactsModel>()
             val cellphoneSet = HashSet<String>()
-            
+
             contactsFetchManagerWeakRef.get()
-                    ?.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
-            
+                ?.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
+
             return contactsModelList
         }
-        
+
         override fun onPostExecute(result: List<ContactsModel>) {
             super.onPostExecute(result)
-            
+
             contactsFetchManagerWeakRef.get()?.beFetching = false
             contactsFetchManagerWeakRef.get()?.onContactsFetchListener?.onContactsFetch(result)
         }
-        
+
         override fun onCancelled() {
             super.onCancelled()
             contactsFetchManagerWeakRef.get()?.beFetching = false
         }
     }
-    
-    
+
+
     fun startFetch(application: Application?, onContactsFetchListener: OnContactsFetchListener) {
         when {
             beFetching -> return
@@ -82,14 +84,14 @@ class ContactsFetchManager private constructor() {
             }
         }
     }
-    
+
     fun stopFetch() {
         if (contactsFetchAsyncTask?.status == AsyncTask.Status.RUNNING) {
             contactsFetchAsyncTask?.cancel(true)
             contactsFetchAsyncTask = null
         }
     }
-    
+
     /**
      * ContactsFetchManager.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
      * <Description> Fetch contacts in cellphone device.
@@ -115,50 +117,53 @@ class ContactsFetchManager private constructor() {
             var tableRawContactsCursor: Cursor? = null
             try {
                 tableRawContactsCursor = contentResolver.query(ContactsContract.RawContacts.CONTENT_URI /* content://com.android.contacts/raw_contacts */, TABLE_RAW_CONTACTS_COLUMNS_ARRAY, null, null, null)
-            } catch (e: Exception) {
-                LogUtils.e(msg = e.toString())
+            }
+            catch (e: Exception) {
+                LogUtils.e(TAG, msg = e.toString())
             }
             tableRawContactsCursor ?: return
-            
+
             while (contactsFetchAsyncTask?.isCancelled == false && tableRawContactsCursor.moveToNext()) {
                 val cellphoneList = ArrayList<String>()
-                
+
                 val idStr = tableRawContactsCursor.getString(tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts._ID))
                 val displayNameStr = tableRawContactsCursor.getString(tableRawContactsCursor.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY))
-                
+
                 var tableDataCursor: Cursor? = null
                 try {
                     tableDataCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI /* content://com.android.contacts/data */, TABLE_DATA_COLUMNS_ARRAY, "${ContactsContract.Data.RAW_CONTACT_ID} =? AND ${ContactsContract.Data.MIMETYPE} =?", arrayOf(idStr, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE), null)
-                } catch (e: Exception) {
-                    LogUtils.e(msg = e.toString())
+                }
+                catch (e: Exception) {
+                    LogUtils.e(TAG, e.toString())
                 }
                 tableDataCursor ?: return
-                
+
                 while (contactsFetchAsyncTask?.isCancelled == false && tableDataCursor.moveToNext()) {
                     val cellphoneStr = formatCellphone(tableDataCursor.getString(tableDataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)))
-                    
+
                     if (RegexUtils.isCellphone(cellphoneStr)) {
                         cellphoneList.add(cellphoneStr)
                         cellphoneSet.add(cellphoneStr)
                     }
                 }
                 tableDataCursor.close()
-                
+
                 val contactsModel = ContactsModel(idStr, displayNameStr, cellphoneList)
                 contactsModelList.add(contactsModel)
             }
             tableRawContactsCursor.close()
-        } catch (e: SecurityException) {
-            LogUtils.e(msg = e.toString())
+        }
+        catch (e: SecurityException) {
+            LogUtils.e(TAG, e.toString())
         }
     }
-    
+
     private fun formatCellphone(input: String): String {
         val cellphone: String
         return when {
             !TextUtils.isEmpty(input) -> {
                 cellphone = input.replace("-", "")
-                        .replace(" ", "")
+                    .replace(" ", "")
                 when {
                     cellphone.startsWith("+86") -> cellphone.substring(3)
                     cellphone.startsWith("86") -> cellphone.substring(2)

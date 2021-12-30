@@ -188,10 +188,10 @@ object SpeechRecognitionManager {
 
         // 以下代码用于获取与云端的会话 id，当业务出错时将会话 id 提供给技术支持人员，可用于查询会话日志，定位出错原因
         // 若使用本地能力，会话 id 为 null
-        override fun onEvent(eventType: Int, arg1: Int, arg2: Int, obj: Bundle) {
+        override fun onEvent(eventType: Int, arg1: Int, arg2: Int, obj: Bundle?) {
             LogUtils.d(TAG, "RecognizerListener.onEvent >>> eventType:${eventType}, arg1:${arg1}, arg2:${arg2}")
             if (SpeechEvent.EVENT_SESSION_ID == eventType) {
-                val sid: String? = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID)
+                val sid: String? = obj?.getString(SpeechEvent.KEY_EVENT_SESSION_ID)
                 LogUtils.d(TAG, "RecognizerListener.onEvent >>> session id:${sid}")
             }
         }

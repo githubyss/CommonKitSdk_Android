@@ -15,16 +15,16 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
  * @createdTime 2020/12/19 09:52:03
  */
 object ToastUtils {
-    
+
     /** ****************************** Properties ****************************** */
-    
+
     private val TAG: String = ToastUtils::class.java.simpleName
     private var toast: Toast? = null
     private var centerable = false
-    
-    
+
+
     /** ****************************** Functions ****************************** */
-    
+
     /**
      * Show toast.
      *
@@ -36,7 +36,7 @@ object ToastUtils {
     fun showMessage(msgId: Int, duration: Int = if (ResourceUtils.getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
         showMessage(ResourceUtils.getString(msgId), duration, centerable, context)
     }
-    
+
     /**
      * Show toast.
      *
@@ -47,25 +47,25 @@ object ToastUtils {
      */
     fun showMessage(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
         context ?: return
-        
+
         ToastUtils.centerable = centerable
-        
+
         if (Looper.myLooper() == null) {
             Looper.prepare()
         }
-        
+
         if (toast != null) {
             toast?.cancel()
         }
-        
+
         toast = Toast.makeText(context, msgStr, duration)
         if (ToastUtils.centerable) {
             toast?.setGravity(Gravity.CENTER, 0, 0)
         }
-        
+
         show()
     }
-    
+
     /**
      * Show toast.
      */
@@ -74,7 +74,7 @@ object ToastUtils {
             toast?.show()
         }
     }
-    
+
     /**
      * Close toast.
      */
@@ -83,8 +83,9 @@ object ToastUtils {
             if (toast != null) {
                 toast?.cancel()
             }
-        } catch (exception: Exception) {
-            LogUtils.e(t = exception)
+        }
+        catch (exception: Exception) {
+            LogUtils.e(TAG, t = exception)
         }
     }
 }

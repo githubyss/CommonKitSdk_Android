@@ -12,26 +12,26 @@ import java.util.*
  * @createdTime 2021/06/22 14:55:14
  */
 object TimerUtils {
-    
+
     /** ****************************** Properties ****************************** */
-    
+
     private val TAG: String = TimerUtils::class.java.simpleName
-    
+
     private var timer: Timer? = null
     // private var handler: Handler? = null
-    
-    
+
+
     /** ****************************** Constructors ****************************** */
-    
+
     // init {
     // val thread = HandlerThread("timer")
     // thread.start()
     // handler = Handler(thread.looper)
     // }
-    
-    
+
+
     /** ****************************** Functions ****************************** */
-    
+
     // fun post(runnable: Runnable) {
     //     handler?.post(runnable)
     // }
@@ -39,9 +39,9 @@ object TimerUtils {
     // fun postDelayed(runnable: Runnable, delay: Long) {
     //     handler?.postDelayed(runnable, delay)
     // }
-    
+
     /** ******************** initTimer ******************** */
-    
+
     /**
      * Init the timer to ensure not null.
      */
@@ -50,9 +50,9 @@ object TimerUtils {
             timer = Timer()
         }
     }
-    
+
     /** ******************** runTaskPeriodically ******************** */
-    
+
     /**
      * Run the timer task periodically.
      *
@@ -64,17 +64,18 @@ object TimerUtils {
     fun runTaskPeriodically(timerTask: TimerTask?, delay: Long?, period: Long?): Boolean {
         delay ?: return false
         period ?: return false
-        
+
         initTimer()
         return try {
             timer?.schedule(timerTask, delay, period)
             true
-        } catch (e: Exception) {
-            LogUtils.e(TAG, e)
+        }
+        catch (e: Exception) {
+            LogUtils.e(TAG, t = e)
             false
         }
     }
-    
+
     /**
      * Run the timer task periodically.
      *
@@ -86,18 +87,19 @@ object TimerUtils {
     fun runTaskPeriodically(timerTask: TimerTask, time: Date?, period: Long?): Boolean {
         time ?: return false
         period ?: return false
-        
+
         initTimer()
         return try {
             timer?.schedule(timerTask, time, period)
             true
-        } catch (e: Exception) {
-            LogUtils.e(TAG, e)
+        }
+        catch (e: Exception) {
+            LogUtils.e(TAG, t = e)
             false
         }
-        
+
     }
-    
+
     /**
      * Run the timer task periodically with time offset.
      *
@@ -109,17 +111,18 @@ object TimerUtils {
     fun runTaskPeriodicallyWithTimeOffset(timerTask: TimerTask, delay: Long?, period: Long?): Boolean {
         delay ?: return false
         period ?: return false
-        
+
         initTimer()
         return try {
             timer?.scheduleAtFixedRate(timerTask, delay, period)
             true
-        } catch (e: Exception) {
-            LogUtils.e(TAG, e)
+        }
+        catch (e: Exception) {
+            LogUtils.e(TAG, t = e)
             false
         }
     }
-    
+
     /**
      * Run the timer task periodically with time offset.
      *
@@ -131,19 +134,20 @@ object TimerUtils {
     fun runTaskPeriodicallyWithTimeOffset(timerTask: TimerTask, time: Date?, period: Long?): Boolean {
         time ?: return false
         period ?: return false
-        
+
         initTimer()
         return try {
             timer?.scheduleAtFixedRate(timerTask, time, period)
             true
-        } catch (e: Exception) {
-            LogUtils.e(TAG, e)
+        }
+        catch (e: Exception) {
+            LogUtils.e(TAG, t = e)
             false
         }
     }
-    
+
     /** ******************** runTaskOnce ******************** */
-    
+
     /**
      * Run the timer task once.
      *
@@ -153,17 +157,18 @@ object TimerUtils {
      */
     fun runTaskOnce(timerTask: TimerTask, delay: Long?): Boolean {
         delay ?: return false
-        
+
         initTimer()
         return try {
             timer?.schedule(timerTask, delay)
             true
-        } catch (e: Exception) {
-            LogUtils.e(TAG, e)
+        }
+        catch (e: Exception) {
+            LogUtils.e(TAG, t = e)
             false
         }
     }
-    
+
     /**
      * Run the timer task once.
      *
@@ -173,19 +178,20 @@ object TimerUtils {
      */
     fun runTaskOnce(timerTask: TimerTask, time: Date?): Boolean {
         time ?: return false
-        
+
         initTimer()
         return try {
             timer?.schedule(timerTask, time)
             true
-        } catch (e: Exception) {
-            LogUtils.e(TAG, e)
+        }
+        catch (e: Exception) {
+            LogUtils.e(TAG, t = e)
             false
         }
     }
-    
+
     /** ******************** cancel ******************** */
-    
+
     /**
      * Need be called when timer task stopped.
      */

@@ -19,30 +19,32 @@ import com.githubyss.mobile.common.kit.util.LogUtils
 class FingerprintAuthManager private constructor() {
     companion object {
         var instance = Holder.INSTANCE
+
+        private val TAG: String = FingerprintAuthManager::class.java.simpleName
     }
-    
+
     private object Holder {
         val INSTANCE = FingerprintAuthManager()
     }
-    
-    
+
+
     interface OnFingerprintAuthListener {
         fun onFingerprintAuth(result: FingerprintAuthResult, info: String)
     }
-    
-    
+
+
     private val TOTAL_AUTH_FAILED_MAX_COUNT = 5
     private val SINGLE_AUTH_FAILED_MAX_COUNT = 3
-    
+
     private var onFingerprintAuthListener: OnFingerprintAuthListener? = null
     private var fingerprintManager: FingerprintManager? = null
     private var cancellationSignal: CancellationSignal? = null
-    
+
     private var hasFingerprintManager = false
     private var currentTotalFailedCount = 0
     private var currentSingleFailedCount = 0
-    
-    
+
+
     enum class FingerprintAuthResult(val info: String) {
         SYSTEM_SUCCEEDED("SYSTEM_SUCCEEDED"),
         SYSTEM_FAILED("SYSTEM_FAILED"),
@@ -51,7 +53,7 @@ class FingerprintAuthManager private constructor() {
         INTERIOR_CANCEL("INTERIOR_CANCEL"),
         EXTERIOR_CANCEL("EXTERIOR_CANCEL")
     }
-    
+
     // private inner class FingerprintAuthCallBack : FingerprintManager.AuthenticationCallback() {
     //     private var errorFlag = false
     //
@@ -101,61 +103,62 @@ class FingerprintAuthManager private constructor() {
     //         logcatAuthCount("onAuthenticationHelp()")
     //     }
     // }
-    
-    
+
+
     fun startAuth(application: Application?, onFingerprintAuthListener: OnFingerprintAuthListener) {
         this@FingerprintAuthManager.onFingerprintAuthListener = onFingerprintAuthListener
         if (beSdkVersionAfterM() && fingerprintManager == null) {
             try {
                 fingerprintManager = application?.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
                 hasFingerprintManager = true
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 LogUtils.e(msg = e.toString())
                 hasFingerprintManager = false
             }
         }
-        
+
         if (hasEnrolledFingerprints()) {
             currentSingleFailedCount = 0
             cancellationSignal = CancellationSignal()
             // fingerprintManager?.authenticate(null, cancellationSignal, 0, FingerprintAuthCallBack(), null)
         }
-        
+
         logcatAuthCount("startAuth()")
     }
-    
+
     fun release() {
         onFingerprintAuthListener = null
         cancelAuthExternally()
-        
+
         logcatAuthCount("release()")
     }
-    
+
     fun cancelAuthExternally() {
         if (beSdkVersionAfterM() && (cancellationSignal?.isCanceled != true)) {
             cancellationSignal?.cancel()
             onFingerprintAuthListener?.onFingerprintAuth(FingerprintAuthResult.EXTERIOR_CANCEL, FingerprintAuthResult.EXTERIOR_CANCEL.info)
         }
-        
+
         logcatAuthCount("cancelAuthExternally()")
     }
-    
+
     private fun cancelAuthInternally() {
         if (beSdkVersionAfterM() && (cancellationSignal?.isCanceled != true)) {
             cancellationSignal?.cancel()
             onFingerprintAuthListener?.onFingerprintAuth(FingerprintAuthResult.INTERIOR_CANCEL, FingerprintAuthResult.INTERIOR_CANCEL.info)
         }
-        
+
         logcatAuthCount("cancelAuthInternally()")
     }
-    
+
     private fun hasEnrolledFingerprints(): Boolean = beSupportFingerprint() && (fingerprintManager?.hasEnrolledFingerprints() == true)
-    
+
     private fun beSupportFingerprint(): Boolean = beSdkVersionAfterM() && hasFingerprintManager && (fingerprintManager?.isHardwareDetected == true)
-    
+
     private fun beSdkVersionAfterM(): Boolean = Build.VERSION.SDK_INT >= VersionCode.M
-    
+
     private fun logcatAuthCount(location: String = "") {
-        LogUtils.d(msg = "$location: {currentSingleFailedCount:$currentSingleFailedCount, currentTotalFailedCount:$currentTotalFailedCount}\t")
+        LogUtils.d(TAG, "$location: {currentSingleFailedCount:$currentSingleFailedCount, currentTotalFailedCount:$currentTotalFailedCount}\t")
     }
 }

@@ -19,19 +19,25 @@ import java.lang.ref.SoftReference
  * @createdTime 2020/12/19 09:38:22
  */
 object FontManager {
-    
+
+    /** ****************************** Properties ****************************** */
+
+    private val TAG: String = FontManager::class.java.simpleName
+
     /** Use cache to hold all loaded typeface. by Ace Yan */
     private var typefaceCacheMap = HashMap<String, SoftReference<Typeface>>()
-    
-    
+
+
+    /** ****************************** Functions ****************************** */
+
     fun replaceFontFromAsset(rootView: View?, fontPath: String, fontStyle: Int = Typeface.NORMAL) {
         replaceFont(rootView, createTypefaceFromAsset(rootView?.context, fontPath), fontStyle)
     }
-    
+
     fun replaceFontFromFile(rootView: View?, fontPath: String, fontStyle: Int = Typeface.NORMAL) {
         replaceFont(rootView, createTypefaceFromFile(fontPath), fontStyle)
     }
-    
+
     /**
      * FontManager.replaceSystemDefaultFontFromAsset([context, fontPath])
      * <Description> Replace system default font.
@@ -51,12 +57,12 @@ object FontManager {
     fun replaceSystemDefaultFontFromAsset(context: Context?, fontPath: String) {
         replaceSystemDefaultFont(createTypefaceFromAsset(context, fontPath))
     }
-    
+
     fun replaceSystemDefaultFontFromFile(fontPath: String) {
         replaceSystemDefaultFont(createTypefaceFromFile(fontPath))
     }
-    
-    
+
+
     /**
      * FontManager.replaceFont([rootView, typeface, fontStyle])
      * <Description> Replace the font of specified view and it's children with specified typeface and font style.
@@ -73,16 +79,17 @@ object FontManager {
         if (fontStyleCopy < 0 || fontStyleCopy > 3) {
             fontStyleCopy = Typeface.NORMAL
         }
-        
+
         if (rootView is TextView) {
             rootView.setTypeface(typeface, fontStyleCopy)
-        } else if (rootView is ViewGroup) {
+        }
+        else if (rootView is ViewGroup) {
             for (idx in 0 until rootView.childCount) {
                 replaceFont(rootView.getChildAt(idx), typeface, fontStyleCopy)
             }
         }
     }
-    
+
     /**
      * FontManager.createTypefaceFromAsset([context, fontPath])
      * <Description> Create a Typeface instance with specified font file.
@@ -101,10 +108,10 @@ object FontManager {
             typefaceRef = SoftReference(typeface)
             typefaceCacheMap.put(fontPath, typefaceRef)
         }
-        
+
         return typeface
     }
-    
+
     private fun createTypefaceFromFile(fontPath: String): Typeface? {
         var typefaceRef = typefaceCacheMap[fontPath]
         var typeface = typefaceRef?.get()
@@ -113,25 +120,27 @@ object FontManager {
             typefaceRef = SoftReference(typeface)
             typefaceCacheMap.put(fontPath, typefaceRef)
         }
-        
+
         return typeface
     }
-    
+
     private fun replaceSystemDefaultFont(typeface: Typeface?) {
         // modifyObjectField(null, "SANS_SERIF", typeface)
         // modifyObjectField(null, "SERIF", typeface)
         modifyObjectField(null, "MONOSPACE", typeface)
     }
-    
+
     private fun modifyObjectField(any: Any?, fieldName: String, typeface: Typeface?) {
         try {
             val defaultField = Typeface::class.java.getDeclaredField(fieldName)
             defaultField.isAccessible = true
             defaultField.set(any, typeface)
-        } catch (exception: NoSuchFieldException) {
-            LogUtils.e(t = exception)
-        } catch (exception: IllegalAccessException) {
-            LogUtils.e(t = exception)
+        }
+        catch (exception: NoSuchFieldException) {
+            LogUtils.e(TAG, t = exception)
+        }
+        catch (exception: IllegalAccessException) {
+            LogUtils.e(TAG, t = exception)
         }
     }
 }

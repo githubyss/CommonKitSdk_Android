@@ -16,19 +16,19 @@ import kotlin.experimental.and
  * @createdTime 2020/12/19 11:48:47
  */
 object StringUtils {
-    
+
     /** ****************************** Properties ****************************** */
-    
+
     private val TAG: String = StringUtils::class.java.simpleName
-    
+
     private val TYPES = arrayOf("int", "java.lang.String", "boolean", "char", "float", "double", "long", "short", "byte")
     private val HEX_DIGITS = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
-    
-    
+
+
     /** ****************************** Functions ****************************** */
-    
+
     /** ******************** Getter ******************** */
-    
+
     /**
      * Return the length of string.
      *
@@ -37,10 +37,10 @@ object StringUtils {
      */
     fun length(s: CharSequence?): Int {
         s ?: return 0
-        
+
         return s.length
     }
-    
+
     /**
      * Return the string value associated with a particular resource ID.
      *
@@ -51,7 +51,7 @@ object StringUtils {
      */
     fun getString(@StringRes id: Int, vararg formatArgs: Any? = emptyArray(), context: Context? = ComkitApplicationConfig.getApp()): String {
         context ?: return ""
-        
+
         return try {
             if (formatArgs.isEmpty()) {
                 ResourceUtils.getResources(context)
@@ -66,7 +66,7 @@ object StringUtils {
             ""
         }
     }
-    
+
     /**
      * Return the string array associated with a particular resource ID.
      *
@@ -76,7 +76,7 @@ object StringUtils {
      */
     fun getStringArray(@ArrayRes id: Int, context: Context? = ComkitApplicationConfig.getApp()): Array<String?>? {
         context ?: return null
-        
+
         return try {
             ResourceUtils.getResources(context)
                 ?.getStringArray(id)
@@ -85,9 +85,9 @@ object StringUtils {
             arrayOfNulls(0)
         }
     }
-    
+
     /** ******************** Checker ******************** */
-    
+
     /**
      * Return whether the string is null or 0-length.
      *
@@ -96,14 +96,14 @@ object StringUtils {
      */
     fun isEmpty(s: CharSequence?): Boolean {
         s ?: return true
-        
+
         return s.isEmpty()
     }
-    
+
     fun isNotEmpty(s: CharSequence?): Boolean {
         return !isEmpty(s)
     }
-    
+
     /**
      * Return whether the string is null or whitespace.
      *
@@ -112,10 +112,10 @@ object StringUtils {
      */
     fun isTrimEmpty(s: String?): Boolean {
         s ?: return true
-        
+
         return s.trim().isEmpty()
     }
-    
+
     /**
      * Return whether the string is null or white space.
      *
@@ -125,7 +125,7 @@ object StringUtils {
     fun isSpace(s: String?): Boolean {
         s ?: return true
         if (s.isEmpty()) return true
-        
+
         for (element in s) {
             if (!Character.isWhitespace(element)) {
                 return false
@@ -133,11 +133,11 @@ object StringUtils {
         }
         return true
     }
-    
+
     fun isNotSpace(s: String?): Boolean {
         return !isSpace(s)
     }
-    
+
     /**
      * Return whether string1 is equals to string2.
      *
@@ -147,7 +147,7 @@ object StringUtils {
      */
     fun equals(s1: CharSequence?, s2: CharSequence?): Boolean {
         if (s1 === s2) return true
-        
+
         val length: Int
         if (s1 != null && s2 != null) {
             length = s1.length
@@ -165,7 +165,7 @@ object StringUtils {
         }
         return false
     }
-    
+
     /**
      * Return whether string1 is equals to string2, ignoring case considerations..
      *
@@ -177,9 +177,9 @@ object StringUtils {
         s1 ?: return s2 == null
         return s1.equals(s2, ignoreCase = true)
     }
-    
+
     /** ******************** Converter ******************** */
-    
+
     /**
      * Return {@code ""} if string equals null.
      *
@@ -189,7 +189,7 @@ object StringUtils {
     fun null2Length0(s: String?): String {
         return s ?: ""
     }
-    
+
     /**
      * Object to string.
      * e.g. object2String({name=value, name=value, name=value}) returns "Object {name=value, name=value, name=value}".
@@ -199,7 +199,7 @@ object StringUtils {
      */
     fun <T : Any> object2String(`object`: T?): String {
         `object` ?: return "Object {object is null}"
-        
+
         if (`object`.toString()
                 .startsWith(`object`.javaClass.name + "@")) {
             val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object {")
@@ -215,7 +215,7 @@ object StringUtils {
                             value = field.get(`object`)
                         }
                         catch (e: IllegalAccessException) {
-                            LogUtils.e(TAG, e)
+                            LogUtils.e(TAG, t = e)
                         }
                         finally {
                             stringBuilder.append(String.format("%s=%s, ", field.name, value?.toString() ?: "null"))
@@ -234,7 +234,7 @@ object StringUtils {
             return `object`.toString()
         }
     }
-    
+
     /**
      * Array to string.
      * e.g. object2String([item, item, item]) returns "Array [item, item, item]".
@@ -244,7 +244,7 @@ object StringUtils {
      */
     fun array2String(array: Array<*>?): String {
         array ?: return "Array [array is null]"
-        
+
         val stringBuilder = StringBuilder()
         val arraySize = array.size
         for (idx in 0 until arraySize) {
@@ -261,7 +261,7 @@ object StringUtils {
         }
         return stringBuilder.toString()
     }
-    
+
     /**
      * List to string.
      * e.g.
@@ -271,10 +271,10 @@ object StringUtils {
      */
     fun list2String(list: List<*>?): String {
         list ?: return "List[ list is null ]"
-        
+
         return list.toString()
     }
-    
+
     /**
      * Bytes to hex string.
      * e.g. bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns "00A8".
@@ -285,7 +285,7 @@ object StringUtils {
     fun bytes2HexString(bytes: ByteArray?): String {
         bytes ?: return ""
         if (ArrayUtils.isEmpty(bytes)) return ""
-        
+
         val bytesSize = bytes.size
         val chars = CharArray(bytesSize shl 1)
         var j = 0
@@ -295,7 +295,7 @@ object StringUtils {
         }
         return String(chars)
     }
-    
+
     /**
      * Set the first letter of string upper.
      *
@@ -305,13 +305,13 @@ object StringUtils {
     fun uppercaseFirstLetter(s: String?): String {
         s ?: return ""
         if (isSpace(s)) return s
-        
+
         // 首字符可能会是数字，所以不能直接用 Character.isUpperCase 判断
         if (!Character.isLowerCase(s[0])) return s
         return (s[0].toInt() - 32).toChar()
             .toString() + s.substring(1)
     }
-    
+
     /**
      * Set the first letter of string lower.
      *
@@ -321,13 +321,13 @@ object StringUtils {
     fun lowercaseFirstLetter(s: String?): String {
         s ?: return ""
         if (isSpace(s)) return s
-        
+
         // 首字符可能会是数字，所以不能直接用 Character.isLowerCase 判断
         if (!Character.isUpperCase(s[0])) return s
         return (s[0].toInt() + 32).toChar()
             .toString() + s.substring(1)
     }
-    
+
     /**
      * Reverse the string.
      *
@@ -337,10 +337,10 @@ object StringUtils {
     fun reverse(s: String?): String {
         s ?: return ""
         if (isSpace(s)) return s
-        
+
         val len = s.length
         if (len <= 1) return s
-        
+
         val mid = len shr 1
         val chars = s.toCharArray()
         var c: Char
@@ -351,7 +351,7 @@ object StringUtils {
         }
         return String(chars)
     }
-    
+
     /**
      * Convert string to DBC.
      *
@@ -361,7 +361,7 @@ object StringUtils {
     fun toDBC(s: String?): String {
         s ?: return ""
         if (isSpace(s)) return ""
-        
+
         val chars = s.toCharArray()
         for (i in chars.indices) {
             when {
@@ -378,7 +378,7 @@ object StringUtils {
         }
         return String(chars)
     }
-    
+
     /**
      * Convert string to SBC.
      *
@@ -388,7 +388,7 @@ object StringUtils {
     fun toSBC(s: String?): String {
         s ?: return ""
         if (isSpace(s)) return ""
-        
+
         val chars = s.toCharArray()
         for (i in chars.indices) {
             when {

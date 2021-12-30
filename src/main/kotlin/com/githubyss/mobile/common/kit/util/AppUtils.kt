@@ -37,16 +37,16 @@ import java.util.*
  * @createdTime 2021/03/05 11:24:12
  */
 object AppUtils {
-    
+
     /** ****************************** Properties ****************************** */
-    
+
     private val TAG: String = AppUtils::class.java.simpleName
-    
-    
+
+
     /** ****************************** Functions ****************************** */
-    
+
     /** ******************** Getter ******************** */
-    
+
     fun getApplicationByReflect(): Application {
         try {
             @SuppressLint("PrivateApi")
@@ -71,7 +71,7 @@ object AppUtils {
         }
         throw NullPointerException("u should init first")
     }
-    
+
     /**
      * Return the application's icon.
      *
@@ -83,7 +83,7 @@ object AppUtils {
         packageName ?: return null
         context ?: return null
         if (StringUtils.isSpace(packageName)) return null
-        
+
         return try {
             val packageManager = context.packageManager ?: return null
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return null
@@ -94,7 +94,7 @@ object AppUtils {
             null
         }
     }
-    
+
     /**
      * Return the application's package name.
      *
@@ -104,7 +104,7 @@ object AppUtils {
     fun getAppPackageName(context: Context? = ComkitApplicationConfig.getApp()): String {
         return context?.packageName ?: ""
     }
-    
+
     /**
      * Return the application's name.
      *
@@ -116,7 +116,7 @@ object AppUtils {
         packageName ?: return ""
         context ?: return ""
         if (StringUtils.isSpace(packageName)) return ""
-        
+
         return try {
             val packageManager = context.packageManager ?: return ""
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
@@ -128,7 +128,7 @@ object AppUtils {
             ""
         }
     }
-    
+
     /**
      * Return the application's path.
      *
@@ -140,7 +140,7 @@ object AppUtils {
         packageName ?: return ""
         context ?: return ""
         if (StringUtils.isSpace(packageName)) return ""
-        
+
         return try {
             val packageManager = context.packageManager ?: return ""
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
@@ -151,7 +151,7 @@ object AppUtils {
             ""
         }
     }
-    
+
     /**
      * Return the application's version name.
      *
@@ -163,7 +163,7 @@ object AppUtils {
         packageName ?: return ""
         context ?: return ""
         if (StringUtils.isSpace(packageName)) return ""
-        
+
         return try {
             val packageManager = context.packageManager ?: return ""
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return ""
@@ -174,7 +174,7 @@ object AppUtils {
             ""
         }
     }
-    
+
     /**
      * Return the application's version code.
      *
@@ -186,7 +186,7 @@ object AppUtils {
         packageName ?: return -1
         context ?: return -1
         if (StringUtils.isSpace(packageName)) return -1
-        
+
         return try {
             val packageManager = context.packageManager ?: return -1
             val packageInfo = packageManager.getPackageInfo(packageName, 0) ?: return -1
@@ -197,7 +197,7 @@ object AppUtils {
             -1
         }
     }
-    
+
     /**
      * Return the application's signature.
      *
@@ -209,10 +209,10 @@ object AppUtils {
         packageName ?: return null
         context ?: return null
         if (StringUtils.isSpace(packageName)) return null
-        
+
         return try {
             val packageManager = context.packageManager ?: return null
-            
+
             @SuppressLint("PackageManagerGetSignatures")
             val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES) ?: return null
             packageInfo.signatures
@@ -222,7 +222,7 @@ object AppUtils {
             null
         }
     }
-    
+
     /**
      * Return the application's signature for SHA1 value.
      *
@@ -232,7 +232,7 @@ object AppUtils {
     fun getAppSignatureSHA1(packageName: String? = getAppPackageName()): String {
         return getAppSignatureHash(packageName, "SHA1")
     }
-    
+
     /**
      * Return the application's signature for SHA256 value.
      *
@@ -242,7 +242,7 @@ object AppUtils {
     fun getAppSignatureSHA256(packageName: String? = getAppPackageName()): String {
         return getAppSignatureHash(packageName, "SHA256")
     }
-    
+
     /**
      * Return the application's signature for MD5 value.
      *
@@ -252,18 +252,18 @@ object AppUtils {
     fun getAppSignatureMD5(packageName: String? = getAppPackageName()): String {
         return getAppSignatureHash(packageName, "MD5")
     }
-    
+
     private fun getAppSignatureHash(packageName: String?, algorithm: String?): String {
         packageName ?: return ""
         algorithm ?: return ""
         if (StringUtils.isSpace(packageName)) return ""
-        
+
         val signature = getAppSignature(packageName) ?: return ""
         return if (signature.isEmpty()) ""
         else ConvertUtils.bytes2HexString(EncryptUtils.hashTemplate(signature[0]?.toByteArray(), algorithm))
             .replace("(?<=[0-9A-F]{2})[0-9A-F]{2}".toRegex(), ":$0")
     }
-    
+
     /**
      * Return the application's user-ID.
      *
@@ -275,7 +275,7 @@ object AppUtils {
         packageName ?: return -1
         context ?: return -1
         if (StringUtils.isSpace(packageName)) return -1
-        
+
         return try {
             val applicationInfo = context.packageManager?.getApplicationInfo(packageName, 0) ?: return -1
             applicationInfo.uid
@@ -285,7 +285,7 @@ object AppUtils {
             -1
         }
     }
-    
+
     /**
      * Return the application's information.
      *
@@ -305,7 +305,7 @@ object AppUtils {
         packageName ?: return null
         context ?: return null
         if (StringUtils.isSpace(packageName)) return null
-        
+
         return try {
             val packageManager = context.packageManager ?: return null
             getBean(packageManager, packageManager.getPackageInfo(packageName, 0))
@@ -315,7 +315,7 @@ object AppUtils {
             null
         }
     }
-    
+
     /**
      * Return the applications' information.
      *
@@ -324,7 +324,7 @@ object AppUtils {
      */
     fun getAppsInfo(context: Context? = ComkitApplicationConfig.getApp()): List<AppInfo>? {
         context ?: return null
-        
+
         val list: MutableList<AppInfo> = ArrayList()
         val packageManager = context.packageManager ?: return list
         val installedPackages = packageManager.getInstalledPackages(0) ?: return list
@@ -334,7 +334,7 @@ object AppUtils {
         }
         return list
     }
-    
+
     /**
      * Return the application's package information.
      *
@@ -345,10 +345,10 @@ object AppUtils {
     fun getApkInfo(apkFile: File?, context: Context? = ComkitApplicationConfig.getApp()): AppInfo? {
         apkFile ?: return null
         if (!apkFile.isFile || !apkFile.exists()) return null
-        
+
         return getApkInfo(apkFile.absolutePath, context)
     }
-    
+
     /**
      * Return the application's package information.
      *
@@ -360,7 +360,7 @@ object AppUtils {
         apkFilePath ?: return null
         context ?: return null
         if (StringUtils.isSpace(apkFilePath)) return null
-        
+
         val packageManager = context.packageManager ?: return null
         val packageInfo = packageManager.getPackageArchiveInfo(apkFilePath, 0) ?: return null
         val appInfo = packageInfo.applicationInfo
@@ -368,11 +368,11 @@ object AppUtils {
         appInfo?.publicSourceDir = apkFilePath
         return getBean(packageManager, packageInfo)
     }
-    
+
     private fun getBean(packageManager: PackageManager?, packageInfo: PackageInfo?): AppInfo? {
         packageManager ?: return null
         packageInfo ?: return null
-        
+
         val applicationInfo = packageInfo.applicationInfo
         val packageName = packageInfo.packageName
         val name = applicationInfo.loadLabel(packageManager)
@@ -384,14 +384,14 @@ object AppUtils {
         val isSystem = ApplicationInfo.FLAG_SYSTEM and applicationInfo.flags != 0
         return AppInfo(packageName, name, icon, packagePath, versionName, versionCode, isSystem)
     }
-    
+
     fun getForegroundProcessName(application: Application? = ComkitApplicationConfig.getApp()): String {
         application ?: return ""
-        
+
         val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val processInfo = activityManager.runningAppProcesses ?: return ""
         if (processInfo.size == 0) return ""
-        
+
         if (processInfo.size > 0) {
             for (aInfo in processInfo) {
                 if (aInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
@@ -399,33 +399,33 @@ object AppUtils {
                 }
             }
         }
-        
+
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             val packageManager: PackageManager = application.packageManager
             val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
             val list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-            LogUtils.i("ProcessUtils", list.toString())
-            
+            LogUtils.i(TAG, list.toString())
+
             if (list.size <= 0) {
-                LogUtils.i("ProcessUtils", "getForegroundProcessName: noun of access to usage information.")
+                LogUtils.i(TAG, "getForegroundProcessName: noun of access to usage information.")
                 return ""
             }
-            
+
             try {
                 // Access to usage information.
                 val applicationInfo = packageManager.getApplicationInfo(application.packageName, 0)
                 val appOpsManager = application.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
-                
+
                 if (appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName) != AppOpsManager.MODE_ALLOWED) {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     application.startActivity(intent)
                 }
-                
+
                 if (appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName) != AppOpsManager.MODE_ALLOWED) {
-                    LogUtils.i("ProcessUtils", "getForegroundProcessName: refuse to device usage stats.")
+                    LogUtils.i(TAG, "getForegroundProcessName: refuse to device usage stats.")
                     return ""
                 }
-                
+
                 val usageStatsManager = application.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager?
                 var usageStatsList: List<UsageStats>? = null
                 if (usageStatsManager != null) {
@@ -433,7 +433,7 @@ object AppUtils {
                     val beginTime = endTime - 86400000 * 7
                     usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, beginTime, endTime)
                 }
-                
+
                 if (usageStatsList == null || usageStatsList.isEmpty()) return ""
                 var recentStats: UsageStats? = null
                 for (usageStats in usageStatsList) {
@@ -447,13 +447,13 @@ object AppUtils {
                 e.printStackTrace()
             }
         }
-        
+
         return ""
     }
-    
+
     fun getCurrentProcessName(application: Application? = ComkitApplicationConfig.getApp()): String {
         application ?: return ""
-        
+
         var name = getCurrentProcessNameByFile()
         if (!TextUtils.isEmpty(name)) return name
         name = getCurrentProcessNameByAms(application)
@@ -461,7 +461,7 @@ object AppUtils {
         name = getCurrentProcessNameByReflect(application)
         return name
     }
-    
+
     fun getCurrentProcessNameByFile(): String {
         return try {
             val file = File("/proc/" + Process.myPid() + "/" + "cmdline")
@@ -476,14 +476,14 @@ object AppUtils {
             ""
         }
     }
-    
+
     fun getCurrentProcessNameByAms(application: Application? = ComkitApplicationConfig.getApp()): String {
         application ?: return ""
-        
+
         val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val processInfo = activityManager.runningAppProcesses ?: return ""
         if (processInfo.size == 0) return ""
-        
+
         val pid = Process.myPid()
         for (aInfo in processInfo) {
             if (aInfo.pid == pid) {
@@ -494,21 +494,21 @@ object AppUtils {
         }
         return ""
     }
-    
+
     fun getCurrentProcessNameByReflect(application: Application? = ComkitApplicationConfig.getApp()): String {
         application ?: return ""
-        
+
         var processName = ""
         try {
             val app = application
             val loadedApkField = app.javaClass.getField("mLoadedApk")
             loadedApkField.isAccessible = true
             val loadedApk = loadedApkField[app]
-            
+
             val activityThreadField = loadedApk.javaClass.getDeclaredField("mActivityThread")
             activityThreadField.isAccessible = true
             val activityThread = activityThreadField[loadedApk]
-            
+
             val getProcessName = activityThread.javaClass.getDeclaredMethod("getProcessName")
             processName = getProcessName.invoke(activityThread) as String
         }
@@ -517,9 +517,9 @@ object AppUtils {
         }
         return processName
     }
-    
+
     /** ******************** Checker ******************** */
-    
+
     /**
      * Return whether the app is installed.
      *
@@ -531,7 +531,7 @@ object AppUtils {
         packageName ?: return false
         context ?: return false
         if (StringUtils.isSpace(packageName)) return false
-        
+
         val packageManager = context.packageManager
         return try {
             packageManager?.getApplicationInfo(packageName, 0) != null
@@ -541,7 +541,7 @@ object AppUtils {
             false
         }
     }
-    
+
     /**
      * Return whether the application with root permission.
      *
@@ -555,7 +555,7 @@ object AppUtils {
         }
         return false
     }
-    
+
     /**
      * Return whether it is a debug application.
      *
@@ -567,7 +567,7 @@ object AppUtils {
         packageName ?: return false
         context ?: return false
         if (StringUtils.isSpace(packageName)) return false
-        
+
         return try {
             val packageManager = context.packageManager ?: return false
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
@@ -578,7 +578,7 @@ object AppUtils {
             false
         }
     }
-    
+
     /**
      * Return whether it is a system application.
      *
@@ -590,7 +590,7 @@ object AppUtils {
         packageName ?: return false
         context ?: return false
         if (StringUtils.isSpace(packageName)) return false
-        
+
         return try {
             val packageManager = context.packageManager ?: return false
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0) ?: return false
@@ -601,7 +601,7 @@ object AppUtils {
             false
         }
     }
-    
+
     /**
      * Return whether application is foreground.
      *
@@ -613,10 +613,10 @@ object AppUtils {
      */
     fun isAppForeground(packageName: String? = getAppPackageName()): Boolean {
         packageName ?: return false
-        
+
         return !StringUtils.isSpace(packageName) && packageName == getForegroundProcessName()
     }
-    
+
     /**
      * Return whether application is running.
      *
@@ -628,7 +628,7 @@ object AppUtils {
         packageName ?: return false
         context ?: return false
         if (StringUtils.isSpace(packageName)) return false
-        
+
         val uid: Int
         val packageManager = context.packageManager ?: return false
         uid = try {
@@ -639,7 +639,7 @@ object AppUtils {
             e.printStackTrace()
             return false
         }
-        
+
         val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager? ?: return false
         val taskInfo = activityManager.getRunningTasks(Int.MAX_VALUE)
         if (taskInfo != null && taskInfo.size > 0) {
@@ -649,7 +649,7 @@ object AppUtils {
                 }
             }
         }
-        
+
         val serviceInfo = activityManager.getRunningServices(Int.MAX_VALUE)
         if (serviceInfo != null && serviceInfo.size > 0) {
             for (aInfo in serviceInfo) {
@@ -658,13 +658,13 @@ object AppUtils {
                 }
             }
         }
-        
+
         return false
     }
-    
-    
+
+
     /** ******************** Processor ******************** */
-    
+
     /**
      * Register the status of application changed listener.
      *
@@ -674,7 +674,7 @@ object AppUtils {
     fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleSubscriber.OnAppStatusChangedListener?) {
         ActivityLifecycleSubscriber.INSTANCE.addOnAppStatusChangedListener(obj, listener)
     }
-    
+
     /**
      * Unregister the status of application changed listener.
      *
@@ -683,9 +683,9 @@ object AppUtils {
     fun unregisterAppStatusChangedListener(obj: Any?) {
         ActivityLifecycleSubscriber.INSTANCE.removeOnAppStatusChangedListener(obj)
     }
-    
+
     /** ********** installApp ********** */
-    
+
     /**
      * Install the app.
      *
@@ -698,7 +698,7 @@ object AppUtils {
     fun installApp(filePath: String?, context: Context? = ComkitApplicationConfig.getApp()) {
         installApp(FileUtils.getFileByPath(filePath), context)
     }
-    
+
     /**
      * Install the app.
      *
@@ -712,10 +712,10 @@ object AppUtils {
         file ?: return
         context ?: return
         if (!FileUtils.isFileExists(file)) return
-        
+
         context.startActivity(IntentUtils.getInstallAppIntent(file, true))
     }
-    
+
     /**
      * Install the app.
      *
@@ -730,7 +730,7 @@ object AppUtils {
     fun installApp(filePath: String?, requestCode: Int, activity: Activity?) {
         installApp(FileUtils.getFileByPath(filePath), requestCode, activity)
     }
-    
+
     /**
      * Install the app.
      *
@@ -746,12 +746,12 @@ object AppUtils {
         file ?: return
         activity ?: return
         if (!FileUtils.isFileExists(file)) return
-        
+
         activity.startActivityForResult(IntentUtils.getInstallAppIntent(file), requestCode)
     }
-    
+
     /** ********** installAppSilent ********** */
-    
+
     /**
      * Install the app silently.
      *
@@ -767,7 +767,7 @@ object AppUtils {
     fun installAppSilent(filePath: String?, params: String? = null, isRooted: Boolean = DeviceUtils.isDeviceRooted()): Boolean {
         return installAppSilent(FileUtils.getFileByPath(filePath), params, isRooted)
     }
-    
+
     /**
      * Install the app silently.
      *
@@ -784,7 +784,7 @@ object AppUtils {
         file ?: return false
         params ?: return false
         if (!FileUtils.isFileExists(file)) return false
-        
+
         val filePath = '"'.toString() + file.absolutePath + '"'
         val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install $params $filePath"
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
@@ -797,9 +797,9 @@ object AppUtils {
             false
         }
     }
-    
+
     /** ********** uninstallApp ********** */
-    
+
     /**
      * Uninstall the app.
      *
@@ -810,10 +810,10 @@ object AppUtils {
         packageName ?: return
         context ?: return
         if (StringUtils.isSpace(packageName)) return
-        
+
         context.startActivity(IntentUtils.getUninstallAppIntent(packageName, true))
     }
-    
+
     /**
      * Uninstall the app.
      *
@@ -826,12 +826,12 @@ object AppUtils {
         packageName ?: return
         activity ?: return
         if (StringUtils.isSpace(packageName)) return
-        
+
         activity.startActivityForResult(IntentUtils.getUninstallAppIntent(packageName), requestCode)
     }
-    
+
     /** ********** uninstallAppSilent ********** */
-    
+
     /**
      * Uninstall the app silently.
      *
@@ -847,7 +847,7 @@ object AppUtils {
     fun uninstallAppSilent(packageName: String? = getAppPackageName(), isKeepData: Boolean = false, isRooted: Boolean = DeviceUtils.isDeviceRooted()): Boolean {
         packageName ?: return false
         if (StringUtils.isSpace(packageName)) return false
-        
+
         val command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall " + (if (isKeepData) "-k " else "") + packageName
         val commandResult: ShellUtils.CommandResult? = ShellUtils.execCmd(command, isRooted)
         return if (commandResult?.successMsg != null && commandResult.successMsg.toLowerCase()
@@ -859,9 +859,9 @@ object AppUtils {
             false
         }
     }
-    
+
     /** ********** launchApp ********** */
-    
+
     /**
      * Launch the application.
      *
@@ -872,10 +872,10 @@ object AppUtils {
         packageName ?: return
         context ?: return
         if (StringUtils.isSpace(packageName)) return
-        
+
         context.startActivity(IntentUtils.getLaunchAppIntent(packageName, true))
     }
-    
+
     /**
      * Launch the application.
      *
@@ -888,12 +888,12 @@ object AppUtils {
         packageName ?: return
         activity ?: return
         if (StringUtils.isSpace(packageName)) return
-        
+
         activity.startActivityForResult(IntentUtils.getLaunchAppIntent(packageName), requestCode)
     }
-    
+
     /** ********** relaunchApp ********** */
-    
+
     /**
      * Relaunch the application.
      *
@@ -902,7 +902,7 @@ object AppUtils {
      */
     fun relaunchApp(isKillProcess: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
         context ?: return
-        
+
         val packageManager = context.packageManager ?: return
         val intent = packageManager.getLaunchIntentForPackage(context.packageName) ?: return
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -911,9 +911,9 @@ object AppUtils {
         Process.killProcess(Process.myPid())
         System.exit(0)
     }
-    
+
     /** ********** launchAppDetailsSettings ********** */
-    
+
     /**
      * Launch the application's details settings.
      *
@@ -924,14 +924,14 @@ object AppUtils {
         packageName ?: return
         context ?: return
         if (StringUtils.isSpace(packageName)) return
-        
+
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         intent.data = Uri.parse("package:$packageName")
         context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
-    
+
     /** ********** exitApp ********** */
-    
+
     /**
      * Exit the application.
      */
@@ -943,10 +943,10 @@ object AppUtils {
         }
         System.exit(0)
     }
-    
-    
+
+
     /** ****************************** Class ****************************** */
-    
+
     /**
      * The application's information.
      */

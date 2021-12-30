@@ -14,7 +14,14 @@ import java.util.*
  * @createdTime 2021/02/25 09:27:39
  */
 object ProgressTextUtils {
-    
+
+    /** ****************************** Properties ****************************** */
+
+    private val TAG: String = ProgressTextUtils::class.java.simpleName
+
+
+    /** ****************************** Functions ****************************** */
+
     /**
      * 获取进度文案
      *
@@ -23,10 +30,10 @@ object ProgressTextUtils {
      */
     fun getProgressText(time: Long): String? {
         val calendar = Calendar.getInstance()
-        LogUtils.d("getProgressText", "time: $time")
+        LogUtils.d(TAG, "getProgressText >>> time: $time")
         val roundTime = java.lang.Double.valueOf(Math.round(time / 1000f) * 1000.toDouble())
-                .toLong()
-        LogUtils.d("getProgressText", "roundTime: $roundTime")
+            .toLong()
+        LogUtils.d(TAG, "getProgressText >>> roundTime: $roundTime")
         calendar.time = Date(roundTime)
         val minute = calendar[Calendar.MINUTE].toDouble()
         val second = calendar[Calendar.SECOND].toDouble()
