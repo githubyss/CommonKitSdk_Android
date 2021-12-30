@@ -5,7 +5,6 @@ import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.view.Window
 import androidx.annotation.IntRange
-import com.githubyss.mobile.common.kit.AceTemp
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 
 
@@ -20,7 +19,7 @@ object BrightnessUtils {
     
     /** ****************************** Properties ****************************** */
     
-    private val TAG: String = AceTemp::class.java.simpleName
+    private val TAG: String = BrightnessUtils::class.java.simpleName
     
     
     /** ****************************** Functions ****************************** */

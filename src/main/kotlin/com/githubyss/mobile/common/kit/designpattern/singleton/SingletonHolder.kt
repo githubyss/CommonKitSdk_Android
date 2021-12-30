@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.designpattern
+package com.githubyss.mobile.common.kit.designpattern.singleton
 
 
 /**

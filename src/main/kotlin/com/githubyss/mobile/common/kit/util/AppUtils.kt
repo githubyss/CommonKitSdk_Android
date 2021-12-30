@@ -47,7 +47,7 @@ object AppUtils {
     
     /** ******************** Getter ******************** */
     
-    fun getApplicationByReflect(): Application? {
+    fun getApplicationByReflect(): Application {
         try {
             @SuppressLint("PrivateApi")
             val activityThread = Class.forName("android.app.ActivityThread")

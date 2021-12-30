@@ -3,6 +3,7 @@ package com.githubyss.mobile.common.kit
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.AppUtils
 
 
@@ -14,16 +15,15 @@ import com.githubyss.mobile.common.kit.util.AppUtils
  * @createdTime 2020/12/19 09:47:37
  */
 object ComkitApplicationConfig {
-    
+
     /** ****************************** Properties ****************************** */
-    
+
     @SuppressLint("StaticFieldLeak")
-    var application: Application? = null
-        private set
-    
-    
+    private var application: Application? = null
+
+
     /** ****************************** Functions ****************************** */
-    
+
     /**
      * Init utils.
      * Init it in the class of Application.
@@ -31,13 +31,17 @@ object ComkitApplicationConfig {
      * @param context context
      */
     fun init(context: Context?) {
-        if (context == null) {
-            init(AppUtils.getApplicationByReflect())
+        if (context != null) {
+            // context 非空
+            // 通过 context.applicationContext 进行初始化
+            init(context.applicationContext as Application)
             return
         }
-        init(context.applicationContext as Application)
+        // context 空
+        // 通过反射得到的 application 进行初始化
+        init(AppUtils.getApplicationByReflect())
     }
-    
+
     /**
      * Init utils.
      * Init it in the class of Application.
@@ -45,27 +49,37 @@ object ComkitApplicationConfig {
      * @param app application
      */
     fun init(app: Application?) {
+        // 缓存 application 空
         if (application == null) {
+            // 初始化缓存 application 的值
             application = app ?: AppUtils.getApplicationByReflect()
-        } else if (app != null && app.javaClass != application?.javaClass) {
-            // application?.unregisterActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
-            // ActivityUtils.activityLifecycle.activityList.clear()
-            application = app
-            // application?.registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
+            return
         }
+        // 缓存 application 非空
+        // 参数 app 非空，并与缓存 application 非同类
+        if (app != null && app.javaClass != application?.javaClass) {
+            // 重置 ActivityLifecycleCallbacks，以及清空缓存的 activityList
+            application?.unregisterActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
+            ActivityUtils.activityLifecycle.activityList.clear()
+            application = app
+            application?.registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
+        }
+        // 其他情况，保持 application 不变
     }
-    
+
     /**
      * Return the context of Application object.
      *
      * @return the context of Application object
      */
-    fun getApp(): Application? {
-        if (application != null) {
-            return application /*?: throw NullPointerException("application is null...")*/
+    fun getApp(): Application {
+        // 缓存 application 空
+        if (application == null) {
+            // 通过反射得到的 application 进行初始化
+            init(AppUtils.getApplicationByReflect())
         }
-        val app: Application? = AppUtils.getApplicationByReflect()
-        init(app)
-        return app
+        // 缓存 application 非空
+        // 返回 application
+        return application ?: throw NullPointerException("application is null...")
     }
 }
