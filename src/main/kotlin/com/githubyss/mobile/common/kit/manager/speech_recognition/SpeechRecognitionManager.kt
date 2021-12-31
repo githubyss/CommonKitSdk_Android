@@ -148,7 +148,6 @@ object SpeechRecognitionManager {
     private val initListener: InitListener = InitListener { code ->
         if (code != ErrorCode.SUCCESS) {
             LogUtils.d(TAG, "InitListener.onInit >>> 初始化失败，错误码：${code}")
-            // ToastUtil.showMessage("初始化失败,错误码：$code")
         }
     }
 
@@ -214,8 +213,8 @@ object SpeechRecognitionManager {
         override fun onError(error: SpeechError) {
             LogUtils.d(TAG, "TextUnderstanderListener.onError >>> errorCode:${error.errorCode}, errorDescription:${error.errorDescription}")
 
-            // 文本语义不能使用回调错误码14002，请确认您下载sdk时是否勾选语义场景和私有语义的发布
-            // 请到 aiui.xfyun.cn 配置语义，从1115前的SDK更新到1116以上版本SDK后，语义需要重新到 aiui.xfyun.cn 配置
+            // 文本语义不能使用回调错误码 14002，请确认您下载 SDK 时是否勾选语义场景和私有语义的发布
+            // 请到 aiui.xfyun.cn 配置语义，从 1115 前的 SDK 更新到 1116 以上版本 SDK 后，语义需要重新到 aiui.xfyun.cn 配置
             onTextUnderstanderCallback?.onError(error.errorCode, error.errorDescription)
         }
     }
