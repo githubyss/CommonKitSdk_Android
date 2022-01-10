@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.content.FileProvider
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import java.io.File
@@ -38,7 +37,7 @@ object UriUtils {
         
         val cursor: Cursor? = context.contentResolver.query(uri, arrayOf("_data"), selection, selectionArgs, null)
         if (cursor == null) {
-            Log.d("UriUtils", "$uri parse failed(cursor is null). -> $code")
+            LogUtils.d(TAG, "$uri parse failed(cursor is null). -> $code")
             return null
         }
         
@@ -48,15 +47,15 @@ object UriUtils {
                 if (columnIndex > -1) {
                     File(cursor.getString(columnIndex))
                 } else {
-                    Log.d("UriUtils", "$uri parse failed(columnIndex: $columnIndex is wrong). -> $code")
+                    LogUtils.d(TAG, "$uri parse failed(columnIndex: $columnIndex is wrong). -> $code")
                     null
                 }
             } else {
-                Log.d("UriUtils", "$uri parse failed(moveToFirst return false). -> $code")
+                LogUtils.d(TAG, "$uri parse failed(moveToFirst return false). -> $code")
                 null
             }
         } catch (e: Exception) {
-            Log.d("UriUtils", "$uri parse failed. -> $code")
+            LogUtils.e(TAG, "$uri parse failed. -> $code")
             null
         } finally {
             cursor.close()

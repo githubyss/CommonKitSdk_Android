@@ -408,7 +408,7 @@ object ActivityUtils {
         intent ?: return false
         
         if (!isIntentAvailable(activity, intent)) {
-            Log.e("ActivityUtils", "intent is unavailable")
+            LogUtils.e(TAG, "intent is unavailable")
             return false
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -642,7 +642,7 @@ object ActivityUtils {
         intent ?: return false
         
         if (!isIntentAvailable(activity, intent)) {
-            Log.e("ActivityUtils", "intent is unavailable")
+            LogUtils.e(TAG, "intent is unavailable")
             return false
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

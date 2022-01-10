@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.util
 
 import android.content.res.Resources
 import android.util.DisplayMetrics
-import android.util.Log
 import java.lang.reflect.Field
 import java.util.*
 
@@ -131,7 +130,7 @@ object AdaptScreenUtils {
                 if (dm != null) dm.xdpi = newXdpi
             }
             catch (e: Exception) {
-                Log.e("AdaptScreenUtils", "applyMetricsFields: $e")
+                LogUtils.e(TAG, "applyMetricsFields: $e")
             }
         }
     }
@@ -144,7 +143,7 @@ object AdaptScreenUtils {
             field[resources] as DisplayMetrics
         }
         catch (e: Exception) {
-            Log.e("AdaptScreenUtils", "getMetricsFromField: $e")
+            LogUtils.e(TAG, "getMetricsFromField: $e")
             null
         }
     }
