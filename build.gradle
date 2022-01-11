@@ -9,8 +9,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion compile_sdk_version.toInteger()
     buildToolsVersion build_tools_version
+    compileSdkVersion compile_sdk_version.toInteger()
 
     resourcePrefix 'comkit_'
 
@@ -92,8 +92,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility java_version
+        targetCompatibility java_version
     }
 
     packagingOptions {
