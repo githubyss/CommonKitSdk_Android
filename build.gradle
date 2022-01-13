@@ -1,5 +1,9 @@
-boolean isShellApp = project.getName() == shellApp
-boolean isLaunchApp = project.getName() == launchApp
+def isShellApp = project.getName() == rootProject.shellApp
+def isLaunchApp = project.getName() == rootProject.launchApp
+
+println "isShellApp: ${isShellApp}"
+println "isLaunchApp: ${isLaunchApp}"
+
 if (isLaunchApp) {
     apply plugin: 'com.android.application'
 } else {
@@ -18,39 +22,65 @@ android {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
 
-        if (isLaunchApp) {
-            versionCode 1
-            versionName '1.0'
-            testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        }
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    Properties properties = new Properties()
+    File propertyFile = new File("${rootDir.getAbsolutePath()}/signing.properties")
+    InputStream inputStream = propertyFile.newDataInputStream()
+    properties.load(inputStream)
+    def RELEASE_STORE_FILE = file("${rootDir.getAbsolutePath()}/${properties.getProperty('RELEASE_STORE_FILE')}")
+    def RELEASE_STORE_PASSWORD = properties.getProperty('RELEASE_STORE_PASSWORD')
+    def RELEASE_KEY_ALIAS = properties.getProperty('RELEASE_KEY_ALIAS')
+    def RELEASE_KEY_PWD = properties.getProperty('RELEASE_KEY_PWD')
+
+    signingConfigs {
+        release {
+            storeFile RELEASE_STORE_FILE
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PWD
+        }
     }
 
     buildTypes {
         debug {
             debuggable isDebuggable.toBoolean()
             minifyEnabled isMinifyEnabled.toBoolean()
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (isLaunchApp) {
+                shrinkResources isMinifyEnabled.toBoolean()
+            }
+            zipAlignEnabled isZipAlignEnabled.toBoolean()
+
+            signingConfig signingConfigs.debug
         }
 
         release {
-            debuggable isDebuggable.toBoolean()
-            minifyEnabled isMinifyEnabled.toBoolean()
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            minifyEnabled true
+            if (isLaunchApp) {
+                shrinkResources true
+            }
+            zipAlignEnabled true
+
+            if (RELEASE_STORE_FILE.exists()) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 
-    if (isLaunchApp) {
-        flavorDimensions 'isLib'
-        productFlavors {
-            lib {
-                dimension 'isLib'
-            }
-            alone {
-                dimension 'isLib'
+    flavorDimensions 'library'
+    productFlavors {
+        app {
+            dimension 'library'
+            if (isLaunchApp) {
                 applicationId 'com.githubyss.mobile.common.kit'
             }
+            versionCode 1
+            versionName "1.0"
         }
     }
 
@@ -73,7 +103,7 @@ android {
         }
 
         if (isLaunchApp) {
-            alone {
+            app {
                 java {
                     srcDirs 'src/alone/java'
                     srcDirs 'src/alone/kotlin'
@@ -87,6 +117,13 @@ android {
                 manifest {
                     srcFile 'src/alone/AndroidManifest.xml'
                 }
+            }
+        }
+
+        test {
+            java {
+                srcDirs 'src/test/java'
+                srcDirs 'src/test/kotlin'
             }
         }
     }
@@ -115,10 +152,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':CommonLibSdk_Android')
-    if (isLaunchApp) {
-        implementation project(':CommonUiSdk_Android')
-        implementation project(':CommonNetSdk_Android')
-    }
 
     /* Glide */
     kapt "com.github.bumptech.glide:compiler:$glide_compile_version"
