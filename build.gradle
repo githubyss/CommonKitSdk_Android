@@ -105,17 +105,17 @@ android {
         if (isLaunchApp) {
             app {
                 java {
-                    srcDirs 'src/alone/java'
-                    srcDirs 'src/alone/kotlin'
+                    srcDirs 'src/app/java'
+                    srcDirs 'src/app/kotlin'
                 }
                 res {
-                    srcDirs 'src/alone/res'
-                    srcDirs 'src/alone/res/common'
+                    srcDirs 'src/app/res'
+                    srcDirs 'src/app/res/common'
 
-                    srcDirs 'src/alone/res/homepage'
+                    srcDirs 'src/app/res/homepage'
                 }
                 manifest {
-                    srcFile 'src/alone/AndroidManifest.xml'
+                    srcFile 'src/app/AndroidManifest.xml'
                 }
             }
         }
@@ -126,6 +126,10 @@ android {
                 srcDirs 'src/test/kotlin'
             }
         }
+
+        // sourceSets.all {
+        //     set -> println "${set.name} 的文件是 ${set.java.srcDirs}"
+        // }
     }
 
     compileOptions {
