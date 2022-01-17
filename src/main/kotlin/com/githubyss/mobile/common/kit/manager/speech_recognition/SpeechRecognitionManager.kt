@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.util.LogUtils
+import com.githubyss.mobile.common.kit.util.ToastUtils
 import com.iflytek.cloud.*
 
 
@@ -79,7 +80,7 @@ object SpeechRecognitionManager {
             speechRecognizer?.setParameter(SpeechConstant.VAD_EOS, vadEos)
         }
         else {
-            Toast.makeText(context, "抱歉，服务器开了个小差，请退出重试", Toast.LENGTH_SHORT).show()
+            ToastUtils.showMessage( "抱歉，服务器开了个小差，请退出重试")
             speechRecognizer = SpeechRecognizer.createRecognizer(context, null)
         }
     }
