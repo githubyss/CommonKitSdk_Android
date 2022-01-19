@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.homepage.HomepageActivity"
+    tools:context="com.githubyss.mobile.common.net.app.page.homepage.HomepageActivity"
     >
 
     <data>
@@ -37,22 +37,6 @@
                 android:orientation="vertical"
                 >
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
-
-                    <Button
-                        style="@style/comkit_equant_horizontal_button_style"
-                        android:id="@+id/btn_log"
-                        android:text="@string/comkit_homepage_button_log"
-                        />
-                </com.google.android.flexbox.FlexboxLayout>
-
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
-
-                    <Button
-                        style="@style/comkit_equant_horizontal_button_style"
-                        android:id="@+id/btn_"
-                        />
-                </com.google.android.flexbox.FlexboxLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>

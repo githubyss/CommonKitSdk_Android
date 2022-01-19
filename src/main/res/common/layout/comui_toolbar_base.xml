@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_base"
+            android:background="@color/comui_toolbarBg_gray"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:minHeight="?android:attr/actionBarSize"
+            app:popupTheme="@style/AlertDialog.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@color/comui_color_black"
+            />
+</layout>

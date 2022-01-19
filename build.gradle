@@ -22,6 +22,9 @@ android {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
 
+        versionCode 1
+        versionName "1.0"
+
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -74,13 +77,14 @@ android {
 
     flavorDimensions 'library'
     productFlavors {
-        app {
-            dimension 'library'
-            if (isLaunchApp) {
+        if (isLaunchApp) {
+            app {
+                dimension 'library'
                 applicationId 'com.githubyss.mobile.common.kit'
+                versionCode 1
+                versionName "1.0"
+                manifestPlaceholders = [APP_NAME: "通用工具库"]
             }
-            versionCode 1
-            versionName "1.0"
         }
     }
 
@@ -127,9 +131,9 @@ android {
             }
         }
 
-        // sourceSets.all {
-        //     set -> println "${set.name} 的文件是 ${set.java.srcDirs}"
-        // }
+        sourceSets.all {
+            set -> println "${set.name} 的文件是 ${set.java.srcDirs}"
+        }
     }
 
     compileOptions {
@@ -152,17 +156,18 @@ android {
     }
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation project(':CommonLibSdk_Android')
-
-    /* Glide */
-    kapt "com.github.bumptech.glide:compiler:$glide_compile_version"
-}
-
 kapt {
     arguments {
         arg('moduleName', project.getName())
     }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':CommonLibSdk_Android')
+    implementation project(':CommonResSdk_Android')
+
+    /* Glide */
+    kapt "com.github.bumptech.glide:compiler:$glide_compile_version"
 }

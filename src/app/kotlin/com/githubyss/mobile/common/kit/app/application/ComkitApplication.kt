@@ -1,6 +1,6 @@
-package com.githubyss.mobile.common.kit.alone.application
+package com.githubyss.mobile.common.kit.app.application
 
-import com.githubyss.mobile.common.ui.application.BaseApplication
+import com.githubyss.mobile.common.kit.base.application.BaseApplication
 import kotlin.properties.Delegates
 
 

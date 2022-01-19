@@ -2,23 +2,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.githubyss.mobile.common.kit"
-    tools:ignore="LockedOrientationActivity">
+    tools:ignore="LockedOrientationActivity"
+    >
 
     <application
-        android:name=".alone.application.ComkitApplication"
+        android:name=".app.application.ComkitApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/comui_ic_launcher"
-        android:label="@string/comkit_appName"
-        android:roundIcon="@mipmap/comui_ic_launcher_round"
+        android:icon="@mipmap/comres_ic_launcher"
+        android:label="${APP_NAME}"
+        android:roundIcon="@mipmap/comres_ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/comui_app_gray_theme">
+        android:theme="@style/comres_app_gray_theme"
+        >
 
         <activity
-            android:name=".alone.homepage.HomepageActivity"
+            android:name=".app.page.homepage.HomepageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/comui_activity_noActionBar_theme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
