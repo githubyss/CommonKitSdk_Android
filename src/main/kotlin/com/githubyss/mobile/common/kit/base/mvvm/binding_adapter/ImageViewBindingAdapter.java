@@ -1,4 +1,4 @@
-// package com.githubyss.mobile.common.ui.mvvm.bindingadapter;
+// package com.githubyss.mobile.common.kit.mvvm.bindingadapter;
 //
 // import android.widget.ImageView;
 //

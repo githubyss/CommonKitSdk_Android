@@ -5,12 +5,14 @@
     tools:ignore="LockedOrientationActivity"
     >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.application.ComkitApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/comres_ic_launcher"
+        android:icon="@mipmap/comres_ic_launcher_default"
         android:label="${APP_NAME}"
-        android:roundIcon="@mipmap/comres_ic_launcher_round"
+        android:roundIcon="@mipmap/comres_ic_launcher_default_round"
         android:supportsRtl="true"
         android:theme="@style/comres_app_gray_theme"
         >
@@ -27,5 +29,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".app.page.mvvm.MvvmActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.view_binding.reflect.ReflectActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.view_binding.inline.InlineActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.view_binding.reflect.ReflectToolbarActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.view_binding.inline.InlineToolbarActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
     </application>
 </manifest>

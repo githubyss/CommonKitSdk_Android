@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title -->
+    <string name="comkit_view_binding_reflect_title">Binding（反射实现）</string>
+    <string name="comkit_view_binding_toolbar_reflect_title">Binding Toolbar（反射实现）</string>
+
+    <!-- Button -->
+
+    <!-- Content -->
+    <string name="comkit_view_binding_reflect">视图绑定（反射实现）</string>
+</resources>

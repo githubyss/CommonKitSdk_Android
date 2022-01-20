@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.base.view_binding.page.inline
 
 import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseActivity
-import com.githubyss.mobile.common.kit.databinding.ComuiActivityBaseBinding
+import com.githubyss.mobile.common.res.databinding.ComresActivityBaseBinding
 
 
 /**
@@ -15,5 +15,5 @@ abstract class BaseInlineBindingActivity : BaseActivity(0) {
 
     /** ****************************** Properties ****************************** */
 
-    val binding by inflate<ComuiActivityBaseBinding>()
+    val binding by inflate<ComresActivityBaseBinding>()
 }

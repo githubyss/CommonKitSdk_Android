@@ -117,6 +117,10 @@ android {
                     srcDirs 'src/app/res/common'
 
                     srcDirs 'src/app/res/homepage'
+                    srcDirs 'src/app/res/mvvm'
+                    srcDirs 'src/app/res/view_binding'
+                    srcDirs 'src/app/res/view_binding/inline'
+                    srcDirs 'src/app/res/view_binding/reflect'
                 }
                 manifest {
                     srcFile 'src/app/AndroidManifest.xml'

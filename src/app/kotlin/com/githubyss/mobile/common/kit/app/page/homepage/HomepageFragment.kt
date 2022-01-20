@@ -7,9 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.githubyss.mobile.common.kit.R
+import com.githubyss.mobile.common.kit.app.page.mvvm.MvvmActivity
+import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineActivity
+import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineToolbarActivity
+import com.githubyss.mobile.common.kit.app.page.view_binding.reflect.ReflectActivity
+import com.githubyss.mobile.common.kit.app.page.view_binding.reflect.ReflectToolbarActivity
 import com.githubyss.mobile.common.kit.base.view_binding.page.inline.BaseInlineBindingToolbarFragment
 import com.githubyss.mobile.common.kit.base.view_binding.page.inline.bindView
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentHomepageBinding
+import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.LogUtils
 
 
@@ -203,6 +209,13 @@ class HomepageFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragme
 
     private fun initView() {
         binding.btnLog.setOnClickListener(onClickListener)
+
+        binding.buttonMvvm.setOnClickListener(onClickListener)
+
+        binding.buttonBindingReflect.setOnClickListener(onClickListener)
+        binding.buttonBindingInline.setOnClickListener(onClickListener)
+        binding.buttonBindingReflectToolbar.setOnClickListener(onClickListener)
+        binding.buttonBindingInlineToolbar.setOnClickListener(onClickListener)
     }
 
 
@@ -212,6 +225,13 @@ class HomepageFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragme
         when (v.id) {
             R.id.btn_log -> {
             }
+
+            R.id.button_mvvm -> ActivityUtils.startActivity(activity, MvvmActivity::class.java)
+
+            R.id.button_binding_reflect -> ActivityUtils.startActivity(activity, ReflectActivity::class.java)
+            R.id.button_binding_inline -> ActivityUtils.startActivity(activity, InlineActivity::class.java)
+            R.id.button_binding_reflect_toolbar -> ActivityUtils.startActivity(activity, ReflectToolbarActivity::class.java)
+            R.id.button_binding_inline_toolbar -> ActivityUtils.startActivity(activity, InlineToolbarActivity::class.java)
         }
     }
 }
