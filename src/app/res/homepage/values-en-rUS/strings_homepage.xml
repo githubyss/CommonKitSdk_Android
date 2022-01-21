@@ -10,4 +10,22 @@
     <string name="comkit_homepage_button_view_binding_inline">Binding\n(by Inline)</string>
     <string name="comkit_homepage_button_view_binding_toolbar_reflect">Binding Toolbar\n(by Reflect)</string>
     <string name="comkit_homepage_button_view_binding_toolbar_inline">Binding Toolbar\n(by Inline)</string>
+    <string name="comkit_homepage_button_glide">Glide</string>
+    <string name="comkit_homepage_button_lifecycle">Lifecycle</string>
+    <string name="comkit_homepage_button_audio_player">Audio Player</string>
+    <string name="comkit_homepage_button_contacts_fetch">Contacts Fetch</string>
+    <string name="comkit_homepage_button_font">Font</string>
+    <string name="comkit_homepage_button_permission">Permission</string>
+    <string name="comkit_homepage_button_screenshot_detect">Screenshot Detect"</string>
+    <string name="comkit_homepage_button_speech_recognition">Speech Recognition</string>
+    <string name="comkit_homepage_button_activity_utils">Activity Utils</string>
+    <string name="comkit_homepage_button_adapt_screen_utils">Adapt Screen Utils</string>
+    <string name="comkit_homepage_button_app_utils">App Utils</string>
+    <string name="comkit_homepage_button_array_utils">Array Utils</string>
+    <string name="comkit_homepage_button_bar_utils">Bar Utils</string>
+    <string name="comkit_homepage_button_brightness_utils">Brightness Utils</string>
+    <string name="comkit_homepage_button_convert_utils">Convert Utils</string>
+    <string name="comkit_homepage_button_datetime_utils">Datetime Utils</string>
+    <string name="comkit_homepage_button_device_utils">Device Utils</string>
+    <string name="comkit_homepage_button_encrypt_utils">Encrypt Utils</string>
 </resources>
