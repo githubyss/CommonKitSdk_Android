@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.page.mvvm.MvvmActivity
+import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
+import com.githubyss.mobile.common.kit.app.page.mvvm.MvvmFragment
 import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineActivity
 import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineToolbarActivity
 import com.githubyss.mobile.common.kit.app.page.view_binding.reflect.ReflectActivity
@@ -216,6 +217,8 @@ class HomepageFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragme
         binding.buttonBindingInline.setOnClickListener(onClickListener)
         binding.buttonBindingReflectToolbar.setOnClickListener(onClickListener)
         binding.buttonBindingInlineToolbar.setOnClickListener(onClickListener)
+
+        binding.btnJsonUtils.setOnClickListener(onClickListener)
     }
 
 
@@ -226,12 +229,14 @@ class HomepageFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragme
             R.id.btn_log -> {
             }
 
-            R.id.button_mvvm -> ActivityUtils.startActivity(activity, MvvmActivity::class.java)
+            R.id.button_mvvm -> replaceFragment(MvvmFragment(), MvvmFragment.TAG, true)
 
             R.id.button_binding_reflect -> ActivityUtils.startActivity(activity, ReflectActivity::class.java)
             R.id.button_binding_inline -> ActivityUtils.startActivity(activity, InlineActivity::class.java)
             R.id.button_binding_reflect_toolbar -> ActivityUtils.startActivity(activity, ReflectToolbarActivity::class.java)
             R.id.button_binding_inline_toolbar -> ActivityUtils.startActivity(activity, InlineToolbarActivity::class.java)
+
+            R.id.btn_json_utils -> replaceFragment(JsonUtilsFragment(), JsonUtilsFragment.TAG, true)
         }
     }
 }

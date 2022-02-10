@@ -48,10 +48,16 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         init()
     }
 
+    override fun onDestroyView() {
+        destroy()
+        super.onDestroyView()
+    }
 
-    /** ****************************** Abstract ****************************** */
 
-    abstract fun init()
+    /** ****************************** Open ****************************** */
+
+    open fun init() {}
+    open fun destroy() {}
 
 
     /** ****************************** Functions ****************************** */

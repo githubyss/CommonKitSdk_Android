@@ -121,6 +121,8 @@ android {
                     srcDirs 'src/app/res/view_binding'
                     srcDirs 'src/app/res/view_binding/inline'
                     srcDirs 'src/app/res/view_binding/reflect'
+
+                    srcDirs 'src/app/res/json_utils'
                 }
                 manifest {
                     srcFile 'src/app/AndroidManifest.xml'

@@ -4,146 +4,151 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.page.mvvm.MvvmActivity">
+    >
 
     <data>
-
-        <import type="com.githubyss.mobile.common.kit.app.page.mvvm.MvvmVmLiveData" />
+        <import type="com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData" />
 
         <variable
             name="mvvmVm"
-            type="MvvmVmLiveData" />
+            type="com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData"
+            />
+
+        <!--<import type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmVmObservableField" />-->
+
+        <!--<variable-->
+        <!--    name="mvvmVm"-->
+        <!--    type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmVmObservableField"-->
+        <!--    />-->
     </data>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/comres_layoutBg_lightGray"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:scrollbars="none"
+        >
 
-        <ScrollView
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="none">
+            android:paddingTop="@dimen/comres_sideMargin_normal"
+            android:paddingRight="@dimen/comres_sideMargin_normal"
+            android:paddingBottom="@dimen/comres_sideMargin_normal"
+            android:paddingLeft="@dimen/comres_sideMargin_normal"
+            app:flexDirection="column"
+            app:justifyContent="space_between"
+            >
 
-            <LinearLayout
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:flexDirection="column"
+                app:justifyContent="flex_start"
+                >
 
-                <com.google.android.flexbox.FlexboxLayout
-                    android:id="@+id/flexbox_page_content"
+                <TextView
+                    style="@style/comres_tips_gray_style"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/comres_sideMargin_normal"
-                    android:paddingRight="@dimen/comres_sideMargin_normal"
-                    android:paddingBottom="@dimen/comres_sideMargin_normal"
-                    android:paddingLeft="@dimen/comres_sideMargin_normal"
-                    app:flexDirection="column"
-                    app:justifyContent="space_between">
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/comres_color_999999"
+                    android:contentDescription="text_display"
+                    android:gravity="center"
+                    android:text="@{mvvmVm.text}"
+                    android:textColor="@color/comres_color_black"
+                    android:textSize="@dimen/comres_textSize_18sp"
+                    bind:isVisibleOrInvisible="@{mvvmVm.isTimeShow}"
+                    />
 
-                    <com.google.android.flexbox.FlexboxLayout
-                        android:id="@+id/flexbox_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        app:flexDirection="column"
-                        app:justifyContent="flex_start">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
-                        <TextView
-                            style="@style/comres_tips_gray_style"
-                            android:id="@+id/text_display"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@color/comres_color_999999"
-                            android:gravity="center"
-                            android:text="@{mvvmVm.text}"
-                            android:textColor="@color/comres_color_black"
-                            android:textSize="@dimen/comres_textSize_18sp"
-                            bind:isVisibleOrInvisible="@{mvvmVm.isTextShow}" />
-
-                        <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
-
-                            <Button
-                                style="@style/comkit_equant_horizontal_button_style"
-                                android:id="@+id/button_operate_time"
-                                android:onClick="@{() -> mvvmVm.onButtonOperateTimeClick()}"
-                                android:text="@{mvvmVm.timeOperateState}" />
-                        </com.google.android.flexbox.FlexboxLayout>
-
-                        <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
-
-                            <Button
-                                style="@style/comkit_equant_horizontal_button_style"
-                                android:id="@+id/button_show_time_text"
-                                android:onClick="@{() -> mvvmVm.onButtonShowTimeTextClick()}"
-                                android:text="显示时间" />
-
-                            <Button
-                                style="@style/comkit_equant_horizontal_button_style"
-                                android:id="@+id/button_hide_time_text"
-                                android:onClick="@{() -> mvvmVm.onButtonHideTimeTextClick()}"
-                                android:text="隐藏时间" />
-                        </com.google.android.flexbox.FlexboxLayout>
-                    </com.google.android.flexbox.FlexboxLayout>
-
-                    <com.google.android.flexbox.FlexboxLayout
-                        android:id="@+id/flexbox_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        app:flexDirection="column"
-                        app:justifyContent="flex_start">
-
-                        <ImageView
-                            android:id="@+id/image_display"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_marginBottom="4dp"
-                            bind:path="@{mvvmVm.imageUrl}"
-                            bind:placeholder="@{null}"
-                            bind:error="@{null}" />
-
-                        <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
-
-                            <Button
-                                style="@style/comkit_equant_horizontal_button_style"
-                                android:id="@+id/button_image_dog"
-                                android:onClick="@{mvvmVm::onButtonClick}"
-                                android:text="狗狗" />
-
-                            <Button
-                                style="@style/comkit_equant_horizontal_button_style"
-                                android:id="@+id/button_image_cat"
-                                android:onClick="@{mvvmVm::onButtonClick}"
-                                android:text="猫咪" />
-
-                            <Button
-                                style="@style/comkit_equant_horizontal_button_style"
-                                android:id="@+id/button_image_chameleon"
-                                android:onClick="@{mvvmVm::onButtonClick}"
-                                android:text="变色龙" />
-                        </com.google.android.flexbox.FlexboxLayout>
-                    </com.google.android.flexbox.FlexboxLayout>
-
-                    <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
-
-                        <Button
-                            style="@style/comkit_equant_horizontal_button_style"
-                            android:id="@+id/button_switch_text"
-                            android:onClick="@{() -> mvvmVm.onButtonSwitchTextClick()}"
-                            android:text="切换到文字" />
-
-                        <Button
-                            style="@style/comkit_equant_horizontal_button_style"
-                            android:id="@+id/button_switch_image"
-                            android:onClick="@{() -> mvvmVm.onButtonSwitchImageClick()}"
-                            android:text="切换到图像" />
-                    </com.google.android.flexbox.FlexboxLayout>
+                    <Button
+                        style="@style/comres_equant_horizontal_button_style"
+                        android:onClick="@{() -> mvvmVm.onButtonOperateTimeClick()}"
+                        android:text="@{mvvmVm.timeOperateState}"
+                        />
                 </com.google.android.flexbox.FlexboxLayout>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                    <Button
+                        style="@style/comres_equant_horizontal_button_style"
+                        android:onClick="@{() -> mvvmVm.onButtonShowTimeTextClick()}"
+                        android:text="@string/comkit_mvvm_button_show_time"
+                        />
+
+                    <Button
+                        style="@style/comres_equant_horizontal_button_style"
+                        android:onClick="@{() -> mvvmVm.onButtonHideTimeTextClick()}"
+                        android:text="@string/comkit_mvvm_button_hide_time"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:flexDirection="column"
+                app:justifyContent="flex_start"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="4dp"
+                    android:contentDescription="image_display"
+                    bind:path="@{mvvmVm.imageUrl}"
+                    bind:placeholder="@{null}"
+                    bind:error="@{null}"
+                    />
+
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                    <Button
+                        style="@style/comres_equant_horizontal_button_style"
+                        android:id="@+id/button_image_dog"
+                        android:onClick="@{mvvmVm::onButtonImageClick}"
+                        android:text="@string/comkit_mvvm_button_dog"
+                        />
+
+                    <Button
+                        style="@style/comres_equant_horizontal_button_style"
+                        android:id="@+id/button_image_cat"
+                        android:onClick="@{mvvmVm::onButtonImageClick}"
+                        android:text="@string/comkit_mvvm_button_cat"
+                        />
+
+                    <Button
+                        style="@style/comres_equant_horizontal_button_style"
+                        android:id="@+id/button_image_chameleon"
+                        android:onClick="@{mvvmVm::onButtonImageClick}"
+                        android:text="@string/comkit_mvvm_button_chameleon"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_switch_text"
+                    android:onClick="@{() -> mvvmVm.onButtonSwitchTextClick()}"
+                    android:text="@string/comkit_mvvm_button_switch_text"
+                    />
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_switch_image"
+                    android:onClick="@{() -> mvvmVm.onButtonSwitchImageClick()}"
+                    android:text="@string/comkit_mvvm_button_switch_image"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

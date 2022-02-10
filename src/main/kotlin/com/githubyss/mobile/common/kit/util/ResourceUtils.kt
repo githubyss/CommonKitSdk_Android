@@ -205,7 +205,7 @@ object ResourceUtils {
      * @param charsetName    The name of charset.
      * @return the content of assets
      */
-    fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
+    private fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
         assetsFilePath ?: return ""
         context ?: return ""
         if (StringUtils.isSpace(assetsFilePath)) return ""
@@ -240,7 +240,7 @@ object ResourceUtils {
      * @param charsetName The name of charset.
      * @return the content of file in assets
      */
-    fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String>? {
+    private fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String>? {
         assetsFilePath ?: return null
         if (StringUtils.isSpace(assetsFilePath)) return null
 

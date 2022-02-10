@@ -23,6 +23,6 @@ class ReflectFragment : BaseReflectBindingFragment<ComkitFragmentViewBindingRefl
     /** ****************************** Override ****************************** */
     
     override fun init() {
-        binding.textBindingReflect.setOnClickListener {}
+        binding?.textBindingReflect?.setOnClickListener {}
     }
 }

@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm
+package com.githubyss.mobile.common.kit.app.page.mvvm.model
 
 import com.githubyss.mobile.common.kit.util.LogUtils
 import org.json.JSONException

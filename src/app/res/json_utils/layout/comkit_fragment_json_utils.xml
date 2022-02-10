@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <import type="com.githubyss.mobile.common.kit.app.page.json_utils.view_model.JsonUtilsViewModel" />
+
+        <variable
+            name="jsonUtilsViewModel"
+            type="JsonUtilsViewModel"
+            />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/comres_layoutBg_lightGray"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        >
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/comres_sideMargin_normal"
+            android:paddingRight="@dimen/comres_sideMargin_normal"
+            android:paddingBottom="@dimen/comres_sideMargin_normal"
+            android:paddingLeft="@dimen/comres_sideMargin_normal"
+            android:visibility="visible"
+            app:flexDirection="column"
+            app:justifyContent="flex_start"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/comres_tips_gray_style"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@color/comres_color_999999"
+                android:gravity="start"
+                android:text="@{jsonUtilsViewModel.jsonText}"
+                android:textColor="@color/comres_color_black"
+                android:textSize="@dimen/comres_textSize_18sp"
+                app:autoSizeMaxTextSize="@dimen/comres_textSize_18sp"
+                app:autoSizeMinTextSize="@dimen/comres_textSize_12sp"
+                app:autoSizeTextType="uniform"
+                />
+
+            <com.google.android.flexbox.FlexboxLayout
+                style="@style/comres_equant_horizontal_flex_style"
+                android:layout_marginTop="4dp"
+                >
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:onClick="@{() -> jsonUtilsViewModel.onButtonReadJsonTextClick()}"
+                    android:text="@string/comkit_json_utils_button_read_json"
+                    />
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:onClick="@{() -> jsonUtilsViewModel.onButtonParseJsonClick()}"
+                    android:text="@string/comkit_json_utils_button_parse_json"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:flexDirection="column"
+                app:justifyContent="flex_start"
+                app:alignItems="flex_start"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/comkit_json_utils_label_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/comres_color_transparent"
+                    android:text="@{jsonUtilsViewModel.parsedInfos.toString()}"
+                    android:textSize="@dimen/comres_textSize_tiny"
+                    app:layout_minHeight="50dp"
+                    />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:flexDirection="row"
+                    app:justifyContent="flex_start"
+                    app:alignItems="flex_start"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/comkit_json_utils_label_style"
+                        android:background="@color/comres_color_transparent"
+                        android:text="@{jsonUtilsViewModel.parsedInfos.get(0).name}"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/comkit_json_utils_label_style"
+                        android:background="@color/comres_color_transparent"
+                        android:text="@{jsonUtilsViewModel.parsedInfos.get(0).action}"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:flexDirection="row"
+                    app:justifyContent="flex_start"
+                    app:alignItems="flex_start"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/comkit_json_utils_label_style"
+                        android:background="@color/comres_color_transparent"
+                        android:text="@{jsonUtilsViewModel.parsedInfos.get(1).name}"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/comkit_json_utils_label_style"
+                        android:background="@color/comres_color_transparent"
+                        android:text="@{jsonUtilsViewModel.parsedInfos.get(1).action}"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexDirection="column"
+                app:justifyContent="flex_start"
+                app:alignItems="flex_start"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/comkit_json_utils_label_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/comres_color_transparent"
+                    android:text="@{jsonUtilsViewModel.parsedDetail.toString()}"
+                    android:textSize="@dimen/comres_textSize_tiny"
+                    app:layout_minHeight="50dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/comkit_json_utils_label_style"
+                    android:background="@color/comres_color_transparent"
+                    android:text="@{jsonUtilsViewModel.parsedDetail.time}"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/comkit_json_utils_label_style"
+                    android:background="@color/comres_color_transparent"
+                    android:text="@{jsonUtilsViewModel.parsedDetail.location}"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/comkit_json_utils_label_style"
+                    android:background="@color/comres_color_transparent"
+                    android:text="@{jsonUtilsViewModel.parsedDetail.weather}"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

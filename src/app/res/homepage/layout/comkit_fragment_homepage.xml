@@ -37,220 +37,229 @@
                 android:orientation="vertical"
                 >
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_log"
                         android:text="@string/comkit_homepage_button_log"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/button_mvvm"
                         android:text="@string/comkit_homepage_button_mvvm"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/button_binding_reflect"
                         android:text="@string/comkit_homepage_button_view_binding_reflect"
                         />
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/button_binding_inline"
                         android:text="@string/comkit_homepage_button_view_binding_inline"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/button_binding_reflect_toolbar"
                         android:text="@string/comkit_homepage_button_view_binding_toolbar_reflect"
                         />
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/button_binding_inline_toolbar"
                         android:text="@string/comkit_homepage_button_view_binding_toolbar_inline"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
+                        android:id="@+id/btn_json_utils"
+                        android:text="@string/comkit_homepage_button_json_utils"
+                        />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                    <Button
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_glide"
                         android:text="@string/comkit_homepage_button_glide"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_lifecycle"
                         android:text="@string/comkit_homepage_button_lifecycle"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_audio_player"
                         android:text="@string/comkit_homepage_button_audio_player"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_contacts_fetch"
                         android:text="@string/comkit_homepage_button_contacts_fetch"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_font"
                         android:text="@string/comkit_homepage_button_font"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_permission"
                         android:text="@string/comkit_homepage_button_permission"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_screenshot_detect"
                         android:text="@string/comkit_homepage_button_screenshot_detect"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_speech_recognition"
                         android:text="@string/comkit_homepage_button_speech_recognition"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_activity_utils"
                         android:text="@string/comkit_homepage_button_activity_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_adapt_screen_utils"
                         android:text="@string/comkit_homepage_button_adapt_screen_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_app_utils"
                         android:text="@string/comkit_homepage_button_app_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_array_utils"
                         android:text="@string/comkit_homepage_button_array_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_bar_utils"
                         android:text="@string/comkit_homepage_button_bar_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_brightness_utils"
                         android:text="@string/comkit_homepage_button_brightness_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_convert_utils"
                         android:text="@string/comkit_homepage_button_convert_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_datetime_utils"
                         android:text="@string/comkit_homepage_button_datetime_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_device_utils"
                         android:text="@string/comkit_homepage_button_device_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_encrypt_utils"
                         android:text="@string/comkit_homepage_button_encrypt_utils"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comkit_equant_horizontal_flex_style">
+                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
                     <Button
-                        style="@style/comkit_equant_horizontal_button_style"
+                        style="@style/comres_equant_horizontal_button_style"
                         android:id="@+id/btn_"
                         android:text=""
                         />

@@ -45,8 +45,7 @@ abstract class BaseApplication : Application() {
         ComkitApplicationConfig.init(application)
     }
 
-    open fun initComnet(application: Application) {
-    }
+    open fun initComnet(application: Application) {}
 
     open fun initLog(level: Int) {
         // 可调试模式，启用日志

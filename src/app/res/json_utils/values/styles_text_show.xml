@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Equant horizontal button style. -->
+    <style name="comkit_json_utils_label_style"
+           parent="comres_equant_horizontal_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">@dimen/comres_textSize_normal</item>
+    </style>
+</resources>

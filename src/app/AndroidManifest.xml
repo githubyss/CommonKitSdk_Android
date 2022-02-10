@@ -23,20 +23,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:exported="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".app.page.mvvm.MvvmActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/comres_activity_noActionBar_theme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            />
 
         <activity
             android:name=".app.page.view_binding.reflect.ReflectActivity"

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.githubyss.mobile.common.kit.util.LogUtils
 import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseFragment
+import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
@@ -24,7 +24,7 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
     /** ****************************** Properties ****************************** */
 
     private var _binding: B? = null
-    val binding: B get() = _binding!!
+    val binding: B? get() = _binding
 
 
     /** ****************************** Override ****************************** */
@@ -49,7 +49,7 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
             }
         }
 
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroyView() {

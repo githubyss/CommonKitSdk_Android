@@ -6,8 +6,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
-import com.githubyss.mobile.common.kit.base.view_binding.page.inline.BaseInlineBindingToolbarFragment
-import com.githubyss.mobile.common.kit.base.view_binding.page.inline.bindView
+import com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData
+import com.githubyss.mobile.common.kit.app.page.mvvm.view_model.observable_field.MvvmVmObservableField
+import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMvvmBinding
 
 
@@ -18,7 +19,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMvvmBinding
  * @github githubyss
  * @createdTime 2021/06/10 11:18:21
  */
-class MvvmFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragment_mvvm) {
+class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding>() {
 
     /** ****************************** Properties ****************************** */
 
@@ -26,9 +27,8 @@ class MvvmFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragment_m
         val TAG: String = MvvmFragment::class.java.simpleName
     }
 
-    private val binding by bindView<ComkitFragmentMvvmBinding>()
-    private val mvvmVmObservableField: MvvmVmObservableField by lazy { ViewModelProvider(requireActivity()).get(MvvmVmObservableField::class.java) }
     private val mvvmVmLiveData: MvvmVmLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmVmLiveData::class.java) }
+    private val mvvmVmObservableField: MvvmVmObservableField by lazy { ViewModelProvider(requireActivity()).get(MvvmVmObservableField::class.java) }
 
 
     /** ****************************** Override ****************************** */
@@ -36,49 +36,84 @@ class MvvmFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragment_m
     override fun init() {
         initView()
         initData()
-        // initObservableField()
-        initLiveData()
+        observeViewModel()
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_mvvm_title)
     }
 
+    override fun destroy() {
+        removeViewModelObserver()
+    }
+
 
     /** ****************************** Functions ****************************** */
 
     private fun initView() {
-        binding.lifecycleOwner = viewLifecycleOwner
-        // binding.tcvCountdown.remainingMillisecond = 7200000
+        binding?.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun initData() {
-        binding.mvvmVm = mvvmVmLiveData
+        binding?.mvvmVm = this.mvvmVmLiveData
+        // binding?.mvvmVm = this.mvvmVmObservableField
     }
 
-    private fun initObservableField() {
-        mvvmVmObservableField.isTextShow?.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (mvvmVmObservableField.isTextShow?.get()) {
-                    true -> binding.textDisplay.visibility = View.VISIBLE
-                    false -> binding.textDisplay.visibility = View.INVISIBLE
-                }
+    private fun observeViewModel() {
+        observeVmByLiveData()
+        // observeVmByObservableField()
+    }
+
+    private fun observeVmByLiveData() {
+        this.mvvmVmLiveData.displayType?.observe(viewLifecycleOwner, changeObserverByLiveData)
+    }
+
+    private fun observeVmByObservableField() {
+        this.mvvmVmObservableField.displayType?.addOnPropertyChangedCallback(changeObserverByObservableField)
+        this.mvvmVmObservableField.displayType?.notifyChange()
+    }
+
+    private fun removeViewModelObserver() {
+        removeVmObserverByLiveData()
+        // removeVmObserverByObservableField()
+    }
+
+    private fun removeVmObserverByLiveData() {
+        this.mvvmVmLiveData.displayType?.removeObservers(viewLifecycleOwner)
+    }
+
+    private fun removeVmObserverByObservableField() {
+        this.mvvmVmObservableField.displayType?.removeOnPropertyChangedCallback(changeObserverByObservableField)
+    }
+
+
+    /** ****************************** Implementations ****************************** */
+
+    private val changeObserverByLiveData = Observer<String> { t ->
+        when (t) {
+            DisplayType.TEXT -> {
+                binding?.flexboxText?.visibility = View.VISIBLE
+                binding?.flexboxImage?.visibility = View.GONE
             }
-        })
+            DisplayType.IMAGE -> {
+                binding?.flexboxText?.visibility = View.GONE
+                binding?.flexboxImage?.visibility = View.VISIBLE
+            }
+        }
     }
 
-    private fun initLiveData() {
-        mvvmVmLiveData.displayType?.observe(viewLifecycleOwner, Observer { s ->
-            when (s) {
+    private val changeObserverByObservableField = object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            when (mvvmVmObservableField.displayType?.get()) {
                 DisplayType.TEXT -> {
-                    binding.flexboxText.visibility = View.VISIBLE
-                    binding.flexboxImage.visibility = View.GONE
+                    binding?.flexboxText?.visibility = View.VISIBLE
+                    binding?.flexboxImage?.visibility = View.GONE
                 }
                 DisplayType.IMAGE -> {
-                    binding.flexboxText.visibility = View.GONE
-                    binding.flexboxImage.visibility = View.VISIBLE
+                    binding?.flexboxText?.visibility = View.GONE
+                    binding?.flexboxImage?.visibility = View.VISIBLE
                 }
             }
-        })
+        }
     }
 }

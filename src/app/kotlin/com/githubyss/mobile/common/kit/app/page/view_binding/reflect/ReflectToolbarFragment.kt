@@ -36,7 +36,7 @@ class ReflectToolbarFragment : BaseReflectBindingToolbarFragment<ComkitFragmentV
     /** ****************************** Functions ****************************** */
     
     private fun initView() {
-        binding.textBindingReflect.setOnClickListener(onClickListener)
+        binding?.textBindingReflect?.setOnClickListener(onClickListener)
     }
     
     

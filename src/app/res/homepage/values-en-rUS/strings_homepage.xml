@@ -10,6 +10,7 @@
     <string name="comkit_homepage_button_view_binding_inline">Binding\n(by Inline)</string>
     <string name="comkit_homepage_button_view_binding_toolbar_reflect">Binding Toolbar\n(by Reflect)</string>
     <string name="comkit_homepage_button_view_binding_toolbar_inline">Binding Toolbar\n(by Inline)</string>
+    <string name="comkit_homepage_button_json_utils">Json Utils</string>
     <string name="comkit_homepage_button_glide">Glide</string>
     <string name="comkit_homepage_button_lifecycle">Lifecycle</string>
     <string name="comkit_homepage_button_audio_player">Audio Player</string>
