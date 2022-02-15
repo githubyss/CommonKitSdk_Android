@@ -40,54 +40,79 @@ abstract class BaseActivity(@LayoutRes layoutId: Int) : AppCompatActivity(layout
         supportFragmentManager.let {
             it.registerFragmentLifecycleCallbacks(FragmentUtils.fragmentLifecycle, true)
         }
+
+        val message = "${this::class.java.simpleName} > onCreate"
+        LogUtils.d(TAG, message)
+
         init()
     }
 
+    override fun onStart() {
+        super.onStart()
+        val message = "${this::class.java.simpleName} > onStart"
+        LogUtils.d(TAG, message)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        val message = "${this::class.java.simpleName} > onRestart"
+        LogUtils.d(TAG, message)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val message = "${this::class.java.simpleName} > onResume"
+        LogUtils.d(TAG, message)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val message = "${this::class.java.simpleName} > onPause"
+        LogUtils.d(TAG, message)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val message = "${this::class.java.simpleName} > onStop"
+        LogUtils.d(TAG, message)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val message = "${this::class.java.simpleName} > onSaveInstanceState"
+        LogUtils.d(TAG, message)
+    }
+
     override fun onDestroy() {
-        super.onDestroy()
+        destroy()
+        val message = "${this::class.java.simpleName} > onDestroy"
+        LogUtils.d(TAG, message)
+
         supportFragmentManager.let {
             it.unregisterFragmentLifecycleCallbacks(FragmentUtils.fragmentLifecycle)
         }
+        super.onDestroy()
     }
 
 
-    /** ****************************** Abstract ****************************** */
+    /** ****************************** Open ****************************** */
 
-    abstract fun init()
+    open fun init() {
+        observeViewModel()
+    }
+
+    open fun destroy() {
+        removeViewModelObserver()
+    }
+
+    open fun observeViewModel() {}
+    open fun removeViewModelObserver() {}
 
 
     /** ****************************** Functions ****************************** */
 
-    /** Add fragment to activity. */
-    protected fun addFragment(fragment: Fragment, tag: String? = null, addToBackStack: Boolean = true, @IdRes containerId: Int = R.id.layout_fragment_container) {
-        supportFragmentManager.let {
-            if (it.findFragmentByTag(tag) != null) {
-                return
-            }
-
-            fragment.arguments = intent.extras
-            val fragmentTransaction = it.beginTransaction()
-            fragmentTransaction.add(containerId, fragment, tag)
-            if (addToBackStack) {
-                fragmentTransaction.addToBackStack(null)
-            }
-            fragmentTransaction.commitAllowingStateLoss()
-        }
-    }
-
-    protected fun replaceFragment(fragment: Fragment, tag: String? = null, addToBackStack: Boolean = true, @IdRes containerId: Int = R.id.layout_fragment_container) {
-        supportFragmentManager.let {
-            if (it.findFragmentByTag(tag) != null) {
-                return
-            }
-
-            fragment.arguments = intent.extras
-            val fragmentTransaction = it.beginTransaction()
-            fragmentTransaction.replace(containerId, fragment, tag)
-            if (addToBackStack) {
-                fragmentTransaction.addToBackStack(null)
-            }
-            fragmentTransaction.commitAllowingStateLoss()
-        }
+    /** Switch fragment to activity. */
+    protected fun switchFragment(fragment: Fragment, fragmentTag: String? = null, addToBackStack: Boolean = true, @IdRes containerId: Int = R.id.layout_fragment_container) {
+        FragmentUtils.switchFragmentWithAddHideShow(fragment, fragmentTag, null, supportFragmentManager, addToBackStack, containerId, intent.extras)
     }
 }

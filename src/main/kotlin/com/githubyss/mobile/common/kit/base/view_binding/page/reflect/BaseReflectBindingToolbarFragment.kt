@@ -21,9 +21,9 @@ abstract class BaseReflectBindingToolbarFragment<B : ViewBinding> : RootReflectB
     }
 
 
-    /** ****************************** Abstract ****************************** */
+    /** ****************************** Open ****************************** */
 
-    abstract fun setToolbarTitle()
+    open fun setToolbarTitle() {}
 
 
     /** ****************************** Functions ****************************** */

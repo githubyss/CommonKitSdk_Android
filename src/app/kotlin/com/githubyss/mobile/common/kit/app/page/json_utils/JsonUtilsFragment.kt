@@ -23,23 +23,31 @@ class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUt
         val TAG: String = JsonUtilsFragment::class.java.simpleName
     }
 
-    private val jsonUtilsViewModel: JsonUtilsViewModel by lazy { ViewModelProvider(requireActivity()).get(JsonUtilsViewModel::class.java) }
+    private val jsonUtilsVm: JsonUtilsViewModel by lazy { ViewModelProvider(requireActivity()).get(JsonUtilsViewModel::class.java) }
 
 
     /** ****************************** Override ****************************** */
 
     override fun init() {
+        super.init()
         initView()
         initData()
-        observeViewModel()
+    }
+
+    override fun destroy() {
+        super.destroy()
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_json_utils_title)
     }
 
-    override fun destroy() {
-        removeViewModelObserver()
+    override fun observeViewModel() {
+        this.jsonUtilsVm.jsonText?.observe(viewLifecycleOwner, vmObserver)
+    }
+
+    override fun removeViewModelObserver() {
+        this.jsonUtilsVm.jsonText?.removeObservers(viewLifecycleOwner)
     }
 
 
@@ -50,21 +58,13 @@ class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUt
     }
 
     private fun initData() {
-        binding?.jsonUtilsViewModel = jsonUtilsViewModel
-    }
-
-    private fun observeViewModel() {
-        this.jsonUtilsViewModel.jsonText?.observe(viewLifecycleOwner, viewModelObserver)
-    }
-
-    private fun removeViewModelObserver() {
-        this.jsonUtilsViewModel.jsonText?.removeObservers(viewLifecycleOwner)
+        binding?.jsonUtilsVm = jsonUtilsVm
     }
 
 
     /** ****************************** Implementations ****************************** */
 
-    private val viewModelObserver = Observer<String> { t ->
+    private val vmObserver = Observer<String> { t ->
         when (t) {
 
         }

@@ -3,8 +3,8 @@ package com.githubyss.mobile.common.kit.base.view_binding.page.reflect
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
-import com.githubyss.mobile.common.kit.util.LogUtils
 import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseActivity
+import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
@@ -22,7 +22,7 @@ abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
     /** ****************************** Properties ****************************** */
 
     private var _binding: B? = null
-    val binding: B get() = _binding!!
+    val binding: B? get() = _binding
 
 
     /** ****************************** Override ****************************** */
@@ -36,7 +36,7 @@ abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
                 val inflateMethod: Method? = clazz?.getMethod("inflate", LayoutInflater::class.java)
                 val inflater = layoutInflater
                 _binding = inflateMethod?.invoke(null, inflater) as B
-                setContentView(binding.root)
+                setContentView(binding?.root ?: return)
             }
             catch (e: NoSuchMethodException) {
                 LogUtils.e(TAG, t = e)

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <import type="com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleViewModel" />
+
+        <variable
+            name="lifecycleVm"
+            type="LifecycleViewModel"
+            />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/comres_layoutBg_lightGray"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        >
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/comres_sideMargin_normal"
+            android:paddingRight="@dimen/comres_sideMargin_normal"
+            android:paddingBottom="@dimen/comres_sideMargin_normal"
+            android:paddingLeft="@dimen/comres_sideMargin_normal"
+            android:visibility="visible"
+            app:flexDirection="column"
+            app:justifyContent="flex_start"
+            app:alignItems="center"
+            >
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_start_activity_1"
+                    android:onClick="@{lifecycleVm::onAnyButtonClick}"
+                    android:text="@string/comkit_lifecycle_button_start_activity_1"
+                    />
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_start_activity_2"
+                    android:onClick="@{lifecycleVm::onAnyButtonClick}"
+                    android:text="@string/comkit_lifecycle_button_start_activity_2"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_add_fragment"
+                    android:onClick="@{lifecycleVm::onAnyButtonClick}"
+                    android:text="@string/comkit_lifecycle_button_add_fragment"
+                    />
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_replace_fragment"
+                    android:onClick="@{lifecycleVm::onAnyButtonClick}"
+                    android:text="@string/comkit_lifecycle_button_replace_fragment"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_clear_log"
+                    android:onClick="@{lifecycleVm::onAnyButtonClick}"
+                    android:text="@string/comkit_lifecycle_button_clear_log"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/comres_tips_gray_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/comres_color_999999"
+                android:gravity="top|start"
+                android:text="@{lifecycleVm.lifecycleLog}"
+                android:textColor="@color/comres_color_black"
+                android:textSize="@dimen/comres_textSize_normal"
+                android:minHeight="500dp"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

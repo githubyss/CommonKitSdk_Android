@@ -27,6 +27,6 @@ class InlineFragment : BaseInlineBindingFragment(R.layout.comkit_fragment_view_b
     /** ****************************** Override ****************************** */
     
     override fun init() {
-        binding.textBindingInline.setOnClickListener { }
+        binding?.textBindingInline?.setOnClickListener { }
     }
 }

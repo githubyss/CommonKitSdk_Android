@@ -22,9 +22,9 @@ abstract class BaseInlineBindingToolbarFragment(@LayoutRes layoutId: Int) : Base
     }
 
 
-    /** ****************************** Abstract ****************************** */
+    /** ****************************** Open ****************************** */
 
-    abstract fun setToolbarTitle()
+    open fun setToolbarTitle() {}
 
 
     /** ****************************** Functions ****************************** */

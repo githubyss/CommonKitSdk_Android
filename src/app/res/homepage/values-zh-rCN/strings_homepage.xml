@@ -10,7 +10,7 @@
     <string name="comkit_homepage_button_view_binding_inline">Binding\n（内联实现）</string>
     <string name="comkit_homepage_button_view_binding_toolbar_reflect">Binding Toolbar\n（反射实现）</string>
     <string name="comkit_homepage_button_view_binding_toolbar_inline">Binding Toolbar\n（内联实现）</string>
-    <string name="comkit_homepage_button_json_utils">Json工具</string>
+    <string name="comkit_homepage_button_json_utils">Json 工具</string>
     <string name="comkit_homepage_button_glide">Glide</string>
     <string name="comkit_homepage_button_lifecycle">生命周期</string>
     <string name="comkit_homepage_button_audio_player">音频播放</string>

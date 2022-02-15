@@ -34,17 +34,27 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
     /** ****************************** Override ****************************** */
 
     override fun init() {
+        super.init()
         initView()
         initData()
-        observeViewModel()
+    }
+
+    override fun destroy() {
+        super.destroy()
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_mvvm_title)
     }
 
-    override fun destroy() {
-        removeViewModelObserver()
+    override fun observeViewModel() {
+        observeVmByLiveData()
+        // observeVmByObservableField()
+    }
+
+    override fun removeViewModelObserver() {
+        removeVmObserverByLiveData()
+        // removeVmObserverByObservableField()
     }
 
 
@@ -59,11 +69,6 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
         // binding?.mvvmVm = this.mvvmVmObservableField
     }
 
-    private fun observeViewModel() {
-        observeVmByLiveData()
-        // observeVmByObservableField()
-    }
-
     private fun observeVmByLiveData() {
         this.mvvmVmLiveData.displayType?.observe(viewLifecycleOwner, changeObserverByLiveData)
     }
@@ -71,11 +76,6 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
     private fun observeVmByObservableField() {
         this.mvvmVmObservableField.displayType?.addOnPropertyChangedCallback(changeObserverByObservableField)
         this.mvvmVmObservableField.displayType?.notifyChange()
-    }
-
-    private fun removeViewModelObserver() {
-        removeVmObserverByLiveData()
-        // removeVmObserverByObservableField()
     }
 
     private fun removeVmObserverByLiveData() {

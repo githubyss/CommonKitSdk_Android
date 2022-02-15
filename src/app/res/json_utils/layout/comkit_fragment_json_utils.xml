@@ -11,7 +11,7 @@
         <import type="com.githubyss.mobile.common.kit.app.page.json_utils.view_model.JsonUtilsViewModel" />
 
         <variable
-            name="jsonUtilsViewModel"
+            name="jsonUtilsVm"
             type="JsonUtilsViewModel"
             />
     </data>
@@ -34,6 +34,7 @@
             android:visibility="visible"
             app:flexDirection="column"
             app:justifyContent="flex_start"
+            app:alignItems="center"
             >
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -42,7 +43,7 @@
                 android:layout_height="400dp"
                 android:background="@color/comres_color_999999"
                 android:gravity="start"
-                android:text="@{jsonUtilsViewModel.jsonText}"
+                android:text="@{jsonUtilsVm.jsonText}"
                 android:textColor="@color/comres_color_black"
                 android:textSize="@dimen/comres_textSize_18sp"
                 app:autoSizeMaxTextSize="@dimen/comres_textSize_18sp"
@@ -57,13 +58,13 @@
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
-                    android:onClick="@{() -> jsonUtilsViewModel.onButtonReadJsonTextClick()}"
+                    android:onClick="@{() -> jsonUtilsVm.onButtonReadJsonTextClick()}"
                     android:text="@string/comkit_json_utils_button_read_json"
                     />
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
-                    android:onClick="@{() -> jsonUtilsViewModel.onButtonParseJsonClick()}"
+                    android:onClick="@{() -> jsonUtilsVm.onButtonParseJsonClick()}"
                     android:text="@string/comkit_json_utils_button_parse_json"
                     />
             </com.google.android.flexbox.FlexboxLayout>
@@ -82,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/comres_color_transparent"
-                    android:text="@{jsonUtilsViewModel.parsedInfos.toString()}"
+                    android:text="@{jsonUtilsVm.parsedInfos.toString()}"
                     android:textSize="@dimen/comres_textSize_tiny"
                     app:layout_minHeight="50dp"
                     />
@@ -98,13 +99,13 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/comkit_json_utils_label_style"
                         android:background="@color/comres_color_transparent"
-                        android:text="@{jsonUtilsViewModel.parsedInfos.get(0).name}"
+                        android:text="@{jsonUtilsVm.parsedInfos.get(0).name}"
                         />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/comkit_json_utils_label_style"
                         android:background="@color/comres_color_transparent"
-                        android:text="@{jsonUtilsViewModel.parsedInfos.get(0).action}"
+                        android:text="@{jsonUtilsVm.parsedInfos.get(0).action}"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 
@@ -119,13 +120,13 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/comkit_json_utils_label_style"
                         android:background="@color/comres_color_transparent"
-                        android:text="@{jsonUtilsViewModel.parsedInfos.get(1).name}"
+                        android:text="@{jsonUtilsVm.parsedInfos.get(1).name}"
                         />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/comkit_json_utils_label_style"
                         android:background="@color/comres_color_transparent"
-                        android:text="@{jsonUtilsViewModel.parsedInfos.get(1).action}"
+                        android:text="@{jsonUtilsVm.parsedInfos.get(1).action}"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
             </com.google.android.flexbox.FlexboxLayout>
@@ -143,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/comres_color_transparent"
-                    android:text="@{jsonUtilsViewModel.parsedDetail.toString()}"
+                    android:text="@{jsonUtilsVm.parsedDetail.toString()}"
                     android:textSize="@dimen/comres_textSize_tiny"
                     app:layout_minHeight="50dp"
                     />
@@ -151,19 +152,19 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/comkit_json_utils_label_style"
                     android:background="@color/comres_color_transparent"
-                    android:text="@{jsonUtilsViewModel.parsedDetail.time}"
+                    android:text="@{jsonUtilsVm.parsedDetail.time}"
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/comkit_json_utils_label_style"
                     android:background="@color/comres_color_transparent"
-                    android:text="@{jsonUtilsViewModel.parsedDetail.location}"
+                    android:text="@{jsonUtilsVm.parsedDetail.location}"
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/comkit_json_utils_label_style"
                     android:background="@color/comres_color_transparent"
-                    android:text="@{jsonUtilsViewModel.parsedDetail.weather}"
+                    android:text="@{jsonUtilsVm.parsedDetail.weather}"
                     />
             </com.google.android.flexbox.FlexboxLayout>
         </com.google.android.flexbox.FlexboxLayout>

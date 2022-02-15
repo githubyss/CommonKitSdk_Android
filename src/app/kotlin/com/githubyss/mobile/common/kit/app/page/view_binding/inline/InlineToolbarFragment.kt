@@ -39,7 +39,7 @@ class InlineToolbarFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_f
     /** ****************************** Functions ****************************** */
     
     private fun initView() {
-        binding.textBindingInline.setOnClickListener(onClickListener)
+        binding?.textBindingInline?.setOnClickListener(onClickListener)
     }
     
     

@@ -18,9 +18,6 @@ class JsonUtilsViewModel : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
-    /** context */
-    // var context: Activity? = null
-
     private val JSON_FILE_PATH = "json/netres/resp_data_sample/resp_data_object_and_array.json"
 
     /** model（数据源 Java Bean） */

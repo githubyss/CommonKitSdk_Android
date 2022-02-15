@@ -19,11 +19,11 @@
 
         <activity
             android:name=".app.page.homepage.HomepageActivity"
+            android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:exported="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,6 +57,22 @@
 
         <activity
             android:name=".app.page.view_binding.inline.InlineToolbarActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.lifecycle.LifecycleActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.lifecycle.LifecycleNextActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"
