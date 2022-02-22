@@ -120,6 +120,7 @@ android {
                     srcDirs 'src/app/res/json_utils'
                     srcDirs 'src/app/res/lifecycle'
                     srcDirs 'src/app/res/mvvm'
+                    srcDirs 'src/app/res/mvi'
                     srcDirs 'src/app/res/view_binding'
                     srcDirs 'src/app/res/view_binding/inline'
                     srcDirs 'src/app/res/view_binding/reflect'

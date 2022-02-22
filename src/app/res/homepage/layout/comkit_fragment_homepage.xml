@@ -2,8 +2,6 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.homepage.HomepageActivity"
     >
 
     <data>
@@ -53,6 +51,16 @@
                     android:id="@+id/button_mvvm"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
                     android:text="@string/comkit_homepage_button_mvvm"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_mvi"
+                    android:onClick="@{homepageVm::onAnyButtonClick}"
+                    android:text="@string/comkit_homepage_button_mvi"
                     />
             </com.google.android.flexbox.FlexboxLayout>
 

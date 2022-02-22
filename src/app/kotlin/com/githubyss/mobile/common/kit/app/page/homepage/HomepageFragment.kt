@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
+import com.githubyss.mobile.common.kit.app.page.mvi.MviActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm.MvvmFragment
 import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineActivity
 import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineToolbarActivity
@@ -60,8 +61,9 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (hidden) {
-            this.homepageVm.viewId?.value = 0
+        if (!hidden) {
+            setToolbarTitle()
+            // this.homepageVm.viewId?.value = 0
         }
     }
 
@@ -74,6 +76,7 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
 
     private fun initData() {
         binding?.homepageVm = homepageVm
+        this.homepageVm.viewId?.value = 0
     }
 
 
@@ -82,6 +85,7 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
     private val vmObserverViewId = Observer<Int> { t ->
         when (t) {
             R.id.button_mvvm -> FragmentUtils.switchFragmentWithAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, true)
+            R.id.button_mvi -> ActivityUtils.startActivity(activity, MviActivity::class.java)
 
             R.id.button_binding_reflect -> ActivityUtils.startActivity(activity, ReflectActivity::class.java)
             R.id.button_binding_inline -> ActivityUtils.startActivity(activity, InlineActivity::class.java)

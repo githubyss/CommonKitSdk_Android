@@ -46,6 +46,7 @@ class HomepageViewModel : ViewModel() {
     }
 
     private fun clearData() {
+        this.viewId = null
     }
 
     /** ******************** Event Handling ******************** */

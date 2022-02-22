@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.homepage
+package com.githubyss.mobile.common.kit.app.page.mvi
 
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarActivity
@@ -6,31 +6,31 @@ import com.githubyss.mobile.common.res.databinding.ComresActivityBaseToolbarBind
 
 
 /**
- * HomepageActivity
+ * MviActivity
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2021/12/16 11:39:34
+ * @createdTime 2022/02/17 17:30:59
  */
-class HomepageActivity : BaseReflectBindingToolbarActivity<ComresActivityBaseToolbarBinding>() {
+class MviActivity : BaseReflectBindingToolbarActivity<ComresActivityBaseToolbarBinding>() {
 
     /** ****************************** Properties ****************************** */
 
     companion object {
-        private val TAG: String = HomepageActivity::class.java.simpleName
+        private val TAG: String = MviActivity::class.java.simpleName
     }
 
 
     /** ****************************** Override ****************************** */
 
     override fun init() {
-        switchFragment(HomepageFragment(), HomepageFragment.TAG, false)
+        switchFragment(MviFragment(), MviFragment.TAG, false)
     }
 
     override fun destroy() {
     }
 
     override fun setToolbarTitle() {
-        setToolbarTitle(R.string.comkit_homepage_title)
+        setToolbarTitle(R.string.comkit_mvi_title)
     }
 }

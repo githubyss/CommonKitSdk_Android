@@ -18,7 +18,7 @@ class JsonUtilsViewModel : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
-    private val JSON_FILE_PATH = "json/netres/resp_data_sample/resp_data_object_and_array.json"
+    private val OBJECT_AND_ARRAY = "json/netres/resp_data_sample/resp_data_object_and_array.json"
 
     /** model（数据源 Java Bean） */
     private var infos: List<JsonUtilsModel.Info>? = null
@@ -63,7 +63,7 @@ class JsonUtilsViewModel : ViewModel() {
     /** ******************** Event Handling ******************** */
 
     fun onButtonReadJsonTextClick() {
-        this.jsonText?.value = JsonUtils.getJsonStringFromAssets(JSON_FILE_PATH)
+        this.jsonText?.value = JsonUtils.getJsonStringFromAssets(OBJECT_AND_ARRAY)
     }
 
     fun onButtonParseJsonClick() {

@@ -5,10 +5,10 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.page.mvvm.model.MvvmModel
 import com.githubyss.mobile.common.kit.app.page.mvvm.child.MvvmChildVm
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.TimeOperateState
+import com.githubyss.mobile.common.kit.app.page.mvvm.model.MvvmModel
 import com.githubyss.mobile.common.kit.util.TimerUtils
 import java.util.*
 
@@ -37,11 +37,9 @@ class MvvmVmObservableField : ViewModel() {
     var isTimeShow: ObservableField<Boolean>? = null
     // var isTimeShow: ObservableBoolean? = null
 
-    @DisplayType
-    var displayType: ObservableField<String>? = null
+    var displayType: ObservableField<DisplayType>? = null
 
-    @TimeOperateState
-    var timeOperateState: ObservableField<String>? = null
+    var timeOperateState: ObservableField<TimeOperateState>? = null
 
     // var viewStyle = ViewStyle()
 

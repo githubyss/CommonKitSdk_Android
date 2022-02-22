@@ -6,6 +6,7 @@
     <!-- Button -->
     <string name="comkit_homepage_button_log">日志</string>
     <string name="comkit_homepage_button_mvvm">MVVM</string>
+    <string name="comkit_homepage_button_mvi">MVI</string>
     <string name="comkit_homepage_button_view_binding_reflect">Binding\n（反射实现）</string>
     <string name="comkit_homepage_button_view_binding_inline">Binding\n（内联实现）</string>
     <string name="comkit_homepage_button_view_binding_toolbar_reflect">Binding Toolbar\n（反射实现）</string>

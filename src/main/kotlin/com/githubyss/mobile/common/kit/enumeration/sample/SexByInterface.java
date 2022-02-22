@@ -1,6 +1,4 @@
-package com.githubyss.mobile.common.kit.enumeration;
-
-import androidx.annotation.IntDef;
+package com.githubyss.mobile.common.kit.enumeration.sample;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,22 +6,21 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import androidx.annotation.StringDef;
+
 
 /**
- * SexType
- * <Description> 性别类型
- * <Details>
+ * SexByInterface
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2020/12/29 14:08:32
+ * @createdTime 2022/02/21 16:15:56
  */
 @Documented
-@IntDef({SexType.MAN, SexType.WOMEN})
+@StringDef({SexByInterface.MAN, SexByInterface.WOMEN})
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
-public @interface SexType {
-    
-    final int MAN   = 0x02;
-    final int WOMEN = 0x03;
+public @interface SexByInterface {
+    final String MAN = "男";
+    final String WOMEN = "女";
 }

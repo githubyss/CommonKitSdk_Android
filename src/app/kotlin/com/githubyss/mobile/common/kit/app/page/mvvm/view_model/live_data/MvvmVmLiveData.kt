@@ -4,10 +4,10 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.page.mvvm.model.MvvmModel
 import com.githubyss.mobile.common.kit.app.page.mvvm.child.MvvmChildVm
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.TimeOperateState
+import com.githubyss.mobile.common.kit.app.page.mvvm.model.MvvmModel
 import com.githubyss.mobile.common.kit.util.TimerUtils
 import java.util.*
 
@@ -35,11 +35,9 @@ class MvvmVmLiveData : ViewModel() {
     var imageUrl: MutableLiveData<String>? = null
     var isTimeShow: MutableLiveData<Boolean>? = null
 
-    @DisplayType
-    var displayType: MutableLiveData<String>? = null
+    var displayType: MutableLiveData<DisplayType>? = null
 
-    @TimeOperateState
-    var timeOperateState: MutableLiveData<String>? = null
+    var timeOperateState: MutableLiveData<TimeOperateState>? = null
 
     // var viewStyle = ViewStyle()
 

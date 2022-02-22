@@ -89,7 +89,7 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
 
     /** ****************************** Implementations ****************************** */
 
-    private val changeObserverByLiveData = Observer<String> { t ->
+    private val changeObserverByLiveData = Observer<DisplayType> { t ->
         when (t) {
             DisplayType.TEXT -> {
                 binding?.flexboxText?.visibility = View.VISIBLE

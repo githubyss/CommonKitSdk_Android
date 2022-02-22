@@ -78,5 +78,13 @@
             android:theme="@style/comres_activity_noActionBar_theme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             />
+
+        <activity
+            android:name=".app.page.mvi.MviActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
     </application>
 </manifest>

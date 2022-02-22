@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title -->
+    <string name="comkit_mvi_title">MVI</string>
+
+    <!-- Button -->
+    <string name="comkit_mvi_button_fetch_user">Fetch user</string>
+</resources>
