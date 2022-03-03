@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.app.page.homepage
 
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarActivity
-import com.githubyss.mobile.common.res.databinding.ComresActivityBaseToolbarBinding
+import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
 /**
@@ -12,7 +12,7 @@ import com.githubyss.mobile.common.res.databinding.ComresActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2021/12/16 11:39:34
  */
-class HomepageActivity : BaseReflectBindingToolbarActivity<ComresActivityBaseToolbarBinding>() {
+class HomepageActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
 
     /** ****************************** Properties ****************************** */
 
@@ -23,11 +23,8 @@ class HomepageActivity : BaseReflectBindingToolbarActivity<ComresActivityBaseToo
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        switchFragment(HomepageFragment(), HomepageFragment.TAG, false)
-    }
-
-    override fun destroy() {
+    override fun setupUi() {
+        switchFragment(HomepageFragment(), HomepageFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 
     override fun setToolbarTitle() {

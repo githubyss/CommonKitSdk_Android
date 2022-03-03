@@ -5,8 +5,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarActivity
+import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 import com.githubyss.mobile.common.kit.util.FragmentUtils
-import com.githubyss.mobile.common.res.databinding.ComresActivityBaseToolbarBinding
 
 
 /**
@@ -16,7 +16,7 @@ import com.githubyss.mobile.common.res.databinding.ComresActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2022/02/11 15:19:51
  */
-class LifecycleActivity : BaseReflectBindingToolbarActivity<ComresActivityBaseToolbarBinding>() {
+class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
 
     /** ****************************** Properties ****************************** */
 
@@ -29,15 +29,10 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComresActivityBaseTo
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        super.init()
+    override fun setupUi() {
         initView()
         initData()
-        FragmentUtils.switchFragmentWithAddHideShow(LifecycleFragment(), LifecycleFragment.TAG, null, supportFragmentManager, false, binding?.layoutFragmentContainer?.id ?: return)
-    }
-
-    override fun destroy() {
-        super.destroy()
+        FragmentUtils.switchFragmentByAddHideShow(LifecycleFragment(), LifecycleFragment.TAG, null, supportFragmentManager, binding?.layoutFragmentBaseToolbarContainer?.id ?: return)
     }
 
     override fun setToolbarTitle() {

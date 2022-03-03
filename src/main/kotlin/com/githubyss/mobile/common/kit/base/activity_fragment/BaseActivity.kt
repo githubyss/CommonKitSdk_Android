@@ -1,13 +1,13 @@
-package com.githubyss.mobile.common.kit.base.view_binding.page.base
+package com.githubyss.mobile.common.kit.base.activity_fragment
 
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.LogUtils
-import com.githubyss.mobile.common.res.R
 
 
 /**
@@ -23,6 +23,12 @@ abstract class BaseActivity(@LayoutRes layoutId: Int) : AppCompatActivity(layout
 
     companion object {
         val TAG: String = BaseActivity::class.java.simpleName
+
+        @IdRes
+        val FRAGMENT_BASE_CONTAINER_ID: Int = R.id.layout_fragment_base_container
+
+        @IdRes
+        val FRAGMENT_BASE_TOOLBAR_CONTAINER_ID: Int = R.id.layout_fragment_base_toolbar_container
     }
 
 
@@ -31,6 +37,15 @@ abstract class BaseActivity(@LayoutRes layoutId: Int) : AppCompatActivity(layout
     init {
         LogUtils.d(TAG, "Constructor init")
     }
+
+
+    /** ****************************** Open ****************************** */
+
+    open fun setupUi() {}
+    open fun setupData() {}
+    open fun setupViewModel() {}
+    open fun observeViewModel() {}
+    open fun removeViewModelObserver() {}
 
 
     /** ****************************** Override ****************************** */
@@ -44,7 +59,10 @@ abstract class BaseActivity(@LayoutRes layoutId: Int) : AppCompatActivity(layout
         val message = "${this::class.java.simpleName} > onCreate"
         LogUtils.d(TAG, message)
 
-        init()
+        setupUi()
+        setupData()
+        setupViewModel()
+        observeViewModel()
     }
 
     override fun onStart() {
@@ -84,7 +102,8 @@ abstract class BaseActivity(@LayoutRes layoutId: Int) : AppCompatActivity(layout
     }
 
     override fun onDestroy() {
-        destroy()
+        removeViewModelObserver()
+
         val message = "${this::class.java.simpleName} > onDestroy"
         LogUtils.d(TAG, message)
 
@@ -95,24 +114,10 @@ abstract class BaseActivity(@LayoutRes layoutId: Int) : AppCompatActivity(layout
     }
 
 
-    /** ****************************** Open ****************************** */
-
-    open fun init() {
-        observeViewModel()
-    }
-
-    open fun destroy() {
-        removeViewModelObserver()
-    }
-
-    open fun observeViewModel() {}
-    open fun removeViewModelObserver() {}
-
-
     /** ****************************** Functions ****************************** */
 
     /** Switch fragment to activity. */
-    protected fun switchFragment(fragment: Fragment, fragmentTag: String? = null, addToBackStack: Boolean = true, @IdRes containerId: Int = R.id.layout_fragment_container) {
-        FragmentUtils.switchFragmentWithAddHideShow(fragment, fragmentTag, null, supportFragmentManager, addToBackStack, containerId, intent.extras)
+    protected fun switchFragment(fragment: Fragment, fragmentTag: String? = null, @IdRes containerId: Int, addToBackStack: Boolean = true) {
+        FragmentUtils.switchFragmentByAddHideShow(fragment, fragmentTag, null, supportFragmentManager, containerId, addToBackStack, intent.extras)
     }
 }

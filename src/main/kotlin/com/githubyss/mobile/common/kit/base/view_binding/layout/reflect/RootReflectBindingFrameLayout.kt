@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.viewbinding.ViewBinding
-import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.BaseFragment
 import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method

@@ -1,7 +1,8 @@
 package com.githubyss.mobile.common.kit.base.view_binding.page.inline
 
-import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseActivity
-import com.githubyss.mobile.common.res.databinding.ComresActivityBaseBinding
+import com.githubyss.mobile.common.kit.R
+import com.githubyss.mobile.common.kit.base.activity_fragment.BaseActivity
+import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
 
 
 /**
@@ -11,9 +12,9 @@ import com.githubyss.mobile.common.res.databinding.ComresActivityBaseBinding
  * @github githubyss
  * @createdTime 2021/07/20 16:50:32
  */
-abstract class BaseInlineBindingActivity : BaseActivity(0) {
+abstract class BaseInlineBindingActivity : BaseActivity(R.layout.comkit_activity_base) {
 
     /** ****************************** Properties ****************************** */
 
-    val binding by inflate<ComresActivityBaseBinding>()
+    val binding by inflate<ComkitActivityBaseBinding>()
 }

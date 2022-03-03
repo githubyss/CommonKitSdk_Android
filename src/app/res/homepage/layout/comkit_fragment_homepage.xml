@@ -38,16 +38,6 @@
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_log"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_log"
-                    />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
                     android:id="@+id/button_mvvm"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
                     android:text="@string/comkit_homepage_button_mvvm"
@@ -68,16 +58,16 @@
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_binding_reflect"
+                    android:id="@+id/button_compose"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_reflect"
+                    android:text="@string/comkit_homepage_button_compose"
                     />
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_binding_inline"
+                    android:id="@+id/button_compose_toolbar"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_inline"
+                    android:text="@string/comkit_homepage_button_compose_toolbar"
                     />
             </com.google.android.flexbox.FlexboxLayout>
 
@@ -85,16 +75,43 @@
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_binding_reflect"
+                    android:onClick="@{homepageVm::onAnyButtonClick}"
+                    android:text="@string/comkit_homepage_button_view_binding_reflect"
+                    />
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
                     android:id="@+id/button_binding_reflect_toolbar"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_toolbar_reflect"
+                    android:text="@string/comkit_homepage_button_view_binding_reflect_toolbar"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_binding_inline"
+                    android:onClick="@{homepageVm::onAnyButtonClick}"
+                    android:text="@string/comkit_homepage_button_view_binding_inline"
                     />
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
                     android:id="@+id/button_binding_inline_toolbar"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_toolbar_inline"
+                    android:text="@string/comkit_homepage_button_view_binding_inline_toolbar"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_log"
+                    android:onClick="@{homepageVm::onAnyButtonClick}"
+                    android:text="@string/comkit_homepage_button_log"
                     />
             </com.google.android.flexbox.FlexboxLayout>
 

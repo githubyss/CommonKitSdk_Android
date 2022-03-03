@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.BaseFragment
 import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
@@ -36,6 +36,7 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
             try {
                 val clazz = type.actualTypeArguments[0] as Class<B>?
                 val inflateMethod: Method? = clazz?.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
+                // _binding = DataBindingUtil.inflate(inflater, getLayoutId(), null, false);
                 _binding = inflateMethod?.invoke(null, inflater, container, false) as B
             }
             catch (e: NoSuchMethodException) {

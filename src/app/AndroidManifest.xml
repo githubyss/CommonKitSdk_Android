@@ -86,5 +86,21 @@
             android:theme="@style/comres_activity_noActionBar_theme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             />
+
+        <activity
+            android:name=".app.page.compose.ComposeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.compose.ComposeToolbarActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
     </application>
 </manifest>

@@ -35,14 +35,9 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        super.init()
+    override fun setupUi() {
         initView()
         initData()
-    }
-
-    override fun destroy() {
-        super.destroy()
     }
 
     override fun setToolbarTitle() {
@@ -269,8 +264,8 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
         when (t) {
             R.id.button_start_activity_1 -> ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
             R.id.button_start_activity_2 -> ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
-            R.id.button_add_fragment -> FragmentUtils.switchFragmentWithAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this, parentFragmentManager, true)
-            R.id.button_replace_fragment -> FragmentUtils.replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, true)
+            R.id.button_add_fragment -> FragmentUtils.switchFragmentByAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this, parentFragmentManager, R.id.layout_fragment_base_container, true)
+            R.id.button_replace_fragment -> FragmentUtils.replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, R.id.layout_fragment_base_container, true)
             R.id.button_clear_log -> {
                 clearLifecycleLog()
             }

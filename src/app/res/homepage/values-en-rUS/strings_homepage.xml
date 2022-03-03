@@ -4,13 +4,15 @@
     <string name="comkit_homepage_title">Kit Debug Homepage</string>
 
     <!-- Button -->
-    <string name="comkit_homepage_button_log">Log</string>
     <string name="comkit_homepage_button_mvvm">MVVM</string>
     <string name="comkit_homepage_button_mvi">MVI</string>
-    <string name="comkit_homepage_button_view_binding_reflect">Binding\n(by Reflect)</string>
-    <string name="comkit_homepage_button_view_binding_inline">Binding\n(by Inline)</string>
-    <string name="comkit_homepage_button_view_binding_toolbar_reflect">Binding Toolbar\n(by Reflect)</string>
-    <string name="comkit_homepage_button_view_binding_toolbar_inline">Binding Toolbar\n(by Inline)</string>
+    <string name="comkit_homepage_button_compose">Compose</string>
+    <string name="comkit_homepage_button_compose_toolbar">Compose\nToolbar</string>
+    <string name="comkit_homepage_button_view_binding_reflect">Binding Reflect</string>
+    <string name="comkit_homepage_button_view_binding_reflect_toolbar">Binding Reflect\nToolbar</string>
+    <string name="comkit_homepage_button_view_binding_inline">Binding Inline</string>
+    <string name="comkit_homepage_button_view_binding_inline_toolbar">Binding Inline\nToolbar</string>
+    <string name="comkit_homepage_button_log">Log</string>
     <string name="comkit_homepage_button_json_utils">Json Utils</string>
     <string name="comkit_homepage_button_glide">Glide</string>
     <string name="comkit_homepage_button_lifecycle">Lifecycle</string>

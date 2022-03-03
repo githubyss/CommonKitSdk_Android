@@ -14,28 +14,28 @@ import androidx.databinding.BindingAdapter
 //     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 // }
 
-@set: BindingAdapter("bind:isVisibleOrGone")
+@set: BindingAdapter("isVisibleOrGone")
 var View.isVisibleOrGone
     get() = visibility == View.VISIBLE
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
 
-@set: BindingAdapter("bind:isVisibleOrInvisible")
+@set: BindingAdapter("isVisibleOrInvisible")
 var View.isVisibleOrInvisible
     get() = visibility == View.VISIBLE
     set(value) {
         visibility = if (value) View.VISIBLE else View.INVISIBLE
     }
 
-@set:BindingAdapter("bind:isInvisible")
+@set:BindingAdapter("isInvisible")
 var View.isInvisible
     get() = visibility == View.INVISIBLE
     set(value) {
         visibility = if (value) View.INVISIBLE else View.VISIBLE
     }
 
-@set:BindingAdapter("bind:isGone")
+@set:BindingAdapter("isGone")
 var View.isGone
     get() = visibility == View.GONE
     set(value) {

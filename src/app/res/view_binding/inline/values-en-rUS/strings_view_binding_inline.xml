@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Title -->
-    <string name="comkit_view_binding_inline_title">Binding (by Inline)</string>
-    <string name="comkit_view_binding_toolbar_inline_title">Binding Toolbar (by Inline)</string>
+    <string name="comkit_view_binding_inline_toolbar_title">Binding Inline Toolbar</string>
 
     <!-- Button -->
 
     <!-- Content -->
-    <string name="comkit_view_binding_inline">View binding (by Inline)</string>
+    <string name="comkit_view_binding_inline">Binding Inline</string>
+    <string name="comkit_view_binding_inline_toolbar">Binding Inline\nToolbar</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.base.view_binding.page.base
+package com.githubyss.mobile.common.kit.base.activity_fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.widget.Button
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.LogUtils
 
@@ -29,14 +28,21 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         val TAG: String = BaseFragment::class.java.simpleName
     }
 
-    var fragmentContext: Context? = null
-
 
     /** ****************************** Constructors ****************************** */
 
     init {
         LogUtils.d(TAG, "Constructor init")
     }
+
+
+    /** ****************************** Open ****************************** */
+
+    open fun setupUi() {}
+    open fun setupData() {}
+    open fun setupViewModel() {}
+    open fun observeViewModel() {}
+    open fun removeViewModelObserver() {}
 
 
     /** ****************************** Override ****************************** */
@@ -51,8 +57,6 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         super.onCreate(savedInstanceState)
         val message = "${this::class.java.simpleName} > onCreate"
         LogUtils.d(TAG, message)
-
-        fragmentContext = activity?.baseContext
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -66,7 +70,10 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         val message = "${this::class.java.simpleName} > onViewCreated"
         LogUtils.d(TAG, message)
 
-        init()
+        setupUi()
+        setupData()
+        setupViewModel()
+        observeViewModel()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -106,7 +113,7 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     }
 
     override fun onDestroyView() {
-        destroy()
+        removeViewModelObserver()
 
         val message = "${this::class.java.simpleName} > onDestroyView"
         LogUtils.d(TAG, message)
@@ -138,20 +145,6 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     }
 
 
-    /** ****************************** Open ****************************** */
-
-    open fun init() {
-        observeViewModel()
-    }
-
-    open fun destroy() {
-        removeViewModelObserver()
-    }
-
-    open fun observeViewModel() {}
-    open fun removeViewModelObserver() {}
-
-
     /** ****************************** Functions ****************************** */
 
     /** Change button status. */
@@ -161,7 +154,7 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     }
 
     /** Switch fragment within fragments. */
-    protected fun switchFragment(fragment: Fragment, fragmentTag: String? = null, currentFragment: Any?, addToBackStack: Boolean = true, @IdRes containerId: Int = R.id.layout_fragment_container) {
-        FragmentUtils.switchFragmentWithAddHideShow(fragment, fragmentTag, currentFragment, parentFragmentManager, addToBackStack, containerId)
+    protected fun switchFragment(fragment: Fragment, fragmentTag: String? = null, currentFragment: Any?, @IdRes containerId: Int, addToBackStack: Boolean = true) {
+        FragmentUtils.switchFragmentByAddHideShow(fragment, fragmentTag, currentFragment, parentFragmentManager, containerId, addToBackStack)
     }
 }

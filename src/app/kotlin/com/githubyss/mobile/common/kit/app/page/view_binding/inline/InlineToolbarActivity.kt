@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.app.page.view_binding.inline
 
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.view_binding.page.inline.BaseInlineBindingToolbarActivity
-import com.githubyss.mobile.common.kit.util.FragmentUtils
 
 
 /**
@@ -23,11 +22,11 @@ class InlineToolbarActivity : BaseInlineBindingToolbarActivity() {
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        FragmentUtils.switchFragmentWithAddHideShow(InlineToolbarFragment(), InlineToolbarFragment.TAG, null, supportFragmentManager, false, binding?.layoutFragmentContainer?.id ?: return)
+    override fun setupUi() {
+        switchFragment(InlineToolbarFragment(), InlineToolbarFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 
     override fun setToolbarTitle() {
-        setToolbarTitle(R.string.comkit_view_binding_toolbar_inline_title)
+        setToolbarTitle(R.string.comkit_view_binding_inline_toolbar_title)
     }
 }

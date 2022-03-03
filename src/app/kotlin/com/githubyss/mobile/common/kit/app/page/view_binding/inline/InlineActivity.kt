@@ -1,7 +1,6 @@
 package com.githubyss.mobile.common.kit.app.page.view_binding.inline
 
 import com.githubyss.mobile.common.kit.base.view_binding.page.inline.BaseInlineBindingActivity
-import com.githubyss.mobile.common.kit.util.FragmentUtils
 
 
 /**
@@ -22,7 +21,7 @@ class InlineActivity : BaseInlineBindingActivity() {
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        FragmentUtils.switchFragmentWithAddHideShow(InlineFragment(), InlineFragment.TAG, null, supportFragmentManager, false, binding?.layoutFragmentContainer?.id ?: return)
+    override fun setupUi() {
+        switchFragment(InlineFragment(), InlineFragment.TAG, FRAGMENT_BASE_CONTAINER_ID, false)
     }
 }

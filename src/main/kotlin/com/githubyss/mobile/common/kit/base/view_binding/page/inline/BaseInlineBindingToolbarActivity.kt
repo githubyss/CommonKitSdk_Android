@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseActivity
-import com.githubyss.mobile.common.res.databinding.ComresActivityBaseToolbarBinding
+import com.githubyss.mobile.common.kit.base.activity_fragment.BaseActivity
+import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
 /**
@@ -20,7 +20,7 @@ abstract class BaseInlineBindingToolbarActivity : BaseActivity(0) {
 
     /** ****************************** Properties ****************************** */
 
-    val binding by inflate<ComresActivityBaseToolbarBinding>()
+    val binding by inflate<ComkitActivityBaseToolbarBinding>()
 
 
     /** ****************************** Override ****************************** */
@@ -29,7 +29,7 @@ abstract class BaseInlineBindingToolbarActivity : BaseActivity(0) {
         super.onCreate(savedInstanceState)
 
         /** Make sure that you can use Toolbar as simple as ActionBar. */
-        if (binding is ComresActivityBaseToolbarBinding) setSupportActionBar((binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase)
+        if (binding is ComkitActivityBaseToolbarBinding) setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase)
     }
 
     override fun onResume() {
@@ -48,46 +48,46 @@ abstract class BaseInlineBindingToolbarActivity : BaseActivity(0) {
     /** Setup Toolbar text by ResId. */
     protected fun setToolbarTitle(titleResId: Int) {
         // toolbarBase.text = ResourceUtils.getString(this@BaseInlineBindingToolbarActivity, titleResId)
-        if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
     }
 
     /** Setup Toolbar text by String. */
     protected fun setToolbarTitle(titleString: String) {
-        if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.title = titleString
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.title = titleString
     }
 
     /** Setup Toolbar navigation icon by ResId. */
     protected fun setToolbarNavigationIcon(iconResId: Int) {
         // toolbarBase.navigationIcon = ResourceUtils.getDrawable(this@BaseInlineBindingToolbarActivity, iconResId)
-        if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationIcon(iconResId)
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationIcon(iconResId)
     }
 
     /** Setup Toolbar navigation icon by Drawable. */
     protected fun setToolbarNavigationIcon(iconDrawable: Drawable) {
-        if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.navigationIcon = iconDrawable
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.navigationIcon = iconDrawable
     }
 
     /** Setup Toolbar navigation click listener. */
     protected fun setToolbarNavigationOnClickListener(onBaseToolbarNavigationClickListener: OnBaseToolbarNavigationClickListener) {
-        if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationOnClickListener { v ->
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationOnClickListener { v ->
             onBaseToolbarNavigationClickListener.onClick(v)
         }
     }
 
     /** Setup Toolbar menu item click listener. */
     protected fun setToolbarMenuItemOnClickListener(onBaseToolbarMenuItemClickListener: OnBaseToolbarMenuItemClickListener) {
-        if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.setOnMenuItemClickListener { item ->
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setOnMenuItemClickListener { item ->
             onBaseToolbarMenuItemClickListener.onClick(item)
         }
     }
 
     /** Get the menu in Toolbar. */
     protected fun getMenu(): Menu? {
-        return if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.menu else null
+        return if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.menu else null
     }
 
     protected fun setToolbarOnLongClickListener(onBaseToolbarLongClickListener: OnBaseToolbarLongClickListener) {
-        if (binding is ComresActivityBaseToolbarBinding) (binding as ComresActivityBaseToolbarBinding).toolbarBase.toolbarBase.setOnLongClickListener { v ->
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setOnLongClickListener { v ->
             onBaseToolbarLongClickListener.onLongClick(v)
         }
     }

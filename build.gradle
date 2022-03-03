@@ -1,3 +1,8 @@
+plugins {
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
 def isShellApp = project.getName() == rootProject.shellApp
 def isLaunchApp = project.getName() == rootProject.launchApp
 
@@ -9,18 +14,16 @@ if (isLaunchApp) {
 } else {
     apply plugin: 'com.android.library'
 }
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 android {
     buildToolsVersion build_tools_version
-    compileSdkVersion compile_sdk_version.toInteger()
+    compileSdk compile_sdk_version.toInteger()
 
     resourcePrefix 'comkit_'
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
+        minSdk min_sdk_version.toInteger()
+        targetSdk target_sdk_version.toInteger()
 
         versionCode 1
         versionName "1.0"
@@ -75,6 +78,39 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility java_version
+        targetCompatibility java_version
+    }
+
+    kotlinOptions {
+        jvmTarget = java_version
+        useIR = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion androidx_compose_version
+        kotlinCompilerVersion kotlin_version
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/metadata.kotlin_module'
+        exclude 'META-INF/metadata.jvm.kotlin_module'
+    }
+
+    dataBinding {
+        enabled isDataBindingEnabled.toBoolean()
+    }
+
+    buildFeatures {
+        compose isComposeEnabled.toBoolean()
+    }
+
     flavorDimensions 'library'
     productFlavors {
         if (isLaunchApp) {
@@ -97,6 +133,9 @@ android {
             res {
                 srcDirs 'src/main/res'
                 srcDirs 'src/main/res/common'
+
+                srcDirs 'src/main/res/activity'
+                srcDirs 'src/main/res/fragment'
             }
             manifest {
                 srcFile 'src/main/AndroidManifest.xml'
@@ -117,6 +156,7 @@ android {
                     srcDirs 'src/app/res/common'
 
                     srcDirs 'src/app/res/homepage'
+                    srcDirs 'src/app/res/compose'
                     srcDirs 'src/app/res/json_utils'
                     srcDirs 'src/app/res/lifecycle'
                     srcDirs 'src/app/res/mvvm'
@@ -141,25 +181,6 @@ android {
         sourceSets.all {
             set -> println "${set.name} 的文件是 ${set.java.srcDirs}"
         }
-    }
-
-    compileOptions {
-        sourceCompatibility java_version
-        targetCompatibility java_version
-    }
-
-    packagingOptions {
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/metadata.kotlin_module'
-        exclude 'META-INF/metadata.jvm.kotlin_module'
-    }
-
-    dataBinding {
-        enabled = isDataBindingEnabled.toBoolean()
     }
 }
 

@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.base.view_binding.page.inline
 
 import androidx.annotation.LayoutRes
-import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.BaseFragment
 
 
 /**

@@ -69,7 +69,7 @@
                     <Button
                         style="@style/comres_equant_horizontal_button_style"
                         android:onClick="@{() -> mvvmVm.onButtonOperateTimeClick()}"
-                        android:text="@{mvvmVm.timeOperateState}"
+                        android:text="@{mvvmVm.timeOperateState.value}"
                         />
                 </com.google.android.flexbox.FlexboxLayout>
 

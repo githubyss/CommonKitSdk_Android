@@ -33,14 +33,9 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        super.init()
+    override fun setupUi() {
         initView()
         initData()
-    }
-
-    override fun destroy() {
-        super.destroy()
     }
 
     override fun setToolbarTitle() {

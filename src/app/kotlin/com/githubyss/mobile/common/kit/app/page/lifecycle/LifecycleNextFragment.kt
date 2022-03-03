@@ -23,12 +23,7 @@ class LifecycleNextFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLi
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        super.init()
-    }
-
-    override fun destroy() {
-        super.destroy()
+    override fun setupUi() {
     }
 
     override fun setToolbarTitle() {

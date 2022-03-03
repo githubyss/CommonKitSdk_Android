@@ -3,7 +3,7 @@ package com.githubyss.mobile.common.kit.base.view_binding.page.reflect
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
-import com.githubyss.mobile.common.kit.base.view_binding.page.base.BaseActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.BaseActivity
 import com.githubyss.mobile.common.kit.util.LogUtils
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method

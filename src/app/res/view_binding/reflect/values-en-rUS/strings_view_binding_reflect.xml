@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Title -->
-    <string name="comkit_view_binding_reflect_title">Binding (by Reflect)</string>
-    <string name="comkit_view_binding_toolbar_reflect_title">Binding Toolbar (by Reflect)</string>
+    <string name="comkit_view_binding_reflect_toolbar_title">Binding Reflect Toolbar</string>
 
     <!-- Button -->
 
     <!-- Content -->
-    <string name="comkit_view_binding_reflect">View binding (by Reflect)</string>
+    <string name="comkit_view_binding_reflect">Binding Reflect</string>
+    <string name="comkit_view_binding_reflect_toolbar">Binding Reflect\nToolbar</string>
 </resources>

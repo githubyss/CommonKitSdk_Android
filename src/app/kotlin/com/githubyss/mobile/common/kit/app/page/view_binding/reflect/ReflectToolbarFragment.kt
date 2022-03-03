@@ -1,9 +1,9 @@
 package com.githubyss.mobile.common.kit.app.page.view_binding.reflect
 
-import android.view.View
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentViewBindingReflectBinding
+import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 
 /**
@@ -24,26 +24,11 @@ class ReflectToolbarFragment : BaseReflectBindingToolbarFragment<ComkitFragmentV
     
     /** ****************************** Override ****************************** */
     
-    override fun init() {
-        initView()
+    override fun setupUi() {
+        binding?.textBindingReflect?.text = ResourceUtils.getString(R.string.comkit_view_binding_reflect_toolbar)
     }
     
     override fun setToolbarTitle() {
-        setToolbarTitle(R.string.comkit_view_binding_toolbar_reflect_title)
-    }
-    
-    
-    /** ****************************** Functions ****************************** */
-    
-    private fun initView() {
-        binding?.textBindingReflect?.setOnClickListener(onClickListener)
-    }
-    
-    
-    /** ****************************** Implementations ****************************** */
-    
-    private val onClickListener = View.OnClickListener { v ->
-        when (v.id) {
-        }
+        setToolbarTitle(R.string.comkit_view_binding_reflect_toolbar_title)
     }
 }

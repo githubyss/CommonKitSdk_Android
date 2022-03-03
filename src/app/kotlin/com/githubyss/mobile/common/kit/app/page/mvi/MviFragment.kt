@@ -45,42 +45,7 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
 
     /** ****************************** Override ****************************** */
 
-    override fun init() {
-        setupUI()
-        setupViewModel()
-        observeViewModel()
-        setupClicks()
-    }
-
-    override fun destroy() {
-        super.destroy()
-    }
-
-    override fun setToolbarTitle() {
-        setToolbarTitle(R.string.comkit_mvi_title)
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
-            setToolbarTitle()
-            // this.homepageVm.viewId?.value = 0
-        }
-    }
-
-
-    /** ****************************** Functions ****************************** */
-
-    private fun initView() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
-    private fun initData() {
-        // binding?.homepageVm = homepageVm
-        // this.homepageVm.viewId?.value = 0
-    }
-
-    private fun setupUI() {
+    override fun setupUi() {
         binding?.recyclerView?.layoutManager = LinearLayoutManager(activity)
         binding?.recyclerView?.run {
             addItemDecoration(
@@ -91,9 +56,11 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
             )
         }
         binding?.recyclerView?.adapter = adapter
+
+        setupClicks()
     }
 
-    private fun setupViewModel() {
+    override fun setupViewModel() {
         mviViewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(
@@ -102,10 +69,6 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
                 // )
             )
         ).get(MviViewModel::class.java)
-    }
-
-    override fun removeViewModelObserver() {
-        // this.mviViewModel.viewId?.removeObservers(viewLifecycleOwner)
     }
 
     override fun observeViewModel() {
@@ -135,6 +98,34 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
         }
     }
 
+    override fun removeViewModelObserver() {
+        // this.mviViewModel.viewId?.removeObservers(viewLifecycleOwner)
+    }
+
+    override fun setToolbarTitle() {
+        setToolbarTitle(R.string.comkit_mvi_title)
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            setToolbarTitle()
+            // this.homepageVm.viewId?.value = 0
+        }
+    }
+
+
+    /** ****************************** Functions ****************************** */
+
+    private fun initView() {
+        binding?.lifecycleOwner = viewLifecycleOwner
+    }
+
+    private fun initData() {
+        // binding?.homepageVm = homepageVm
+        // this.homepageVm.viewId?.value = 0
+    }
+
     private fun setupClicks() {
         binding?.buttonFetchUser?.setOnClickListener {
             lifecycleScope.launch {
@@ -154,7 +145,7 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
 
     private val vmObserverViewId = Observer<Int> { t ->
         when (t) {
-            R.id.button_mvvm -> FragmentUtils.switchFragmentWithAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, true)
+            R.id.button_mvvm -> FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, R.id.layout_fragment_base_container, true)
 
             R.id.button_binding_reflect -> ActivityUtils.startActivity(activity, ReflectActivity::class.java)
             R.id.button_binding_inline -> ActivityUtils.startActivity(activity, InlineActivity::class.java)
@@ -163,7 +154,7 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
 
             R.id.button_log -> {
             }
-            R.id.button_json_utils -> FragmentUtils.switchFragmentWithAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, true)
+            R.id.button_json_utils -> FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, R.id.layout_fragment_base_container, true)
             R.id.btn_lifecycle -> ActivityUtils.startActivity(activity, LifecycleActivity::class.java)
         }
     }
