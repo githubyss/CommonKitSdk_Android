@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".app.page.view_binding.reflect.ReflectActivity"
+            android:name=".app.page.binding_reflect.ReflectActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"
@@ -40,7 +40,7 @@
             />
 
         <activity
-            android:name=".app.page.view_binding.inline.InlineActivity"
+            android:name=".app.page.binding_inline.InlineActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"
@@ -48,7 +48,7 @@
             />
 
         <activity
-            android:name=".app.page.view_binding.reflect.ReflectToolbarActivity"
+            android:name=".app.page.binding_reflect.ReflectToolbarActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"
@@ -56,7 +56,7 @@
             />
 
         <activity
-            android:name=".app.page.view_binding.inline.InlineToolbarActivity"
+            android:name=".app.page.binding_inline.InlineToolbarActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"

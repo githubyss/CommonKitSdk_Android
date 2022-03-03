@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.app.page.compose
 
 import androidx.compose.runtime.Composable
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.compose.activity_fragment.BaseComposeActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeActivity
 import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 

@@ -8,7 +8,7 @@ import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
 import com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData
 import com.githubyss.mobile.common.kit.app.page.mvvm.view_model.observable_field.MvvmVmObservableField
-import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMvvmBinding
 
 

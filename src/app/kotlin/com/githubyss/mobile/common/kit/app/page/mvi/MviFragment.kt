@@ -12,11 +12,11 @@ import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
 import com.githubyss.mobile.common.kit.app.page.mvi.model.User
 import com.githubyss.mobile.common.kit.app.page.mvvm.MvvmFragment
-import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineActivity
-import com.githubyss.mobile.common.kit.app.page.view_binding.inline.InlineToolbarActivity
-import com.githubyss.mobile.common.kit.app.page.view_binding.reflect.ReflectActivity
-import com.githubyss.mobile.common.kit.app.page.view_binding.reflect.ReflectToolbarActivity
-import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineActivity
+import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineToolbarActivity
+import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectActivity
+import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectToolbarActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMviBinding
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils

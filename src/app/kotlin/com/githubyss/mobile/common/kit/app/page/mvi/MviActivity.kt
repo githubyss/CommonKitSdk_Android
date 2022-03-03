@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.app.page.mvi
 
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 

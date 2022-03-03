@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.homepage
+package com.githubyss.mobile.common.kit.app.page.binding_reflect
 
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
@@ -6,28 +6,28 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
 
 
 /**
- * HomepageActivity
+ * ReflectToolbarActivity
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2021/12/16 11:39:34
+ * @createdTime 2021/06/03 19:17:26
  */
-class HomepageActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
+class ReflectToolbarActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
 
     /** ****************************** Properties ****************************** */
 
     companion object {
-        private val TAG: String = HomepageActivity::class.java.simpleName
+        private val TAG: String = ReflectToolbarActivity::class.java.simpleName
     }
 
 
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        switchFragment(HomepageFragment(), HomepageFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
+        switchFragment(ReflectToolbarFragment(), ReflectToolbarFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 
     override fun setToolbarTitle() {
-        setToolbarTitle(R.string.comkit_homepage_title)
+        setToolbarTitle(R.string.comkit_view_binding_reflect_toolbar_title)
     }
 }

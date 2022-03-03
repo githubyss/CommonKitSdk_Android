@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.compose.activity_fragment.BaseComposeToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarFragment
 
 
 /**

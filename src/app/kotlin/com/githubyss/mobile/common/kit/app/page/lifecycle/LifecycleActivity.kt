@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.view_binding.page.reflect.BaseReflectBindingToolbarActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 

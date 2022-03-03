@@ -5,7 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.sp
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.compose.activity_fragment.BaseComposeToolbarActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 
