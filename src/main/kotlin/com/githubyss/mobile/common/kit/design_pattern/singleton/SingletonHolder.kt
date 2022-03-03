@@ -23,14 +23,14 @@ package com.githubyss.mobile.common.kit.design_pattern.singleton
  * @github githubyss
  * @createdTime 2021/02/22 10:29:55
  */
-open class SingletonHolder<out T, in A>(creator: (A) -> T) {
+open class SingletonHolder<out P, in C>(creator: (C) -> P) {
     
-    private var creator: ((A) -> T)? = creator
+    private var creator: ((C) -> P)? = creator
     
     @Volatile
-    private var instance: T? = null
+    private var instance: P? = null
     
-    fun getInstance(arg: A): T {
+    fun getInstance(arg: C): P {
         val i = instance
         if (i != null) {
             return i
@@ -50,7 +50,7 @@ open class SingletonHolder<out T, in A>(creator: (A) -> T) {
     }
     
     // 对上述方法的一种更简洁的写法
-    fun getInstance2(arg: A): T = instance ?: synchronized(this) {
+    fun getInstance2(arg: C): P = instance ?: synchronized(this) {
         instance ?: creator!!(arg).apply {
             instance = this
         }

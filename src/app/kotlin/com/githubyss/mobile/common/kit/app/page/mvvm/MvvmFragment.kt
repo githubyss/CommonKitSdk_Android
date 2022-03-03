@@ -34,12 +34,19 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        initView()
-        initData()
+        binding?.lifecycleOwner = viewLifecycleOwner
+    }
+
+    override fun setupData() {
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_mvvm_title)
+    }
+
+    override fun setupViewModel() {
+        binding?.mvvmVm = this.mvvmVmLiveData
+        // binding?.mvvmVm = this.mvvmVmObservableField
     }
 
     override fun observeViewModel() {
@@ -54,15 +61,6 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
 
 
     /** ****************************** Functions ****************************** */
-
-    private fun initView() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
-    private fun initData() {
-        binding?.mvvmVm = this.mvvmVmLiveData
-        // binding?.mvvmVm = this.mvvmVmObservableField
-    }
 
     private fun observeVmByLiveData() {
         this.mvvmVmLiveData.displayType?.observe(viewLifecycleOwner, changeObserverByLiveData)

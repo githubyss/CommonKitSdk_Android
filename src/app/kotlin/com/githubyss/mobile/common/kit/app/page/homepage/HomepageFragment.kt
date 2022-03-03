@@ -3,17 +3,18 @@ package com.githubyss.mobile.common.kit.app.page.homepage
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
+import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineActivity
+import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineToolbarActivity
+import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectActivity
+import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectToolbarActivity
 import com.githubyss.mobile.common.kit.app.page.compose.ComposeActivity
 import com.githubyss.mobile.common.kit.app.page.compose.ComposeToolbarActivity
 import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
 import com.githubyss.mobile.common.kit.app.page.mvi.MviActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm.MvvmFragment
-import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineActivity
-import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineToolbarActivity
-import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectActivity
-import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectToolbarActivity
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentHomepageBinding
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
@@ -40,12 +41,19 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        initView()
-        initData()
+        binding?.lifecycleOwner = viewLifecycleOwner
+    }
+
+    override fun setupData() {
+        this.homepageVm.viewId?.value = 0
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_homepage_title)
+    }
+
+    override fun setupViewModel() {
+        binding?.homepageVm = homepageVm
     }
 
     override fun observeViewModel() {
@@ -65,23 +73,11 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
     }
 
 
-    /** ****************************** Functions ****************************** */
-
-    private fun initView() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
-    private fun initData() {
-        binding?.homepageVm = homepageVm
-        this.homepageVm.viewId?.value = 0
-    }
-
-
     /** ****************************** Implementations ****************************** */
 
     private val vmObserverViewId = Observer<Int> { t ->
         when (t) {
-            R.id.button_mvvm -> FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, R.id.layout_fragment_base_container, true)
+            R.id.button_mvvm -> FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
             R.id.button_mvi -> ActivityUtils.startActivity(activity, MviActivity::class.java)
 
             R.id.button_compose -> {
@@ -100,7 +96,7 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
 
             R.id.button_log -> {
             }
-            R.id.button_json_utils -> FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, R.id.layout_fragment_base_container, true)
+            R.id.button_json_utils -> FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
             R.id.btn_lifecycle -> ActivityUtils.startActivity(activity, LifecycleActivity::class.java)
         }
     }

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentLifecycleBinding
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
@@ -36,12 +37,19 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        initView()
-        initData()
+        binding?.lifecycleOwner = viewLifecycleOwner
+    }
+
+    override fun setupData() {
+        this.lifecycleVm.viewId?.value = 0
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_lifecycle_title)
+    }
+
+    override fun setupViewModel() {
+        binding?.lifecycleVm = lifecycleVm
     }
 
     override fun observeViewModel() {
@@ -235,15 +243,6 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
 
     /** ****************************** Functions ****************************** */
 
-    private fun initView() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
-    private fun initData() {
-        binding?.lifecycleVm = lifecycleVm
-        this.lifecycleVm.viewId?.value = 0
-    }
-
     private fun refreshLifecycleLog(message: String) {
         this.lifecycleVm.lifecycleLogEntity?.append(message)?.appendLine()
         this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity
@@ -264,8 +263,8 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
         when (t) {
             R.id.button_start_activity_1 -> ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
             R.id.button_start_activity_2 -> ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
-            R.id.button_add_fragment -> FragmentUtils.switchFragmentByAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this, parentFragmentManager, R.id.layout_fragment_base_container, true)
-            R.id.button_replace_fragment -> FragmentUtils.replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, R.id.layout_fragment_base_container, true)
+            R.id.button_add_fragment -> FragmentUtils.switchFragmentByAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
+            R.id.button_replace_fragment -> FragmentUtils.replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
             R.id.button_clear_log -> {
                 clearLifecycleLog()
             }

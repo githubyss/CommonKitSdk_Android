@@ -29,12 +29,18 @@ class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUt
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        initView()
-        initData()
+        binding?.lifecycleOwner = viewLifecycleOwner
+    }
+
+    override fun setupData() {
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_json_utils_title)
+    }
+
+    override fun setupViewModel() {
+        binding?.jsonUtilsVm = jsonUtilsVm
     }
 
     override fun observeViewModel() {
@@ -43,17 +49,6 @@ class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUt
 
     override fun removeViewModelObserver() {
         this.jsonUtilsVm.jsonText?.removeObservers(viewLifecycleOwner)
-    }
-
-
-    /** ****************************** Functions ****************************** */
-
-    private fun initView() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
-    private fun initData() {
-        binding?.jsonUtilsVm = jsonUtilsVm
     }
 
 

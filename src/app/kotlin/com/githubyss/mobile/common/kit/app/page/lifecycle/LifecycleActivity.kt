@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
-import com.githubyss.mobile.common.kit.util.FragmentUtils
 
 
 /**
@@ -30,13 +29,18 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        initView()
-        initData()
-        FragmentUtils.switchFragmentByAddHideShow(LifecycleFragment(), LifecycleFragment.TAG, null, supportFragmentManager, binding?.layoutFragmentBaseToolbarContainer?.id ?: return)
+        binding?.lifecycleOwner = this
+        switchFragment(LifecycleFragment(), LifecycleFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
+    }
+
+    override fun setupData() {
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_lifecycle_title)
+    }
+
+    override fun setupViewModel() {
     }
 
     override fun observeViewModel() {
@@ -145,13 +149,6 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
 
 
     /** ****************************** Functions ****************************** */
-
-    private fun initView() {
-        binding?.lifecycleOwner = this
-    }
-
-    private fun initData() {
-    }
 
     private fun refreshLifecycleLog(message: String) {
         this.lifecycleVm.lifecycleLogEntity?.append(message)?.appendLine()
