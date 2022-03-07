@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
-import com.githubyss.mobile.common.kit.util.LogUtils
+import com.githubyss.mobile.common.kit.util.logE
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
@@ -39,13 +39,13 @@ abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
                 setContentView(binding?.root ?: return)
             }
             catch (e: NoSuchMethodException) {
-                LogUtils.e(TAG, t = e)
+                logE(TAG, t = e)
             }
             catch (e: IllegalAccessException) {
-                LogUtils.e(TAG, t = e)
+                logE(TAG, t = e)
             }
             catch (e: InvocationTargetException) {
-                LogUtils.e(TAG, t = e)
+                logE(TAG, t = e)
             }
         }
 

@@ -46,7 +46,7 @@ object ActivityUtils {
     /** The top activity in activity's stack. */
     var topActivity: WeakReference<Activity?> = WeakReference<Activity?>(activityLifecycle.getTopActivity())
 
-    var topActivityOrApp: WeakReference<Context?> = if (AppUtils.isAppForeground()) {
+    var topActivityOrApp: WeakReference<Context?> = if (isAppForeground()) {
         WeakReference<Context?>(activityLifecycle.getTopActivity())
     }
     else {
@@ -99,7 +99,7 @@ object ActivityUtils {
     fun getLauncherActivityName(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()): String {
         packageName ?: return ""
         context ?: return ""
-        if (StringUtils.isSpace(packageName)) return ""
+        if (isSpace(packageName)) return ""
 
         val intent = Intent(Intent.ACTION_MAIN, null)
         intent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -111,7 +111,7 @@ object ActivityUtils {
                 return aInfo.activityInfo.name
             }
         }
-        LogUtils.d(TAG, "no $packageName")
+        logD(TAG, "no $packageName")
         return ""
     }
 
@@ -411,7 +411,7 @@ object ActivityUtils {
         when (context) {
             is Context -> {
                 if (!isIntentAvailable(context, intent)) {
-                    LogUtils.d(TAG, "intent is unavailable")
+                    logD(TAG, "intent is unavailable")
                     return false
                 }
                 if (context !is Activity) {
@@ -424,7 +424,7 @@ object ActivityUtils {
             }
             is Activity -> {
                 if (!isIntentAvailable(context, intent)) {
-                    LogUtils.d(TAG, "intent is unavailable")
+                    logD(TAG, "intent is unavailable")
                     return false
                 }
                 if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) context.startActivity(intent, options)
@@ -638,7 +638,7 @@ object ActivityUtils {
         intent ?: return false
 
         if (!isIntentAvailable(activity, intent)) {
-            LogUtils.e(TAG, "intent is unavailable")
+            logE(TAG, "intent is unavailable")
             return false
         }
         if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

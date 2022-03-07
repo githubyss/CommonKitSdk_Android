@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.githubyss.mobile.common.kit.util.LogUtils
+import com.githubyss.mobile.common.kit.util.logE
 import java.lang.ref.SoftReference
 
 
@@ -137,10 +137,10 @@ object FontManager {
             defaultField.set(any, typeface)
         }
         catch (exception: NoSuchFieldException) {
-            LogUtils.e(TAG, t = exception)
+            logE(TAG, t = exception)
         }
         catch (exception: IllegalAccessException) {
-            LogUtils.e(TAG, t = exception)
+            logE(TAG, t = exception)
         }
     }
 }

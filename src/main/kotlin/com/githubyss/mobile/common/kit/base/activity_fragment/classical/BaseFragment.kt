@@ -10,7 +10,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.githubyss.mobile.common.kit.util.FragmentUtils
-import com.githubyss.mobile.common.kit.util.LogUtils
+import com.githubyss.mobile.common.kit.util.logD
 
 
 /**
@@ -32,7 +32,7 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     /** ****************************** Constructors ****************************** */
 
     init {
-        LogUtils.d(TAG, "Constructor init")
+        logD(TAG, "Constructor init")
     }
 
 
@@ -50,25 +50,25 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val message = "${this::class.java.simpleName} > onAttach"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val message = "${this::class.java.simpleName} > onCreate"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val message = "${this::class.java.simpleName} > onCreateView"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val message = "${this::class.java.simpleName} > onViewCreated"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
 
         setupUi()
         setupData()
@@ -79,69 +79,69 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val message = "${this::class.java.simpleName} > onActivityCreated"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onStart() {
         super.onStart()
         val message = "${this::class.java.simpleName} > onStart"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onResume() {
         super.onResume()
         val message = "${this::class.java.simpleName} > onResume"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onPause() {
         super.onPause()
         val message = "${this::class.java.simpleName} > onPause"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onStop() {
         super.onStop()
         val message = "${this::class.java.simpleName} > onStop"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val message = "${this::class.java.simpleName} > onSaveInstanceState"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onDestroyView() {
         removeViewModelObserver()
 
         val message = "${this::class.java.simpleName} > onDestroyView"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
         super.onDestroyView()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         val message = "${this::class.java.simpleName} > onDestroy"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onDetach() {
         super.onDetach()
         val message = "${this::class.java.simpleName} > onDetach"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         val message = "${this::class.java.simpleName} > onAttachFragment"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         val message = "${this::class.java.simpleName} > onHiddenChanged, hidden:${hidden}"
-        LogUtils.d(TAG, message)
+        logD(TAG, message)
     }
 
 

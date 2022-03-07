@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFragment
-import com.githubyss.mobile.common.kit.util.LogUtils
+import com.githubyss.mobile.common.kit.util.logE
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
@@ -40,13 +40,13 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
                 _binding = inflateMethod?.invoke(null, inflater, container, false) as B
             }
             catch (e: NoSuchMethodException) {
-                LogUtils.e(TAG, t = e)
+                logE(TAG, t = e)
             }
             catch (e: IllegalAccessException) {
-                LogUtils.e(TAG, t = e)
+                logE(TAG, t = e)
             }
             catch (e: InvocationTargetException) {
-                LogUtils.e(TAG, t = e)
+                logE(TAG, t = e)
             }
         }
 

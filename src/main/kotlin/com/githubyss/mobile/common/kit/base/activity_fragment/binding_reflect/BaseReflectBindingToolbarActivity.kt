@@ -42,7 +42,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewBinding> : RootReflectB
 
     /** Setup Toolbar text by ResId. */
     protected fun setToolbarTitle(titleResId: Int) {
-        // toolbarBase.text = ResourceUtils.getString(this@BaseReflectBindingToolbarActivity, titleResId)
+        // toolbarBase.text = getString(this@BaseReflectBindingToolbarActivity, titleResId)
         if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
     }
 
@@ -53,7 +53,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewBinding> : RootReflectB
 
     /** Setup Toolbar navigation icon by ResId. */
     protected fun setToolbarNavigationIcon(iconResId: Int) {
-        // toolbarBase.navigationIcon = ResourceUtils.getDrawable(this@BaseReflectBindingToolbarActivity, iconResId)
+        // toolbarBase.navigationIcon = getDrawable(this@BaseReflectBindingToolbarActivity, iconResId)
         if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationIcon(iconResId)
     }
 

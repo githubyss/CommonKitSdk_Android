@@ -3,7 +3,6 @@ package com.githubyss.mobile.common.kit.base.activity_fragment.compose
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 
 /**
@@ -35,7 +34,7 @@ abstract class BaseComposeToolbarFragment : RootComposeFragment() {
     /** Setup Toolbar text by ResId. */
     @Composable
     protected fun Toolbar(titleResId: Int) {
-        TopAppBar(title = { Text(text = ResourceUtils.getString(titleResId)) })
+        TopAppBar(title = { Text(text = getString(titleResId)) })
     }
 
     /** Setup Toolbar text by String. */

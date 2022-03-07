@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.githubyss.mobile.common.kit.util.ActivityUtils
-import com.githubyss.mobile.common.kit.util.AppUtils
+import com.githubyss.mobile.common.kit.util.getApplicationByReflect
 
 
 /**
@@ -39,7 +39,7 @@ object ComkitApplicationConfig {
         }
         // context 空
         // 通过反射得到的 application 进行初始化
-        init(AppUtils.getApplicationByReflect())
+        init(getApplicationByReflect())
     }
 
     /**
@@ -52,7 +52,7 @@ object ComkitApplicationConfig {
         // 缓存 application 空
         if (application == null) {
             // 初始化缓存 application 的值
-            application = app ?: AppUtils.getApplicationByReflect()
+            application = app ?: getApplicationByReflect()
             return
         }
         // 缓存 application 非空
@@ -76,7 +76,7 @@ object ComkitApplicationConfig {
         // 缓存 application 空
         if (application == null) {
             // 通过反射得到的 application 进行初始化
-            init(AppUtils.getApplicationByReflect())
+            init(getApplicationByReflect())
         }
         // 缓存 application 非空
         // 返回 application

@@ -16,79 +16,77 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
  * @github githubyss
  * @createdTime 2021/03/05 10:16:09
  */
-object SystemUtils {
-    
-    /** ****************************** Properties ****************************** */
-    
-    private val TAG: String = SystemUtils::class.java.simpleName
-    
-    
-    /** ****************************** Functions ****************************** */
-    
-    /** ******************** Getter ******************** */
-    
-    /** ********** Manager ********** */
-    
-    /**
-     * Get the window manager.
-     *
-     * @param context The context.
-     * @return The window manager.
-     */
-    fun getWindowManager(context: Context? = ComkitApplicationConfig.getApp()): WindowManager? {
-        context ?: return null
-        
-        return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager?
-    }
-    
-    /**
-     * Get the keyguard manager.
-     *
-     * @param context The context.
-     * @return The keyguard manager.
-     */
-    fun getKeyguardManager(context: Context? = ComkitApplicationConfig.getApp()): KeyguardManager? {
-        context ?: return null
-        
-        return context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager?
-    }
-    
-    /**
-     * Get the wifi manager.
-     *
-     * @param context The context.
-     * @return The wifi manager.
-     */
-    fun getWifiManager(context: Context? = ComkitApplicationConfig.getApp()): WifiManager? {
-        context ?: return null
-        
-        return context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager?
-    }
-    
-    /**
-     * Get the telephony manager.
-     *
-     * @param context The context.
-     * @return The telephony manager.
-     */
-    fun getTelephonyManager(context: Context? = ComkitApplicationConfig.getApp()): TelephonyManager? {
-        context ?: return null
-        
-        return context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager?
-    }
-    
-    /**
-     * Get the connectivity manager.
-     *
-     * @param context The context.
-     * @return The connectivity manager.
-     */
-    fun getConnectivityManager(context: Context? = ComkitApplicationConfig.getApp()): ConnectivityManager? {
-        context ?: return null
-        
-        return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-    }
-    
-    
-    fun currentTimeMillis(): Long = System.currentTimeMillis()
+
+/** ****************************** Properties ****************************** */
+
+private const val TAG: String = "SystemUtils"
+
+
+/** ****************************** Functions ****************************** */
+
+/** ******************** Getter ******************** */
+
+/** ********** Manager ********** */
+
+/**
+ * Get the window manager.
+ *
+ * @param context The context.
+ * @return The window manager.
+ */
+fun getWindowManager(context: Context? = ComkitApplicationConfig.getApp()): WindowManager? {
+    context ?: return null
+
+    return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager?
 }
+
+/**
+ * Get the keyguard manager.
+ *
+ * @param context The context.
+ * @return The keyguard manager.
+ */
+fun getKeyguardManager(context: Context? = ComkitApplicationConfig.getApp()): KeyguardManager? {
+    context ?: return null
+
+    return context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager?
+}
+
+/**
+ * Get the wifi manager.
+ *
+ * @param context The context.
+ * @return The wifi manager.
+ */
+fun getWifiManager(context: Context? = ComkitApplicationConfig.getApp()): WifiManager? {
+    context ?: return null
+
+    return context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager?
+}
+
+/**
+ * Get the telephony manager.
+ *
+ * @param context The context.
+ * @return The telephony manager.
+ */
+fun getTelephonyManager(context: Context? = ComkitApplicationConfig.getApp()): TelephonyManager? {
+    context ?: return null
+
+    return context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager?
+}
+
+/**
+ * Get the connectivity manager.
+ *
+ * @param context The context.
+ * @return The connectivity manager.
+ */
+fun getConnectivityManager(context: Context? = ComkitApplicationConfig.getApp()): ConnectivityManager? {
+    context ?: return null
+
+    return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+}
+
+
+fun currentTimeMillis(): Long = System.currentTimeMillis()

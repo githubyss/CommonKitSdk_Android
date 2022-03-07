@@ -11,193 +11,191 @@ import java.util.*
  * @github githubyss
  * @createdTime 2021/06/22 14:55:14
  */
-object TimerUtils {
 
-    /** ****************************** Properties ****************************** */
+/** ****************************** Properties ****************************** */
 
-    private val TAG: String = TimerUtils::class.java.simpleName
+private const val TAG: String = "TimerUtils"
 
-    private var timer: Timer? = null
-    // private var handler: Handler? = null
-
-
-    /** ****************************** Constructors ****************************** */
-
-    // init {
-    // val thread = HandlerThread("timer")
-    // thread.start()
-    // handler = Handler(thread.looper)
-    // }
+private var timer: Timer? = null
+// private var handler: Handler? = null
 
 
-    /** ****************************** Functions ****************************** */
+/** ****************************** Constructors ****************************** */
 
-    // fun post(runnable: Runnable) {
-    //     handler?.post(runnable)
-    // }
-    //
-    // fun postDelayed(runnable: Runnable, delay: Long) {
-    //     handler?.postDelayed(runnable, delay)
-    // }
+// init {
+// val thread = HandlerThread("timer")
+// thread.start()
+// handler = Handler(thread.looper)
+// }
 
-    /** ******************** initTimer ******************** */
 
-    /**
-     * Init the timer to ensure not null.
-     */
-    private fun initTimer() {
-        if (timer == null) {
-            timer = Timer()
-        }
+/** ****************************** Functions ****************************** */
+
+// fun post(runnable: Runnable) {
+//     handler?.post(runnable)
+// }
+//
+// fun postDelayed(runnable: Runnable, delay: Long) {
+//     handler?.postDelayed(runnable, delay)
+// }
+
+/** ******************** initTimer ******************** */
+
+/**
+ * Init the timer to ensure not null.
+ */
+private fun initTimer() {
+    if (timer == null) {
+        timer = Timer()
+    }
+}
+
+/** ******************** runTaskPeriodically ******************** */
+
+/**
+ * Run the timer task periodically.
+ *
+ * @param timerTask The timer task.
+ * @param delay     The delay before timer task execute run().
+ * @param period    The period between every timer task.
+ * @return The method exec result.
+ */
+fun runTaskPeriodically(timerTask: TimerTask?, delay: Long?, period: Long?): Boolean {
+    delay ?: return false
+    period ?: return false
+
+    initTimer()
+    return try {
+        timer?.schedule(timerTask, delay, period)
+        true
+    }
+    catch (e: Exception) {
+        logE(TAG, t = e)
+        false
+    }
+}
+
+/**
+ * Run the timer task periodically.
+ *
+ * @param timerTask The timer task.
+ * @param time      The time moment when timer task execute run().
+ * @param period    The period between every timer task.
+ * @return The method exec result.
+ */
+fun runTaskPeriodically(timerTask: TimerTask, time: Date?, period: Long?): Boolean {
+    time ?: return false
+    period ?: return false
+
+    initTimer()
+    return try {
+        timer?.schedule(timerTask, time, period)
+        true
+    }
+    catch (e: Exception) {
+        logE(TAG, t = e)
+        false
     }
 
-    /** ******************** runTaskPeriodically ******************** */
+}
 
-    /**
-     * Run the timer task periodically.
-     *
-     * @param timerTask The timer task.
-     * @param delay     The delay before timer task execute run().
-     * @param period    The period between every timer task.
-     * @return The method exec result.
-     */
-    fun runTaskPeriodically(timerTask: TimerTask?, delay: Long?, period: Long?): Boolean {
-        delay ?: return false
-        period ?: return false
+/**
+ * Run the timer task periodically with time offset.
+ *
+ * @param timerTask The timer task.
+ * @param delay     The delay before timer task execute run().
+ * @param period    The period between every timer task.
+ * @return The method exec result.
+ */
+fun runTaskPeriodicallyWithTimeOffset(timerTask: TimerTask, delay: Long?, period: Long?): Boolean {
+    delay ?: return false
+    period ?: return false
 
-        initTimer()
-        return try {
-            timer?.schedule(timerTask, delay, period)
-            true
-        }
-        catch (e: Exception) {
-            LogUtils.e(TAG, t = e)
-            false
-        }
+    initTimer()
+    return try {
+        timer?.scheduleAtFixedRate(timerTask, delay, period)
+        true
     }
-
-    /**
-     * Run the timer task periodically.
-     *
-     * @param timerTask The timer task.
-     * @param time      The time moment when timer task execute run().
-     * @param period    The period between every timer task.
-     * @return The method exec result.
-     */
-    fun runTaskPeriodically(timerTask: TimerTask, time: Date?, period: Long?): Boolean {
-        time ?: return false
-        period ?: return false
-
-        initTimer()
-        return try {
-            timer?.schedule(timerTask, time, period)
-            true
-        }
-        catch (e: Exception) {
-            LogUtils.e(TAG, t = e)
-            false
-        }
-
+    catch (e: Exception) {
+        logE(TAG, t = e)
+        false
     }
+}
 
-    /**
-     * Run the timer task periodically with time offset.
-     *
-     * @param timerTask The timer task.
-     * @param delay     The delay before timer task execute run().
-     * @param period    The period between every timer task.
-     * @return The method exec result.
-     */
-    fun runTaskPeriodicallyWithTimeOffset(timerTask: TimerTask, delay: Long?, period: Long?): Boolean {
-        delay ?: return false
-        period ?: return false
+/**
+ * Run the timer task periodically with time offset.
+ *
+ * @param timerTask The timer task.
+ * @param time      The time moment when timer task execute run().
+ * @param period    The period between every timer task.
+ * @return The method exec result.
+ */
+fun runTaskPeriodicallyWithTimeOffset(timerTask: TimerTask, time: Date?, period: Long?): Boolean {
+    time ?: return false
+    period ?: return false
 
-        initTimer()
-        return try {
-            timer?.scheduleAtFixedRate(timerTask, delay, period)
-            true
-        }
-        catch (e: Exception) {
-            LogUtils.e(TAG, t = e)
-            false
-        }
+    initTimer()
+    return try {
+        timer?.scheduleAtFixedRate(timerTask, time, period)
+        true
     }
-
-    /**
-     * Run the timer task periodically with time offset.
-     *
-     * @param timerTask The timer task.
-     * @param time      The time moment when timer task execute run().
-     * @param period    The period between every timer task.
-     * @return The method exec result.
-     */
-    fun runTaskPeriodicallyWithTimeOffset(timerTask: TimerTask, time: Date?, period: Long?): Boolean {
-        time ?: return false
-        period ?: return false
-
-        initTimer()
-        return try {
-            timer?.scheduleAtFixedRate(timerTask, time, period)
-            true
-        }
-        catch (e: Exception) {
-            LogUtils.e(TAG, t = e)
-            false
-        }
+    catch (e: Exception) {
+        logE(TAG, t = e)
+        false
     }
+}
 
-    /** ******************** runTaskOnce ******************** */
+/** ******************** runTaskOnce ******************** */
 
-    /**
-     * Run the timer task once.
-     *
-     * @param timerTask The timer task.
-     * @param delay     The delay before timer task execute run().
-     * @return The method exec result.
-     */
-    fun runTaskOnce(timerTask: TimerTask, delay: Long?): Boolean {
-        delay ?: return false
+/**
+ * Run the timer task once.
+ *
+ * @param timerTask The timer task.
+ * @param delay     The delay before timer task execute run().
+ * @return The method exec result.
+ */
+fun runTaskOnce(timerTask: TimerTask, delay: Long?): Boolean {
+    delay ?: return false
 
-        initTimer()
-        return try {
-            timer?.schedule(timerTask, delay)
-            true
-        }
-        catch (e: Exception) {
-            LogUtils.e(TAG, t = e)
-            false
-        }
+    initTimer()
+    return try {
+        timer?.schedule(timerTask, delay)
+        true
     }
-
-    /**
-     * Run the timer task once.
-     *
-     * @param timerTask The timer task.
-     * @param time      The time moment when timer task execute run().
-     * @return The method exec result.
-     */
-    fun runTaskOnce(timerTask: TimerTask, time: Date?): Boolean {
-        time ?: return false
-
-        initTimer()
-        return try {
-            timer?.schedule(timerTask, time)
-            true
-        }
-        catch (e: Exception) {
-            LogUtils.e(TAG, t = e)
-            false
-        }
+    catch (e: Exception) {
+        logE(TAG, t = e)
+        false
     }
+}
 
-    /** ******************** cancel ******************** */
+/**
+ * Run the timer task once.
+ *
+ * @param timerTask The timer task.
+ * @param time      The time moment when timer task execute run().
+ * @return The method exec result.
+ */
+fun runTaskOnce(timerTask: TimerTask, time: Date?): Boolean {
+    time ?: return false
 
-    /**
-     * Need be called when timer task stopped.
-     */
-    fun cancel() {
-        timer?.cancel()
-        timer?.purge()
-        timer = null
+    initTimer()
+    return try {
+        timer?.schedule(timerTask, time)
+        true
     }
+    catch (e: Exception) {
+        logE(TAG, t = e)
+        false
+    }
+}
+
+/** ******************** cancel ******************** */
+
+/**
+ * Need be called when timer task stopped.
+ */
+fun cancelTimer() {
+    timer?.cancel()
+    timer?.purge()
+    timer = null
 }

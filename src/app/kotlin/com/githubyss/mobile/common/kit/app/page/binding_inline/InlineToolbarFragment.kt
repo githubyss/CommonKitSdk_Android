@@ -4,7 +4,6 @@ import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingToolbarFragment
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.bindView
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentViewBindingInlineBinding
-import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 
 /**
@@ -28,7 +27,7 @@ class InlineToolbarFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_f
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        binding?.textBindingInline?.text = ResourceUtils.getString(R.string.comkit_view_binding_inline_toolbar)
+        binding?.textBindingInline?.text = getString(R.string.comkit_view_binding_inline_toolbar)
     }
 
     override fun setToolbarTitle() {

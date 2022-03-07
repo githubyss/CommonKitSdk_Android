@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.app.page.json_utils
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.json_utils.view_model.JsonUtilsViewModel
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
@@ -23,7 +23,7 @@ class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUt
         val TAG: String = JsonUtilsFragment::class.java.simpleName
     }
 
-    private val jsonUtilsVm: JsonUtilsViewModel by lazy { ViewModelProvider(requireActivity()).get(JsonUtilsViewModel::class.java) }
+    private val jsonUtilsVm: JsonUtilsViewModel by viewModels()
 
 
     /** ****************************** Override ****************************** */

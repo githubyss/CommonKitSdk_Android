@@ -8,5 +8,11 @@ package com.githubyss.mobile.common.kit.util
  * @github githubyss
  * @createdTime 2021/03/05 10:15:51
  */
-object SnackbarUtils {
-}
+
+
+/** ****************************** Properties ****************************** */
+
+private const val TAG: String = "SnackbarUtils"
+
+
+/** ****************************** Functions ****************************** */

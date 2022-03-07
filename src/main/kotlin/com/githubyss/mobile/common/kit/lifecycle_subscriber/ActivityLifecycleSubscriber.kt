@@ -12,7 +12,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.githubyss.mobile.common.kit.constant.Constants
-import com.githubyss.mobile.common.kit.util.LogUtils
+import com.githubyss.mobile.common.kit.util.logD
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.collections.HashMap
@@ -87,7 +87,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityCreated")
+        logD(TAG, "${activity::class.java.simpleName} > onActivityCreated")
         
         // 应用放置后台，内存回收后，重新启动应用
         // if (activity != null && activity !is SplashActivity && EPApp.getApp().isColdStart && savedInstanceState != null) {
@@ -114,7 +114,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityStarted(activity: Activity) {
-        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStarted")
+        logD(TAG, "${activity::class.java.simpleName} > onActivityStarted")
         
         if (isForeground) {
             setTopActivity(activity)
@@ -134,7 +134,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityResumed(activity: Activity) {
-        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityResumed")
+        logD(TAG, "${activity::class.java.simpleName} > onActivityResumed")
         
         if (!isForeground) {
             isForeground = true
@@ -183,7 +183,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityPaused(activity: Activity) {
-        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityPaused")
+        logD(TAG, "${activity::class.java.simpleName} > onActivityPaused")
     }
     
     /**
@@ -193,7 +193,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityStopped(activity: Activity) {
-        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityStopped")
+        logD(TAG, "${activity::class.java.simpleName} > onActivityStopped")
         
         // 重要，如果 Activity 的 stop 中判断应用再前后台，一定要把 super.stop() 放在第一行
         if (activity.isChangingConfigurations) {
@@ -208,7 +208,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
                 
                 // 切换到后台，提示用户
                 // if (activity != null) {
-                //     ToastUtil.showMessage(ResUtil.getString(EPApp.getApp(), R.string.lifecycle_in_background))
+                //     ToastUtil.showToast(ResUtil.getString(EPApp.getApp(), R.string.lifecycle_in_background))
                 // }
                 
                 // 非启动页，切换到后台，记录离开时间
@@ -239,7 +239,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivitySaveInstanceState")
+        logD(TAG, "${activity::class.java.simpleName} > onActivitySaveInstanceState")
     }
     
     /**
@@ -249,7 +249,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
      * @return
      */
     override fun onActivityDestroyed(activity: Activity) {
-        LogUtils.d(TAG, "${activity::class.java.simpleName} > onActivityDestroyed")
+        logD(TAG, "${activity::class.java.simpleName} > onActivityDestroyed")
         
         activityList.remove(activity)
         consumeOnActivityDestroyedListener(activity)
@@ -420,7 +420,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
             val sDurationScale = sDurationScaleField[null] as Float
             if (sDurationScale == 0f) {
                 sDurationScaleField[null] = 1f
-                LogUtils.d(TAG, "setAnimatorsEnabled: Animators are enabled now!")
+                logD(TAG, "setAnimatorsEnabled: Animators are enabled now!")
             }
         }
         catch (e: NoSuchFieldException) {

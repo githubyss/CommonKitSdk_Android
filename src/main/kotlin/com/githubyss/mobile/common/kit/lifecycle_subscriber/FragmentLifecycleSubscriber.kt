@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.githubyss.mobile.common.kit.util.LogUtils
+import com.githubyss.mobile.common.kit.util.logD
 
 
 /**
@@ -37,7 +37,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentAttached")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentAttached")
         super.onFragmentAttached(fm, f, context)
     }
     
@@ -50,7 +50,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentCreated")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentCreated")
         super.onFragmentCreated(fm, f, savedInstanceState)
     }
     
@@ -64,7 +64,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentViewCreated")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentViewCreated")
         super.onFragmentViewCreated(fm, f, v, savedInstanceState)
     }
     
@@ -77,7 +77,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentActivityCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentActivityCreated")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentActivityCreated")
         super.onFragmentActivityCreated(fm, f, savedInstanceState)
     }
     
@@ -89,7 +89,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentStarted")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentStarted")
         super.onFragmentStarted(fm, f)
     }
     
@@ -101,7 +101,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentResumed")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentResumed")
         super.onFragmentResumed(fm, f)
     }
     
@@ -113,7 +113,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentPaused(fm: FragmentManager, f: Fragment) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentPaused")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentPaused")
         super.onFragmentPaused(fm, f)
     }
     
@@ -125,7 +125,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentStopped(fm: FragmentManager, f: Fragment) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentStopped")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentStopped")
         super.onFragmentStopped(fm, f)
     }
     
@@ -138,7 +138,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentSaveInstanceState(fm: FragmentManager, f: Fragment, outState: Bundle) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentSaveInstanceState")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentSaveInstanceState")
         super.onFragmentSaveInstanceState(fm, f, outState)
     }
     
@@ -150,7 +150,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentViewDestroyed")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentViewDestroyed")
         super.onFragmentViewDestroyed(fm, f)
     }
     
@@ -162,7 +162,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentDestroyed")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentDestroyed")
         super.onFragmentDestroyed(fm, f)
     }
     
@@ -174,7 +174,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
      * @return
      */
     override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
-        LogUtils.d(TAG, "${f::class.java.simpleName} > onFragmentDetached")
+        logD(TAG, "${f::class.java.simpleName} > onFragmentDetached")
         super.onFragmentDetached(fm, f)
     }
 }

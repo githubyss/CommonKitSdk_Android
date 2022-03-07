@@ -14,78 +14,73 @@ import com.githubyss.mobile.common.kit.ComkitApplicationConfig
  * @github githubyss
  * @createdTime 2020/12/19 09:52:03
  */
-object ToastUtils {
 
-    /** ****************************** Properties ****************************** */
+/** ****************************** Properties ****************************** */
 
-    private val TAG: String = ToastUtils::class.java.simpleName
-    private var toast: Toast? = null
-    private var centerable = false
+private const val TAG: String = "ToastUtils"
+private var toast: Toast? = null
 
 
-    /** ****************************** Functions ****************************** */
+/** ****************************** Functions ****************************** */
 
-    /**
-     * Show toast.
-     *
-     * @param msgId      The text ID to show.
-     * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
-     * @param centerable Is toast show in center.
-     * @param context    The context to use. Usually your Application or Activity object.
-     */
-    fun showMessage(msgId: Int, duration: Int = if (ResourceUtils.getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
-        showMessage(ResourceUtils.getString(msgId), duration, centerable, context)
+/**
+ * Show toast.
+ *
+ * @param msgId      The text ID to show.
+ * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
+ * @param centerable Is toast show in center.
+ * @param context    The context to use. Usually your Application or Activity object.
+ */
+fun showToast(msgId: Int, duration: Int = if (getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+    showToast(getString(msgId), duration, centerable, context)
+}
+
+/**
+ * Show toast.
+ *
+ * @param msgStr     The text to show.
+ * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
+ * @param centerable Is toast show in center.
+ * @param context    The context to use. Usually your Application or Activity object.
+ */
+fun showToast(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+    context ?: return
+
+    if (Looper.myLooper() == null) {
+        Looper.prepare()
     }
 
-    /**
-     * Show toast.
-     *
-     * @param msgStr     The text to show.
-     * @param duration   How long to display the message. Either Toast.LENGTH_SHORT or Toast.LENGTH_LONG.
-     * @param centerable Is toast show in center.
-     * @param context    The context to use. Usually your Application or Activity object.
-     */
-    fun showMessage(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
-        context ?: return
+    if (toast != null) {
+        toast?.cancel()
+    }
 
-        ToastUtils.centerable = centerable
+    toast = Toast.makeText(context, msgStr, duration)
+    if (centerable) {
+        toast?.setGravity(Gravity.CENTER, 0, 0)
+    }
 
-        if (Looper.myLooper() == null) {
-            Looper.prepare()
-        }
+    show()
+}
 
+/**
+ * Show toast.
+ */
+private fun show() {
+    synchronized(toast ?: return) {
+        toast?.show()
+    }
+}
+
+/**
+ * Close toast.
+ */
+fun closeToast() {
+    try {
         if (toast != null) {
             toast?.cancel()
         }
-
-        toast = Toast.makeText(context, msgStr, duration)
-        if (ToastUtils.centerable) {
-            toast?.setGravity(Gravity.CENTER, 0, 0)
-        }
-
-        show()
     }
-
-    /**
-     * Show toast.
-     */
-    private fun show() {
-        synchronized(ToastUtils::class.java) {
-            toast?.show()
-        }
-    }
-
-    /**
-     * Close toast.
-     */
-    fun close() {
-        try {
-            if (toast != null) {
-                toast?.cancel()
-            }
-        }
-        catch (exception: Exception) {
-            LogUtils.e(TAG, t = exception)
-        }
+    catch (exception: Exception) {
+        logE(TAG, t = exception)
     }
 }

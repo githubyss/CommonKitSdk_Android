@@ -6,7 +6,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.unit.sp
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
-import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 
 /**
@@ -24,7 +23,7 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
         private val TAG: String = ComposeToolbarActivity::class.java.simpleName
     }
 
-    private val TITLE = ResourceUtils.getString(R.string.comkit_compose_toolbar_title)
+    private val TITLE = getString(R.string.comkit_compose_toolbar_title)
     private var count: MutableState<Int> = mutableStateOf(0)
     private var title: MutableState<String> = mutableStateOf(TITLE)
 
@@ -48,7 +47,7 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
 
     @Composable
     private fun InfoDisplay() {
-        ComposeDisplay(title = ResourceUtils.getString(R.string.comkit_compose_toolbar))
+        ComposeDisplay(title = getString(R.string.comkit_compose_toolbar))
     }
 
     @Composable

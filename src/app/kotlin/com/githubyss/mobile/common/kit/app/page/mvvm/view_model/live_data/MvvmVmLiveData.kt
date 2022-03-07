@@ -8,7 +8,8 @@ import com.githubyss.mobile.common.kit.app.page.mvvm.child.MvvmChildVm
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.TimeOperateState
 import com.githubyss.mobile.common.kit.app.page.mvvm.model.MvvmModel
-import com.githubyss.mobile.common.kit.util.TimerUtils
+import com.githubyss.mobile.common.kit.util.cancelTimer
+import com.githubyss.mobile.common.kit.util.runTaskPeriodicallyWithTimeOffset
 import java.util.*
 
 
@@ -103,11 +104,11 @@ class MvvmVmLiveData : ViewModel() {
                         this@MvvmVmLiveData.text?.postValue("当前时间: ${System.currentTimeMillis()}")
                     }
                 }
-                TimerUtils.runTaskPeriodicallyWithTimeOffset(timerTask, 0, 500)
+                runTaskPeriodicallyWithTimeOffset(timerTask, 0, 500)
             }
             TimeOperateState.STOP -> {
                 this.timeOperateState?.value = TimeOperateState.START
-                TimerUtils.cancel()
+                cancelTimer()
             }
         }
     }

@@ -15,9 +15,9 @@
 //     init {
 //         try {
 //             json?.let {
-//                 code = JsonUtils.getString(it, "code")
-//                 message = JsonUtils.getString(it, "message")
-//                 data = ResponseData(JsonUtils.getJSONObject(it, "data"))
+//                 code = getString(it, "code")
+//                 message = getString(it, "message")
+//                 data = ResponseData(getJSONObject(it, "data"))
 //             }
 //         }
 //         catch (e: JSONException) {
@@ -32,10 +32,10 @@
 //         init {
 //             try {
 //                 json?.let {
-//                     val productInfos: JSONArray? = JsonUtils.getJSONArray(json, "productInfos")
+//                     val productInfos: JSONArray? = getJSONArray(json, "productInfos")
 //                     productInfos?.let {
 //                         for (i in 0 until it.length()) {
-//                             infoList.add(ProductInfo(JsonUtils.getJSONObject(it, i)))
+//                             infoList.add(ProductInfo(getJSONObject(it, i)))
 //                         }
 //                     }
 //                 }

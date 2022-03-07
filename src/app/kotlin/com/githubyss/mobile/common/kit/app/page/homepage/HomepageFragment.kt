@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.app.page.homepage
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineActivity
 import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineToolbarActivity
@@ -35,7 +35,7 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
         val TAG: String = HomepageFragment::class.java.simpleName
     }
 
-    private val homepageVm: HomepageViewModel by lazy { ViewModelProvider(requireActivity()).get(HomepageViewModel::class.java) }
+    private val homepageVm: HomepageViewModel by viewModels()
 
 
     /** ****************************** Override ****************************** */

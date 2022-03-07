@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
@@ -31,7 +31,7 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
         val TAG: String = LifecycleFragment::class.java.simpleName
     }
 
-    private val lifecycleVm: LifecycleViewModel by lazy { ViewModelProvider(requireActivity()).get(LifecycleViewModel::class.java) }
+    private val lifecycleVm: LifecycleViewModel by viewModels()
 
 
     /** ****************************** Override ****************************** */

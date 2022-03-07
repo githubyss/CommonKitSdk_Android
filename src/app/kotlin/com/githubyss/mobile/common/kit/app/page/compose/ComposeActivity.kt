@@ -3,7 +3,6 @@ package com.githubyss.mobile.common.kit.app.page.compose
 import androidx.compose.runtime.Composable
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeActivity
-import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 
 /**
@@ -27,7 +26,7 @@ class ComposeActivity : BaseComposeActivity() {
     @Composable
     override fun Content() {
         ComposePageContent {
-            ComposeDisplay(title = ResourceUtils.getString(R.string.comkit_compose))
+            ComposeDisplay(title = getString(R.string.comkit_compose))
         }
     }
 }

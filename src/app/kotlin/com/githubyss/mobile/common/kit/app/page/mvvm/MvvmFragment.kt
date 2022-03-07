@@ -2,8 +2,8 @@ package com.githubyss.mobile.common.kit.app.page.mvvm
 
 import android.view.View
 import androidx.databinding.Observable
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
 import com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData
@@ -27,8 +27,11 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
         val TAG: String = MvvmFragment::class.java.simpleName
     }
 
-    private val mvvmVmLiveData: MvvmVmLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmVmLiveData::class.java) }
-    private val mvvmVmObservableField: MvvmVmObservableField by lazy { ViewModelProvider(requireActivity()).get(MvvmVmObservableField::class.java) }
+    // private val mvvmVmLiveData: MvvmVmLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmVmLiveData::class.java) }
+    private val mvvmVmLiveData: MvvmVmLiveData by viewModels()
+
+    // private val mvvmVmObservableField: MvvmVmObservableField by lazy { ViewModelProvider(requireActivity()).get(MvvmVmObservableField::class.java) }
+    private val mvvmVmObservableField: MvvmVmObservableField by viewModels()
 
 
     /** ****************************** Override ****************************** */

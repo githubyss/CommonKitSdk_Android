@@ -12,7 +12,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.util.ResourceUtils
+import com.githubyss.mobile.common.kit.util.getColor
+
 
 
 @Composable
@@ -26,7 +27,7 @@ fun ComposePageContent(content: @Composable ColumnScope.() -> Unit) {
             .fillMaxHeight()
             // .verticalScroll(rememberScrollState())
             .padding(horizontal = 14.dp)
-            .background(Color(ResourceUtils.getColor(R.color.comres_layoutBg_lightGray))),
+            .background(Color(getColor(R.color.comres_layoutBg_lightGray))),
     )
 }
 
@@ -34,12 +35,12 @@ fun ComposePageContent(content: @Composable ColumnScope.() -> Unit) {
 fun ComposeDisplay(title: String) {
     Text(
         text = title,
-        color = Color(ResourceUtils.getColor(R.color.comres_color_black)),
+        color = Color(getColor(R.color.comres_color_black)),
         fontSize = 18.sp,
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .background(color = Color(ResourceUtils.getColor(R.color.comres_color_999999)), shape = RoundedCornerShape(5.dp)),
+            .background(color = Color(getColor(R.color.comres_color_999999)), shape = RoundedCornerShape(5.dp)),
     )
 }

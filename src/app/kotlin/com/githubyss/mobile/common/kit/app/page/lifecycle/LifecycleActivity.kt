@@ -1,8 +1,8 @@
 package com.githubyss.mobile.common.kit.app.page.lifecycle
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
@@ -23,7 +23,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
         private val TAG: String = LifecycleActivity::class.java.simpleName
     }
 
-    private val lifecycleVm: LifecycleViewModel by lazy { ViewModelProvider(this).get(LifecycleViewModel::class.java) }
+    private val lifecycleVm: LifecycleViewModel by viewModels()
 
 
     /** ****************************** Override ****************************** */

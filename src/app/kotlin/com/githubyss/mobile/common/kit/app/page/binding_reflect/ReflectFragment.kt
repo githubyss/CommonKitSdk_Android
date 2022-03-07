@@ -3,7 +3,6 @@ package com.githubyss.mobile.common.kit.app.page.binding_reflect
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentViewBindingReflectBinding
-import com.githubyss.mobile.common.kit.util.ResourceUtils
 
 
 /**
@@ -25,6 +24,6 @@ class ReflectFragment : BaseReflectBindingFragment<ComkitFragmentViewBindingRefl
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        binding?.textBindingReflect?.text = ResourceUtils.getString(R.string.comkit_view_binding_reflect)
+        binding?.textBindingReflect?.text = getString(R.string.comkit_view_binding_reflect)
     }
 }

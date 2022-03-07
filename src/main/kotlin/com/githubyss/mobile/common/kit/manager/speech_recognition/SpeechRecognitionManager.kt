@@ -2,10 +2,9 @@ package com.githubyss.mobile.common.kit.manager.speech_recognition
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.util.LogUtils
-import com.githubyss.mobile.common.kit.util.ToastUtils
+import com.githubyss.mobile.common.kit.util.logD
+import com.githubyss.mobile.common.kit.util.showToast
 import com.iflytek.cloud.*
 
 
@@ -80,7 +79,7 @@ object SpeechRecognitionManager {
             speechRecognizer?.setParameter(SpeechConstant.VAD_EOS, vadEos)
         }
         else {
-            ToastUtils.showMessage( "抱歉，服务器开了个小差，请退出重试")
+            showToast("抱歉，服务器开了个小差，请退出重试")
             speechRecognizer = SpeechRecognizer.createRecognizer(context, null)
         }
     }
@@ -115,7 +114,7 @@ object SpeechRecognitionManager {
             // textUnderstander.setParameter(SpeechConstant.SCENE, "main");
             val ret = textUnderstander?.understandText(text, textUnderstanderListener)
             if (ret != 0) {
-                // ToastUtil.showMessage("语义理解失败,错误码:$ret")
+                // ToastUtil.showToast("语义理解失败,错误码:$ret")
             }
         }
     }
@@ -148,7 +147,7 @@ object SpeechRecognitionManager {
      */
     private val initListener: InitListener = InitListener { code ->
         if (code != ErrorCode.SUCCESS) {
-            LogUtils.d(TAG, "InitListener.onInit >>> 初始化失败，错误码：${code}")
+            logD(TAG, "InitListener.onInit >>> 初始化失败，错误码：${code}")
         }
     }
 
@@ -158,20 +157,20 @@ object SpeechRecognitionManager {
     private val speechRecognizerListener: RecognizerListener = object : RecognizerListener {
         // 内部录音机已经准备好了，用户可以开始语音输入
         override fun onBeginOfSpeech() {
-            LogUtils.d(TAG, "RecognizerListener.onBeginOfSpeech")
+            logD(TAG, "RecognizerListener.onBeginOfSpeech")
             onSpeechRecognizerCallback?.onBeginOfSpeech()
         }
 
         // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
         // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
         override fun onError(error: SpeechError) {
-            LogUtils.d(TAG, "RecognizerListener.onError >>> errorCode:${error.errorCode}, errorDescription:${error.errorDescription}")
+            logD(TAG, "RecognizerListener.onError >>> errorCode:${error.errorCode}, errorDescription:${error.errorDescription}")
             onSpeechRecognizerCallback?.onError(error.errorCode, error.errorDescription)
         }
 
         // 检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
         override fun onEndOfSpeech() {
-            LogUtils.d(TAG, "RecognizerListener.onEndOfSpeech")
+            logD(TAG, "RecognizerListener.onEndOfSpeech")
             if (speechRecognizer == null) return
             if (isSpeaking) {
                 // 如果用户还是没有松手，则强行听写用户说话内容
@@ -181,22 +180,22 @@ object SpeechRecognitionManager {
         }
 
         override fun onResult(results: RecognizerResult, isLast: Boolean) {
-            LogUtils.d(TAG, "RecognizerListener.onResult >>> resultString:${results.resultString}, isLast:${isLast}")
+            logD(TAG, "RecognizerListener.onResult >>> resultString:${results.resultString}, isLast:${isLast}")
             onSpeechRecognizerCallback?.onResult(results.resultString, isLast)
         }
 
         override fun onVolumeChanged(volume: Int, data: ByteArray) {
-            LogUtils.d(TAG, "RecognizerListener.onVolumeChanged >>> 返回音频数据 volume:${volume}, data.size:${data.size}")
+            logD(TAG, "RecognizerListener.onVolumeChanged >>> 返回音频数据 volume:${volume}, data.size:${data.size}")
             onSpeechRecognizerCallback?.onVolumeChanged(volume, data)
         }
 
         // 以下代码用于获取与云端的会话 id，当业务出错时将会话 id 提供给技术支持人员，可用于查询会话日志，定位出错原因
         // 若使用本地能力，会话 id 为 null
         override fun onEvent(eventType: Int, arg1: Int, arg2: Int, obj: Bundle?) {
-            LogUtils.d(TAG, "RecognizerListener.onEvent >>> eventType:${eventType}, arg1:${arg1}, arg2:${arg2}")
+            logD(TAG, "RecognizerListener.onEvent >>> eventType:${eventType}, arg1:${arg1}, arg2:${arg2}")
             if (SpeechEvent.EVENT_SESSION_ID == eventType) {
                 val sid: String? = obj?.getString(SpeechEvent.KEY_EVENT_SESSION_ID)
-                LogUtils.d(TAG, "RecognizerListener.onEvent >>> session id:${sid}")
+                logD(TAG, "RecognizerListener.onEvent >>> session id:${sid}")
             }
             onSpeechRecognizerCallback?.onEvent(eventType, arg1, arg2, obj)
         }
@@ -207,12 +206,12 @@ object SpeechRecognitionManager {
      */
     private val textUnderstanderListener: TextUnderstanderListener = object : TextUnderstanderListener {
         override fun onResult(result: UnderstanderResult) {
-            LogUtils.d(TAG, "TextUnderstanderListener.onResult >>> resultString:${result.resultString}")
+            logD(TAG, "TextUnderstanderListener.onResult >>> resultString:${result.resultString}")
             onTextUnderstanderCallback?.onResult(result.resultString)
         }
 
         override fun onError(error: SpeechError) {
-            LogUtils.d(TAG, "TextUnderstanderListener.onError >>> errorCode:${error.errorCode}, errorDescription:${error.errorDescription}")
+            logD(TAG, "TextUnderstanderListener.onError >>> errorCode:${error.errorCode}, errorDescription:${error.errorDescription}")
 
             // 文本语义不能使用回调错误码 14002，请确认您下载 SDK 时是否勾选语义场景和私有语义的发布
             // 请到 aiui.xfyun.cn 配置语义，从 1115 前的 SDK 更新到 1116 以上版本 SDK 后，语义需要重新到 aiui.xfyun.cn 配置

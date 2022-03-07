@@ -17,8 +17,9 @@ import androidx.annotation.RequiresApi
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import com.githubyss.mobile.common.kit.processor.ThreadProcessor
 import com.githubyss.mobile.common.kit.processor.TimeProcessor
-import com.githubyss.mobile.common.kit.util.LogUtils
-import com.githubyss.mobile.common.kit.util.ScreenUtils
+import com.githubyss.mobile.common.kit.util.getScreenPointPx
+import com.githubyss.mobile.common.kit.util.logD
+import com.githubyss.mobile.common.kit.util.logE
 import java.lang.ref.WeakReference
 
 /**
@@ -79,7 +80,7 @@ class ScreenshotDetectManager private constructor() {
     private class MediaContentObserver constructor(private val screenshotDetectManagerWeakRef: WeakReference<ScreenshotDetectManager>, private val context: Context?, private val uri: Uri, handler: Handler?) : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            LogUtils.d(TAG, SystemClock.elapsedRealtime().toString())
+            logD(TAG, SystemClock.elapsedRealtime().toString())
             screenshotDetectManagerWeakRef.get()?.handleOnMediaContentChange(context, uri)
         }
     }
@@ -88,7 +89,7 @@ class ScreenshotDetectManager private constructor() {
     fun startDetect(application: Application, onScreenshotDetectListener: OnScreenshotDetectListener) {
         ThreadProcessor.assertMainThread()
 
-        actualScreenPoint = ScreenUtils.getScreenPointPx(application) ?: return
+        actualScreenPoint = getScreenPointPx(application) ?: return
         callbackPathList?.clear()
         this@ScreenshotDetectManager.onScreenshotDetectListener = onScreenshotDetectListener
         startDetectTime = System.currentTimeMillis()
@@ -111,7 +112,7 @@ class ScreenshotDetectManager private constructor() {
             internalObserver = null
         }
         catch (e: Exception) {
-            LogUtils.e(msg = e.toString())
+            logE(msg = e.toString())
         }
 
         try {
@@ -119,12 +120,12 @@ class ScreenshotDetectManager private constructor() {
             externalObserver = null
         }
         catch (e: Exception) {
-            LogUtils.e(msg = e.toString())
+            logE(msg = e.toString())
         }
     }
 
     private fun handleOnMediaContentChange(context: Context?, uri: Uri) {
-        LogUtils.d(TAG, SystemClock.elapsedRealtime().toString())
+        logD(TAG, SystemClock.elapsedRealtime().toString())
 
         try {
             val contentResolver = context?.contentResolver ?: return
@@ -133,12 +134,12 @@ class ScreenshotDetectManager private constructor() {
                 tableImageMediaCursor = contentResolver.query(uri, if (Build.VERSION.SDK_INT < VersionCode.JELLY_BEAN) TABLE_MEDIA_IMAGE_COLUMNS else TABLE_MEDIA_IMAGE_COLUMNS_AFTER_JELLY_BEAN, null, null, "${MediaStore.Images.ImageColumns.DATE_ADDED} desc limit 1")
             }
             catch (e: Exception) {
-                LogUtils.e(msg = e.toString())
+                logE(msg = e.toString())
             }
             tableImageMediaCursor ?: return
 
             if (tableImageMediaCursor.moveToFirst()) {
-                LogUtils.d(TAG, SystemClock.elapsedRealtime().toString())
+                logD(TAG, SystemClock.elapsedRealtime().toString())
 
                 val pathStr = tableImageMediaCursor.getString(tableImageMediaCursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA))
                 val dateTakenLong = tableImageMediaCursor.getLong(tableImageMediaCursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_TAKEN))
@@ -162,30 +163,30 @@ class ScreenshotDetectManager private constructor() {
                     heightInt = point.y
                 }
 
-                LogUtils.d(TAG, SystemClock.elapsedRealtime().toString())
+                logD(TAG, SystemClock.elapsedRealtime().toString())
                 checkMediaData(context, pathStr, dateTakenLong, widthInt, heightInt)
             }
             tableImageMediaCursor.close()
         }
         catch (e: SecurityException) {
-            LogUtils.e(TAG, e.toString())
+            logE(TAG, e.toString())
         }
     }
 
     private fun checkMediaData(context: Context?, path: String, dateTaken: Long, width: Int, height: Int): Boolean {
         return if (checkScreenshot(context, path, dateTaken, width, height)) {
             if (!checkCallbackPath(path)) {
-                LogUtils.d(TAG, "onScreenshotDetect time: ${SystemClock.elapsedRealtime()}")
+                logD(TAG, "onScreenshotDetect time: ${SystemClock.elapsedRealtime()}")
                 onScreenshotDetectListener?.onScreenshotDetect(path)
                 true
             }
             else {
-                LogUtils.d(TAG, "")
+                logD(TAG, "")
                 false
             }
         }
         else {
-            LogUtils.d(TAG, "Media data changed, but not screenshot: " + "{time:${SystemClock.elapsedRealtime()}}\t" + "{dateTaken:$dateTaken}\t" + "{path:$path}\t" + "{width:$width, height:$height}\t")
+            logD(TAG, "Media data changed, but not screenshot: " + "{time:${SystemClock.elapsedRealtime()}}\t" + "{dateTaken:$dateTaken}\t" + "{path:$path}\t" + "{width:$width, height:$height}\t")
             false
         }
     }
@@ -193,17 +194,17 @@ class ScreenshotDetectManager private constructor() {
     private fun checkScreenshot(context: Context?, path: String, dateTaken: Long, width: Int, height: Int): Boolean = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
 
     private fun checkDateTaken(dateTaken: Long): Boolean {
-        LogUtils.d(TAG, "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentTimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentTimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")
+        logD(TAG, "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentTimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentTimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")
         return (dateTaken > startDetectTime && (System.currentTimeMillis() - dateTaken) < TimeProcessor.secondToMillis(10))
     }
 
     private fun checkImageSize(width: Int, height: Int): Boolean {
-        LogUtils.d(TAG, "checkImageSize(): " + "{imageWidth:$width, imageHeight:$height}\t" + "{screenWidth:${actualScreenPoint?.x ?: -1}, screenHeight:${actualScreenPoint?.x ?: -1}}")
+        logD(TAG, "checkImageSize(): " + "{imageWidth:$width, imageHeight:$height}\t" + "{screenWidth:${actualScreenPoint?.x ?: -1}, screenHeight:${actualScreenPoint?.x ?: -1}}")
         return ((width <= actualScreenPoint?.x ?: -1 && height <= actualScreenPoint?.y ?: -1) || (height <= actualScreenPoint?.x ?: -1 && width <= actualScreenPoint?.y ?: -1))
     }
 
     private fun checkPathKeywords(path: String): Boolean {
-        LogUtils.d(TAG, "checkPathKeywords(): " + "{path:$path}")
+        logD(TAG, "checkPathKeywords(): " + "{path:$path}")
         return (!TextUtils.isEmpty(path) && PATH_KEYWORDS.any { path.toLowerCase().contains(it) })
     }
 

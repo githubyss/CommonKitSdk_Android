@@ -244,7 +244,7 @@ class AudioPlayManager private constructor() {
         when (focusChange) {
             /** 暂时失去 Audio Focus，并会很快再次获得。 */
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
-                // LogUtils.e(TAG, "AUDIOFOCUS_LOSS_TRANSIENT");
+                // e(TAG, "AUDIOFOCUS_LOSS_TRANSIENT");
                 if (pause()) {
                     isManualStop = false
                 }
@@ -253,7 +253,7 @@ class AudioPlayManager private constructor() {
             AudioManager.AUDIOFOCUS_GAIN -> {
                 /** 申请成功，处理相同  */
                 // AudioManager.AUDIOFOCUS_REQUEST_GRANTED:
-                // LogUtils.e(TAG, "AUDIOFOCUS_GAIN");
+                // e(TAG, "AUDIOFOCUS_GAIN");
                 // 手动暂停或停止的，不需要重启。
                 if (asynchronous && isManualStop && (audioState == AudioState.PAUSE || audioState == AudioState.STOP)) {
                     return
@@ -266,7 +266,7 @@ class AudioPlayManager private constructor() {
             }
             /** 失去了 Audio Focus，并将会持续很长的时间。 */
             AudioManager.AUDIOFOCUS_LOSS -> {
-                // LogUtils.e(TAG, "AUDIOFOCUS_LOSS");
+                // e(TAG, "AUDIOFOCUS_LOSS");
                 if (pause()) {
                     // 如果本来就在暂停状态，说明本身已经停止，所以还是手动停止的
                     isManualStop = false
@@ -274,7 +274,7 @@ class AudioPlayManager private constructor() {
             }
             /** 暂时失去 AudioFocus，但是可以继续播放，不过要在降低音量 */
             AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK -> {
-                // LogUtils.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+                // e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
                 if (audioManager != null) {
                     originalVol = audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC) ?: return
                     audioManager?.setStreamVolume(AudioManager.STREAM_MUSIC, originalVol / 2, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE)
@@ -282,16 +282,16 @@ class AudioPlayManager private constructor() {
             }
             /** 申请失败 */
             AudioManager.AUDIOFOCUS_REQUEST_FAILED -> {
-                // LogUtils.e(TAG, "AUDIOFOCUS_REQUEST_FAILED");
+                // e(TAG, "AUDIOFOCUS_REQUEST_FAILED");
                 // if (EPApp.mContext != null) {
-                //     ToastUtil.showMessage(EPApp.mContext, "其他应用正在占用音频资源");
+                //     ToastUtil.showToast(EPApp.mContext, "其他应用正在占用音频资源");
                 // }
             }
             /** 申请未获取到焦点，但是 setAcceptsDelayedFocusGain 为 true,所以没有返回申请失败，只是在等待，8.0特性 */
             AudioManager.AUDIOFOCUS_REQUEST_DELAYED -> {
-                // LogUtils.e(TAG, "AUDIOFOCUS_REQUEST_DELAYED");
+                // e(TAG, "AUDIOFOCUS_REQUEST_DELAYED");
                 // if (EPApp.mContext != null) {
-                //     ToastUtil.showMessage(EPApp.mContext, "其他应用正在占用音频资源，请稍等");
+                //     ToastUtil.showToast(EPApp.mContext, "其他应用正在占用音频资源，请稍等");
                 // }
             }
         }
@@ -324,7 +324,7 @@ class AudioPlayManager private constructor() {
                     }
                 }
                 
-                // LogUtils.e(TAG, "OnError what=" + what + " extra=" + extra);
+                // e(TAG, "OnError what=" + what + " extra=" + extra);
                 // 返回false会继续回调onCompletion，true不会。
                 true
             }
@@ -431,7 +431,7 @@ class AudioPlayManager private constructor() {
             mediaPlayer?.setDataSource(audioListModel?.audioList?.get(audioListModel?.currentIndex ?: return)?.url)
         }
         catch (e: Exception) {
-            // LogUtils.e(TAG, e.getStackTrace().toString() + "");
+            // e(TAG, e.getStackTrace().toString() + "");
             return
         }
         setAudioState(AudioState.START)

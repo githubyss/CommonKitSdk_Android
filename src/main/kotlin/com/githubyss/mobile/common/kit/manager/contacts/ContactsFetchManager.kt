@@ -6,8 +6,8 @@ import android.database.Cursor
 import android.os.AsyncTask
 import android.provider.ContactsContract
 import android.text.TextUtils
-import com.githubyss.mobile.common.kit.util.LogUtils
-import com.githubyss.mobile.common.kit.util.RegexUtils
+import com.githubyss.mobile.common.kit.util.isCellphone
+import com.githubyss.mobile.common.kit.util.logE
 import java.lang.ref.WeakReference
 
 /**
@@ -119,7 +119,7 @@ class ContactsFetchManager private constructor() {
                 tableRawContactsCursor = contentResolver.query(ContactsContract.RawContacts.CONTENT_URI /* content://com.android.contacts/raw_contacts */, TABLE_RAW_CONTACTS_COLUMNS_ARRAY, null, null, null)
             }
             catch (e: Exception) {
-                LogUtils.e(TAG, msg = e.toString())
+                logE(TAG, msg = e.toString())
             }
             tableRawContactsCursor ?: return
 
@@ -134,14 +134,14 @@ class ContactsFetchManager private constructor() {
                     tableDataCursor = contentResolver.query(ContactsContract.Data.CONTENT_URI /* content://com.android.contacts/data */, TABLE_DATA_COLUMNS_ARRAY, "${ContactsContract.Data.RAW_CONTACT_ID} =? AND ${ContactsContract.Data.MIMETYPE} =?", arrayOf(idStr, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE), null)
                 }
                 catch (e: Exception) {
-                    LogUtils.e(TAG, e.toString())
+                    logE(TAG, e.toString())
                 }
                 tableDataCursor ?: return
 
                 while (contactsFetchAsyncTask?.isCancelled == false && tableDataCursor.moveToNext()) {
                     val cellphoneStr = formatCellphone(tableDataCursor.getString(tableDataCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)))
 
-                    if (RegexUtils.isCellphone(cellphoneStr)) {
+                    if (isCellphone(cellphoneStr)) {
                         cellphoneList.add(cellphoneStr)
                         cellphoneSet.add(cellphoneStr)
                     }
@@ -154,7 +154,7 @@ class ContactsFetchManager private constructor() {
             tableRawContactsCursor.close()
         }
         catch (e: SecurityException) {
-            LogUtils.e(TAG, e.toString())
+            logE(TAG, e.toString())
         }
     }
 
