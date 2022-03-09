@@ -202,11 +202,11 @@ fun encryptMD5File(file: File?): ByteArray? {
         md.digest()
     }
     catch (e: NoSuchAlgorithmException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
     finally {
@@ -214,7 +214,7 @@ fun encryptMD5File(file: File?): ByteArray? {
             fis?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
 }
@@ -1004,7 +1004,7 @@ fun hashTemplate(data: ByteArray?, algorithm: String): ByteArray? {
         messageDigest.digest()
     }
     catch (e: NoSuchAlgorithmException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -1030,11 +1030,11 @@ private fun hmacTemplate(data: ByteArray?, key: ByteArray?, algorithm: String): 
         mac.doFinal(data)
     }
     catch (e: InvalidKeyException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
     catch (e: NoSuchAlgorithmException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -1076,7 +1076,7 @@ private fun symmetricTemplate(data: ByteArray?, key: ByteArray?, algorithm: Stri
         cipher.doFinal(data)
     }
     catch (e: Throwable) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -1135,22 +1135,22 @@ private fun rsaTemplate(data: ByteArray?, key: ByteArray?, isPublicKey: Boolean,
         }
     }
     catch (e: NoSuchAlgorithmException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: NoSuchPaddingException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: InvalidKeyException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: BadPaddingException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: IllegalBlockSizeException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: InvalidKeySpecException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     return null
 }

@@ -25,14 +25,14 @@ import androidx.annotation.StringDef;
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface PermissionType {
-    
-    final String CALENDAR   = Manifest.permission_group.CALENDAR;
-    final String CAMERA     = Manifest.permission_group.CAMERA;
-    final String CONTACTS   = Manifest.permission_group.CONTACTS;
-    final String LOCATION   = Manifest.permission_group.LOCATION;
+
+    final String CALENDAR = Manifest.permission_group.CALENDAR;
+    final String CAMERA = Manifest.permission_group.CAMERA;
+    final String CONTACTS = Manifest.permission_group.CONTACTS;
+    final String LOCATION = Manifest.permission_group.LOCATION;
     final String MICROPHONE = Manifest.permission_group.MICROPHONE;
-    final String PHONE      = Manifest.permission_group.PHONE;
-    final String SENSORS    = Manifest.permission_group.SENSORS;
-    final String SMS        = Manifest.permission_group.SMS;
-    final String STORAGE    = Manifest.permission_group.STORAGE;
+    final String PHONE = Manifest.permission_group.PHONE;
+    final String SENSORS = Manifest.permission_group.SENSORS;
+    final String SMS = Manifest.permission_group.SMS;
+    final String STORAGE = Manifest.permission_group.STORAGE;
 }

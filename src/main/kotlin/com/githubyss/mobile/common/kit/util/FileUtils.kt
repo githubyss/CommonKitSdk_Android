@@ -93,14 +93,14 @@ fun getFileCharsetSimple(file: File?): String {
         p = (`is`.read() shl 8) + `is`.read()
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     finally {
         try {
             `is`?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
     return when (p) {
@@ -154,14 +154,14 @@ fun getFileLines(file: File?): Int {
         }
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     finally {
         try {
             `is`?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
     return count
@@ -277,7 +277,7 @@ fun getFileLength(filePath: String?): Long {
             else -1
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
     return getFileLength(getFileByPath(filePath))
@@ -355,17 +355,17 @@ fun getFileMD5(file: File?): ByteArray? {
         return md.digest()
     }
     catch (e: NoSuchAlgorithmException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     finally {
         try {
             dis?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
     return null
@@ -608,7 +608,7 @@ fun createOrExistsFile(file: File?): Boolean {
         file.createNewFile()
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
 }
@@ -641,7 +641,7 @@ fun createFileByDeleteOldFile(file: File?): Boolean {
         file.createNewFile()
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
 }
@@ -870,7 +870,7 @@ fun copyOrMoveFile(srcFile: File?, destFile: File?, isMove: Boolean, listener: O
         writeFileFromInput(destFile, FileInputStream(srcFile)) && !(isMove && !deleteFile(srcFile))
     }
     catch (e: FileNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
 }

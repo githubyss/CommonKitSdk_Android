@@ -159,7 +159,7 @@ object ActivityUtils {
             packageManager.getActivityIcon(activityName)
         }
         catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
             null
         }
     }
@@ -208,7 +208,7 @@ object ActivityUtils {
             packageManager.getActivityLogo(activityName)
         }
         catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
             null
         }
     }

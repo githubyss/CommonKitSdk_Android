@@ -128,7 +128,7 @@ private fun getMacAddressByWifiInfo(context: Context? = ComkitApplicationConfig.
         }
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     return "02:00:00:00:00:00"
 }
@@ -150,7 +150,7 @@ private fun getMacAddressByNetworkInterface(): String {
         }
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     return "02:00:00:00:00:00"
 }
@@ -173,7 +173,7 @@ private fun getMacAddressByInetAddress(): String {
         }
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     return "02:00:00:00:00:00"
 }
@@ -196,7 +196,7 @@ private fun getInetAddress(): InetAddress? {
         }
     }
     catch (e: SocketException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     return null
 }

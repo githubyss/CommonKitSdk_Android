@@ -527,7 +527,7 @@ private fun invokePanels(methodName: String, context: Context? = ComkitApplicati
         expand.invoke(service)
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
 }
 

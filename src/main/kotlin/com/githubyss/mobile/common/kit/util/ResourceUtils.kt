@@ -48,7 +48,15 @@ fun getResources(context: Context? = ComkitApplicationConfig.getApp()): Resource
  * @return The integer.
  */
 fun getIntFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return getResources(context).getInteger(resId)
+    context ?: return 0
+
+    return try {
+        getResources(context).getInteger(resId)
+    }
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
+        0
+    }
 }
 
 /**
@@ -59,11 +67,15 @@ fun getIntFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp
  * @return The float.
  */
 fun getFloatFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        getResources(context).getFloat(resId)
+    context ?: return 0f
+
+    return try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) getResources(context).getFloat(resId)
+        else 0f
     }
-    else {
-        -1.0f
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
+        0f
     }
 }
 
@@ -75,7 +87,15 @@ fun getFloatFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getA
  * @return The boolean.
  */
 fun getBooleanFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
-    return getResources(context).getBoolean(resId)
+    context ?: return false
+
+    return try {
+        getResources(context).getBoolean(resId)
+    }
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
+        false
+    }
 }
 
 /**
@@ -86,15 +106,92 @@ fun getBooleanFromRes(resId: Int, context: Context? = ComkitApplicationConfig.ge
  * @param context   The context.
  * @return The string value associated with a particular resource ID.
  */
-fun getStringFromRes(resId: Int, vararg resFormat: Any? = emptyArray(), context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getStringFromRes(resId: Int, vararg resFormat: Any = emptyArray(), context: Context? = ComkitApplicationConfig.getApp()): String {
     context ?: return ""
 
     return try {
         if (resFormat.isEmpty()) getResources(context).getString(resId)
-        getResources(context).getString(resId, resFormat)
+        else getResources(context).getString(resId, resFormat)
     }
-    catch (ignore: Resources.NotFoundException) {
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
         ""
+    }
+}
+
+/**
+ * Get color.
+ *
+ * @param resId   The resource ID.
+ * @param context The context.
+ * @return The color.
+ */
+fun getColorFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+    context ?: return 0
+
+    return try {
+        ContextCompat.getColor(context, resId)
+    }
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
+        0
+    }
+}
+
+/**
+ * Get dimension.
+ *
+ * @param resId   The resource ID.
+ * @param context The context.
+ * @return The dimension.
+ */
+fun getDimensionFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
+    context ?: return 0f
+
+    return try {
+        getResources(context).getDimension(resId)
+    }
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
+        0f
+    }
+}
+
+/**
+ * Get dimension pixel size.
+ *
+ * @param resId   The resource ID.
+ * @param context The context.
+ * @return The dimension pixel size.
+ */
+fun getDimensionPixelSizeFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+    context ?: return 0
+
+    return try {
+        getResources(context).getDimensionPixelSize(resId)
+    }
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
+        0
+    }
+}
+
+/**
+ * Get drawable.
+ *
+ * @param resId   The resource ID.
+ * @param context The context.
+ * @return The drawable.
+ */
+fun getDrawableFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+    context ?: return null
+
+    return try {
+        ContextCompat.getDrawable(context, resId)
+    }
+    catch (e: Resources.NotFoundException) {
+        logE(TAG, t = e)
+        null
     }
 }
 
@@ -110,52 +207,6 @@ fun getStringFromAssets(assetsFilePath: String?, context: Context? = ComkitAppli
 }
 
 /**
- * Get color.
- *
- * @param resId   The resource ID.
- * @param context The context.
- * @return The color.
- */
-fun getColorFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    context ?: return -1
-    return ContextCompat.getColor(context, resId)
-}
-
-/**
- * Get dimension.
- *
- * @param resId   The resource ID.
- * @param context The context.
- * @return The dimension.
- */
-fun getDimensionFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
-    return getResources(context).getDimension(resId)
-}
-
-/**
- * Get dimension pixel size.
- *
- * @param resId   The resource ID.
- * @param context The context.
- * @return The dimension pixel size.
- */
-fun getDimensionPixelSizeFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return getResources(context).getDimensionPixelSize(resId)
-}
-
-/**
- * Get drawable.
- *
- * @param resId   The resource ID.
- * @param context The context.
- * @return The drawable.
- */
-fun getDrawableFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
-    context ?: return null
-    return ContextCompat.getDrawable(context, resId)
-}
-
-/**
  * Return the drawable identifier by name.
  *
  * @param name    The name of drawable.
@@ -163,7 +214,9 @@ fun getDrawableFromRes(resId: Int, context: Context? = ComkitApplicationConfig.g
  * @return the drawable identifier by name
  */
 fun getDrawableIdByName(name: String?, context: Context? = ComkitApplicationConfig.getApp()): Int {
+    name ?: return 0
     context ?: return 0
+
     return getResources(context).getIdentifier(name, "drawable", context.packageName)
 }
 
@@ -198,7 +251,7 @@ fun copyFileFromAssets(assetsFilePath: String?, destFilePath: String?, context: 
         }
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         res = false
     }
     return res
@@ -216,12 +269,11 @@ fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, cont
     context ?: return ""
     if (isSpace(assetsFilePath)) return ""
 
-    val `is`: InputStream
-    `is` = try {
+    val `is`: InputStream = try {
         context.assets.open(assetsFilePath)
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         return ""
     }
     val bytes = input2Bytes(`is`) ?: return ""
@@ -233,7 +285,7 @@ fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, cont
             String(bytes, charset(charsetName ?: return ""))
         }
         catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
             ""
         }
     }
@@ -254,7 +306,7 @@ fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, contex
         input2List(getResources(context).assets?.open(assetsFilePath) ?: return null, charsetName)
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -290,7 +342,7 @@ fun readRaw2String(@RawRes resId: Int, charsetName: String? = null, context: Con
             String(bytes, charset(charsetName ?: return ""))
         }
         catch (e: UnsupportedEncodingException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
             ""
         }
     }

@@ -23,9 +23,10 @@ import java.lang.annotation.Target;
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TimeUnit {
+
     final int MILLISECOND = 1;
-    final int SECOND      = 1000;
-    final int MINUTE      = 60000;
-    final int HOUR        = 3600000;
-    final int DAY         = 86400000;
+    final int SECOND = 1000;
+    final int MINUTE = 60000;
+    final int HOUR = 3600000;
+    final int DAY = 86400000;
 }

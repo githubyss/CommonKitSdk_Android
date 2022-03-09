@@ -156,26 +156,26 @@ fun execCmd(commands: Array<String?>?, isRooted: Boolean, isNeedResultMsg: Boole
         }
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     finally {
         try {
             os?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         try {
             successResult?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         try {
             errorResult?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         process?.destroy()
     }

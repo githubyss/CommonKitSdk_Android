@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.githubyss.mobile.common.kit.constant.Constants
 import com.githubyss.mobile.common.kit.util.logD
+import com.githubyss.mobile.common.kit.util.logE
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.collections.HashMap
@@ -424,10 +425,10 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
             }
         }
         catch (e: NoSuchFieldException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         catch (e: IllegalAccessException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
     
@@ -472,19 +473,19 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
             }
         }
         catch (e: ClassNotFoundException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         catch (e: IllegalAccessException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         catch (e: InvocationTargetException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         catch (e: NoSuchMethodException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         catch (e: NoSuchFieldException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         return null
     }

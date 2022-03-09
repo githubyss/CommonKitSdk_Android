@@ -43,7 +43,7 @@ fun input2BytesOutput(`is`: InputStream?): ByteArrayOutputStream? {
         baos
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
     finally {
@@ -51,7 +51,7 @@ fun input2BytesOutput(`is`: InputStream?): ByteArrayOutputStream? {
             `is`.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
 }
@@ -122,7 +122,7 @@ fun bytes2Output(bytes: ByteArray?): OutputStream? {
         baos
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
     finally {
@@ -130,7 +130,7 @@ fun bytes2Output(bytes: ByteArray?): OutputStream? {
             baos?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
 }
@@ -161,7 +161,7 @@ fun input2List(`is`: InputStream?, charsetName: String?): List<String>? {
         list
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
     finally {
@@ -169,7 +169,7 @@ fun input2List(`is`: InputStream?, charsetName: String?): List<String>? {
             reader?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
 }
@@ -189,7 +189,7 @@ fun input2String(`is`: InputStream?, charsetName: String?): String {
         baos.toString(charsetName ?: return "")
     }
     catch (e: UnsupportedEncodingException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         ""
     }
 }
@@ -211,7 +211,7 @@ fun string2Input(string: String?, charsetName: String?): InputStream? {
         ByteArrayInputStream(string.toByteArray(charset(charsetName)))
     }
     catch (e: UnsupportedEncodingException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -232,7 +232,7 @@ fun output2String(os: OutputStream?, charsetName: String?): String {
         String(output2Bytes(os) ?: ByteArray(0), charset(charsetName))
     }
     catch (e: UnsupportedEncodingException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         ""
     }
 }
@@ -254,7 +254,7 @@ fun string2Output(string: String?, charsetName: String?): OutputStream? {
         bytes2Output(string.toByteArray(charset(charsetName)))
     }
     catch (e: UnsupportedEncodingException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -281,7 +281,7 @@ fun writeFileFromInput(file: File?, `is`: InputStream?, append: Boolean = false)
         true
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
     finally {
@@ -289,13 +289,13 @@ fun writeFileFromInput(file: File?, `is`: InputStream?, append: Boolean = false)
             `is`.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         try {
             os?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
 }

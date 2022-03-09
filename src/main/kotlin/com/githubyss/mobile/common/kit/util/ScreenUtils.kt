@@ -155,7 +155,7 @@ fun getSleepDuration(context: Context? = ComkitApplicationConfig.getApp()): Int 
         Settings.System.getInt(context?.contentResolver, Settings.System.SCREEN_OFF_TIMEOUT)
     }
     catch (e: SettingNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         -1
     }
 }

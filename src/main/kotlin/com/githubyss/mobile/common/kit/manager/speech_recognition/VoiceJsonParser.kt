@@ -1,16 +1,16 @@
 package com.githubyss.mobile.common.kit.manager.speech_recognition
 
-import java.lang.StringBuffer
-import org.json.JSONTokener
+import com.githubyss.mobile.common.kit.util.logE
 import org.json.JSONObject
-import org.json.JSONArray
-import java.lang.Exception
+import org.json.JSONTokener
 
 
 /**
  * Json结果解析类
  */
 object VoiceJsonParser {
+    private val TAG: String = VoiceJsonParser::class.java.simpleName
+
     const val errorTip = "请确认是否有在 aiui.xfyun.cn 配置语义。（另外，已开通语义，但从1115（含1115）以前的SDK更新到1116以上版本SDK后，语义需要重新到 aiui.xfyun.cn 配置）"
     fun parseIatResult(json: String?): String {
         val ret = StringBuffer()
@@ -32,7 +32,7 @@ object VoiceJsonParser {
             }
         }
         catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         return ret.toString()
     }
@@ -58,7 +58,7 @@ object VoiceJsonParser {
             }
         }
         catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, t = e)
             ret.append("没有匹配结果.")
         }
         return ret.toString()
@@ -85,7 +85,7 @@ object VoiceJsonParser {
             ret.append("【置信度】" + joResult.optInt("sc"))
         }
         catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, t = e)
             ret.append("没有匹配结果.")
         }
         return ret.toString()
@@ -109,7 +109,7 @@ object VoiceJsonParser {
 			}*/
         }
         catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
         return ret.toString()
     }
@@ -122,7 +122,7 @@ object VoiceJsonParser {
             error = joResult.optInt(KEY_ERROR)
         }
         catch (e: Throwable) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         } //end of try-catch
         return error
     }
@@ -135,7 +135,7 @@ object VoiceJsonParser {
             vendor = joResult.optString(KEY_VENDOR)
         }
         catch (e: Throwable) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         } //end of try-catch
         return vendor
     }
@@ -160,7 +160,7 @@ object VoiceJsonParser {
             }
         }
         catch (e: Throwable) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         } //end of try-catch
         return action
     }
@@ -177,7 +177,7 @@ object VoiceJsonParser {
             }
         }
         catch (e: Throwable) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         } //end of try-catch
         return answerStr
     }

@@ -57,16 +57,16 @@ fun getApplicationByReflect(): Application {
         return app as Application
     }
     catch (e: NoSuchMethodException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: IllegalAccessException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: InvocationTargetException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     catch (e: ClassNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     throw NullPointerException("u should init first")
 }
@@ -89,7 +89,7 @@ fun getAppIcon(packageName: String? = getAppPackageName(), context: Context? = C
         packageInfo.applicationInfo?.loadIcon(packageManager)
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -123,7 +123,7 @@ fun getAppName(packageName: String? = getAppPackageName(), context: Context? = C
             ?.toString() ?: ""
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         ""
     }
 }
@@ -146,7 +146,7 @@ fun getAppPath(packageName: String? = getAppPackageName(), context: Context? = C
         packageInfo.applicationInfo?.sourceDir ?: ""
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         ""
     }
 }
@@ -169,7 +169,7 @@ fun getAppVersionName(packageName: String? = getAppPackageName(), context: Conte
         packageInfo.versionName ?: ""
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         ""
     }
 }
@@ -192,7 +192,7 @@ fun getAppVersionCode(packageName: String? = getAppPackageName(), context: Conte
         packageInfo.versionCode
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         -1
     }
 }
@@ -217,7 +217,7 @@ fun getAppSignature(packageName: String? = getAppPackageName(), context: Context
         packageInfo.signatures
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -280,7 +280,7 @@ fun getAppUid(packageName: String? = getAppPackageName(), context: Context? = Co
         applicationInfo.uid
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         -1
     }
 }
@@ -310,7 +310,7 @@ fun getAppInfo(packageName: String? = getAppPackageName(), context: Context? = C
         getBean(packageManager, packageManager.getPackageInfo(packageName, 0))
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
 }
@@ -443,7 +443,7 @@ fun getForegroundProcessName(application: Application? = ComkitApplicationConfig
             return recentStats?.packageName ?: ""
         }
         catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
 
@@ -471,7 +471,7 @@ fun getCurrentProcessNameByFile(): String {
         processName
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         ""
     }
 }
@@ -512,7 +512,7 @@ fun getCurrentProcessNameByReflect(application: Application? = ComkitApplication
         processName = getProcessName.invoke(activityThread) as String
     }
     catch (e: Exception) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     return processName
 }
@@ -536,7 +536,7 @@ fun isAppInstalled(packageName: String?, context: Context? = ComkitApplicationCo
         packageManager?.getApplicationInfo(packageName, 0) != null
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
 }
@@ -573,7 +573,7 @@ fun isAppDebug(packageName: String? = getAppPackageName(), context: Context? = C
         applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
 }
@@ -596,7 +596,7 @@ fun isAppSystem(packageName: String? = getAppPackageName(), context: Context? = 
         applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
 }
@@ -635,7 +635,7 @@ fun isAppRunning(packageName: String?, context: Context? = ComkitApplicationConf
         applicationInfo.uid
     }
     catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         return false
     }
 

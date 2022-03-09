@@ -23,9 +23,9 @@ import androidx.annotation.IntDef;
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface MemoryUnit {
-    
+
     final int BYTE = 1;
-    final int KB   = 1024;
-    final int MB   = 1048576;
-    final int GB   = 1073741824;
+    final int KB = 1024;
+    final int MB = 1048576;
+    final int GB = 1073741824;
 }

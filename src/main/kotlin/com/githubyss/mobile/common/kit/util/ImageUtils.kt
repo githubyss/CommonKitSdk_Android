@@ -264,14 +264,14 @@ fun getImageType(file: File?): String {
         }
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     finally {
         try {
             `is`?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
     return getFileExtension(file.absolutePath).toUpperCase()
@@ -285,7 +285,7 @@ fun getImageType(`is`: InputStream?): String {
         if (`is`.read(bytes, 0, 8) != -1) getImageType(bytes) else ""
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         ""
     }
 }
@@ -675,7 +675,7 @@ fun getRotateDegree(filePath: String?): Int {
         }
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         -1
     }
 }
@@ -1290,14 +1290,14 @@ fun save(src: Bitmap?, file: File?, format: CompressFormat?, recycle: Boolean = 
         if (recycle && !src.isRecycled) src.recycle()
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
     }
     finally {
         try {
             os?.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
     return ret
@@ -1498,7 +1498,7 @@ private fun input2Byte(`is`: InputStream?): ByteArray? {
         os.toByteArray()
     }
     catch (e: IOException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         null
     }
     finally {
@@ -1506,7 +1506,7 @@ private fun input2Byte(`is`: InputStream?): ByteArray? {
             `is`.close()
         }
         catch (e: IOException) {
-            e.printStackTrace()
+            logE(TAG, t = e)
         }
     }
 }

@@ -37,7 +37,7 @@ fun getBrightness(context: Context? = ComkitApplicationConfig.getApp()): Int {
         Settings.System.getInt(context.contentResolver, Settings.System.SCREEN_BRIGHTNESS)
     }
     catch (e: SettingNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         -1
     }
 }
@@ -69,7 +69,7 @@ fun isAutoBrightnessEnabled(context: Context? = ComkitApplicationConfig.getApp()
         mode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC
     }
     catch (e: SettingNotFoundException) {
-        e.printStackTrace()
+        logE(TAG, t = e)
         false
     }
 }
