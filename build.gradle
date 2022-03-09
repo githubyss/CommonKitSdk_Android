@@ -17,13 +17,13 @@ if (isLaunchApp) {
 
 android {
     buildToolsVersion build_tools_version
-    compileSdk compile_sdk_version.toInteger()
+    compileSdkVersion compile_sdk_version.toInteger()
 
     resourcePrefix 'comkit_'
 
     defaultConfig {
-        minSdk min_sdk_version.toInteger()
-        targetSdk target_sdk_version.toInteger()
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
 
         versionCode 1
         versionName "1.0"

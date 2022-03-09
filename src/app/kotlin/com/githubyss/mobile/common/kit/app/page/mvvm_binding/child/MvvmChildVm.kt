@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm.child
+package com.githubyss.mobile.common.kit.app.page.mvvm_binding.child
 
 import androidx.lifecycle.ViewModel
 

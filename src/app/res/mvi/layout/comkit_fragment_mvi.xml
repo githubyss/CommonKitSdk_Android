@@ -6,11 +6,11 @@
 
     <data>
 
-        <import type="com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData" />
+        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData" />
 
         <variable
             name="mvvmVm"
-            type="com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData"
+            type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData"
             />
     </data>
 

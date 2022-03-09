@@ -47,7 +47,7 @@ abstract class BaseInlineBindingToolbarActivity : BaseActivity(0) {
 
     /** Setup Toolbar text by ResId. */
     protected fun setToolbarTitle(titleResId: Int) {
-        // toolbarBase.text = getString(this@BaseInlineBindingToolbarActivity, titleResId)
+        // toolbarBase.text = getStringFromRes(this@BaseInlineBindingToolbarActivity, titleResId)
         if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
     }
 
@@ -58,7 +58,7 @@ abstract class BaseInlineBindingToolbarActivity : BaseActivity(0) {
 
     /** Setup Toolbar navigation icon by ResId. */
     protected fun setToolbarNavigationIcon(iconResId: Int) {
-        // toolbarBase.navigationIcon = getDrawable(this@BaseInlineBindingToolbarActivity, iconResId)
+        // toolbarBase.navigationIcon = getDrawableFromRes(this@BaseInlineBindingToolbarActivity, iconResId)
         if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationIcon(iconResId)
     }
 

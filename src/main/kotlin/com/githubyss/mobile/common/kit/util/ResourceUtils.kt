@@ -47,7 +47,7 @@ fun getResources(context: Context? = ComkitApplicationConfig.getApp()): Resource
  * @param context The context.
  * @return The integer.
  */
-fun getInt(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getIntFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
     return getResources(context).getInteger(resId)
 }
 
@@ -58,7 +58,7 @@ fun getInt(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): In
  * @param context The context.
  * @return The float.
  */
-fun getFloat(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
+fun getFloatFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         getResources(context).getFloat(resId)
     }
@@ -74,7 +74,7 @@ fun getFloat(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): 
  * @param context The context.
  * @return The boolean.
  */
-fun getBoolean(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun getBooleanFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
     return getResources(context).getBoolean(resId)
 }
 
@@ -86,7 +86,7 @@ fun getBoolean(resId: Int, context: Context? = ComkitApplicationConfig.getApp())
  * @param context   The context.
  * @return The string value associated with a particular resource ID.
  */
-fun getString(resId: Int, vararg resFormat: Any? = emptyArray(), context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getStringFromRes(resId: Int, vararg resFormat: Any? = emptyArray(), context: Context? = ComkitApplicationConfig.getApp()): String {
     context ?: return ""
 
     return try {
@@ -116,7 +116,7 @@ fun getStringFromAssets(assetsFilePath: String?, context: Context? = ComkitAppli
  * @param context The context.
  * @return The color.
  */
-fun getColor(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getColorFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
     context ?: return -1
     return ContextCompat.getColor(context, resId)
 }
@@ -128,7 +128,7 @@ fun getColor(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): 
  * @param context The context.
  * @return The dimension.
  */
-fun getDimension(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
+fun getDimensionFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
     return getResources(context).getDimension(resId)
 }
 
@@ -139,7 +139,7 @@ fun getDimension(resId: Int, context: Context? = ComkitApplicationConfig.getApp(
  * @param context The context.
  * @return The dimension pixel size.
  */
-fun getDimensionPixelSize(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getDimensionPixelSizeFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
     return getResources(context).getDimensionPixelSize(resId)
 }
 
@@ -150,7 +150,7 @@ fun getDimensionPixelSize(resId: Int, context: Context? = ComkitApplicationConfi
  * @param context The context.
  * @return The drawable.
  */
-fun getDrawable(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+fun getDrawableFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
     context ?: return null
     return ContextCompat.getDrawable(context, resId)
 }
@@ -211,7 +211,7 @@ fun copyFileFromAssets(assetsFilePath: String?, destFilePath: String?, context: 
  * @param charsetName    The name of charset.
  * @return the content of assets
  */
-private fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
+fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
     assetsFilePath ?: return ""
     context ?: return ""
     if (isSpace(assetsFilePath)) return ""
@@ -246,7 +246,7 @@ private fun readAssets2String(assetsFilePath: String?, charsetName: String? = nu
  * @param charsetName The name of charset.
  * @return the content of file in assets
  */
-private fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String>? {
+fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String>? {
     assetsFilePath ?: return null
     if (isSpace(assetsFilePath)) return null
 

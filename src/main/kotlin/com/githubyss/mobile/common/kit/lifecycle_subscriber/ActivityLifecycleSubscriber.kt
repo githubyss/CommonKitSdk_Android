@@ -208,7 +208,7 @@ open class ActivityLifecycleSubscriber private constructor() : Application.Activ
                 
                 // 切换到后台，提示用户
                 // if (activity != null) {
-                //     ToastUtil.showToast(ResUtil.getString(EPApp.getApp(), R.string.lifecycle_in_background))
+                //     ToastUtil.showToast(getStringFromRes(EPApp.getApp(), R.string.lifecycle_in_background))
                 // }
                 
                 // 非启动页，切换到后台，记录离开时间

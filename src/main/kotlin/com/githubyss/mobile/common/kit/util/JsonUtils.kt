@@ -36,7 +36,7 @@ private const val TAG: String = "JsonUtils"
  * @param name The key of value to parse.
  * @return String value of name.
  */
-fun getString(json: JSONObject?, name: String?): String {
+fun getStringFromJSONObject(json: JSONObject?, name: String?): String {
     return when {
         json == null -> ""
         isSpace(name) -> ""
@@ -52,7 +52,7 @@ fun getString(json: JSONObject?, name: String?): String {
  * @param name The key of value to parse.
  * @return Boolean value of name.
  */
-fun getBoolean(json: JSONObject?, name: String?): Boolean {
+fun getBooleanFromJSONObject(json: JSONObject?, name: String?): Boolean {
     return when {
         json == null -> false
         isSpace(name) -> false
@@ -68,7 +68,7 @@ fun getBoolean(json: JSONObject?, name: String?): Boolean {
  * @param name The key of value to parse.
  * @return Int value of name.
  */
-fun getInt(json: JSONObject?, name: String?): Int {
+fun getIntFromJSONObject(json: JSONObject?, name: String?): Int {
     return when {
         json == null -> -1
         isSpace(name) -> -1
@@ -84,7 +84,7 @@ fun getInt(json: JSONObject?, name: String?): Int {
  * @param name The key of value to parse.
  * @return Long value of name.
  */
-fun getLong(json: JSONObject?, name: String?): Long {
+fun getLongFromJSONObject(json: JSONObject?, name: String?): Long {
     return when {
         json == null -> -1
         isSpace(name) -> -1
@@ -100,7 +100,7 @@ fun getLong(json: JSONObject?, name: String?): Long {
  * @param name The key of value to parse.
  * @return Double value of name.
  */
-fun getDouble(json: JSONObject?, name: String?): Double {
+fun getDoubleFromJSONObject(json: JSONObject?, name: String?): Double {
     return when {
         json == null -> -1.0
         isSpace(name) -> -1.0
@@ -116,7 +116,7 @@ fun getDouble(json: JSONObject?, name: String?): Double {
  * @param name The key of value to parse.
  * @return JSONObject value of name.
  */
-fun getJSONObject(json: JSONObject?, name: String?): JSONObject? {
+fun getJSONObjectFromJSONObject(json: JSONObject?, name: String?): JSONObject? {
     return when {
         json == null -> null
         isSpace(name) -> null
@@ -132,7 +132,7 @@ fun getJSONObject(json: JSONObject?, name: String?): JSONObject? {
  * @param idx The index of value to parse.
  * @return JSONObject value of idx.
  */
-fun getJSONObject(json: JSONArray?, idx: Int?): JSONObject? {
+fun getJSONObjectFromJSONArray(json: JSONArray?, idx: Int?): JSONObject? {
     return when {
         json == null -> null
         idx == null -> null
@@ -148,7 +148,7 @@ fun getJSONObject(json: JSONArray?, idx: Int?): JSONObject? {
  * @param name The key of value to parse.
  * @return JSONArray value of name.
  */
-fun getJSONArray(json: JSONObject?, name: String?): JSONArray? {
+fun getJSONArrayFromJSONObject(json: JSONObject?, name: String?): JSONArray? {
     return when {
         json == null -> null
         isSpace(name) -> null
@@ -164,7 +164,7 @@ fun getJSONArray(json: JSONObject?, name: String?): JSONArray? {
  * @param idx The index of value to parse.
  * @return JSONArray value of idx.
  */
-fun getJSONArray(json: JSONArray?, idx: Int?): JSONArray? {
+fun getJSONArrayFromJSONArray(json: JSONArray?, idx: Int?): JSONArray? {
     return when {
         json == null -> null
         idx == null -> null
@@ -257,7 +257,7 @@ fun isJsonString(jsonString: String?): Boolean {
  * @param any Custom Object.
  * @return Json string.
  */
-fun anyToJsonString(any: Any?): String {
+fun any2JsonString(any: Any?): String {
     return Gson().toJson(any) ?: ""
 }
 
@@ -266,7 +266,7 @@ fun anyToJsonString(any: Any?): String {
  *
  * @param any Custom Object.
  */
-fun anyToConsole(any: Any?) {
+fun any2Console(any: Any?) {
     Gson().toJson(any, System.out)
 }
 
@@ -277,15 +277,19 @@ fun anyToConsole(any: Any?) {
  * @param cls Class type to parse the JsonString.
  * @return Object of Class T.
  */
-fun <T> jsonStringToAny(jsonString: String?, cls: Class<T>?): T? {
+fun <T> jsonString2Any(jsonString: String?, cls: Class<T>?): T? {
     return Gson().fromJson(jsonString, cls)
 }
 
-fun <T> jsonStringToMap(jsonString: String?): Map<String?, T>? {
+inline fun <reified T> jsonString2Any(jsonString: String?): T? {
+    return jsonString2Any(jsonString, T::class.java)
+}
+
+fun <T> jsonString2Map(jsonString: String?): Map<String?, T>? {
     return Gson().fromJson(jsonString, object : TypeToken<Map<String?, T>?>() {}.type)
 }
 
-fun <T> jsonStringToList(jsonString: String?, cls: Class<T>?): List<T?> {
+fun <T> jsonString2List(jsonString: String?, cls: Class<T>?): List<T?> {
     val list: MutableList<T?> = ArrayList()
     val jsonArray: JsonArray = JsonParser().parse(jsonString).asJsonArray
     for (jsonElement in jsonArray) {
@@ -294,7 +298,11 @@ fun <T> jsonStringToList(jsonString: String?, cls: Class<T>?): List<T?> {
     return list
 }
 
-fun jsonStringToJSONObject(jsonString: String?): JSONObject? {
+inline fun <reified T> jsonString2List(jsonString: String?): List<T?> {
+    return jsonString2List(jsonString, T::class.java)
+}
+
+fun jsonString2JSONObject(jsonString: String?): JSONObject? {
     return when {
         jsonString == null -> null
         isJsonString(jsonString) -> JSONObject(jsonString)

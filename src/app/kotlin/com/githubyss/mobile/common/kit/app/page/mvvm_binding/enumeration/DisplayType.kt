@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm.enumeration
+package com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration
 
 
 /**

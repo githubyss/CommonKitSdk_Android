@@ -1,26 +1,27 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data
+package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field
 
 import android.view.View
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.page.mvvm.child.MvvmChildVm
-import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
-import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.TimeOperateState
-import com.githubyss.mobile.common.kit.app.page.mvvm.model.MvvmModel
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.child.MvvmChildVm
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.DisplayType
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.TimeOperateState
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.model.MvvmModel
 import com.githubyss.mobile.common.kit.util.cancelTimer
 import com.githubyss.mobile.common.kit.util.runTaskPeriodicallyWithTimeOffset
 import java.util.*
 
 
 /**
- * MvvmVmLiveData
+ * MvvmViewModelObservableField
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2021/06/11 11:12:44
+ * @createdTime 2021/06/10 11:40:41
  */
-class MvvmVmLiveData : ViewModel() {
+class MvvmViewModelObservableField : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
@@ -32,13 +33,14 @@ class MvvmVmLiveData : ViewModel() {
     private var imageBean: MvvmModel.ImageBean? = null
 
     /** 数据绑定，绑定到 UI 的字段（data field） */
-    var text: MutableLiveData<String>? = null
-    var imageUrl: MutableLiveData<String>? = null
-    var isTimeShow: MutableLiveData<Boolean>? = null
+    var text: ObservableField<String>? = null
+    var imageUrl: ObservableField<String>? = null
+    var isTimeShow: ObservableField<Boolean>? = null
+    // var isTimeShow: ObservableBoolean? = null
 
-    var displayType: MutableLiveData<DisplayType>? = null
+    var displayType: ObservableField<DisplayType>? = null
 
-    var timeOperateState: MutableLiveData<TimeOperateState>? = null
+    var timeOperateState: ObservableField<TimeOperateState>? = null
 
     // var viewStyle = ViewStyle()
 
@@ -46,7 +48,7 @@ class MvvmVmLiveData : ViewModel() {
     // val onButtonShowCommand=ReplyCom
 
     /** 子 ViewModel */
-    var itemViewModel: MutableLiveData<MvvmChildVm>? = null
+    var itemViewModel: ObservableArrayList<MvvmChildVm>? = null
 
 
     /** ****************************** Constructors ****************************** */
@@ -70,22 +72,23 @@ class MvvmVmLiveData : ViewModel() {
     /** ******************** Data Handling ******************** */
 
     private fun initViewModelField() {
-        this.text = MutableLiveData()
-        this.imageUrl = MutableLiveData()
-        this.isTimeShow = MutableLiveData()
-        this.displayType = MutableLiveData()
-        this.timeOperateState = MutableLiveData()
+        this.text = ObservableField()
+        this.imageUrl = ObservableField()
+        this.isTimeShow = ObservableField()
+        // this.isTimeShow = ObservableBoolean()
+        this.displayType = ObservableField()
+        this.timeOperateState = ObservableField()
     }
 
     private fun loadData() {
         this.textBean = MvvmModel.TextBean("请点击开始！")
         this.imageBean = MvvmModel.ImageBean("https://n.sinaimg.cn/tech/transform/403/w179h224/20210207/befe-kirmaiu6765911.gif")
 
-        this.text?.value = textBean?.text
-        this.imageUrl?.value = imageBean?.imageUrl
-        this.isTimeShow?.value = true
-        this.displayType?.value = DisplayType.TEXT
-        this.timeOperateState?.value = TimeOperateState.START
+        this.text?.set(textBean?.text)
+        this.imageUrl?.set(imageBean?.imageUrl)
+        this.isTimeShow?.set(true)
+        this.displayType?.set(DisplayType.TEXT)
+        this.timeOperateState?.set(TimeOperateState.START)
     }
 
     private fun clearData() {
@@ -96,53 +99,53 @@ class MvvmVmLiveData : ViewModel() {
     /** ******************** Event Handling ******************** */
 
     fun onButtonOperateTimeClick() {
-        when (this.timeOperateState?.value) {
+        when (this.timeOperateState?.get()) {
             TimeOperateState.START -> {
-                this.timeOperateState?.value = TimeOperateState.STOP
+                this.timeOperateState?.set(TimeOperateState.STOP)
                 val timerTask = object : TimerTask() {
                     override fun run() {
-                        this@MvvmVmLiveData.text?.postValue("当前时间: ${System.currentTimeMillis()}")
+                        this@MvvmViewModelObservableField.text?.set("当前时间: ${System.currentTimeMillis()}")
                     }
                 }
                 runTaskPeriodicallyWithTimeOffset(timerTask, 0, 500)
             }
             TimeOperateState.STOP -> {
-                this.timeOperateState?.value = TimeOperateState.START
+                this.timeOperateState?.set(TimeOperateState.START)
                 cancelTimer()
             }
         }
     }
 
     fun onButtonShowTimeTextClick() {
-        this.isTimeShow?.value = true
+        this.isTimeShow?.set(true)
     }
 
     fun onButtonHideTimeTextClick() {
-        this.isTimeShow?.value = false
+        this.isTimeShow?.set(false)
     }
 
     fun onButtonImageClick(view: View) {
         when (view.id) {
             R.id.button_image_dog -> {
-                this.imageUrl?.value = "https://n.sinaimg.cn/tech/transform/403/w179h224/20210207/befe-kirmaiu6765911.gif"
+                this.imageUrl?.set("https://n.sinaimg.cn/tech/transform/403/w179h224/20210207/befe-kirmaiu6765911.gif")
             }
 
             R.id.button_image_cat -> {
-                this.imageUrl?.value = "https://n.sinaimg.cn/tech/transform/356/w222h134/20210224/4f29-kkmphps7924390.gif"
+                this.imageUrl?.set("https://n.sinaimg.cn/tech/transform/356/w222h134/20210224/4f29-kkmphps7924390.gif")
             }
 
             R.id.button_image_chameleon -> {
-                this.imageUrl?.value = "https://n.sinaimg.cn/tech/transform/398/w212h186/20210309/512c-kmeeius1127364.gif"
+                this.imageUrl?.set("https://n.sinaimg.cn/tech/transform/398/w212h186/20210309/512c-kmeeius1127364.gif")
             }
         }
     }
 
     fun onButtonSwitchTextClick() {
-        this.displayType?.value = DisplayType.TEXT
+        this.displayType?.set(DisplayType.TEXT)
     }
 
     fun onButtonSwitchImageClick() {
-        this.displayType?.value = DisplayType.IMAGE
+        this.displayType?.set(DisplayType.IMAGE)
     }
 
 

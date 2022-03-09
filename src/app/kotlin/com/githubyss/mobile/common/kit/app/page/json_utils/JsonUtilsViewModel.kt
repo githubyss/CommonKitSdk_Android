@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.githubyss.mobile.common.kit.app.page.json_utils.model.JsonUtilsModel
 import com.githubyss.mobile.common.kit.app.page.json_utils.model.RespDataJsonObjectAndArray
 import com.githubyss.mobile.common.kit.util.getJsonStringFromAssets
-import com.githubyss.mobile.common.kit.util.jsonStringToJSONObject
+import com.githubyss.mobile.common.kit.util.jsonString2JSONObject
 
 
 /**
@@ -68,7 +68,7 @@ class JsonUtilsViewModel : ViewModel() {
     }
 
     fun onButtonParseJsonClick() {
-        val response = RespDataJsonObjectAndArray(jsonStringToJSONObject(this.jsonText?.value))
+        val response = RespDataJsonObjectAndArray(jsonString2JSONObject(this.jsonText?.value))
         this.infos = response.data?.infos
         this.detail = response.data?.detail
 

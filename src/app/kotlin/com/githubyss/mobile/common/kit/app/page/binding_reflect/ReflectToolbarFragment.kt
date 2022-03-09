@@ -3,6 +3,7 @@ package com.githubyss.mobile.common.kit.app.page.binding_reflect
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentViewBindingReflectBinding
+import com.githubyss.mobile.common.kit.util.getStringFromRes
 
 
 /**
@@ -24,7 +25,7 @@ class ReflectToolbarFragment : BaseReflectBindingToolbarFragment<ComkitFragmentV
     /** ****************************** Override ****************************** */
     
     override fun setupUi() {
-        binding?.textBindingReflect?.text = getString(R.string.comkit_view_binding_reflect_toolbar)
+        binding?.textBindingReflect?.text = getStringFromRes(R.string.comkit_view_binding_reflect_toolbar)
     }
     
     override fun setToolbarTitle() {

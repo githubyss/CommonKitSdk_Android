@@ -1,13 +1,13 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm
+package com.githubyss.mobile.common.kit.app.page.mvvm_binding
 
 import android.view.View
 import androidx.databinding.Observable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.page.mvvm.enumeration.DisplayType
-import com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData
-import com.githubyss.mobile.common.kit.app.page.mvvm.view_model.observable_field.MvvmVmObservableField
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.DisplayType
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmViewModelObservableField
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMvvmBinding
 
@@ -27,11 +27,11 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
         val TAG: String = MvvmFragment::class.java.simpleName
     }
 
-    // private val mvvmVmLiveData: MvvmVmLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmVmLiveData::class.java) }
-    private val mvvmVmLiveData: MvvmVmLiveData by viewModels()
+    // private val mvvmVmLiveData: MvvmViewModelByLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmViewModelByLiveData::class.java) }
+    private val mvvmVmLiveData: MvvmViewModelByLiveData by viewModels()
 
-    // private val mvvmVmObservableField: MvvmVmObservableField by lazy { ViewModelProvider(requireActivity()).get(MvvmVmObservableField::class.java) }
-    private val mvvmVmObservableField: MvvmVmObservableField by viewModels()
+    // private val mvvmVmObservableField: MvvmViewModelObservableField by lazy { ViewModelProvider(requireActivity()).get(MvvmViewModelObservableField::class.java) }
+    private val mvvmVmObservableField: MvvmViewModelObservableField by viewModels()
 
 
     /** ****************************** Override ****************************** */

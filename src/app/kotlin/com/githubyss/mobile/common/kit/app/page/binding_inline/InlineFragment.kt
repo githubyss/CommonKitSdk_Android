@@ -4,6 +4,7 @@ import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingFragment
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.bindView
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentViewBindingInlineBinding
+import com.githubyss.mobile.common.kit.util.getStringFromRes
 
 
 /**
@@ -27,6 +28,6 @@ class InlineFragment : BaseInlineBindingFragment(R.layout.comkit_fragment_view_b
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        binding?.textBindingInline?.text = getString(R.string.comkit_view_binding_inline)
+        binding?.textBindingInline?.text = getStringFromRes(R.string.comkit_view_binding_inline)
     }
 }

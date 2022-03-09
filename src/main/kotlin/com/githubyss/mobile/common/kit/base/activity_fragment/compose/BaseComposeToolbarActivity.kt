@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
+import com.githubyss.mobile.common.kit.util.getStringFromRes
 
 
 /**
@@ -41,7 +42,7 @@ abstract class BaseComposeToolbarActivity : RootComposeActivity() {
     /** Setup Toolbar text by ResId. */
     @Composable
     protected fun Toolbar(titleResId: Int) {
-        ComposeToolbar(getString(titleResId))
+        ComposeToolbar(getStringFromRes(titleResId))
     }
 
     /** Setup Toolbar text by String. */

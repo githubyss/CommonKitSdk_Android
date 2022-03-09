@@ -111,7 +111,7 @@ fun getBitmap(fileDescriptor: FileDescriptor?): Bitmap? {
 fun getBitmap(@DrawableRes resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Bitmap? {
     context ?: return null
 
-    val drawable = ContextCompat.getDrawable(context, resId) ?: return null
+    val drawable = getDrawableFromRes(resId) ?: return null
     val canvas = Canvas()
     val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
     canvas.setBitmap(bitmap)

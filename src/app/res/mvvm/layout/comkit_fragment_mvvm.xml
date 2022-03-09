@@ -7,18 +7,18 @@
     >
 
     <data>
-        <import type="com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData" />
+        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData" />
 
         <variable
             name="mvvmVm"
-            type="com.githubyss.mobile.common.kit.app.page.mvvm.view_model.live_data.MvvmVmLiveData"
+            type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData"
             />
 
-        <!--<import type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmVmObservableField" />-->
+        <!--<import type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmViewModelObservableField" />-->
 
         <!--<variable-->
         <!--    name="mvvmVm"-->
-        <!--    type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmVmObservableField"-->
+        <!--    type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmViewModelObservableField"-->
         <!--    />-->
     </data>
 

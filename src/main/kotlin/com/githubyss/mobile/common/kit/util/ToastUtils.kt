@@ -31,8 +31,8 @@ private var toast: Toast? = null
  * @param centerable Is toast show in center.
  * @param context    The context to use. Usually your Application or Activity object.
  */
-fun showToast(msgId: Int, duration: Int = if (getString(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
-    showToast(getString(msgId), duration, centerable, context)
+fun showToast(msgId: Int, duration: Int = if (getStringFromRes(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+    showToast(getStringFromRes(msgId), duration, centerable, context)
 }
 
 /**
