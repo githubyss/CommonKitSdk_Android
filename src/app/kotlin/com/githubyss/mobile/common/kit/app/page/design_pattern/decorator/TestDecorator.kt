@@ -1,6 +1,6 @@
 package com.githubyss.mobile.common.kit.app.page.design_pattern.decorator
 
-import com.githubyss.mobile.common.kit.app.page.design_pattern.entity.person_finery.Person
+import com.githubyss.mobile.common.kit.app.page.design_pattern.entity.person.Person
 
 
 fun decorator() {

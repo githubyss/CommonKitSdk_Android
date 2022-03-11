@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.design_pattern.entity.person_finery
+package com.githubyss.mobile.common.kit.app.page.design_pattern.entity.finery
 
 
 class FineryLeatherShoes : AbsFinery() {
