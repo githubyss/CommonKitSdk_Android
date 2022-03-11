@@ -1,5 +1,6 @@
 package com.githubyss.mobile.common.kit.app.page.design_pattern
 
+import com.githubyss.mobile.common.kit.app.page.design_pattern.decorator.decorator
 import com.githubyss.mobile.common.kit.app.page.design_pattern.factory_abstract.factoryAbstract
 import com.githubyss.mobile.common.kit.app.page.design_pattern.factory_method.factoryMethod
 import com.githubyss.mobile.common.kit.app.page.design_pattern.factory_simple.factorySimple
@@ -48,4 +49,5 @@ fun main(args: Array<String>) {
     factoryMethod()
     factoryAbstract()
     strategy()
+    decorator()
 }
