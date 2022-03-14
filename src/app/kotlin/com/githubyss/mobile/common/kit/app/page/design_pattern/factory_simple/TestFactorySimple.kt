@@ -23,6 +23,7 @@ fun factorySimple() {
     shipWar.weighAnchor()
     shipWar.dropAnchor()
     (shipWar as ShipWar).launchMissile()
+    println()
 
     val carSport: ICar = FactoryCar.create(CarType.SPORT_CAR)
     val carJeep: ICar = FactoryCar.create(CarType.JEEP_CAR)
@@ -30,6 +31,7 @@ fun factorySimple() {
     carSport.selfNavigation()
     carJeep.drive()
     carJeep.selfNavigation()
+    println()
 
     val operatorEqu: IOperatorUnary = FactoryOperator.create(OperatorType.EQU) as IOperatorUnary
     val operatorAdd: IOperatorDyadic = FactoryOperator.create(OperatorType.ADD) as IOperatorDyadic
@@ -40,6 +42,7 @@ fun factorySimple() {
     println("$PRE_NUMBER ${operatorSub.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorSub.calculate(PRE_NUMBER, POST_NUMBER)}}")
     println("$PRE_NUMBER ${operatorMul.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorMul.calculate(PRE_NUMBER, POST_NUMBER)}}")
     println("$PRE_NUMBER ${operatorDiv.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorDiv.calculate(PRE_NUMBER, POST_NUMBER)}}")
+    println()
 
     val leifeng1: Leifeng = FactoryLeifeng.create(LeifengType.UNDERGRADUATE)
     val leifeng2: Leifeng = FactoryLeifeng.create(LeifengType.UNDERGRADUATE)
@@ -49,6 +52,7 @@ fun factorySimple() {
     leifeng2.wash()
     leifeng3.buyRice()
     leifeng4.buyRice()
+    println()
 
     val cashStrategyNormal: ICashStrategy = FactoryCash.create("正常收费")
     val cashStrategyRebate: ICashStrategy = FactoryCash.create("打8折")
@@ -56,6 +60,5 @@ fun factorySimple() {
     cashStrategyNormal.acceptCash(1000.0)
     cashStrategyRebate.acceptCash(1000.0)
     cashStrategyReturn.acceptCash(1000.0)
-
     println()
 }

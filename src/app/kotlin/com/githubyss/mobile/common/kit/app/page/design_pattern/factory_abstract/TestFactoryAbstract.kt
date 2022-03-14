@@ -26,6 +26,7 @@ fun factoryAbstract() {
     shipWar.weighAnchor()
     shipWar.dropAnchor()
     (shipWar as ShipWar).launchMissile()
+    println()
 
     val factoryCar: FactoryConcreteInline<ICar> = FactoryConcreteInline<ICar>()
     val carSport: ICar = factoryCar.create<CarSport>()
@@ -34,6 +35,7 @@ fun factoryAbstract() {
     carSport.selfNavigation()
     carJeep.drive()
     carJeep.selfNavigation()
+    println()
 
     val factoryOperatorUnary: FactoryConcreteInline<IOperatorUnary> = FactoryConcreteInline<IOperatorUnary>()
     val operatorEqu: IOperatorUnary = factoryOperatorUnary.create<OperatorEqu>()
@@ -46,6 +48,7 @@ fun factoryAbstract() {
     println("$PRE_NUMBER ${operatorSub.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorSub.calculate(PRE_NUMBER, POST_NUMBER)}}")
     println("$PRE_NUMBER ${operatorMul.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorMul.calculate(PRE_NUMBER, POST_NUMBER)}}")
     println("$PRE_NUMBER ${operatorDiv.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorDiv.calculate(PRE_NUMBER, POST_NUMBER)}}")
+    println()
 
     val factoryLeifeng: FactoryConcreteInline<Leifeng> = FactoryConcreteInline<Leifeng>()
     val leifeng1: Leifeng = factoryLeifeng.create<LeifengUndergraduate>()
@@ -56,6 +59,5 @@ fun factoryAbstract() {
     leifeng2.wash()
     leifeng3.buyRice()
     leifeng4.buyRice()
-
     println()
 }

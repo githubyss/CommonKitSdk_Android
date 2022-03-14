@@ -10,7 +10,8 @@ open class DecoratorFinery : Person() {
         person?.show()
     }
 
-    fun decorator(person: Person) {
+    fun decorator(person: Person): Person {
         this.person = person
+        return person
     }
 }

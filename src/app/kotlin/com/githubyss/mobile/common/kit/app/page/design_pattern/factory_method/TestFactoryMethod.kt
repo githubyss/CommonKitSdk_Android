@@ -18,6 +18,7 @@ fun factoryMethod() {
     shipWar.weighAnchor()
     shipWar.dropAnchor()
     (shipWar as ShipWar).launchMissile()
+    println()
 
     val carSport: ICar = FactoryCarSport.create()
     val carJeep: ICar = FactoryCarJeep.create()
@@ -25,6 +26,7 @@ fun factoryMethod() {
     carSport.selfNavigation()
     carJeep.drive()
     carJeep.selfNavigation()
+    println()
 
     val operatorEqu: IOperatorUnary = FactoryOperatorEqu.create() as IOperatorUnary
     val operatorAdd: IOperatorDyadic = FactoryOperatorAdd.create() as IOperatorDyadic
@@ -35,6 +37,7 @@ fun factoryMethod() {
     println("$PRE_NUMBER ${operatorSub.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorSub.calculate(PRE_NUMBER, POST_NUMBER)}}")
     println("$PRE_NUMBER ${operatorMul.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorMul.calculate(PRE_NUMBER, POST_NUMBER)}}")
     println("$PRE_NUMBER ${operatorDiv.operator()} $POST_NUMBER ${operatorEqu.operator()} ${operatorDiv.calculate(PRE_NUMBER, POST_NUMBER)}}")
+    println()
 
     val leifeng1: Leifeng = FactoryLeifengUndergraduate.create()
     val leifeng2: Leifeng = FactoryLeifengUndergraduate.create()
@@ -44,6 +47,5 @@ fun factoryMethod() {
     leifeng2.wash()
     leifeng3.buyRice()
     leifeng4.buyRice()
-
     println()
 }

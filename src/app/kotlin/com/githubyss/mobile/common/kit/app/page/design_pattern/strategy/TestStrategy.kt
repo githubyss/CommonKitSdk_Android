@@ -12,6 +12,7 @@ fun strategy() {
     strategyCashNormal.acceptCash(1000.0)
     strategyCashRebate.acceptCash(1000.0)
     strategyCashReturn.acceptCash(1000.0)
+    println()
 
     val strategyCashNormalFactorySimple: StrategyContextCashFactorySimple = StrategyContextCashFactorySimple("正常收费")
     val strategyCashRebateFactorySimple: StrategyContextCashFactorySimple = StrategyContextCashFactorySimple("打8折")
@@ -19,4 +20,5 @@ fun strategy() {
     strategyCashNormalFactorySimple.acceptCash(1000.0)
     strategyCashRebateFactorySimple.acceptCash(1000.0)
     strategyCashReturnFactorySimple.acceptCash(1000.0)
+    println()
 }
