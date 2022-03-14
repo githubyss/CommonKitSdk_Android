@@ -37,4 +37,5 @@ fun decorator() {
     decoratorDecrypt2.decorator(decoratorDecrypt1)
     val outputDecrypt = decoratorDecrypt2.decrypt(outputEncrypt)
     println("解密后信息：${outputDecrypt}")
+    println()
 }

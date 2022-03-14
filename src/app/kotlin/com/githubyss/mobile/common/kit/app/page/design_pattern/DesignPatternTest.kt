@@ -4,6 +4,7 @@ import com.githubyss.mobile.common.kit.app.page.design_pattern.decorator.decorat
 import com.githubyss.mobile.common.kit.app.page.design_pattern.factory_abstract.factoryAbstract
 import com.githubyss.mobile.common.kit.app.page.design_pattern.factory_method.factoryMethod
 import com.githubyss.mobile.common.kit.app.page.design_pattern.factory_simple.factorySimple
+import com.githubyss.mobile.common.kit.app.page.design_pattern.proxy.proxy
 import com.githubyss.mobile.common.kit.app.page.design_pattern.strategy.strategy
 
 
@@ -50,4 +51,5 @@ fun main(args: Array<String>) {
     factoryAbstract()
     strategy()
     decorator()
+    proxy()
 }
