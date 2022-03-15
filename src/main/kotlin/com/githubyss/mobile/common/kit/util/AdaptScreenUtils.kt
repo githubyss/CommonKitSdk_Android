@@ -80,7 +80,7 @@ fun adaptHeight(resources: Resources?, designHeight: Int, includeNavBar: Boolean
 fun closeAdapt(resources: Resources?): Resources? {
     resources ?: return null
 
-    val newXdpi = getScreenDensity() * 72f
+    val newXdpi = screenDensity() * 72f
     applyDisplayMetrics(resources, newXdpi)
     return resources
 }
@@ -89,7 +89,7 @@ private fun applyDisplayMetrics(resources: Resources?, newXdpi: Float) {
     resources ?: return
 
     resources.displayMetrics.xdpi = newXdpi
-    getDisplayMetrics()?.xdpi = newXdpi
+    displayMetrics()?.xdpi = newXdpi
     applyOtherDisplayMetrics(resources, newXdpi)
 }
 

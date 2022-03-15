@@ -64,7 +64,7 @@ fun getStatusBarHeight(context: Context? = ComkitApplicationConfig.getApp()): In
 fun getActionBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
     val resources = getResources(context) ?: return -1
     val tv = TypedValue()
-    return if (context?.theme?.resolveAttribute(R.attr.actionBarSize, tv, true) ?: return -1) TypedValue.complexToDimensionPixelSize(tv.data, getDisplayMetrics(context)) else -1
+    return if (context?.theme?.resolveAttribute(R.attr.actionBarSize, tv, true) ?: return -1) TypedValue.complexToDimensionPixelSize(tv.data, displayMetrics(context)) else -1
 }
 
 /** ********** NavigationBar ********** */

@@ -19,13 +19,13 @@ import androidx.annotation.StringDef;
  * @createdTime 2021/01/04 16:31:07
  */
 @Documented
-@StringDef({/*NodeTapState.CLICKABLE, */NodeTapState.UNCLICKABLE, NodeTapState.CLICKED, /*NodeTapState.UNCLICKED, */NodeTapState.NULL})
+@StringDef({NodeTapState.CLICKABLE, NodeTapState.UNCLICKABLE, NodeTapState.CLICKED, NodeTapState.UNCLICKED, NodeTapState.NULL})
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface NodeTapState {
-    // final String CLICKABLE   = "可点击";
+    final String CLICKABLE = "可点击";
     final String UNCLICKABLE = "不可点击";
-    final String CLICKED     = "已点击";
-    // final String UNCLICKED   = "未点击";
-    final String NULL        = "空节点";
+    final String CLICKED = "已点击";
+    final String UNCLICKED = "未点击";
+    final String NULL = "空节点";
 }

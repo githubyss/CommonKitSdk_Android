@@ -34,7 +34,7 @@ private const val TAG: String = "SystemUtils"
  * @param context The context.
  * @return The window manager.
  */
-fun getWindowManager(context: Context? = ComkitApplicationConfig.getApp()): WindowManager? {
+fun windowManager(context: Context? = ComkitApplicationConfig.getApp()): WindowManager? {
     context ?: return null
 
     return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager?

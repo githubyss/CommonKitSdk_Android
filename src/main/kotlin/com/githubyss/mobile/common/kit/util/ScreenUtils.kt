@@ -44,12 +44,12 @@ private const val TAG: String = "ScreenUtils"
  * @param context The context.
  * @return The width of screen in pixels.
  */
-fun getScreenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun screenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
     return if (context == null) {
-        getDisplayMetrics()?.widthPixels ?: -1
+        displayMetrics()?.widthPixels ?: 0
     }
     else {
-        getScreenPointPx(context = context)?.x ?: -1
+        screenPointPx(context = context)?.x ?: 0
     }
 }
 
@@ -59,12 +59,12 @@ fun getScreenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int 
  * @param context The context.
  * @return The height of screen in pixels.
  */
-fun getScreenHeightPx(context: Context? = null): Int {
+fun screenHeightPx(context: Context? = null): Int {
     return if (context == null) {
-        getDisplayMetrics()?.heightPixels ?: -1
+        displayMetrics()?.heightPixels ?: 0
     }
     else {
-        getScreenPointPx(context)?.y ?: -1
+        screenPointPx(context)?.y ?: 0
     }
 }
 
@@ -73,12 +73,12 @@ fun getScreenHeightPx(context: Context? = null): Int {
  *
  * @return the application's width of screen in pixel
  */
-fun getAppScreenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return if (getWindowManager(context) == null) {
-        getDisplayMetrics(context)?.widthPixels ?: -1
+fun appScreenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
+    return if (windowManager(context) == null) {
+        displayMetrics(context)?.widthPixels ?: 0
     }
     else {
-        getAppScreenPointPx(context)?.x ?: -1
+        appScreenPointPx(context)?.x ?: 0
     }
 }
 
@@ -87,12 +87,12 @@ fun getAppScreenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): I
  *
  * @return the application's height of screen in pixel
  */
-fun getAppScreenHeightPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return if (getWindowManager(context) == null) {
-        getDisplayMetrics(context)?.heightPixels ?: -1
+fun appScreenHeightPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
+    return if (windowManager(context) == null) {
+        displayMetrics(context)?.heightPixels ?: 0
     }
     else {
-        getAppScreenPointPx(context)?.y ?: -1
+        appScreenPointPx(context)?.y ?: 0
     }
 }
 
@@ -102,15 +102,15 @@ fun getAppScreenHeightPx(context: Context? = ComkitApplicationConfig.getApp()): 
  * @param context The context.
  * @return The screen point in pixels.
  */
-fun getScreenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point? {
+fun screenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point? {
     val point = Point()
     if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
-        getDefaultDisplay(context)?.getRealSize(point) ?: return null
+        defaultDisplay(context)?.getRealSize(point) ?: return null
     }
     else {
-        getDefaultDisplay(context)?.getSize(point) ?: return null
+        defaultDisplay(context)?.getSize(point) ?: return null
     }
-    // logD(TAG, "getScreenPointPx(): {screenWidthPx:${point.x}, screenHeightPx:${point.y}}")
+    // logD(TAG, "screenPointPx(): {screenWidthPx:${point.x}, screenHeightPx:${point.y}}")
     return point
 }
 
@@ -120,10 +120,10 @@ fun getScreenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Poin
  * @param context The context.
  * @return The application's screen point in pixels.
  */
-fun getAppScreenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point? {
+fun appScreenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point? {
     val point = Point()
-    getDefaultDisplay(context)?.getSize(point) ?: return null
-    // logD(TAG, "getAppScreenPointPx(): {appScreenWidthPx:${point.x}, appScreenHeightPx:${point.y}}")
+    defaultDisplay(context)?.getSize(point) ?: return null
+    // logD(TAG, "appScreenPointPx(): {appScreenWidthPx:${point.x}, appScreenHeightPx:${point.y}}")
     return point
 }
 
@@ -133,8 +133,8 @@ fun getAppScreenPointPx(context: Context? = ComkitApplicationConfig.getApp()): P
  * @param activity The activity.
  * @return the rotation of screen
  */
-fun getScreenRotation(activity: Activity?): Int {
-    activity ?: return -1
+fun screenRotation(activity: Activity?): Int {
+    activity ?: return 0
 
     return when (activity.windowManager.defaultDisplay.rotation) {
         Surface.ROTATION_0 -> 0
@@ -150,13 +150,13 @@ fun getScreenRotation(activity: Activity?): Int {
  *
  * @return the duration of sleep.
  */
-fun getSleepDuration(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun sleepDuration(context: Context? = ComkitApplicationConfig.getApp()): Int {
     return try {
         Settings.System.getInt(context?.contentResolver, Settings.System.SCREEN_OFF_TIMEOUT)
     }
     catch (e: SettingNotFoundException) {
         logE(TAG, t = e)
-        -1
+        0
     }
 }
 
@@ -164,10 +164,10 @@ fun getSleepDuration(context: Context? = ComkitApplicationConfig.getApp()): Int 
  * Get the screen density.
  *
  * @param context The context.
- * @return The getScreenDensity.
+ * @return The screenDensity.
  */
-fun getScreenDensity(context: Context? = ComkitApplicationConfig.getApp()): Float {
-    return getDisplayMetrics(context)?.density ?: -1.0f
+fun screenDensity(context: Context? = ComkitApplicationConfig.getApp()): Float {
+    return displayMetrics(context)?.density ?: 0.0f
 }
 
 /**
@@ -176,8 +176,8 @@ fun getScreenDensity(context: Context? = ComkitApplicationConfig.getApp()): Floa
  * @param
  * @return
  */
-fun getScreenDensityDpi(context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return getDisplayMetrics(context)?.densityDpi ?: -1
+fun screenDensityDpi(context: Context? = ComkitApplicationConfig.getApp()): Int {
+    return displayMetrics(context)?.densityDpi ?: 0
 }
 
 /**
@@ -186,8 +186,8 @@ fun getScreenDensityDpi(context: Context? = ComkitApplicationConfig.getApp()): I
  * @param
  * @return
  */
-fun getXDpi(context: Context? = ComkitApplicationConfig.getApp()): Float {
-    return getDisplayMetrics(context)?.xdpi ?: -1.0f
+fun xDpi(context: Context? = ComkitApplicationConfig.getApp()): Float {
+    return displayMetrics(context)?.xdpi ?: 0.0f
 }
 
 /**
@@ -196,18 +196,18 @@ fun getXDpi(context: Context? = ComkitApplicationConfig.getApp()): Float {
  * @param
  * @return
  */
-fun getYDpi(context: Context? = ComkitApplicationConfig.getApp()): Float {
-    return getDisplayMetrics(context)?.ydpi ?: -1.0f
+fun yDpi(context: Context? = ComkitApplicationConfig.getApp()): Float {
+    return displayMetrics(context)?.ydpi ?: 0.0f
 }
 
 /**
  * Get the scaled density.
  *
  * @param context The context.
- * @return The scaled getScreenDensity.
+ * @return The scaled screenDensity.
  */
-fun getScaledDensity(context: Context? = ComkitApplicationConfig.getApp()): Float {
-    return getDisplayMetrics(context)?.scaledDensity ?: -1.0f
+fun scaledDensity(context: Context? = ComkitApplicationConfig.getApp()): Float {
+    return displayMetrics(context)?.scaledDensity ?: 0.0f
 }
 
 /**
@@ -216,8 +216,8 @@ fun getScaledDensity(context: Context? = ComkitApplicationConfig.getApp()): Floa
  * @param context The context.
  * @return The default metrics.
  */
-fun getDisplayMetrics(context: Context? = ComkitApplicationConfig.getApp()): DisplayMetrics? {
-    return getResources(context)?.displayMetrics
+fun displayMetrics(context: Context? = ComkitApplicationConfig.getApp()): DisplayMetrics? {
+    return getResources(context).displayMetrics
 }
 
 /**
@@ -226,8 +226,8 @@ fun getDisplayMetrics(context: Context? = ComkitApplicationConfig.getApp()): Dis
  * @param context The context.
  * @return The default display.
  */
-fun getDefaultDisplay(context: Context? = ComkitApplicationConfig.getApp()): Display? {
-    return getWindowManager(context)?.defaultDisplay
+fun defaultDisplay(context: Context? = ComkitApplicationConfig.getApp()): Display? {
+    return windowManager(context)?.defaultDisplay
 }
 
 /** ******************** Checker ******************** */
@@ -412,7 +412,7 @@ fun screenShot(activity: Activity?, isDeleteStatusBar: Boolean = false): Bitmap?
     decorView.setWillNotCacheDrawing(false)
     val bmp = decorView.drawingCache ?: return null
     val dm = DisplayMetrics()
-    getDefaultDisplay(activity)?.getMetrics(dm)
+    defaultDisplay(activity)?.getMetrics(dm)
     val ret: Bitmap
     ret = if (isDeleteStatusBar) {
         val statusBarHeight = getStatusBarHeight(activity)
@@ -435,7 +435,7 @@ fun screenShot(activity: Activity?, isDeleteStatusBar: Boolean = false): Bitmap?
  * @return The value of dp.
  */
 fun px2Dp(pxValue: Float, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return (pxValue / (getScreenDensity(context)) + 0.5F).toInt()
+    return (pxValue / (screenDensity(context)) + 0.5F).toInt()
 }
 
 /**
@@ -445,7 +445,7 @@ fun px2Dp(pxValue: Float, context: Context? = ComkitApplicationConfig.getApp()):
  * @return The value of px.
  */
 fun dp2Px(dpValue: Float, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return (dpValue * (getScreenDensity(context)) + 0.5F).toInt()
+    return (dpValue * (screenDensity(context)) + 0.5F).toInt()
 }
 
 /**
@@ -455,7 +455,7 @@ fun dp2Px(dpValue: Float, context: Context? = ComkitApplicationConfig.getApp()):
  * @return The value of sp.
  */
 fun px2Sp(pxValue: Float, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return (pxValue / (getScaledDensity(context)) + 0.5F).toInt()
+    return (pxValue / (scaledDensity(context)) + 0.5F).toInt()
 }
 
 /**
@@ -465,7 +465,7 @@ fun px2Sp(pxValue: Float, context: Context? = ComkitApplicationConfig.getApp()):
  * @return The value of px.
  */
 fun sp2Px(spValue: Float, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return (spValue * (getScaledDensity(context)) + 0.5F).toInt()
+    return (spValue * (scaledDensity(context)) + 0.5F).toInt()
 }
 
 /**
@@ -475,7 +475,7 @@ fun sp2Px(spValue: Float, context: Context? = ComkitApplicationConfig.getApp()):
  * @return value of pt
  */
 fun px2Pt(pxValue: Float, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return (pxValue * 72 / getXDpi(context) + 0.5).toInt()
+    return (pxValue * 72 / xDpi(context) + 0.5).toInt()
 }
 
 /**
@@ -485,5 +485,5 @@ fun px2Pt(pxValue: Float, context: Context? = ComkitApplicationConfig.getApp()):
  * @return value of px
  */
 fun pt2Px(ptValue: Float, context: Context? = ComkitApplicationConfig.getApp()): Int {
-    return (ptValue * getXDpi(context) / 72f + 0.5).toInt()
+    return (ptValue * xDpi(context) / 72f + 0.5).toInt()
 }

@@ -17,7 +17,7 @@ import androidx.annotation.RequiresApi
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import com.githubyss.mobile.common.kit.processor.ThreadProcessor
 import com.githubyss.mobile.common.kit.processor.TimeProcessor
-import com.githubyss.mobile.common.kit.util.getScreenPointPx
+import com.githubyss.mobile.common.kit.util.screenPointPx
 import com.githubyss.mobile.common.kit.util.logD
 import com.githubyss.mobile.common.kit.util.logE
 import java.lang.ref.WeakReference
@@ -89,7 +89,7 @@ class ScreenshotDetectManager private constructor() {
     fun startDetect(application: Application, onScreenshotDetectListener: OnScreenshotDetectListener) {
         ThreadProcessor.assertMainThread()
 
-        actualScreenPoint = getScreenPointPx(application) ?: return
+        actualScreenPoint = screenPointPx(application) ?: return
         callbackPathList?.clear()
         this@ScreenshotDetectManager.onScreenshotDetectListener = onScreenshotDetectListener
         startDetectTime = System.currentTimeMillis()

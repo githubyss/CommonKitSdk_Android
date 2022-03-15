@@ -22,15 +22,22 @@ private const val TAG: String = "LogUtils"
 private val SYSTEM_LINE_SEPARATOR: String = System.getProperty("line.separator") ?: ""
 
 /** 日志分隔线 */
-private const val LOG_LEFT_TOP____CORNER: String = "╔"
-private const val LOG_LEFT_MIDDLE_CORNER: String = "╟"
-private const val LOG_LEFT_BOTTOM_CORNER: String = "╚"
-private const val LOG_VERTICAL___DOUBLE_LINE: String = "║"
-private const val LOG_HORIZONTAL_DOUBLE_LINE: String = "════════════════════════════════════════════"
-private const val LOG_HORIZONTAL_SINGLE_LINE: String = "────────────────────────────────────────────"
-private const val LOG_TOP____BORDER: String = "$LOG_LEFT_TOP____CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
-private const val LOG_MIDDLE_BORDER: String = "$LOG_LEFT_MIDDLE_CORNER$LOG_HORIZONTAL_SINGLE_LINE$LOG_HORIZONTAL_SINGLE_LINE"
-private const val LOG_BOTTOM_BORDER: String = "$LOG_LEFT_BOTTOM_CORNER$LOG_HORIZONTAL_DOUBLE_LINE$LOG_HORIZONTAL_DOUBLE_LINE"
+private const val LOG_LEFT_TOP____CORNER_DOUBLE__THIN: String = "╔"
+private const val LOG_LEFT_MIDDLE_CORNER_DOUBLE__THIN: String = "╟"
+private const val LOG_LEFT_BOTTOM_CORNER_DOUBLE__THIN: String = "╚"
+private const val LOG_LEFT_TOP____CORNER_SINGLE_THICK: String = "┏"
+private const val LOG_LEFT_MIDDLE_CORNER_SINGLE_THICK: String = "┃"
+private const val LOG_LEFT_BOTTOM_CORNER_SINGLE_THICK: String = "┗"
+private const val LOG_VERTICAL___DOUBLE__THIN: String = "║"
+private const val LOG_VERTICAL___SINGLE_THICK: String = "┃"
+private const val LOG_HORIZONTAL_SINGLE__THIN: String = "──────────────────────────────────────────────────"
+private const val LOG_HORIZONTAL_DOUBLE__THIN: String = "══════════════════════════════════════════════════"
+private const val LOG_HORIZONTAL_SINGLE_THICK: String = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+private const val LOG_HORIZONTAL_SINGLE_THICK_10: String = "━━━━━━━━━━"
+private const val LOG_HORIZONTAL_SINGLE_THICK_50: String = "━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━"
+private const val LOG_TOP____BORDER_DOUBLE__THIN: String = "$LOG_LEFT_TOP____CORNER_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN"
+private const val LOG_MIDDLE_BORDER_DOUBLE__THIN: String = "$LOG_LEFT_MIDDLE_CORNER_DOUBLE__THIN$LOG_HORIZONTAL_SINGLE__THIN$LOG_HORIZONTAL_SINGLE__THIN"
+private const val LOG_BOTTOM_BORDER_DOUBLE__THIN: String = "$LOG_LEFT_BOTTOM_CORNER_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN"
 
 /** 日志级别 */
 const val LOG_LEVEL_VERBOSE: Int = Log.VERBOSE
@@ -267,6 +274,20 @@ private fun section(tag: String = TAG, msg: String, canSection: Boolean, log: (t
 
 /** ******************** 格式化打印 ******************** */
 
+/** ********** 通用格式化打印 ********** */
+
+fun logStart(msg: String) {
+    logD(TAG, "$LOG_LEFT_TOP____CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_10 $msg >> START $LOG_HORIZONTAL_SINGLE_THICK_50")
+}
+
+fun logMiddle(msg: String) {
+    logD(TAG, "$LOG_LEFT_MIDDLE_CORNER_SINGLE_THICK $msg")
+}
+
+fun logEnd(msg: String) {
+    logD(TAG, "$LOG_LEFT_BOTTOM_CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_10 $msg >> E N D $LOG_HORIZONTAL_SINGLE_THICK_50")
+}
+
 /** ********** Json 日志 ********** */
 
 /**
@@ -310,17 +331,17 @@ private fun printJson(element: StackTraceElement, jsonString: String) {
 
         val lines = jsonStringIndented.split(SYSTEM_LINE_SEPARATOR)
         val stringBuilder = StringBuilder()
-        logD(fileName, "$LOG_TOP____BORDER")
-        logD(fileName, "$LOG_VERTICAL___DOUBLE_LINE $tag")
-        logD(fileName, "$LOG_MIDDLE_BORDER")
+        logD(fileName, "$LOG_TOP____BORDER_DOUBLE__THIN")
+        logD(fileName, "$LOG_VERTICAL___DOUBLE__THIN $tag")
+        logD(fileName, "$LOG_MIDDLE_BORDER_DOUBLE__THIN")
         for (line in lines) {
-            stringBuilder.append("$LOG_VERTICAL___DOUBLE_LINE ")
+            stringBuilder.append("$LOG_VERTICAL___DOUBLE__THIN ")
                 .append(line)
                 .append(SYSTEM_LINE_SEPARATOR)
             logD(fileName, stringBuilder.toString())
             stringBuilder.delete(0, stringBuilder.length)
         }
-        logD(fileName, "$LOG_BOTTOM_BORDER")
+        logD(fileName, "$LOG_BOTTOM_BORDER_DOUBLE__THIN")
     }
     catch (e: JSONException) {
         logE(tag, e.message ?: "")
@@ -380,11 +401,11 @@ private fun <T : Any> printAny(element: StackTraceElement, any: T?) {
 
         else -> {
             val message = object2String(any)
-            logD(fileName, "$LOG_TOP____BORDER")
-            logD(fileName, "$LOG_VERTICAL___DOUBLE_LINE $tag")
-            logD(fileName, "$LOG_MIDDLE_BORDER")
-            logD(fileName, "$LOG_VERTICAL___DOUBLE_LINE $message")
-            logD(fileName, "$LOG_BOTTOM_BORDER")
+            logD(fileName, "$LOG_TOP____BORDER_DOUBLE__THIN")
+            logD(fileName, "$LOG_VERTICAL___DOUBLE__THIN $tag")
+            logD(fileName, "$LOG_MIDDLE_BORDER_DOUBLE__THIN")
+            logD(fileName, "$LOG_VERTICAL___DOUBLE__THIN $message")
+            logD(fileName, "$LOG_BOTTOM_BORDER_DOUBLE__THIN")
         }
     }
 }
@@ -402,19 +423,19 @@ private fun printString(tag: String, fileName: String, simpleName: String, strin
     msg = String.format(msg, simpleName, string.length)
     if (isNotEmpty(string)) {
         val stringBuilder = StringBuilder()
-        stringBuilder.append(LOG_TOP____BORDER)
+        stringBuilder.append(LOG_TOP____BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(" ")
             .append(tag)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_MIDDLE_BORDER)
+            .append(LOG_MIDDLE_BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(msg)
         stringBuilder.append(string)
         stringBuilder.append("\"\n")
-            .append(LOG_BOTTOM_BORDER)
+            .append(LOG_BOTTOM_BORDER_DOUBLE__THIN)
         logD(fileName, stringBuilder.toString())
     }
     else {
@@ -435,15 +456,15 @@ private fun printCollectionOneLine(tag: String, fileName: String, simpleName: St
     msg = String.format(msg, simpleName, collection.size)
     if (!collection.isEmpty()) {
         val stringBuilder = StringBuilder()
-        stringBuilder.append(LOG_TOP____BORDER)
+        stringBuilder.append(LOG_TOP____BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(" ")
             .append(tag)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_MIDDLE_BORDER)
+            .append(LOG_MIDDLE_BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(msg)
         val iterator = collection.iterator()
         var index = 0
@@ -453,7 +474,7 @@ private fun printCollectionOneLine(tag: String, fileName: String, simpleName: St
             stringBuilder.append(String.format(itemString, object2String(item), if (index++ < collection.size - 1) ", " else ""))
         }
         stringBuilder.append("]\n")
-            .append(LOG_BOTTOM_BORDER)
+            .append(LOG_BOTTOM_BORDER_DOUBLE__THIN)
         logD(fileName, stringBuilder.toString())
     }
     else {
@@ -474,25 +495,25 @@ private fun printCollection(tag: String, fileName: String, simpleName: String, c
     msg = String.format(msg, simpleName, collection.size)
     if (!collection.isEmpty()) {
         val stringBuilder = StringBuilder()
-        stringBuilder.append(LOG_TOP____BORDER)
+        stringBuilder.append(LOG_TOP____BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(" ")
             .append(tag)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_MIDDLE_BORDER)
+            .append(LOG_MIDDLE_BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(msg)
         val iterator = collection.iterator()
         var index = 0
         while (iterator.hasNext()) {
-            val itemString = "$LOG_VERTICAL___DOUBLE_LINE [%d]:%s%s"
+            val itemString = "$LOG_VERTICAL___DOUBLE__THIN [%d]:%s%s"
             val item = iterator.next()
             stringBuilder.append(String.format(itemString, index, object2String(item), if (index++ < collection.size - 1) ",\n" else "\n"))
         }
-        stringBuilder.append("$LOG_VERTICAL___DOUBLE_LINE ]\n")
-            .append(LOG_BOTTOM_BORDER)
+        stringBuilder.append("$LOG_VERTICAL___DOUBLE__THIN ]\n")
+            .append(LOG_BOTTOM_BORDER_DOUBLE__THIN)
         logD(fileName, stringBuilder.toString())
     }
     else {
@@ -512,28 +533,28 @@ private fun printMap(tag: String, fileName: String, simpleName: String, map: Map
     val keys = map.keys
     if (keys.isNotEmpty()) {
         val stringBuilder = StringBuilder()
-        stringBuilder.append(LOG_TOP____BORDER)
+        stringBuilder.append(LOG_TOP____BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(" ")
             .append(tag)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_MIDDLE_BORDER)
+            .append(LOG_MIDDLE_BORDER_DOUBLE__THIN)
             .append(SYSTEM_LINE_SEPARATOR)
-            .append(LOG_VERTICAL___DOUBLE_LINE)
+            .append(LOG_VERTICAL___DOUBLE__THIN)
             .append(" ")
             .append(simpleName)
             .append(" {\n")
 
         for (key in keys) {
-            stringBuilder.append(LOG_VERTICAL___DOUBLE_LINE)
+            stringBuilder.append(LOG_VERTICAL___DOUBLE__THIN)
                 .append(" ")
                 .append(String.format("[%s -> %s]\n", object2String(key), object2String(if (map[key] is Array<*>) array2String(map[key] as Array<*>) else map[key])))
         }
-        stringBuilder.append(LOG_VERTICAL___DOUBLE_LINE)
+        stringBuilder.append(LOG_VERTICAL___DOUBLE__THIN)
             .append(" ")
             .append("}\n")
-            .append(LOG_BOTTOM_BORDER)
+            .append(LOG_BOTTOM_BORDER_DOUBLE__THIN)
         logD(fileName, stringBuilder.toString())
     }
     else {
