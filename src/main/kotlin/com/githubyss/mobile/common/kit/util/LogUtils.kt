@@ -33,8 +33,11 @@ private const val LOG_VERTICAL___SINGLE_THICK: String = "┃"
 private const val LOG_HORIZONTAL_SINGLE__THIN: String = "──────────────────────────────────────────────────"
 private const val LOG_HORIZONTAL_DOUBLE__THIN: String = "══════════════════════════════════════════════════"
 private const val LOG_HORIZONTAL_SINGLE_THICK: String = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-private const val LOG_HORIZONTAL_SINGLE_THICK_10: String = "━━━━━━━━━━"
-private const val LOG_HORIZONTAL_SINGLE_THICK_50: String = "━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━"
+private const val LOG_HORIZONTAL_SINGLE_THICK_1: String = "━━━━━━━━━━"
+private const val LOG_HORIZONTAL_SINGLE_THICK_2: String = "━━━━━━━━━━ ━━━━━━━━━━"
+private const val LOG_HORIZONTAL_SINGLE_THICK_3: String = "━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━"
+private const val LOG_HORIZONTAL_SINGLE_THICK_4: String = "━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━"
+private const val LOG_HORIZONTAL_SINGLE_THICK_5: String = "━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━ ━━━━━━━━━━"
 private const val LOG_TOP____BORDER_DOUBLE__THIN: String = "$LOG_LEFT_TOP____CORNER_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN"
 private const val LOG_MIDDLE_BORDER_DOUBLE__THIN: String = "$LOG_LEFT_MIDDLE_CORNER_DOUBLE__THIN$LOG_HORIZONTAL_SINGLE__THIN$LOG_HORIZONTAL_SINGLE__THIN"
 private const val LOG_BOTTOM_BORDER_DOUBLE__THIN: String = "$LOG_LEFT_BOTTOM_CORNER_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN$LOG_HORIZONTAL_DOUBLE__THIN"
@@ -276,16 +279,44 @@ private fun section(tag: String = TAG, msg: String, canSection: Boolean, log: (t
 
 /** ********** 通用格式化打印 ********** */
 
-fun logStart(msg: String) {
-    logD(TAG, "$LOG_LEFT_TOP____CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_10 $msg >> START $LOG_HORIZONTAL_SINGLE_THICK_50")
+fun logStart(msg: String, level: Int) {
+    logStart(msg, level, ::logD)
+}
+
+private fun logStart(msg: String, level: Int, log: (tag: String, msg: String) -> Unit) {
+    val logPrefix = "$LOG_LEFT_TOP____CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_1"
+    val logPostfix = logPostfix(level)
+    log(TAG, "$logPrefix $msg >> START $logPostfix")
 }
 
 fun logMiddle(msg: String) {
-    logD(TAG, "$LOG_LEFT_MIDDLE_CORNER_SINGLE_THICK $msg")
+    logMiddle(msg, ::logD)
 }
 
-fun logEnd(msg: String) {
-    logD(TAG, "$LOG_LEFT_BOTTOM_CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_10 $msg >> E N D $LOG_HORIZONTAL_SINGLE_THICK_50")
+private fun logMiddle(msg: String, log: (tag: String, msg: String) -> Unit) {
+    val logPrefix = LOG_LEFT_MIDDLE_CORNER_SINGLE_THICK
+    log(TAG, "$logPrefix $msg")
+}
+
+fun logEnd(msg: String, level: Int) {
+    logEnd(msg, level, ::logD)
+}
+
+private fun logEnd(msg: String, level: Int, log: (tag: String, msg: String) -> Unit) {
+    val logPrefix = "$LOG_LEFT_BOTTOM_CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_1"
+    val logPostfix = logPostfix(level)
+    log(TAG, "$logPrefix $msg >> START $logPostfix")
+}
+
+private fun logPostfix(level: Int): String {
+    return when (level) {
+        1 -> LOG_HORIZONTAL_SINGLE_THICK_1
+        2 -> LOG_HORIZONTAL_SINGLE_THICK_2
+        3 -> LOG_HORIZONTAL_SINGLE_THICK_3
+        4 -> LOG_HORIZONTAL_SINGLE_THICK_4
+        5 -> LOG_HORIZONTAL_SINGLE_THICK_5
+        else -> LOG_HORIZONTAL_SINGLE_THICK_5
+    }
 }
 
 /** ********** Json 日志 ********** */

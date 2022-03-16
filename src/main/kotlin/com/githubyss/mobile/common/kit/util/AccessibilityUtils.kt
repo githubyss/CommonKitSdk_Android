@@ -18,8 +18,10 @@ import android.view.accessibility.AccessibilityNodeInfo
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.enumeration.NodeTapState
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 
 
 /**
@@ -72,7 +74,7 @@ fun getRootNodeInfo(service: AccessibilityService? = null, event: AccessibilityE
         }
     }
     catch (e: Exception) {
-        logE(TAG, "e: $e")
+        logE(TAG, t = e)
     }
 
     // logMiddle("rootNodeInfo: ${if (rootNodeInfo == null) "空" else "不空"}")
@@ -89,12 +91,12 @@ fun getRootNodeInfo(service: AccessibilityService? = null, event: AccessibilityE
  * @param rootNodeInfo 根节点信息
  * @return
  */
-fun findNodeInfosByText(text: String = "", service: AccessibilityService? = null, event: AccessibilityEvent? = null, rootNodeInfo: AccessibilityNodeInfo? = null): List<AccessibilityNodeInfo?> {
+fun findNodeInfosByText(text: String = "", rootNodeInfo: AccessibilityNodeInfo? = null, service: AccessibilityService? = null, event: AccessibilityEvent? = null): List<AccessibilityNodeInfo?> {
     // logStart("findNodeInfosByText")
     var rootNodeInfoCopy = rootNodeInfo
     // 传入的 rootNodeInfo 为 null，则根据 service 和 event 重新获取
     if (rootNodeInfoCopy == null) {
-        rootNodeInfoCopy = getRootNodeInfo(service = service, event = event)
+        rootNodeInfoCopy = getRootNodeInfo(service, event)
         // logMiddle("rootNodeInfo: ${if (rootNodeInfo == null) "空" else "不空"}")
     }
     var nodeInfoList = emptyList<AccessibilityNodeInfo?>()
@@ -124,12 +126,12 @@ fun findNodeInfosByText(text: String = "", service: AccessibilityService? = null
  * @param rootNodeInfo 根节点信息
  * @return
  */
-fun findNodeInfosById(viewId: String = "", service: AccessibilityService? = null, event: AccessibilityEvent? = null, rootNodeInfo: AccessibilityNodeInfo? = null): List<AccessibilityNodeInfo?> {
+fun findNodeInfosById(viewId: String = "", rootNodeInfo: AccessibilityNodeInfo? = null, service: AccessibilityService? = null, event: AccessibilityEvent? = null): List<AccessibilityNodeInfo?> {
     // logStart("findNodeInfosById")
     var rootNodeInfoCopy = rootNodeInfo
     // 传入的 rootNodeInfo 为 null，则根据 service 和 event 重新获取
     if (rootNodeInfoCopy == null) {
-        rootNodeInfoCopy = getRootNodeInfo(service = service, event = event)
+        rootNodeInfoCopy = getRootNodeInfo(service, event)
         // logMiddle("rootNodeInfo: ${if (rootNodeInfo == null) "空" else "不空"}")
     }
     var nodeInfoList = emptyList<AccessibilityNodeInfo?>()
@@ -161,7 +163,7 @@ fun findNodeInfosById(viewId: String = "", service: AccessibilityService? = null
  * @return
  */
 fun isStartAccessibilityService(serviceName: String = "", context: Context? = ComkitApplicationConfig.getApp()): Boolean {
-    logStart("isStartAccessibilityService")
+    logStart("isStartAccessibilityService", 5)
     val am = context?.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
     val serviceInfos = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
     var ret = false
@@ -172,7 +174,7 @@ fun isStartAccessibilityService(serviceName: String = "", context: Context? = Co
             ret = true
         }
     }
-    logEnd("isStartAccessibilityService")
+    logEnd("isStartAccessibilityService", 5)
     return ret
 }
 
@@ -212,7 +214,7 @@ fun isStartAccessibilityService(serviceName: String = "", context: Context? = Co
  * @return
  */
 fun printEventLog(event: AccessibilityEvent? = null) {
-    logStart("printEventLog")
+    logStart("printEventLog", 5)
     event?.let {
         val eventType = event.eventType // 事件类型
         // 响应事件的包名 | 事件源的类名 | 事件源描述
@@ -240,7 +242,7 @@ fun printEventLog(event: AccessibilityEvent? = null) {
         //     logD(TAG, "Event text: $txt")
         // }
     }
-    logEnd("printEventLog")
+    logEnd("printEventLog", 5)
 }
 
 /** ********** Open App ********** */
@@ -252,7 +254,7 @@ fun printEventLog(event: AccessibilityEvent? = null) {
  * @return
  */
 fun openAppByNotification(event: AccessibilityEvent? = null) {
-    logStart("openAppByNotification")
+    logStart("openAppByNotification", 5)
 
     event?.let {
         if (event.parcelableData != null && event.parcelableData is Notification) {
@@ -267,7 +269,7 @@ fun openAppByNotification(event: AccessibilityEvent? = null) {
         }
     }
 
-    logEnd("openAppByNotification")
+    logEnd("openAppByNotification", 5)
 }
 
 /** ********** Click ********** */
@@ -282,7 +284,7 @@ fun openAppByNotification(event: AccessibilityEvent? = null) {
  * @return
  */
 fun tapClickableSelf(tapNodeInfo: AccessibilityNodeInfo? = null, isTapForcibly: Boolean = false, onTap: ((tapState: String) -> Unit)? = null) {
-    logStart("tapClickableSelf")
+    logStart("tapClickableSelf", 5)
     // logMiddle("tapNodeInfo: $tapNodeInfo")
 
     val nodeTapState: String = if (tapNodeInfo == null) {
@@ -304,7 +306,7 @@ fun tapClickableSelf(tapNodeInfo: AccessibilityNodeInfo? = null, isTapForcibly: 
     // 回调点击接口，传回节点点击状态
     onTap?.let { it(nodeTapState) }
 
-    logEnd("tapClickableSelf")
+    logEnd("tapClickableSelf", 5)
 }
 
 /**
@@ -316,7 +318,7 @@ fun tapClickableSelf(tapNodeInfo: AccessibilityNodeInfo? = null, isTapForcibly: 
  * @return
  */
 fun tapClickableParent(tapNodeInfo: AccessibilityNodeInfo? = null, onTap: ((tapState: String) -> Unit)? = null) {
-    logStart("tapClickableParent")
+    logStart("tapClickableParent", 5)
     // logMiddle("tapNodeInfo: $tapNodeInfo")
 
     // 默认节点点击状态-不可点击
@@ -346,7 +348,7 @@ fun tapClickableParent(tapNodeInfo: AccessibilityNodeInfo? = null, onTap: ((tapS
     // 回调点击接口，传回节点点击状态
     onTap?.let { it(nodeTapState) }
 
-    logEnd("tapClickableParent")
+    logEnd("tapClickableParent", 5)
 }
 
 /**
@@ -360,7 +362,7 @@ fun tapClickableParent(tapNodeInfo: AccessibilityNodeInfo? = null, onTap: ((tapS
  * @return
  */
 fun tap(service: AccessibilityService?, point: Point, duration: Long = DEFAULT_TAP_DURATION) {
-    logStart("tap")
+    logStart("tap", 5)
     if (Build.VERSION.SDK_INT >= VersionCode.N) {
         val path = Path()
         path.moveTo(point.x.toFloat(), point.y.toFloat())
@@ -376,7 +378,7 @@ fun tap(service: AccessibilityService?, point: Point, duration: Long = DEFAULT_T
 
         service?.dispatchGesture(gestureDesc, null, null)
     }
-    logEnd("tap")
+    logEnd("tap", 5)
 }
 
 /**
@@ -401,8 +403,8 @@ fun longTap(service: AccessibilityService?, point: Point, duration: Long = DEFAU
  * @param duration 持续时长
  * @return
  */
-fun doubleTap(service: AccessibilityService?, point: Point, duration: Long = DEFAULT_TAP_DURATION, gap: Long = DEFAULT_DOUBLE_TAP_DURATION) {
-    logStart("doubleTap")
+suspend fun doubleTap(service: AccessibilityService?, point: Point, duration: Long = DEFAULT_TAP_DURATION, gap: Long = DEFAULT_DOUBLE_TAP_DURATION) {
+    logStart("doubleTap", 5)
     if (Build.VERSION.SDK_INT >= VersionCode.N) {
         val path = Path()
         path.moveTo(point.x.toFloat(), point.y.toFloat())
@@ -416,7 +418,7 @@ fun doubleTap(service: AccessibilityService?, point: Point, duration: Long = DEF
             override fun onCompleted(gestureDescription: GestureDescription?) {
                 super.onCompleted(gestureDescription)
                 logMiddle("短按第一次完成")
-                runBlocking {
+                CoroutineScope(Dispatchers.Main).launch {
                     // 延时 gap
                     delay(gap)
                     logMiddle("短按第二次")
@@ -430,6 +432,7 @@ fun doubleTap(service: AccessibilityService?, point: Point, duration: Long = DEF
             }
         }, null)
     }
+    logEnd("doubleTap", 5)
 }
 
 /** ********** Back ********** */
@@ -442,14 +445,14 @@ fun doubleTap(service: AccessibilityService?, point: Point, duration: Long = DEF
  * @return
  */
 fun backOnce(service: AccessibilityService?, delay: Long = 0) {
-    logStart("backOnce")
+    logStart("backOnce", 5)
     logMiddle("返回一次")
-    runBlocking {
+    CoroutineScope(Dispatchers.Main).launch {
         delay(delay)
         service?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
         logMiddle("延迟 ${delay}ms > GLOBAL_ACTION_BACK (执行返回一次)")
     }
-    logEnd("backOnce")
+    logEnd("backOnce", 5)
 }
 
 /** ********** Home Screen ********** */
@@ -462,14 +465,14 @@ fun backOnce(service: AccessibilityService?, delay: Long = 0) {
  * @return
  */
 fun goHomeScreen(service: AccessibilityService?, delay: Long = 0) {
-    logStart("goHomeScreen")
+    logStart("goHomeScreen", 5)
     logMiddle("进入桌面")
-    runBlocking {
+    CoroutineScope(Dispatchers.Main).launch {
         delay(delay)
         service?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME)
         logMiddle("延迟 ${delay}ms > GLOBAL_ACTION_HOME (执行进入桌面)")
     }
-    logEnd("goHomeScreen")
+    logEnd("goHomeScreen", 5)
 }
 
 /** ********** Slide ********** */
@@ -486,7 +489,7 @@ fun goHomeScreen(service: AccessibilityService?, delay: Long = 0) {
  * @return
  */
 fun slideOnce(service: AccessibilityService?, pointFrom: Point, pointTo: Point, startTime: Long = 0, duration: Long = 1000) {
-    logStart("slideOnce")
+    logStart("slideOnce", 5)
     if (Build.VERSION.SDK_INT >= VersionCode.N) {
         // 线性的 path 代表手势路径，点代表按下，封闭的没用
         val path = Path()
@@ -500,7 +503,7 @@ fun slideOnce(service: AccessibilityService?, pointFrom: Point, pointTo: Point, 
         logMiddle("手势滑动一次")
         service?.dispatchGesture(gestureDesc, null, null)
     }
-    logEnd("slideOnce")
+    logEnd("slideOnce", 5)
 }
 
 /**
@@ -520,7 +523,7 @@ fun slideOnce(service: AccessibilityService?, pointFrom: Point, pointTo: Point, 
  * @return
  */
 fun slideTwice(service: AccessibilityService?, pointFrom1: Point, pointTo1: Point, startTime1: Long, duration1: Long, pointFrom2: Point, pointTo2: Point, startTime2: Long, duration2: Long) {
-    logStart("slideTwice")
+    logStart("slideTwice", 5)
     if (Build.VERSION.SDK_INT >= VersionCode.N) {
         val path1 = Path()
         path1.moveTo(pointFrom1.x.toFloat(), pointFrom1.y.toFloat())
@@ -557,5 +560,5 @@ fun slideTwice(service: AccessibilityService?, pointFrom1: Point, pointTo1: Poin
             }
         }, null)
     }
-    logEnd("slideTwice")
+    logEnd("slideTwice", 5)
 }
