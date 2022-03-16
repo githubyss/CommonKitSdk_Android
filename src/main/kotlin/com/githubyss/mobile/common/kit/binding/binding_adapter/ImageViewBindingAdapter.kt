@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.view_binding.binding_adapter
+package com.githubyss.mobile.common.kit.binding.binding_adapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

@@ -6,12 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.compose.element.ComposeDisplay
 import com.githubyss.mobile.common.kit.app.page.compose.element.ComposePageContent
+import com.githubyss.mobile.common.kit.app.page.compose.element.CommonButtonBlue
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
+import com.githubyss.mobile.common.kit.util.showToast
 
 
 /**
@@ -42,11 +45,15 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
         Toolbar(title)
     }
 
+    @Preview
     @Composable
     override fun Content() {
         ComposePageContent {
             InfoDisplay()
             ChangeTitleButton()
+            CommonButtonBlue(text = "蓝色按钮") {
+                showToast("蓝色按钮")
+            }
         }
     }
 

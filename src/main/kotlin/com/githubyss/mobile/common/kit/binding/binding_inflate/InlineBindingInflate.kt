@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.view_binding.binding_inflate
+package com.githubyss.mobile.common.kit.binding.binding_inflate
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
