@@ -9,9 +9,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.githubyss.mobile.common.kit.R
+import com.githubyss.mobile.common.kit.app.page.compose.element.CommonButtonBlue
 import com.githubyss.mobile.common.kit.app.page.compose.element.ComposeDisplay
 import com.githubyss.mobile.common.kit.app.page.compose.element.ComposePageContent
-import com.githubyss.mobile.common.kit.app.page.compose.element.CommonButtonBlue
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 import com.githubyss.mobile.common.kit.util.showToast
