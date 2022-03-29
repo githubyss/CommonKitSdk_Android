@@ -7,6 +7,7 @@ import com.githubyss.mobile.common.kit.app.page.design_pattern.factory_simple.fa
 import com.githubyss.mobile.common.kit.app.page.design_pattern.prototype.prototype
 import com.githubyss.mobile.common.kit.app.page.design_pattern.proxy.proxy
 import com.githubyss.mobile.common.kit.app.page.design_pattern.strategy.strategy
+import com.githubyss.mobile.common.kit.app.page.design_pattern.template_method.templateMethod
 
 
 /**
@@ -54,4 +55,5 @@ fun main(args: Array<String>) {
     decorator()
     proxy()
     prototype()
+    templateMethod()
 }
