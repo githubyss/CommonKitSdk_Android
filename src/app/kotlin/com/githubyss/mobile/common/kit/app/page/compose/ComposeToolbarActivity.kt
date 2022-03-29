@@ -1,13 +1,10 @@
 package com.githubyss.mobile.common.kit.app.page.compose
 
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.compose.element.CommonButtonBlue
 import com.githubyss.mobile.common.kit.app.page.compose.element.ComposeDisplay
@@ -51,7 +48,7 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
         ComposePageContent {
             InfoDisplay()
             ChangeTitleButton()
-            CommonButtonBlue(text = "蓝色按钮") {
+            CommonButtonBlue(text = "蓝色按钮蓝色按钮蓝色按钮蓝色按钮蓝色按钮蓝色按钮蓝色按钮蓝色按钮蓝色按钮蓝色按钮") {
                 showToast("蓝色按钮")
             }
         }
@@ -64,10 +61,8 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
 
     @Composable
     private fun ChangeTitleButton() {
-        Button(
-            onClick = { runOnUiThread { title = "$TITLE New" } }
-        ) {
-            Text(text = "Change Title", fontSize = 18.sp)
+        CommonButtonBlue(text = "Change Title", enabled = false) {
+            runOnUiThread { title = "$TITLE New" }
         }
     }
 

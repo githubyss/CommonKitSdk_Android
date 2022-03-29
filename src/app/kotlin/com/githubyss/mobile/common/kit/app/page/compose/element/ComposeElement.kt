@@ -9,10 +9,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.util.getColorFromRes
+import com.githubyss.mobile.common.res.common.color.xFF999999
+import com.githubyss.mobile.common.res.common.dimen.CornerRadiusMini
+import com.githubyss.mobile.common.res.common.dimen.FontSizeBig
 
 
 @Composable
@@ -38,12 +42,12 @@ fun ComposeDisplay(title: String) {
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
-            .background(color = Color(getColorFromRes(R.color.comres_color_999999)), shape = RoundedCornerShape(5.dp)),
+            .background(color = Color.xFF999999, shape = RoundedCornerShape(Dp.CornerRadiusMini)),
     ) {
         Text(
             text = title,
-            color = Color(getColorFromRes(R.color.comres_color_black)),
-            fontSize = 18.sp,
+            color = Color.Black,
+            fontSize = TextUnit.FontSizeBig,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
