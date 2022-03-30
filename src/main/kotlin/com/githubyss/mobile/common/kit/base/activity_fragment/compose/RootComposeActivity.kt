@@ -45,6 +45,5 @@ abstract class RootComposeActivity : BaseActivity(0) {
     abstract fun Page()
 
     @Composable
-    open fun Content() {
-    }
+    abstract fun Content()
 }

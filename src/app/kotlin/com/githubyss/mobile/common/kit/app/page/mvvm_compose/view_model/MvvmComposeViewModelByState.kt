@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm_compose
+package com.githubyss.mobile.common.kit.app.page.mvvm_compose.view_model
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,9 +19,9 @@ class MvvmComposeViewModelByState : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
-    private val TITLE = getStringFromRes(R.string.comkit_compose_toolbar_title)
+    private val titleDefault = getStringFromRes(R.string.comkit_compose_toolbar_title)
 
-    var title: String by mutableStateOf(TITLE)
+    var title: String by mutableStateOf(titleDefault)
         private set
     var count: Int by mutableStateOf(0)
         private set

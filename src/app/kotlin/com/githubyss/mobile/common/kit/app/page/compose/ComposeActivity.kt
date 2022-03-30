@@ -2,8 +2,8 @@ package com.githubyss.mobile.common.kit.app.page.compose
 
 import androidx.compose.runtime.Composable
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.page.compose.element.ComposeDisplay
-import com.githubyss.mobile.common.kit.app.page.compose.element.ComposePageContent
+import com.githubyss.mobile.common.kit.app.element.InfoDisplay
+import com.githubyss.mobile.common.kit.app.element.PageContent
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 
@@ -28,8 +28,8 @@ class ComposeActivity : BaseComposeActivity() {
 
     @Composable
     override fun Content() {
-        ComposePageContent {
-            ComposeDisplay(title = getStringFromRes(R.string.comkit_compose))
+        PageContent {
+            InfoDisplay(title = getStringFromRes(R.string.comkit_compose))
         }
     }
 }

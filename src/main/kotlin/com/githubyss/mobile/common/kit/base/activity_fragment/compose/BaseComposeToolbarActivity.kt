@@ -1,13 +1,5 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.compose
 
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 
@@ -33,8 +25,7 @@ abstract class BaseComposeToolbarActivity : RootComposeActivity() {
     /** ****************************** Open ****************************** */
 
     @Composable
-    open fun Toolbar() {
-    }
+    abstract fun Toolbar()
 
 
     /** ****************************** Functions ****************************** */
@@ -42,32 +33,12 @@ abstract class BaseComposeToolbarActivity : RootComposeActivity() {
     /** Setup Toolbar text by ResId. */
     @Composable
     protected fun Toolbar(titleResId: Int) {
-        ComposeToolbar(getStringFromRes(titleResId))
+        BaseToolbar(getStringFromRes(titleResId))
     }
 
     /** Setup Toolbar text by String. */
     @Composable
     protected fun Toolbar(titleString: String) {
-        ComposeToolbar(titleString)
-    }
-
-    @Composable
-    fun ComposeToolbar(title: String) {
-        TopAppBar(
-            title = { Text(text = title) },
-            navigationIcon = {
-                IconButton(onClick = { onBackPressed() }) {
-                    Icon(Icons.Filled.ArrowBack, null)
-                }
-            },
-            actions = {
-                IconButton(onClick = { }) {
-                    Icon(Icons.Filled.Share, null)
-                }
-                IconButton(onClick = { }) {
-                    Icon(Icons.Filled.Settings, null)
-                }
-            }
-        )
+        BaseToolbar(titleString)
     }
 }

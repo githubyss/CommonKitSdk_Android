@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.page.compose.element
+package com.githubyss.mobile.common.kit.app.element
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,7 +20,7 @@ import com.githubyss.mobile.common.res.common.dimen.FontSizeBig
 
 
 @Composable
-inline fun ComposePageContent(content: @Composable ColumnScope.() -> Unit) {
+inline fun PageContent(content: @Composable ColumnScope.() -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -35,7 +35,7 @@ inline fun ComposePageContent(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
-fun ComposeDisplay(title: String) {
+fun InfoDisplay(title: String) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
