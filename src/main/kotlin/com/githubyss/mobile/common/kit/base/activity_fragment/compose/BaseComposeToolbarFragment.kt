@@ -1,27 +1,42 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.compose
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 
 
 /**
- * BaseReflectBindingToolbarFragment
+ * BaseComposeToolbarFragment
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2021/03/09 14:35:12
+ * @createdTime 2022/02/22 15:54:36
  */
 abstract class BaseComposeToolbarFragment : RootComposeFragment() {
 
     /** ****************************** Override ****************************** */
 
     @Composable
-    override fun Content() {
-        Toolbar()
+    override fun Page() {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
+        ) {
+            Toolbar()
+            Content()
+        }
     }
 
 
-    /** ****************************** Open ****************************** */
+    /** ****************************** Abstract ****************************** */
 
     @Composable
     abstract fun Toolbar()

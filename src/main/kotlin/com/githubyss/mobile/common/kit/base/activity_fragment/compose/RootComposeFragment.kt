@@ -23,13 +23,16 @@ abstract class RootComposeFragment : BaseFragment(0) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return ComposeView(requireContext()).apply {
             setContent {
-                Content()
+                Page()
             }
         }
     }
 
 
     /** ****************************** Abstract ****************************** */
+
+    @Composable
+    abstract fun Page()
 
     @Composable
     abstract fun Content()
