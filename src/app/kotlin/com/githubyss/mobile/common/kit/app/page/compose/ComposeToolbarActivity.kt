@@ -26,7 +26,8 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
         private val TAG: String = ComposeToolbarActivity::class.java.simpleName
     }
 
-    private var title: String by mutableStateOf(getStringFromRes(R.string.comkit_compose_toolbar_title))
+    private val titleDefault = getStringFromRes(R.string.comkit_compose_toolbar_title)
+    private var title: String by mutableStateOf(titleDefault)
 
 
     /** ****************************** Override ****************************** */

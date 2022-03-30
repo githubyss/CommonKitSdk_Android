@@ -1,7 +1,5 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.compose
 
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 
@@ -26,8 +24,7 @@ abstract class BaseComposeToolbarFragment : RootComposeFragment() {
     /** ****************************** Open ****************************** */
 
     @Composable
-    open fun Toolbar() {
-    }
+    abstract fun Toolbar()
 
 
     /** ****************************** Functions ****************************** */
@@ -35,12 +32,12 @@ abstract class BaseComposeToolbarFragment : RootComposeFragment() {
     /** Setup Toolbar text by ResId. */
     @Composable
     protected fun Toolbar(titleResId: Int) {
-        TopAppBar(title = { Text(text = getStringFromRes(titleResId)) })
+        BaseToolbar(getStringFromRes(titleResId))
     }
 
     /** Setup Toolbar text by String. */
     @Composable
     protected fun Toolbar(titleString: String) {
-        TopAppBar(title = { Text(text = titleString) })
+        BaseToolbar(titleString)
     }
 }
