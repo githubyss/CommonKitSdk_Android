@@ -23,11 +23,11 @@ class ReflectToolbarActivity : BaseReflectBindingToolbarActivity<ComkitActivityB
 
     /** ****************************** Override ****************************** */
 
-    override fun setupUi() {
-        switchFragment(ReflectToolbarFragment(), ReflectToolbarFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
-    }
-
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_view_binding_reflect_toolbar_title)
+    }
+
+    override fun setupUi() {
+        switchFragment(ReflectToolbarFragment(), ReflectToolbarFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 }

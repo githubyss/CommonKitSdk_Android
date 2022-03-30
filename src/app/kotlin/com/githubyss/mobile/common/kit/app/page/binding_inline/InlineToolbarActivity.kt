@@ -22,11 +22,11 @@ class InlineToolbarActivity : BaseInlineBindingToolbarActivity() {
 
     /** ****************************** Override ****************************** */
 
-    override fun setupUi() {
-        switchFragment(InlineToolbarFragment(), InlineToolbarFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
-    }
-
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_view_binding_inline_toolbar_title)
+    }
+
+    override fun setupUi() {
+        switchFragment(InlineToolbarFragment(), InlineToolbarFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 }

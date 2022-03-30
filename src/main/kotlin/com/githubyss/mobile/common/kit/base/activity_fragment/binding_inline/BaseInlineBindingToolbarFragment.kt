@@ -21,10 +21,17 @@ abstract class BaseInlineBindingToolbarFragment(@LayoutRes layoutId: Int) : Base
         setToolbarTitle()
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            setToolbarTitle()
+        }
+    }
 
-    /** ****************************** Open ****************************** */
 
-    open fun setToolbarTitle() {}
+    /** ****************************** Abstract ****************************** */
+
+    abstract fun setToolbarTitle()
 
 
     /** ****************************** Functions ****************************** */

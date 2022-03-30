@@ -20,8 +20,15 @@ abstract class BaseReflectBindingToolbarFragment<B : ViewBinding> : RootReflectB
         setToolbarTitle()
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            setToolbarTitle()
+        }
+    }
 
-    /** ****************************** Open ****************************** */
+
+    /** ****************************** Abstract ****************************** */
 
     abstract fun setToolbarTitle()
 

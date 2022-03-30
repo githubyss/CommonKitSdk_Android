@@ -38,9 +38,9 @@ abstract class BaseInlineBindingToolbarActivity : BaseActivity(0) {
     }
 
 
-    /** ****************************** Open ****************************** */
+    /** ****************************** Abstract ****************************** */
 
-    open fun setToolbarTitle() {}
+    abstract fun setToolbarTitle()
 
 
     /** ****************************** Functions ****************************** */

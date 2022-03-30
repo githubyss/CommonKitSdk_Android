@@ -36,7 +36,7 @@ abstract class BaseComposeToolbarActivity : RootComposeActivity() {
     }
 
 
-    /** ****************************** Open ****************************** */
+    /** ****************************** Abstract ****************************** */
 
     @Composable
     abstract fun Toolbar()

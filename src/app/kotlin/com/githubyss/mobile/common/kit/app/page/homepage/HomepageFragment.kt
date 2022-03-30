@@ -67,7 +67,6 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            setToolbarTitle()
             // this.homepageVm.viewId?.value = 0
         }
     }

@@ -33,7 +33,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewBinding> : RootReflectB
     }
 
 
-    /** ****************************** Open ****************************** */
+    /** ****************************** Abstract ****************************** */
 
     abstract fun setToolbarTitle()
 
