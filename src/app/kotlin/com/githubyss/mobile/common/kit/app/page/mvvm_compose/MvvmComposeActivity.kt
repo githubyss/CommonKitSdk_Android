@@ -7,7 +7,7 @@ import com.githubyss.mobile.common.kit.app.element.PageContent
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.view_model.MvvmComposeViewModelByState
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.button_click.compose.CommonButtonClickBlue
+import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlue
 
 
 /**
@@ -50,14 +50,14 @@ class MvvmComposeActivity : BaseComposeToolbarActivity() {
 
     @Composable
     private fun ChangeTitleButton() {
-        CommonButtonClickBlue(text = "Change Title") {
+        ButtonClickBlue(text = "Change Title") {
             runOnUiThread { composeVm.changeTitle("$titleDefault ${composeVm.count}") }
         }
     }
 
     @Composable
     private fun CounterButtonByCountOutside() {
-        CommonButtonClickBlue(text = "Counter Outside : ${composeVm.count}") {
+        ButtonClickBlue(text = "Counter Outside : ${composeVm.count}") {
             runOnUiThread { composeVm.plus() }
         }
     }

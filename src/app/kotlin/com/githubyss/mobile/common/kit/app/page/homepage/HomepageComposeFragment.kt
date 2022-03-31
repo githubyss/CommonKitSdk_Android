@@ -2,6 +2,7 @@ package com.githubyss.mobile.common.kit.app.page.homepage
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.Dp
 import androidx.fragment.app.viewModels
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineActivity
@@ -20,7 +21,9 @@ import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 import com.githubyss.mobile.common.kit.util.runOnUiThread
-import com.githubyss.mobile.common.res.button_click.compose.CommonButtonClickBlue
+import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlue
+import com.githubyss.mobile.common.res.common.dimen.SideMarginNormal
+import com.githubyss.mobile.common.res.page.compose.PageSideMarginLightGray
 
 
 /**
@@ -50,7 +53,11 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     @Composable
     override fun Content() {
-        Buttons()
+        PageSideMarginLightGray(
+            paddingVertical = Dp.SideMarginNormal
+        ) {
+            Buttons()
+        }
     }
 
 
@@ -58,24 +65,24 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     @Composable
     private fun Buttons() {
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_mvvm)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_mvvm)) {
             runOnUiThread {
                 FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_mvi)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_mvi)) {
             runOnUiThread {
                 ActivityUtils.startActivity(activity, MviActivity::class.java)
             }
         }
         Column() {
-            CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_compose)) {
+            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_compose)) {
                 runOnUiThread {
                     ActivityUtils.startActivity(activity, ComposeActivity::class.java)
                     // FragmentUtils.switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
                 }
             }
-            CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_compose_toolbar)) {
+            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_compose_toolbar)) {
                 runOnUiThread {
                     ActivityUtils.startActivity(activity, ComposeToolbarActivity::class.java)
                     // FragmentUtils.switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
@@ -83,125 +90,125 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
             }
         }
         Column {
-            CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect)) {
+            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect)) {
                 runOnUiThread {
                     ActivityUtils.startActivity(activity, ReflectActivity::class.java)
                 }
             }
-            CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect_toolbar)) {
+            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect_toolbar)) {
                 runOnUiThread {
                     ActivityUtils.startActivity(activity, ReflectToolbarActivity::class.java)
                 }
             }
         }
         Column {
-            CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_inline)) {
+            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_inline)) {
                 runOnUiThread {
                     ActivityUtils.startActivity(activity, InlineActivity::class.java)
                 }
             }
-            CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_inline_toolbar)) {
+            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_inline_toolbar)) {
                 runOnUiThread {
                     ActivityUtils.startActivity(activity, InlineToolbarActivity::class.java)
                 }
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_log)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_log)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_json_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_json_utils)) {
             runOnUiThread {
                 FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_glide)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_glide)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_lifecycle)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_lifecycle)) {
             runOnUiThread {
                 ActivityUtils.startActivity(activity, LifecycleActivity::class.java)
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_audio_player)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_audio_player)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_contacts_fetch)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_contacts_fetch)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_font)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_font)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_permission)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_permission)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_screenshot_detect)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_screenshot_detect)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_speech_recognition)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_speech_recognition)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_activity_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_activity_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_adapt_screen_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_adapt_screen_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_app_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_app_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_array_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_array_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_bar_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_bar_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_brightness_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_brightness_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_convert_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_convert_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_datetime_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_datetime_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_device_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_device_utils)) {
             runOnUiThread {
 
             }
         }
-        CommonButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_encrypt_utils)) {
+        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_encrypt_utils)) {
             runOnUiThread {
 
             }

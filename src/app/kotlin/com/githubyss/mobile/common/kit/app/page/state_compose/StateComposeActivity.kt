@@ -5,7 +5,7 @@ import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.element.PageContent
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.button_click.compose.CommonButtonClickBlue
+import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlue
 
 
 /**
@@ -53,14 +53,14 @@ class StateComposeActivity : BaseComposeToolbarActivity() {
 
     @Composable
     private fun ChangeTitleButton() {
-        CommonButtonClickBlue(text = "Change Title") {
+        ButtonClickBlue(text = "Change Title") {
             runOnUiThread { title = "$titleDefault $count" }
         }
     }
 
     @Composable
     private fun CounterButtonByCountOutside() {
-        CommonButtonClickBlue(text = "Counter Outside : $count") {
+        ButtonClickBlue(text = "Counter Outside : $count") {
             runOnUiThread { count++ }
         }
     }
@@ -70,7 +70,7 @@ class StateComposeActivity : BaseComposeToolbarActivity() {
         var count: Int by remember { mutableStateOf(0) }
         // val count: MutableState<Int> = remember { mutableStateOf(0) }
 
-        CommonButtonClickBlue(text = "Counter Inside : $count") {
+        ButtonClickBlue(text = "Counter Inside : $count") {
             runOnUiThread {
                 count++
                 // count.value++
