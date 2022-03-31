@@ -46,7 +46,7 @@ abstract class BaseComposeToolbarFragment : RootComposeFragment() {
 
     /** Setup Toolbar text by ResId. */
     @Composable
-    protected fun Toolbar(titleResId: Int) {
+    protected fun Toolbar( titleResId: Int) {
         BaseToolbar(getStringFromRes(titleResId))
     }
 

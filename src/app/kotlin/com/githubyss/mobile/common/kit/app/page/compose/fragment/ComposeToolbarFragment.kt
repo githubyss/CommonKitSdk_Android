@@ -20,7 +20,7 @@ class ComposeToolbarFragment : BaseComposeToolbarFragment() {
     /** ****************************** Properties ****************************** */
 
     companion object {
-        val TAG: String = ComposeToolbarFragment::class.java.simpleName
+        private val TAG: String = ComposeToolbarFragment::class.java.simpleName
     }
 
 
@@ -28,18 +28,13 @@ class ComposeToolbarFragment : BaseComposeToolbarFragment() {
 
     @Composable
     override fun Toolbar() {
-        Toolbar(titleResId = R.string.comkit_compose_toolbar_title)
+        Toolbar(R.string.comkit_compose_toolbar_title)
     }
 
     @Composable
     override fun Content() {
         PageContent {
-            InfoDisplay()
+            InfoDisplay(title = getStringFromRes(R.string.comkit_compose_toolbar))
         }
-    }
-
-    @Composable
-    private fun InfoDisplay() {
-        InfoDisplay(title = getStringFromRes(R.string.comkit_compose_toolbar))
     }
 }

@@ -1,9 +1,6 @@
 package com.githubyss.mobile.common.kit.app.page.compose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.element.InfoDisplay
 import com.githubyss.mobile.common.kit.app.element.PageContent
@@ -26,15 +23,12 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
         private val TAG: String = ComposeToolbarActivity::class.java.simpleName
     }
 
-    private val titleDefault = getStringFromRes(R.string.comkit_compose_toolbar_title)
-    private var title: String by mutableStateOf(titleDefault)
-
 
     /** ****************************** Override ****************************** */
 
     @Composable
     override fun Toolbar() {
-        Toolbar(title)
+        Toolbar(R.string.comkit_compose_toolbar_title)
     }
 
     @Composable
@@ -43,13 +37,4 @@ class ComposeToolbarActivity : BaseComposeToolbarActivity() {
             InfoDisplay(title = getStringFromRes(R.string.comkit_compose_toolbar))
         }
     }
-
-    // @Composable
-    // private fun ChangeTitleButtonByViewModel() {
-    //     Button(
-    //         onClick = { runOnUiThread { composeVm.changeTitle("$TITLE New") } }
-    //     ) {
-    //         Text(text = "Change Title", fontSize = 18.sp)
-    //     }
-    // }
 }
