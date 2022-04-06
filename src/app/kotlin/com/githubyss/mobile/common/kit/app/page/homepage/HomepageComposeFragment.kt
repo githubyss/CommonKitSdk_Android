@@ -6,13 +6,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.fragment.app.viewModels
 import com.githubyss.mobile.common.kit.R
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.ButtonClickBlueWeightHorizontal
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.LayoutWeightHorizontal
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
 import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineActivity
 import com.githubyss.mobile.common.kit.app.page.binding_inline.InlineToolbarActivity
 import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectActivity
 import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectToolbarActivity
 import com.githubyss.mobile.common.kit.app.page.compose.ComposeActivity
 import com.githubyss.mobile.common.kit.app.page.compose.ComposeToolbarActivity
-import com.githubyss.mobile.common.kit.app.page.compose_button.ComposeButtonFragment
 import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
 import com.githubyss.mobile.common.kit.app.page.mvi.MviActivity
@@ -24,10 +27,7 @@ import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseCompos
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlueWeightHorizontal
 import com.githubyss.mobile.common.res.common.dimen.SideNormal
-import com.githubyss.mobile.common.res.layout.compose.LayoutWeightHorizontal
-import com.githubyss.mobile.common.res.page.compose.PageSidePadding
 
 
 /**
@@ -52,7 +52,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     @Composable
     override fun Toolbar() {
-        Toolbar(homepageVm.title)
+        TopNavigationBar(homepageVm.title)
     }
 
     @Preview
@@ -70,9 +70,6 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     @Composable
     private fun Buttons() {
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_compose_button)) {
-            FragmentUtils.switchFragmentByAddHideShow(ComposeButtonFragment(), ComposeButtonFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
-        }
         ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvvm)) {
             FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
         }

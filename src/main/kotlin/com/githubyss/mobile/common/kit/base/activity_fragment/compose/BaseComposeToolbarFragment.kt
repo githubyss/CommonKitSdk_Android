@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.githubyss.mobile.common.kit.util.getStringFromRes
 
 
 /**
@@ -42,17 +41,22 @@ abstract class BaseComposeToolbarFragment : RootComposeFragment() {
     abstract fun Toolbar()
 
 
-    /** ****************************** Functions ****************************** */
-
-    /** Setup Toolbar text by ResId. */
-    @Composable
-    protected fun Toolbar( titleResId: Int) {
-        BaseToolbar(getStringFromRes(titleResId))
-    }
-
-    /** Setup Toolbar text by String. */
-    @Composable
-    protected fun Toolbar(titleString: String) {
-        BaseToolbar(titleString)
-    }
+    // /** ****************************** Functions ****************************** */
+    //
+    // /** Setup Toolbar text by ResId. */
+    // @Composable
+    // protected fun Toolbar(titleResId: Int) {
+    //     Toolbar(
+    //         titleString = getStringFromRes(titleResId),
+    //     )
+    // }
+    //
+    // /** Setup Toolbar text by String. */
+    // @Composable
+    // protected fun Toolbar(titleString: String) {
+    //     BaseToolbar(
+    //         title = titleString,
+    //         onNavigationIconClick = {activity?.onBackPressed()},
+    //     )
+    // }
 }

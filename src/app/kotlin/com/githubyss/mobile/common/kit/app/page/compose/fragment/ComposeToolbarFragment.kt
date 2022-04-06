@@ -4,11 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.element.InfoDisplay
+import com.githubyss.mobile.common.kit.app.compose_ui.InfoDisplay
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarFragment
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 import com.githubyss.mobile.common.res.common.dimen.SideNormal
-import com.githubyss.mobile.common.res.page.compose.PageSidePadding
 
 
 /**
@@ -31,7 +32,7 @@ class ComposeToolbarFragment : BaseComposeToolbarFragment() {
 
     @Composable
     override fun Toolbar() {
-        Toolbar(R.string.comkit_compose_toolbar_title)
+        TopNavigationBar(getStringFromRes(R.string.comkit_compose_toolbar_title)) { activity?.onBackPressed() }
     }
 
     @Composable

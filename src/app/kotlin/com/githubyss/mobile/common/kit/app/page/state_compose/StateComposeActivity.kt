@@ -3,11 +3,12 @@ package com.githubyss.mobile.common.kit.app.page.state_compose
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.Dp
 import com.githubyss.mobile.common.kit.R
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.ButtonClickBlueMargin
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
+import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlueMargin
 import com.githubyss.mobile.common.res.common.dimen.SideNormal
-import com.githubyss.mobile.common.res.page.compose.PageSidePadding
 
 
 /**
@@ -38,7 +39,7 @@ class StateComposeActivity : BaseComposeToolbarActivity() {
 
     @Composable
     override fun Toolbar() {
-        Toolbar(title)
+        TopNavigationBar(title) { onBackPressed() }
     }
 
     @Composable
