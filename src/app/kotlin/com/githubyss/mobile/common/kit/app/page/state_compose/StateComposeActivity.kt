@@ -1,11 +1,13 @@
 package com.githubyss.mobile.common.kit.app.page.state_compose
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.unit.Dp
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.element.PageContent
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlue
+import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlueMargin
+import com.githubyss.mobile.common.res.common.dimen.SideNormal
+import com.githubyss.mobile.common.res.page.compose.PageSidePadding
 
 
 /**
@@ -41,7 +43,9 @@ class StateComposeActivity : BaseComposeToolbarActivity() {
 
     @Composable
     override fun Content() {
-        PageContent {
+        PageSidePadding(
+            paddingVertical = Dp.SideNormal,
+        ) {
             ChangeTitleButton()
             CounterButtonByCountOutside()
             CounterButtonByCountInside()
@@ -53,15 +57,21 @@ class StateComposeActivity : BaseComposeToolbarActivity() {
 
     @Composable
     private fun ChangeTitleButton() {
-        ButtonClickBlue(text = "Change Title") {
-            runOnUiThread { title = "$titleDefault $count" }
+        ButtonClickBlueMargin(
+            text = "Change Title",
+            isFillMaxWidth = true,
+        ) {
+            title = "$titleDefault $count"
         }
     }
 
     @Composable
     private fun CounterButtonByCountOutside() {
-        ButtonClickBlue(text = "Counter Outside : $count") {
-            runOnUiThread { count++ }
+        ButtonClickBlueMargin(
+            text = "Counter Outside : $count",
+            isFillMaxWidth = true,
+        ) {
+            count++
         }
     }
 
@@ -70,11 +80,12 @@ class StateComposeActivity : BaseComposeToolbarActivity() {
         var count: Int by remember { mutableStateOf(0) }
         // val count: MutableState<Int> = remember { mutableStateOf(0) }
 
-        ButtonClickBlue(text = "Counter Inside : $count") {
-            runOnUiThread {
-                count++
-                // count.value++
-            }
+        ButtonClickBlueMargin(
+            text = "Counter Inside : $count",
+            isFillMaxWidth = true,
+        ) {
+            count++
+            // count.value++
         }
     }
 }

@@ -2,12 +2,14 @@ package com.githubyss.mobile.common.kit.app.page.mvvm_compose
 
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.Dp
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.element.PageContent
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.view_model.MvvmComposeViewModelByState
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlue
+import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlueMargin
+import com.githubyss.mobile.common.res.common.dimen.SideNormal
+import com.githubyss.mobile.common.res.page.compose.PageSidePadding
 
 
 /**
@@ -39,7 +41,9 @@ class MvvmComposeActivity : BaseComposeToolbarActivity() {
 
     @Composable
     override fun Content() {
-        PageContent {
+        PageSidePadding(
+            paddingVertical = Dp.SideNormal,
+        ) {
             ChangeTitleButton()
             CounterButtonByCountOutside()
         }
@@ -50,15 +54,21 @@ class MvvmComposeActivity : BaseComposeToolbarActivity() {
 
     @Composable
     private fun ChangeTitleButton() {
-        ButtonClickBlue(text = "Change Title") {
-            runOnUiThread { composeVm.changeTitle("$titleDefault ${composeVm.count}") }
+        ButtonClickBlueMargin(
+            text = "Change Title",
+            isFillMaxWidth = true,
+        ) {
+            composeVm.changeTitle("$titleDefault ${composeVm.count}")
         }
     }
 
     @Composable
     private fun CounterButtonByCountOutside() {
-        ButtonClickBlue(text = "Counter Outside : ${composeVm.count}") {
-            runOnUiThread { composeVm.plus() }
+        ButtonClickBlueMargin(
+            text = "Counter Outside : ${composeVm.count}",
+            isFillMaxWidth = true,
+        ) {
+            composeVm.plus()
         }
     }
 }

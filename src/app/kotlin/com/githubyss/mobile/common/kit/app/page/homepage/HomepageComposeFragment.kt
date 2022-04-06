@@ -1,7 +1,8 @@
 package com.githubyss.mobile.common.kit.app.page.homepage
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.fragment.app.viewModels
 import com.githubyss.mobile.common.kit.R
@@ -11,19 +12,22 @@ import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectActivity
 import com.githubyss.mobile.common.kit.app.page.binding_reflect.ReflectToolbarActivity
 import com.githubyss.mobile.common.kit.app.page.compose.ComposeActivity
 import com.githubyss.mobile.common.kit.app.page.compose.ComposeToolbarActivity
+import com.githubyss.mobile.common.kit.app.page.compose_button.ComposeButtonFragment
 import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
 import com.githubyss.mobile.common.kit.app.page.mvi.MviActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
+import com.githubyss.mobile.common.kit.app.page.mvvm_compose.MvvmComposeActivity
+import com.githubyss.mobile.common.kit.app.page.state_compose.StateComposeActivity
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarFragment
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.kit.util.runOnUiThread
-import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlue
-import com.githubyss.mobile.common.res.common.dimen.SideMarginNormal
-import com.githubyss.mobile.common.res.page.compose.PageSideMarginLightGray
+import com.githubyss.mobile.common.res.button_click.compose.ButtonClickBlueWeightHorizontal
+import com.githubyss.mobile.common.res.common.dimen.SideNormal
+import com.githubyss.mobile.common.res.layout.compose.LayoutWeightHorizontal
+import com.githubyss.mobile.common.res.page.compose.PageSidePadding
 
 
 /**
@@ -51,10 +55,11 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
         Toolbar(homepageVm.title)
     }
 
+    @Preview
     @Composable
     override fun Content() {
-        PageSideMarginLightGray(
-            paddingVertical = Dp.SideMarginNormal
+        PageSidePadding(
+            paddingVertical = Dp.SideNormal,
         ) {
             Buttons()
         }
@@ -65,153 +70,128 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     @Composable
     private fun Buttons() {
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_mvvm)) {
-            runOnUiThread {
-                FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_button)) {
+            FragmentUtils.switchFragmentByAddHideShow(ComposeButtonFragment(), ComposeButtonFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
+        }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvvm)) {
+            FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
+        }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvi)) {
+            ActivityUtils.startActivity(activity, MviActivity::class.java)
+        }
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_mvvm_compose),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, MvvmComposeActivity::class.java)
+            }
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_state_compose),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, StateComposeActivity::class.java)
             }
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_mvi)) {
-            runOnUiThread {
-                ActivityUtils.startActivity(activity, MviActivity::class.java)
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_compose),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, ComposeActivity::class.java)
+                // FragmentUtils.switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
+            }
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_compose_toolbar),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, ComposeToolbarActivity::class.java)
+                // FragmentUtils.switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
             }
         }
-        Column() {
-            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_compose)) {
-                runOnUiThread {
-                    ActivityUtils.startActivity(activity, ComposeActivity::class.java)
-                    // FragmentUtils.switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
-                }
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, ReflectActivity::class.java)
             }
-            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_compose_toolbar)) {
-                runOnUiThread {
-                    ActivityUtils.startActivity(activity, ComposeToolbarActivity::class.java)
-                    // FragmentUtils.switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
-                }
-            }
-        }
-        Column {
-            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect)) {
-                runOnUiThread {
-                    ActivityUtils.startActivity(activity, ReflectActivity::class.java)
-                }
-            }
-            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect_toolbar)) {
-                runOnUiThread {
-                    ActivityUtils.startActivity(activity, ReflectToolbarActivity::class.java)
-                }
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect_toolbar),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, ReflectToolbarActivity::class.java)
             }
         }
-        Column {
-            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_inline)) {
-                runOnUiThread {
-                    ActivityUtils.startActivity(activity, InlineActivity::class.java)
-                }
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_view_binding_inline),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, InlineActivity::class.java)
             }
-            ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_view_binding_inline_toolbar)) {
-                runOnUiThread {
-                    ActivityUtils.startActivity(activity, InlineToolbarActivity::class.java)
-                }
-            }
-        }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_log)) {
-            runOnUiThread {
-
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_view_binding_inline_toolbar),
+                modifier = Modifier.weight(1F)
+            ) {
+                ActivityUtils.startActivity(activity, InlineToolbarActivity::class.java)
             }
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_json_utils)) {
-            runOnUiThread {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_log),
+                modifier = Modifier.weight(1F)
+            ) {
+            }
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_json_utils),
+                modifier = Modifier.weight(1F)
+            ) {
                 FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
             }
-        }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_glide)) {
-            runOnUiThread {
-
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_glide),
+                modifier = Modifier.weight(1F)
+            ) {
             }
-        }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_lifecycle)) {
-            runOnUiThread {
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_lifecycle),
+                modifier = Modifier.weight(1F)
+            ) {
                 ActivityUtils.startActivity(activity, LifecycleActivity::class.java)
             }
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_audio_player)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_audio_player)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_contacts_fetch)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_contacts_fetch)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_font)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_font)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_permission)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_permission)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_screenshot_detect)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_screenshot_detect)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_speech_recognition)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_speech_recognition)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_activity_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_activity_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_adapt_screen_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_adapt_screen_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_app_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_app_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_array_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_array_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_bar_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_bar_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_brightness_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_brightness_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_convert_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_convert_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_datetime_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_datetime_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_device_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_device_utils)) {
         }
-        ButtonClickBlue(getStringFromRes(R.string.comkit_homepage_button_encrypt_utils)) {
-            runOnUiThread {
-
-            }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_encrypt_utils)) {
         }
     }
 }
