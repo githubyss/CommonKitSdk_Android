@@ -70,7 +70,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     @Composable
     private fun Buttons() {
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_button)) {
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_compose_button)) {
             FragmentUtils.switchFragmentByAddHideShow(ComposeButtonFragment(), ComposeButtonFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
         }
         ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvvm)) {

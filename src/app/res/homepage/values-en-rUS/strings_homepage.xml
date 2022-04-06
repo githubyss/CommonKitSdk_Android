@@ -4,7 +4,7 @@
     <string name="comkit_homepage_title">Kit Debug Homepage</string>
 
     <!-- Button -->
-    <string name="comkit_homepage_button_button">Button</string>
+    <string name="comkit_homepage_button_compose_button">Button</string>
     <string name="comkit_homepage_button_mvvm">MVVM</string>
     <string name="comkit_homepage_button_mvi">MVI</string>
     <string name="comkit_homepage_button_mvvm_compose">Mvvm Compose</string>
