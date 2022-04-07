@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.app.page.compose.fragment
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.compose_ui.InfoDisplay
@@ -30,7 +29,6 @@ class ComposeFragment : BaseComposeFragment() {
 
     /** ****************************** Override ****************************** */
 
-    @Preview
     @Composable
     override fun Content() {
         PageSidePadding(

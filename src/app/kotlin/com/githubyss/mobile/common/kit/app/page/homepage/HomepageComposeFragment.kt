@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.app.page.homepage
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.fragment.app.viewModels
 import com.githubyss.mobile.common.kit.R
@@ -55,7 +54,6 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
         TopNavigationBar(homepageVm.title)
     }
 
-    @Preview
     @Composable
     override fun Content() {
         PageSidePadding(
