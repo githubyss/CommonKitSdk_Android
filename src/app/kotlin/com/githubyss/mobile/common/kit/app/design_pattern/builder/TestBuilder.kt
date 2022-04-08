@@ -28,7 +28,9 @@ fun builder() {
     println()
 
     println("Builder 模式 & AbstractFactory 模式")
-    PersonDirectorByFactory.build<PersonThinBuilder>(canvas, paint)
-    PersonDirectorByFactory.buildKClass<PersonFatBuilder>(canvas, paint)
+    PersonDirectorByFactory.buildByJClassInline<PersonThinBuilder>(canvas, paint)
+    PersonDirectorByFactory.buildByKClassInline<PersonFatBuilder>(canvas, paint)
+    PersonDirectorByFactory.buildByJClass<PersonThinBuilder>(canvas, paint)
+    PersonDirectorByFactory.buildByKClass<PersonFatBuilder>(canvas, paint)
     println()
 }

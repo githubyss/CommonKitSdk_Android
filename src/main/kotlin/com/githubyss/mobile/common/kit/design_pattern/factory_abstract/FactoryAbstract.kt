@@ -10,5 +10,5 @@ package com.githubyss.mobile.common.kit.design_pattern.factory_abstract
  * @createdTime 2022/03/09 14:21:54
  */
 abstract class FactoryAbstract<I> {
-    abstract fun <E : I> create(jClass: Class<E>, vararg initArgs: Any = emptyArray()): E?
+    abstract fun <E : I> create(clazz: Any, vararg initArgs: Any = emptyArray()): E?
 }
