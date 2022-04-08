@@ -1,33 +1,36 @@
-package com.githubyss.mobile.common.kit.app.design_pattern.entity.person_draw
+package com.githubyss.mobile.common.kit.app.design_pattern.entity.person_builder
+
+import com.githubyss.mobile.common.kit.app.design_pattern.entity.person_builder.draw.DrawCanvas
+import com.githubyss.mobile.common.kit.app.design_pattern.entity.person_builder.draw.DrawPaint
 
 
-class PersonFatBuilder(canvas: DrawCanvas, paint: DrawPaint) : PersonBuilder(canvas, paint) {
-    override fun buildHead() {
+class PersonBuilderFat(canvas: DrawCanvas, paint: DrawPaint) : PersonBuilderAbstract(canvas, paint) {
+    override fun addHead() {
         println("胖子：头")
         // canvas.drawCircle(0.0F, 0.0F, 0.0F, paint)
     }
 
-    override fun buildBody() {
+    override fun addBody() {
         println("胖子：躯干")
         // canvas.drawCircle(0.0F, 0.0F, 0.0F, paint)
     }
 
-    override fun buildArnLeft() {
+    override fun addArmLeft() {
         println("胖子：左胳膊")
         // canvas.drawLine(0.0F, 0.0F, 0.0F, 0.0F, paint)
     }
 
-    override fun buildArmRight() {
+    override fun addArmRight() {
         println("胖子：右胳膊")
         // canvas.drawLine(0.0F, 0.0F, 0.0F, 0.0F, paint)
     }
 
-    override fun buildLegLeft() {
+    override fun addLegLeft() {
         println("胖子：左腿")
         // canvas.drawLine(0.0F, 0.0F, 0.0F, 0.0F, paint)
     }
 
-    override fun buildLegRight() {
+    override fun addLegRight() {
         println("胖子：右腿")
         // canvas.drawLine(0.0F, 0.0F, 0.0F, 0.0F, paint)
     }

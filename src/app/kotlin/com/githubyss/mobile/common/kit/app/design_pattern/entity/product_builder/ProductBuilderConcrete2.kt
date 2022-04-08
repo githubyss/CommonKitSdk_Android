@@ -1,6 +1,4 @@
-package com.githubyss.mobile.common.kit.app.design_pattern.builder
-
-import com.githubyss.mobile.common.kit.app.design_pattern.entity.product_builder.Product
+package com.githubyss.mobile.common.kit.app.design_pattern.entity.product_builder
 
 
 class ProductBuilderConcrete2 : ProductBuilderAbstract() {
@@ -12,10 +10,9 @@ class ProductBuilderConcrete2 : ProductBuilderAbstract() {
 
     override fun addPartB() {
         product.add("产品2：部件B")
-
     }
 
-    override fun build(): Product {
+    override fun create(): Product {
         return product
     }
 }
