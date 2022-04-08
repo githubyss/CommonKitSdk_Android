@@ -3,6 +3,7 @@ package com.githubyss.mobile.common.kit.app.design_pattern.facade
 import com.githubyss.mobile.common.kit.app.design_pattern.entity.stock.Fund
 import com.githubyss.mobile.common.kit.app.design_pattern.entity.stock.IStock
 
+
 /**
  * TestFacade
  *

@@ -1,5 +1,6 @@
 package com.githubyss.mobile.common.kit.app.design_pattern
 
+import com.githubyss.mobile.common.kit.app.design_pattern.builder.builder
 import com.githubyss.mobile.common.kit.app.design_pattern.decorator.decorator
 import com.githubyss.mobile.common.kit.app.design_pattern.facade.facade
 import com.githubyss.mobile.common.kit.app.design_pattern.factory_abstract.factoryAbstract
@@ -82,4 +83,5 @@ fun main(args: Array<String>) {
     prototype()
     templateMethod()
     facade()
+    builder()
 }

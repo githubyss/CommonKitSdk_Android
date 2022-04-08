@@ -1,6 +1,9 @@
 package com.githubyss.mobile.common.kit.design_pattern.factory_abstract
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.githubyss.mobile.common.kit.util.logE
+import java.lang.reflect.Constructor
 
 
 /**
@@ -15,14 +18,42 @@ class FactoryConcrete<I> : FactoryAbstract<I>() {
         private val TAG: String = FactoryConcrete::class.java.simpleName
     }
 
-    override fun <E : I> create(clz: Class<E>): E {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun <E : I> create(jClass: Class<E>, vararg initArgs: Any): E? {
         var entity: I? = null
+        val argsSize = initArgs.size
+
         try {
-            entity = Class.forName(clz.name).newInstance() as I
+            when (argsSize) {
+                0 -> {
+                    entity = Class.forName(jClass.name).newInstance() as I?
+                }
+                else -> {
+                    val constructors: Array<Constructor<*>> = jClass.constructors
+                    constructors.forEach {
+                        if (it.parameters.size == argsSize) {
+                            entity = when (argsSize) {
+                                1 -> it.newInstance(initArgs[0])
+                                2 -> it.newInstance(initArgs[0], initArgs[1])
+                                3 -> it.newInstance(initArgs[0], initArgs[1], initArgs[2])
+                                4 -> it.newInstance(initArgs[0], initArgs[1], initArgs[2], initArgs[3])
+                                5 -> it.newInstance(initArgs[0], initArgs[1], initArgs[2], initArgs[3], initArgs[4])
+                                else -> null
+                            } as I?
+                        }
+                    }
+                }
+            }
         }
         catch (e: Exception) {
             logE(TAG, t = e)
         }
-        return entity as E
+
+        return try {
+            entity as E?
+        }
+        catch (e: TypeCastException) {
+            null
+        }
     }
 }
