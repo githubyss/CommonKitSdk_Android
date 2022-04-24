@@ -44,7 +44,7 @@ import com.githubyss.mobile.common.kit.util.FragmentUtils
  * @createdTime 2021/02/05 10:11:54
  */
 object GlideUtils {
-    
+
     /**
      * Load image by path.
      *
@@ -58,7 +58,7 @@ object GlideUtils {
         imageView ?: return
         context ?: return
         loadPath ?: return
-        
+
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.skipMemoryCache(false)
         requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -72,10 +72,10 @@ object GlideUtils {
             is Drawable -> requestOptions.error(errorRes)
             else -> requestOptions
         }
-        
+
         loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_DRAWABLE)
     }
-    
+
     /**
      * Load image as gif by path.
      *
@@ -89,7 +89,7 @@ object GlideUtils {
         imageView ?: return
         context ?: return
         loadPath ?: return
-        
+
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.skipMemoryCache(false)
         requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -103,10 +103,10 @@ object GlideUtils {
             is Drawable -> requestOptions.error(errorRes)
             else -> requestOptions
         }
-        
+
         loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_GIF)
     }
-    
+
     /**
      * Load image as circled by path.
      *
@@ -120,7 +120,7 @@ object GlideUtils {
         imageView ?: return
         context ?: return
         loadPath ?: return
-        
+
         var requestOptions = RequestOptions.circleCropTransform()
         requestOptions = requestOptions.skipMemoryCache(false)
         requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -134,10 +134,10 @@ object GlideUtils {
             is Drawable -> requestOptions.error(errorRes)
             else -> requestOptions
         }
-        
+
         loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_DRAWABLE)
     }
-    
+
     /**
      * Load image by path, requestOptions, transitionOptions.
      * Default load as drawable.
@@ -148,11 +148,11 @@ object GlideUtils {
      * @param requestOptions    The request options.
      * @param decodeStrategy    The decode strategy to load image resource.
      */
-    fun loadImageByOptions(imageView: ImageView?, context: Any?, loadPath: Any?, requestOptions: RequestOptions? = null, @GlideDecodeStrategy decodeStrategy: String = GlideDecodeStrategy.AS_DRAWABLE) {
+    fun <C, L> loadImageByOptions(imageView: ImageView?, context: C?, loadPath: L?, requestOptions: RequestOptions? = null, @GlideDecodeStrategy decodeStrategy: String = GlideDecodeStrategy.AS_DRAWABLE) {
         imageView ?: return
         context ?: return
         loadPath ?: return
-        
+
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
@@ -163,7 +163,7 @@ object GlideUtils {
                 }
             }
         }
-        
+
         var requestManager: RequestManager? = null
         when (context) {
             is Context -> requestManager = Glide.with(context)
@@ -174,7 +174,7 @@ object GlideUtils {
             is View -> requestManager = Glide.with(context)
         }
         requestManager ?: return
-        
+
         var requestBuilder: RequestBuilder<*>? = when (decodeStrategy) {
             GlideDecodeStrategy.AS_BITMAP -> requestManager.asBitmap()
                 .transition(BitmapTransitionOptions.withCrossFade())
@@ -190,7 +190,7 @@ object GlideUtils {
             requestBuilder?.apply(requestOptions)
         }
         requestBuilder ?: return
-        
+
         when (loadPath) {
             is Int, is String -> {
                 requestBuilder.load(loadPath)
@@ -198,7 +198,7 @@ object GlideUtils {
             }
         }
     }
-    
+
     /**
      * Load image into view group background by path.
      *
@@ -212,7 +212,7 @@ object GlideUtils {
         viewGroup ?: return
         context ?: return
         loadPath ?: return
-        
+
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.skipMemoryCache(false)
         requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -226,10 +226,10 @@ object GlideUtils {
             is Drawable -> requestOptions.error(errorRes)
             else -> requestOptions
         }
-        
+
         loadBackgroundByOptions(viewGroup, context, loadPath, requestOptions)
     }
-    
+
     /**
      * Load image into view group background by path.
      *
@@ -242,7 +242,7 @@ object GlideUtils {
         viewGroup ?: return
         context ?: return
         loadPath ?: return
-        
+
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
@@ -253,7 +253,7 @@ object GlideUtils {
                 }
             }
         }
-        
+
         var requestManager: RequestManager? = null
         when (context) {
             is Context -> requestManager = Glide.with(context)
@@ -264,35 +264,35 @@ object GlideUtils {
             is View -> requestManager = Glide.with(context)
         }
         requestManager ?: return
-        
+
         var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
             .transition(BitmapTransitionOptions.withCrossFade())
         requestBuilder = requestOptions?.let {
             requestBuilder?.apply(requestOptions)
         }
         requestBuilder ?: return
-        
+
         val viewGroupTarget = object : CustomTarget<Bitmap?>() {
             override fun onLoadCleared(placeholderDrawable: Drawable?) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     viewGroup.background = placeholderDrawable
                 }
             }
-            
+
             override fun onLoadFailed(errorDrawable: Drawable?) {
                 super.onLoadFailed(errorDrawable)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     viewGroup.background = errorDrawable
                 }
             }
-            
+
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     viewGroup.background = BitmapDrawable(null, resource)
                 }
             }
         }
-        
+
         when (loadPath) {
             is Int, is String -> {
                 requestBuilder.load(loadPath)
@@ -300,7 +300,7 @@ object GlideUtils {
             }
         }
     }
-    
+
     /**
      * Get bitmap by path.
      *
@@ -314,7 +314,7 @@ object GlideUtils {
         context ?: return
         loadPath ?: return
         listener ?: return
-        
+
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.skipMemoryCache(false)
         requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -328,10 +328,10 @@ object GlideUtils {
             is Drawable -> requestOptions.error(errorRes)
             else -> requestOptions
         }
-        
+
         getBitmapByOptions(context, loadPath, listener, requestOptions)
     }
-    
+
     /**
      * Get bitmap by path.
      *
@@ -344,7 +344,7 @@ object GlideUtils {
         context ?: return
         loadPath ?: return
         listener ?: return
-        
+
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
@@ -355,7 +355,7 @@ object GlideUtils {
                 }
             }
         }
-        
+
         var requestManager: RequestManager? = null
         when (context) {
             is Context -> requestManager = Glide.with(context)
@@ -366,29 +366,29 @@ object GlideUtils {
             is View -> requestManager = Glide.with(context)
         }
         requestManager ?: return
-        
+
         var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
             .transition(BitmapTransitionOptions.withCrossFade())
         requestBuilder = requestOptions?.let {
             requestBuilder?.apply(requestOptions)
         }
         requestBuilder ?: return
-        
+
         val listenerTarget = object : CustomTarget<Bitmap?>() {
             override fun onLoadCleared(placeholder: Drawable?) {
                 listener.onFail()
             }
-            
+
             override fun onLoadFailed(errorDrawable: Drawable?) {
                 super.onLoadFailed(errorDrawable)
                 listener.onFail()
             }
-            
+
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
                 listener.onSucceed(resource)
             }
         }
-        
+
         when (loadPath) {
             is Int, is String -> {
                 requestBuilder.load(loadPath)
@@ -396,7 +396,7 @@ object GlideUtils {
             }
         }
     }
-    
+
     /**
      * Preload image into cache by path.
      *
@@ -408,7 +408,7 @@ object GlideUtils {
     fun preloadImage(context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
         context ?: return
         loadPath ?: return
-        
+
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.skipMemoryCache(false)
         requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -422,10 +422,10 @@ object GlideUtils {
             is Drawable -> requestOptions.error(errorRes)
             else -> requestOptions
         }
-        
+
         preloadImage(context, loadPath, requestOptions)
     }
-    
+
     /**
      * Preload image into cache by path.
      *
@@ -436,7 +436,7 @@ object GlideUtils {
     fun preloadImageByOptions(context: Any?, loadPath: Any?, requestOptions: RequestOptions? = null) {
         context ?: return
         loadPath ?: return
-        
+
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
@@ -447,7 +447,7 @@ object GlideUtils {
                 }
             }
         }
-        
+
         var requestManager: RequestManager? = null
         when (context) {
             is Context -> requestManager = Glide.with(context)
@@ -458,14 +458,14 @@ object GlideUtils {
             is View -> requestManager = Glide.with(context)
         }
         requestManager ?: return
-        
+
         var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
             .transition(BitmapTransitionOptions.withCrossFade())
         requestBuilder = requestOptions?.let {
             requestBuilder?.apply(requestOptions)
         }
         requestBuilder ?: return
-        
+
         when (loadPath) {
             is Int, is String -> {
                 requestBuilder.load(loadPath)
@@ -473,10 +473,10 @@ object GlideUtils {
             }
         }
     }
-    
-    
+
+
     /** ****************************** Interface ****************************** */
-    
+
     interface GlideGetBitmapListener {
         fun onSucceed(resource: Bitmap?)
         fun onFail()

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Resources.NotFoundException
 import androidx.annotation.ArrayRes
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlin.experimental.and
 
 
@@ -375,4 +377,8 @@ fun toSBC(s: String?): String {
         }
     }
     return String(chars)
+}
+
+fun <V> String.jsonString2Map(): Map<String?, V> {
+    return Gson().fromJson(this, object : TypeToken<Map<String?, V>?>() {}.type)
 }

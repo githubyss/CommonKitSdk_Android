@@ -362,9 +362,9 @@ private fun printJson(element: StackTraceElement, jsonString: String) {
 
         val lines = jsonStringIndented.split(SYSTEM_LINE_SEPARATOR)
         val stringBuilder = StringBuilder()
-        logD(fileName, "$LOG_TOP____BORDER_DOUBLE__THIN")
+        logD(fileName, LOG_TOP____BORDER_DOUBLE__THIN)
         logD(fileName, "$LOG_VERTICAL___DOUBLE__THIN $tag")
-        logD(fileName, "$LOG_MIDDLE_BORDER_DOUBLE__THIN")
+        logD(fileName, LOG_MIDDLE_BORDER_DOUBLE__THIN)
         for (line in lines) {
             stringBuilder.append("$LOG_VERTICAL___DOUBLE__THIN ")
                 .append(line)
@@ -372,7 +372,7 @@ private fun printJson(element: StackTraceElement, jsonString: String) {
             logD(fileName, stringBuilder.toString())
             stringBuilder.delete(0, stringBuilder.length)
         }
-        logD(fileName, "$LOG_BOTTOM_BORDER_DOUBLE__THIN")
+        logD(fileName, LOG_BOTTOM_BORDER_DOUBLE__THIN)
     }
     catch (e: JSONException) {
         logE(tag, e.message ?: "")
@@ -432,11 +432,11 @@ private fun <T : Any> printAny(element: StackTraceElement, any: T?) {
 
         else -> {
             val message = object2String(any)
-            logD(fileName, "$LOG_TOP____BORDER_DOUBLE__THIN")
+            logD(fileName, LOG_TOP____BORDER_DOUBLE__THIN)
             logD(fileName, "$LOG_VERTICAL___DOUBLE__THIN $tag")
-            logD(fileName, "$LOG_MIDDLE_BORDER_DOUBLE__THIN")
+            logD(fileName, LOG_MIDDLE_BORDER_DOUBLE__THIN)
             logD(fileName, "$LOG_VERTICAL___DOUBLE__THIN $message")
-            logD(fileName, "$LOG_BOTTOM_BORDER_DOUBLE__THIN")
+            logD(fileName, LOG_BOTTOM_BORDER_DOUBLE__THIN)
         }
     }
 }

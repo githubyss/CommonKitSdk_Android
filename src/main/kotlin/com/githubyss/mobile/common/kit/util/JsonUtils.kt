@@ -9,7 +9,6 @@ import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.*
 
 
 /**
@@ -197,18 +196,23 @@ fun getJsonStringFromAssets(assetsFilePath: String?, context: Context? = ComkitA
  * @param context        The context.
  * @return JSONObject if file content is Json String, otherwise null.
  */
-fun getJSONObjectFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): JSONObject? {
-    return when {
-        isSpace(assetsFilePath) -> null
-        else -> {
-            try {
-                JSONObject(getStringFromAssets(assetsFilePath, context))
-            }
-            catch (e: JSONException) {
-                logE(TAG, t = e)
-                null
-            }
-        }
+fun getJSONObjectFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): JSONObject {
+    return try {
+        JSONObject(getStringFromAssets(assetsFilePath, context))
+    }
+    catch (e: JSONException) {
+        logE(TAG, t = e)
+        JSONObject()
+    }
+}
+
+fun <V> getMapFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): Map<String?, V?> {
+    return try {
+        getJsonStringFromAssets(assetsFilePath, context).jsonString2Map<V?>()
+    }
+    catch (e: Exception) {
+        logE(TAG, t = e)
+        mapOf<String?, V?>()
     }
 }
 
