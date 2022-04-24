@@ -48,8 +48,8 @@ private const val KEY_OFFSET = -123
  * @param context The context.
  * @return the status bar's height
  */
-fun getStatusBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
-    val resources = getResources(context) ?: return -1
+fun getStatusBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int {
+    val resources = getContextResources(context)
     val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
     return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else -1
 }
@@ -61,10 +61,10 @@ fun getStatusBarHeight(context: Context? = ComkitApplicationConfig.getApp()): In
  *
  * @return the action bar's height
  */
-fun getActionBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
-    val resources = getResources(context) ?: return -1
+fun getActionBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int {
+    val resources = getContextResources(context)
     val tv = TypedValue()
-    return if (context?.theme?.resolveAttribute(R.attr.actionBarSize, tv, true) ?: return -1) TypedValue.complexToDimensionPixelSize(tv.data, displayMetrics(context)) else -1
+    return if (context.theme?.resolveAttribute(R.attr.actionBarSize, tv, true) ?: return -1) TypedValue.complexToDimensionPixelSize(tv.data, displayMetrics) else -1
 }
 
 /** ********** NavigationBar ********** */
@@ -75,7 +75,7 @@ fun getActionBarHeight(context: Context? = ComkitApplicationConfig.getApp()): In
  * @return the navigation bar's height
  */
 fun getNavBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
-    val resources = getResources(context) ?: return -1
+    val resources = getContextResources(context)
     val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
     return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else -1
 }

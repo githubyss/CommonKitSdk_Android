@@ -3,7 +3,6 @@ package com.githubyss.mobile.common.kit.util
 import android.content.res.Resources
 import android.util.DisplayMetrics
 import java.lang.reflect.Field
-import java.util.*
 
 
 /**
@@ -80,7 +79,7 @@ fun adaptHeight(resources: Resources?, designHeight: Int, includeNavBar: Boolean
 fun closeAdapt(resources: Resources?): Resources? {
     resources ?: return null
 
-    val newXdpi = screenDensity() * 72f
+    val newXdpi = screenDensity * 72f
     applyDisplayMetrics(resources, newXdpi)
     return resources
 }
@@ -89,7 +88,7 @@ private fun applyDisplayMetrics(resources: Resources?, newXdpi: Float) {
     resources ?: return
 
     resources.displayMetrics.xdpi = newXdpi
-    displayMetrics()?.xdpi = newXdpi
+    displayMetrics.xdpi = newXdpi
     applyOtherDisplayMetrics(resources, newXdpi)
 }
 

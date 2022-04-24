@@ -30,12 +30,17 @@ private const val TAG: String = "ResourceUtils"
 /** ******************** Getter ******************** */
 
 /**
+ * Get system resources.
+ */
+val systemResources: Resources = Resources.getSystem()
+
+/**
  * Get resources.
  *
  * @param context The context.
  * @return The resources.
  */
-fun getResources(context: Context? = ComkitApplicationConfig.getApp()): Resources {
+fun getContextResources(context: Context? = ComkitApplicationConfig.getApp()): Resources {
     context ?: return Resources.getSystem()
     return context.resources
 }
@@ -51,7 +56,7 @@ fun getIntFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp
     context ?: return 0
 
     return try {
-        getResources(context).getInteger(resId)
+        getContextResources(context).getInteger(resId)
     }
     catch (e: Resources.NotFoundException) {
         logE(TAG, t = e)
@@ -70,7 +75,7 @@ fun getFloatFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getA
     context ?: return 0f
 
     return try {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) getResources(context).getFloat(resId)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) getContextResources(context).getFloat(resId)
         else 0f
     }
     catch (e: Resources.NotFoundException) {
@@ -90,7 +95,7 @@ fun getBooleanFromRes(resId: Int, context: Context? = ComkitApplicationConfig.ge
     context ?: return false
 
     return try {
-        getResources(context).getBoolean(resId)
+        getContextResources(context).getBoolean(resId)
     }
     catch (e: Resources.NotFoundException) {
         logE(TAG, t = e)
@@ -110,8 +115,8 @@ fun getStringFromRes(resId: Int, vararg resFormat: Any = emptyArray(), context: 
     context ?: return ""
 
     return try {
-        if (resFormat.isEmpty()) getResources(context).getString(resId)
-        else getResources(context).getString(resId, resFormat)
+        if (resFormat.isEmpty()) getContextResources(context).getString(resId)
+        else getContextResources(context).getString(resId, resFormat)
     }
     catch (e: Resources.NotFoundException) {
         logE(TAG, t = e)
@@ -149,7 +154,7 @@ fun getDimensionFromRes(resId: Int, context: Context? = ComkitApplicationConfig.
     context ?: return 0f
 
     return try {
-        getResources(context).getDimension(resId)
+        getContextResources(context).getDimension(resId)
     }
     catch (e: Resources.NotFoundException) {
         logE(TAG, t = e)
@@ -168,7 +173,7 @@ fun getDimensionPixelSizeFromRes(resId: Int, context: Context? = ComkitApplicati
     context ?: return 0
 
     return try {
-        getResources(context).getDimensionPixelSize(resId)
+        getContextResources(context).getDimensionPixelSize(resId)
     }
     catch (e: Resources.NotFoundException) {
         logE(TAG, t = e)
@@ -217,7 +222,7 @@ fun getDrawableIdByName(name: String?, context: Context? = ComkitApplicationConf
     name ?: return 0
     context ?: return 0
 
-    return getResources(context).getIdentifier(name, "drawable", context.packageName)
+    return getContextResources(context).getIdentifier(name, "drawable", context.packageName)
 }
 
 /** ******************** Processor ******************** */
@@ -303,7 +308,7 @@ fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, contex
     if (isSpace(assetsFilePath)) return null
 
     return try {
-        input2List(getResources(context).assets?.open(assetsFilePath) ?: return null, charsetName)
+        input2List(getContextResources(context).assets?.open(assetsFilePath) ?: return null, charsetName)
     }
     catch (e: IOException) {
         logE(TAG, t = e)
@@ -321,7 +326,7 @@ fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, contex
  * @return `true`: success<br></br>`false`: fail
  */
 fun copyFileFromRaw(@RawRes resId: Int, destFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
-    return writeFileFromInput(destFilePath, getResources(context).openRawResource(resId), false)
+    return writeFileFromInput(destFilePath, getContextResources(context).openRawResource(resId), false)
 }
 
 /**
@@ -332,7 +337,7 @@ fun copyFileFromRaw(@RawRes resId: Int, destFilePath: String?, context: Context?
  * @return the content of resource in raw
  */
 fun readRaw2String(@RawRes resId: Int, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
-    val `is`: InputStream = getResources(context).openRawResource(resId)
+    val `is`: InputStream = getContextResources(context).openRawResource(resId)
     val bytes = input2Bytes(`is`) ?: return ""
     return if (isSpace(charsetName)) {
         String(bytes)
@@ -356,5 +361,5 @@ fun readRaw2String(@RawRes resId: Int, charsetName: String? = null, context: Con
  * @return the content of file in assets
  */
 fun readRaw2List(@RawRes resId: Int, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String>? {
-    return input2List(getResources(context).openRawResource(resId), charsetName)
+    return input2List(getContextResources(context).openRawResource(resId), charsetName)
 }

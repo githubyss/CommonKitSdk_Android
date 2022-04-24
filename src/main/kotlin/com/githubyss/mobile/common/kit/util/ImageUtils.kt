@@ -16,7 +16,6 @@ import android.renderscript.ScriptIntrinsicBlur
 import android.view.View
 import androidx.annotation.*
 import androidx.annotation.IntRange
-import androidx.core.content.ContextCompat
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import java.io.*
@@ -429,7 +428,7 @@ fun bytes2Bitmap(bytes: ByteArray?): Bitmap? {
 fun bitmap2Drawable(bitmap: Bitmap?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
     bitmap ?: return null
 
-    return BitmapDrawable(getResources(context), bitmap)
+    return BitmapDrawable(getContextResources(context), bitmap)
 }
 
 /**

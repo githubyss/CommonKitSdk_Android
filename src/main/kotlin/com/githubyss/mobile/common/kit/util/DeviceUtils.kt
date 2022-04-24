@@ -286,7 +286,7 @@ fun isAdbEnabled(context: Context? = ComkitApplicationConfig.getApp()): Boolean 
 fun isTablet(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
     context ?: return false
 
-    return (getResources(context)?.configuration?.screenLayout ?: return false) and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
+    return (systemResources.configuration?.screenLayout ?: return false) and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
 }
 
 /**

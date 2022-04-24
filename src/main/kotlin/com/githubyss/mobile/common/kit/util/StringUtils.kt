@@ -52,7 +52,7 @@ fun getStringArray(@ArrayRes id: Int, context: Context? = ComkitApplicationConfi
     context ?: return null
 
     return try {
-        getResources(context).getStringArray(id)
+        getContextResources(context).getStringArray(id)
     }
     catch (ignore: NotFoundException) {
         arrayOfNulls(0)
