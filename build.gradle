@@ -6,109 +6,53 @@ plugins {
 def isShellApp = project.getName() == rootProject.shellApp
 def isLaunchApp = project.getName() == rootProject.launchApp
 
-println "isShellApp: ${isShellApp}"
-println "isLaunchApp: ${isLaunchApp}"
+if (isShellApp) {
+    println "isShellApp: ${isShellApp}"
+}
 
 if (isLaunchApp) {
+    println "isLaunchApp: ${isLaunchApp}"
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
 }
 
-android {
-    buildToolsVersion build_tools_version
-    compileSdkVersion compile_sdk_version.toInteger()
 
+apply from: "${rootDir}/config/buildConfigs.gradle"
+apply from: "${rootDir}/config/optionConfigs.gradle"
+apply from: "${rootDir}/config/featureConfigs.gradle"
+apply from: "${rootDir}/config/versionConfigs.gradle"
+apply from: "${rootDir}/config/signingConfigs.gradle"
+apply from: "${rootDir}/config/libConfigs.gradle"
+
+android {
     resourcePrefix 'comkit_'
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
-
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
-        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        consumerProguardFiles 'consumer-rules.pro'
-    }
-
-    Properties properties = new Properties()
-    File propertyFile = new File("${rootDir.getAbsolutePath()}/signing.properties")
-    InputStream inputStream = propertyFile.newDataInputStream()
-    properties.load(inputStream)
-    def RELEASE_STORE_FILE = file("${rootDir.getAbsolutePath()}/${properties.getProperty('RELEASE_STORE_FILE')}")
-    def RELEASE_STORE_PASSWORD = properties.getProperty('RELEASE_STORE_PASSWORD')
-    def RELEASE_KEY_ALIAS = properties.getProperty('RELEASE_KEY_ALIAS')
-    def RELEASE_KEY_PWD = properties.getProperty('RELEASE_KEY_PWD')
-
-    signingConfigs {
-        release {
-            storeFile RELEASE_STORE_FILE
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PWD
-        }
     }
 
     buildTypes {
         debug {
-            debuggable isDebuggable.toBoolean()
-            minifyEnabled isMinifyEnabled.toBoolean()
             if (isLaunchApp) {
-                shrinkResources isMinifyEnabled.toBoolean()
+                shrinkResources feature.isMinifyEnabled
             }
-            zipAlignEnabled isZipAlignEnabled.toBoolean()
-
-            signingConfig signingConfigs.debug
         }
 
         release {
-            debuggable false
-            minifyEnabled true
             if (isLaunchApp) {
                 shrinkResources true
-            }
-            zipAlignEnabled true
-
-            if (RELEASE_STORE_FILE.exists()) {
-                signingConfig signingConfigs.release
             }
         }
     }
 
-    compileOptions {
-        sourceCompatibility java_version
-        targetCompatibility java_version
-    }
-
-    kotlinOptions {
-        jvmTarget = java_version
-        useIR = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion androidx_compose_version
-        kotlinCompilerVersion kotlin_version
-    }
-
-    packagingOptions {
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/metadata.kotlin_module'
-        exclude 'META-INF/metadata.jvm.kotlin_module'
-    }
-
     dataBinding {
-        enabled isDataBindingEnabled.toBoolean()
+        enabled feature.isDataBindingEnabled
     }
 
     buildFeatures {
-        compose isComposeEnabled.toBoolean()
+        compose feature.isComposeEnabled
     }
 
     flavorDimensions 'library'
@@ -177,15 +121,9 @@ android {
             }
         }
 
-        sourceSets.all {
-            set -> println "${set.name} 的文件是 ${set.java.srcDirs}"
+        all {
+            // set -> println "集合 ${set.name} 的文件是 ${set.java.srcDirs}"
         }
-    }
-}
-
-kapt {
-    arguments {
-        arg('moduleName', project.getName())
     }
 }
 
@@ -197,5 +135,5 @@ dependencies {
     implementation project(':CommonResSdk_Android')
 
     /* Glide */
-    kapt "com.github.bumptech.glide:compiler:$glide_compile_version"
+    kapt dependenciesLib.bumptech_glide_compiler
 }
