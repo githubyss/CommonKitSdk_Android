@@ -42,6 +42,7 @@ private val LONG_PRESS_TIMEOUT: Int = ViewConfiguration.getLongPressTimeout()
 private val DOUBLE_TAP_TIMEOUT: Int = ViewConfiguration.getDoubleTapTimeout()
 
 private const val DEFAULT_TAP_DURATION: Long = 100
+private const val DEFAULT_TAP_INTERVAL: Long = 100
 private const val DEFAULT_LONG_TAP_DURATION: Long = 500
 private const val DEFAULT_DOUBLE_TAP_DURATION: Long = 150
 
@@ -57,7 +58,7 @@ private const val DEFAULT_DOUBLE_TAP_DURATION: Long = 150
  * @param event 无障碍辅助事件
  * @return
  */
-fun getRootNodeInfo(service: AccessibilityService? = null, event: AccessibilityEvent? = null): AccessibilityNodeInfo? {
+fun getRootNodeInfo(service: AccessibilityService?, event: AccessibilityEvent?): AccessibilityNodeInfo? {
     // logStart("getRootNodeInfo")
     var rootNodeInfo: AccessibilityNodeInfo? = null
     try {
@@ -80,6 +81,104 @@ fun getRootNodeInfo(service: AccessibilityService? = null, event: AccessibilityE
     // logMiddle("rootNodeInfo: ${if (rootNodeInfo == null) "空" else "不空"}")
     // logEnd("getRootNodeInfo")
     return rootNodeInfo
+}
+
+/**
+ * 根据 Id 获取节点列表
+ *
+ * @param viewId 待查找视图 Id
+ * @param service 无障碍辅助服务
+ * @param event 无障碍辅助事件
+ * @param rootNodeInfo 根节点信息
+ * @return
+ */
+fun findNodeInfosById(viewId: String = "", rootNodeInfo: AccessibilityNodeInfo? = null, service: AccessibilityService? = null, event: AccessibilityEvent? = null): List<AccessibilityNodeInfo?> {
+    // logStart("findNodeInfosById", 5)
+    var rootNodeInfoCopy = rootNodeInfo
+    // 传入的 rootNodeInfo 为 null，则根据 service 和 event 重新获取
+    if (rootNodeInfoCopy == null) {
+        rootNodeInfoCopy = getRootNodeInfo(service, event)
+        // logMiddle("rootNodeInfo: ${if (rootNodeInfo == null) "空" else "不空"}")
+    }
+    var nodeInfoList = emptyList<AccessibilityNodeInfo?>()
+    if (rootNodeInfoCopy != null) {
+        if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR2) {
+            // 需要在 xml 文件中声明权限 android:accessibilityFlags="flagReportViewIds"
+            // 并且版本大于 4.3 才能获取到 view 的 ID
+            // logMiddle("viewIdResourceName: ${rootNodeInfoCopy.viewIdResourceName}")
+            nodeInfoList = rootNodeInfoCopy.findAccessibilityNodeInfosByViewId(viewId)
+            // logMiddle("nodeInfoList: $nodeInfoList")
+        }
+    }
+    else {
+        logMiddle("nodeInfo is null")
+    }
+
+    // logEnd("findNodeInfosById", 5)
+    return nodeInfoList
+}
+
+/**
+ * 根据 Id 获取节点
+ *
+ * @param viewId 待查找视图 Id
+ * @param service 无障碍辅助服务
+ * @param event 无障碍辅助事件
+ * @param rootNodeInfo 根节点信息
+ * @return
+ */
+fun findNodeInfoById(viewId: String = "", rootNodeInfo: AccessibilityNodeInfo? = null, service: AccessibilityService? = null, event: AccessibilityEvent? = null): AccessibilityNodeInfo? {
+    // logStart("findNodeInfoById", 5)
+    var nodeInfo: AccessibilityNodeInfo? = null
+    val nodeInfos: List<AccessibilityNodeInfo?> = findNodeInfosById(viewId, rootNodeInfo, service, event)
+    when {
+        nodeInfos.isNotEmpty() -> {
+            nodeInfo = nodeInfos[0]
+        }
+    }
+    // logEnd("findNodeInfoById", 5)
+    return nodeInfo
+}
+
+fun findCheckboxByParentId(viewId: String = "", rootNodeInfo: AccessibilityNodeInfo? = null, service: AccessibilityService? = null, event: AccessibilityEvent? = null): AccessibilityNodeInfo? {
+    // logStart("findCheckboxByParentId", 5)
+    return findNodeInfoByClassName(findNodeInfoById(viewId, rootNodeInfo, service, event), "android.widget.CheckBox")
+    // logEnd("findCheckboxByParentId", 5)
+}
+
+fun findNodeInfoByClassName(rootNodeInfo: AccessibilityNodeInfo?, viewClassName: String): AccessibilityNodeInfo? {
+    // logStart("findNodeInfoByClassName", 5)
+
+    var findNodeInfo: AccessibilityNodeInfo? = null
+    // 根节点不为空，则继续，进行寻找
+    rootNodeInfo?.let {
+        // 递归寻找
+        for (i in 0 until rootNodeInfo.childCount) {
+            // 获取子节点
+            val childNodeInfo: AccessibilityNodeInfo? = rootNodeInfo.getChild(i)
+            // 子节点不为空，则继续，进行类型匹配
+            if (childNodeInfo != null) {
+                val className: String = childNodeInfo.className?.toString() ?: ""
+                // 匹配到指定类型的节点
+                if (className == viewClassName) {
+                    // logMiddle("寻到指定类型的节点")
+                    findNodeInfo = childNodeInfo
+                    return childNodeInfo
+                }
+                else {
+                    // 递归寻找
+                    findNodeInfo = findNodeInfoByClassName(childNodeInfo, viewClassName)
+                    if (findNodeInfo != null) {
+                        // logMiddle("寻到指定类型的节点")
+                        return findNodeInfo
+                    }
+                }
+            }
+        }
+    }
+
+    // logEnd("findNodeInfoByClassName", 5)
+    return findNodeInfo
 }
 
 /**
@@ -118,38 +217,25 @@ fun findNodeInfosByText(text: String = "", rootNodeInfo: AccessibilityNodeInfo? 
 }
 
 /**
- * 根据 Id 获取节点列表
+ * 根据文案获取节点
  *
- * @param viewId 待查找视图 Id
+ * @param text 待查找文案
  * @param service 无障碍辅助服务
  * @param event 无障碍辅助事件
  * @param rootNodeInfo 根节点信息
  * @return
  */
-fun findNodeInfosById(viewId: String = "", rootNodeInfo: AccessibilityNodeInfo? = null, service: AccessibilityService? = null, event: AccessibilityEvent? = null): List<AccessibilityNodeInfo?> {
-    // logStart("findNodeInfosById")
-    var rootNodeInfoCopy = rootNodeInfo
-    // 传入的 rootNodeInfo 为 null，则根据 service 和 event 重新获取
-    if (rootNodeInfoCopy == null) {
-        rootNodeInfoCopy = getRootNodeInfo(service, event)
-        // logMiddle("rootNodeInfo: ${if (rootNodeInfo == null) "空" else "不空"}")
-    }
-    var nodeInfoList = emptyList<AccessibilityNodeInfo?>()
-    if (rootNodeInfoCopy != null) {
-        if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR2) {
-            // 需要在 xml 文件中声明权限 android:accessibilityFlags="flagReportViewIds"
-            // 并且版本大于 4.3 才能获取到 view 的 ID
-            // logMiddle("viewIdResourceName: ${rootNodeInfoCopy.viewIdResourceName}")
-            nodeInfoList = rootNodeInfoCopy.findAccessibilityNodeInfosByViewId(viewId)
-            // logMiddle("nodeInfoList: $nodeInfoList")
+fun findNodeInfoByText(text: String = "", rootNodeInfo: AccessibilityNodeInfo? = null, service: AccessibilityService? = null, event: AccessibilityEvent? = null): AccessibilityNodeInfo? {
+    // logStart("findNodeInfoByText")
+    var nodeInfo: AccessibilityNodeInfo? = null
+    val nodeInfos: List<AccessibilityNodeInfo?> = findNodeInfosByText(text, rootNodeInfo, service, event)
+    when {
+        nodeInfos.isNotEmpty() -> {
+            nodeInfo = nodeInfos[0]
         }
     }
-    else {
-        logMiddle("nodeInfo is null")
-    }
-
-    // logEnd("findNodeInfosById")
-    return nodeInfoList
+    // logEnd("findNodeInfoByText")
+    return nodeInfo
 }
 
 
@@ -283,8 +369,8 @@ fun openAppByNotification(event: AccessibilityEvent? = null) {
  * @param onTap 点击回调
  * @return
  */
-fun tapClickableSelf(tapNodeInfo: AccessibilityNodeInfo? = null, isTapForcibly: Boolean = false, onTap: ((tapState: String) -> Unit)? = null) {
-    logStart("tapClickableSelf", 5)
+fun tapClickableSelf(tapNodeInfo: AccessibilityNodeInfo?, isTapForcibly: Boolean = false, onTap: (tapState: String) -> Unit = {}) {
+    // logStart("tapClickableSelf", 5)
     // logMiddle("tapNodeInfo: $tapNodeInfo")
 
     val nodeTapState: String = if (tapNodeInfo == null) {
@@ -301,12 +387,12 @@ fun tapClickableSelf(tapNodeInfo: AccessibilityNodeInfo? = null, isTapForcibly: 
             NodeTapState.UNCLICKABLE
         }
     }
-    logMiddle("节点点击状态『$nodeTapState』")
+    // logMiddle("节点点击状态『$nodeTapState』")
 
     // 回调点击接口，传回节点点击状态
-    onTap?.let { it(nodeTapState) }
+    onTap(nodeTapState)
 
-    logEnd("tapClickableSelf", 5)
+    // logEnd("tapClickableSelf", 5)
 }
 
 /**
@@ -317,8 +403,8 @@ fun tapClickableSelf(tapNodeInfo: AccessibilityNodeInfo? = null, isTapForcibly: 
  * @param onTap 点击回调
  * @return
  */
-fun tapClickableParent(tapNodeInfo: AccessibilityNodeInfo? = null, onTap: ((tapState: String) -> Unit)? = null) {
-    logStart("tapClickableParent", 5)
+fun tapClickableParent(tapNodeInfo: AccessibilityNodeInfo?, onTap: (tapState: String) -> Unit = {}) {
+    // logStart("tapClickableParent", 5)
     // logMiddle("tapNodeInfo: $tapNodeInfo")
 
     // 默认节点点击状态-不可点击
@@ -343,12 +429,12 @@ fun tapClickableParent(tapNodeInfo: AccessibilityNodeInfo? = null, onTap: ((tapS
             parentNodeInfo = parentNodeInfo.parent
         }
     }
-    logMiddle("节点点击状态『$nodeTapState』")
+    // logMiddle("节点点击状态『$nodeTapState』")
 
     // 回调点击接口，传回节点点击状态
-    onTap?.let { it(nodeTapState) }
+    onTap(nodeTapState)
 
-    logEnd("tapClickableParent", 5)
+    // logEnd("tapClickableParent", 5)
 }
 
 /**
@@ -361,7 +447,7 @@ fun tapClickableParent(tapNodeInfo: AccessibilityNodeInfo? = null, onTap: ((tapS
  * @param duration 持续时长
  * @return
  */
-fun tap(service: AccessibilityService?, point: Point, duration: Long = DEFAULT_TAP_DURATION) {
+fun tap(service: AccessibilityService?, point: Point, duration: Long = DEFAULT_TAP_DURATION, onTap: (tapState: String) -> Unit = {}) {
     logStart("tap", 5)
     if (Build.VERSION.SDK_INT >= VersionCode.N) {
         val path = Path()
@@ -372,13 +458,33 @@ fun tap(service: AccessibilityService?, point: Point, duration: Long = DEFAULT_T
             .build()
 
         when {
-            duration <= TAP_TIMEOUT -> logMiddle("短按一次")
-            duration >= LONG_PRESS_TIMEOUT -> logMiddle("长按一次")
+            duration <= TAP_TIMEOUT -> logMiddle("短按一次 point: {${point.x}, ${point.y}}")
+            duration >= LONG_PRESS_TIMEOUT -> logMiddle("长按一次 point: {${point.x}, ${point.y}}")
         }
 
         service?.dispatchGesture(gestureDesc, null, null)
+        onTap(NodeTapState.CLICKED)
     }
     logEnd("tap", 5)
+}
+
+/**
+ * 依次按一次指定的坐标点们
+ *
+ * @param service 无障碍辅助服务
+ * @param points 坐标点
+ * @param duration 持续时长
+ * @param interval 两次按下之间的停顿间隔
+ * @return
+ */
+fun tap(service: AccessibilityService?, points: List<Point>, duration: Long = DEFAULT_TAP_DURATION, interval: Long = DEFAULT_TAP_INTERVAL, onTap: (tapState: String) -> Unit = {}) {
+    CoroutineScope(Dispatchers.Main).launch {
+        points.forEach {
+            tap(service, it, duration, onTap)
+            delay(interval)
+        }
+        onTap(NodeTapState.CLICKED)
+    }
 }
 
 /**

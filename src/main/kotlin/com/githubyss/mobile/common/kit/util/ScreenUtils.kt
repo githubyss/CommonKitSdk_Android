@@ -510,10 +510,10 @@ fun sp2Px(spValue: Number): Float {
     }
 }
 
-val Int.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this.toFloat(), displayMetrics)
-val Long.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this.toFloat(), displayMetrics)
-val Float.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, displayMetrics)
-val Double.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this.toFloat(), displayMetrics)
+inline val Int.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this.toFloat(), displayMetrics)
+inline val Long.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this.toFloat(), displayMetrics)
+inline val Float.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, displayMetrics)
+inline val Double.sp2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this.toFloat(), displayMetrics)
 
 /** ********** Px - Pt ********** */
 
@@ -554,7 +554,7 @@ fun pt2Px(ptValue: Number): Float {
     }
 }
 
-val Int.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this.toFloat(), displayMetrics)
-val Long.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this.toFloat(), displayMetrics)
-val Float.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this, displayMetrics)
-val Double.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this.toFloat(), displayMetrics)
+inline val Int.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this.toFloat(), displayMetrics)
+inline val Long.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this.toFloat(), displayMetrics)
+inline val Float.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this, displayMetrics)
+inline val Double.pt2px: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, this.toFloat(), displayMetrics)

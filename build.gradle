@@ -47,14 +47,6 @@ android {
         }
     }
 
-    dataBinding {
-        enabled feature.isDataBindingEnabled
-    }
-
-    buildFeatures {
-        compose feature.isComposeEnabled
-    }
-
     flavorDimensions 'library'
     productFlavors {
         if (isLaunchApp) {
@@ -125,15 +117,37 @@ android {
             // set -> println "集合 ${set.name} 的文件是 ${set.java.srcDirs}"
         }
     }
+
+    dataBinding {
+        enabled feature.isDataBindingEnabled
+    }
+
+    buildFeatures {
+        compose feature.isComposeEnabled
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':DesignPatternLibrary_Android')
-    implementation project(':CommonLibSdk_Android')
-    implementation project(':CommonResSdk_Android')
-
-    /* Glide */
+    implementation dependenciesLib.androidx_appcompat
+    implementation dependenciesLib.androidx_compose_material
+    implementation dependenciesLib.androidx_activity_compose
+    implementation dependenciesLib.google_gson
+    implementation dependenciesLib.joda_time
+    implementation dependenciesLib.bumptech_glide
     kapt dependenciesLib.bumptech_glide_compiler
+    implementation dependenciesLib.alibaba_arouter_api
+
+    if (isLaunchApp) {
+        appImplementation project(':DesignPatternLibrary_Android')
+        appImplementation project(':CommonResSdk_Android')
+
+        appImplementation dependenciesLib.androidx_fragment_ktx
+        appImplementation dependenciesLib.androidx_constraintlayout
+        appImplementation dependenciesLib.androidx_recyclerview
+        appImplementation dependenciesLib.google_flexbox
+        appImplementation dependenciesLib.squareup_retrofit2
+        appImplementation dependenciesLib.squareup_retrofit2_converter_moshi
+    }
 }

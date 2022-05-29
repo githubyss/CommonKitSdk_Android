@@ -305,7 +305,7 @@ fun logEnd(msg: String, level: Int) {
 private fun logEnd(msg: String, level: Int, log: (tag: String, msg: String) -> Unit) {
     val logPrefix = "$LOG_LEFT_BOTTOM_CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_1"
     val logPostfix = logPostfix(level)
-    log(TAG, "$logPrefix $msg >> START $logPostfix")
+    log(TAG, "$logPrefix $msg >> END $logPostfix")
 }
 
 private fun logPostfix(level: Int): String {

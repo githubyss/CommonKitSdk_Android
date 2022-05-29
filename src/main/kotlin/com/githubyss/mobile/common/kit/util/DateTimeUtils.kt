@@ -105,6 +105,22 @@ fun getDatetimeOfJoda(datetime: String, pattern: String): DateTime {
 
 /** ******************** Checker ******************** */
 
+fun String.datetimeIsBeforeNow(pattern: String): Boolean {
+    return DateTime.parse(this, DateTimeFormat.forPattern(pattern)).isBeforeNow
+}
+
+fun isBeforeNow(datetime: String, pattern: String): Boolean {
+    return DateTime.parse(datetime, DateTimeFormat.forPattern(pattern)).isBeforeNow
+}
+
+fun String.datetimeIsAfterNow(pattern: String): Boolean {
+    return DateTime.parse(this, DateTimeFormat.forPattern(pattern)).isAfterNow
+}
+
+fun isAfterNow(datetime: String, pattern: String): Boolean {
+    return DateTime.parse(datetime, DateTimeFormat.forPattern(pattern)).isAfterNow
+}
+
 /** ******************** Converter ******************** */
 
 /** ******************** Processor ******************** */
