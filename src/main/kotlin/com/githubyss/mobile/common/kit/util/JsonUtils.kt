@@ -35,12 +35,17 @@ private const val TAG: String = "JsonUtils"
  * @param name The key of value to parse.
  * @return String value of name.
  */
-fun getStringFromJSONObject(json: JSONObject?, name: String?): String {
-    return when {
-        json == null -> ""
-        isSpace(name) -> ""
-        json.isNull(name) -> ""
+fun getStringFromJSONObject(json: JSONObject?, name: String?): String? {
+    return when (json) {
+        null -> null
         else -> json.optString(name)
+    }
+}
+
+fun JSONObject?.string(name: String?): String? {
+    return when (this) {
+        null -> null
+        else -> this.optString(name)
     }
 }
 
@@ -51,12 +56,17 @@ fun getStringFromJSONObject(json: JSONObject?, name: String?): String {
  * @param name The key of value to parse.
  * @return Boolean value of name.
  */
-fun getBooleanFromJSONObject(json: JSONObject?, name: String?): Boolean {
-    return when {
-        json == null -> false
-        isSpace(name) -> false
-        json.isNull(name) -> false
+fun getBooleanFromJSONObject(json: JSONObject?, name: String?): Boolean? {
+    return when (json) {
+        null -> null
         else -> json.optBoolean(name)
+    }
+}
+
+fun JSONObject?.boolean(name: String?): Boolean? {
+    return when (this) {
+        null -> null
+        else -> this.optBoolean(name)
     }
 }
 
@@ -67,12 +77,17 @@ fun getBooleanFromJSONObject(json: JSONObject?, name: String?): Boolean {
  * @param name The key of value to parse.
  * @return Int value of name.
  */
-fun getIntFromJSONObject(json: JSONObject?, name: String?): Int {
-    return when {
-        json == null -> -1
-        isSpace(name) -> -1
-        json.isNull(name) -> -1
+fun getIntFromJSONObject(json: JSONObject?, name: String?): Int? {
+    return when (json) {
+        null -> null
         else -> json.optInt(name)
+    }
+}
+
+fun JSONObject?.int(name: String?): Int? {
+    return when (this) {
+        null -> null
+        else -> this.optInt(name)
     }
 }
 
@@ -83,12 +98,17 @@ fun getIntFromJSONObject(json: JSONObject?, name: String?): Int {
  * @param name The key of value to parse.
  * @return Long value of name.
  */
-fun getLongFromJSONObject(json: JSONObject?, name: String?): Long {
-    return when {
-        json == null -> -1
-        isSpace(name) -> -1
-        json.isNull(name) -> -1
+fun getLongFromJSONObject(json: JSONObject?, name: String?): Long? {
+    return when (json) {
+        null -> null
         else -> json.optLong(name)
+    }
+}
+
+fun JSONObject?.long(name: String?): Long? {
+    return when (this) {
+        null -> null
+        else -> this.optLong(name)
     }
 }
 
@@ -99,12 +119,17 @@ fun getLongFromJSONObject(json: JSONObject?, name: String?): Long {
  * @param name The key of value to parse.
  * @return Double value of name.
  */
-fun getDoubleFromJSONObject(json: JSONObject?, name: String?): Double {
-    return when {
-        json == null -> -1.0
-        isSpace(name) -> -1.0
-        json.isNull(name) -> -1.0
+fun getDoubleFromJSONObject(json: JSONObject?, name: String?): Double? {
+    return when (json) {
+        null -> null
         else -> json.optDouble(name)
+    }
+}
+
+fun JSONObject?.double(name: String?): Double? {
+    return when (this) {
+        null -> null
+        else -> this.optDouble(name)
     }
 }
 
@@ -116,11 +141,16 @@ fun getDoubleFromJSONObject(json: JSONObject?, name: String?): Double {
  * @return JSONObject value of name.
  */
 fun getJSONObjectFromJSONObject(json: JSONObject?, name: String?): JSONObject? {
-    return when {
-        json == null -> null
-        isSpace(name) -> null
-        json.isNull(name) -> null
+    return when (json) {
+        null -> null
         else -> json.optJSONObject(name)
+    }
+}
+
+fun JSONObject?.jsonObject(name: String?): JSONObject? {
+    return when (this) {
+        null -> null
+        else -> this.optJSONObject(name)
     }
 }
 
@@ -135,8 +165,15 @@ fun getJSONObjectFromJSONArray(json: JSONArray?, idx: Int?): JSONObject? {
     return when {
         json == null -> null
         idx == null -> null
-        json.isNull(idx) -> null
         else -> json.optJSONObject(idx)
+    }
+}
+
+fun JSONArray?.jsonObject(idx: Int?): JSONObject? {
+    return when {
+        this == null -> null
+        idx == null -> null
+        else -> this.optJSONObject(idx)
     }
 }
 
@@ -148,11 +185,16 @@ fun getJSONObjectFromJSONArray(json: JSONArray?, idx: Int?): JSONObject? {
  * @return JSONArray value of name.
  */
 fun getJSONArrayFromJSONObject(json: JSONObject?, name: String?): JSONArray? {
-    return when {
-        json == null -> null
-        isSpace(name) -> null
-        json.isNull(name) -> null
+    return when (json) {
+        null -> null
         else -> json.optJSONArray(name)
+    }
+}
+
+fun JSONObject?.jsonArray(name: String?): JSONArray? {
+    return when (this) {
+        null -> null
+        else -> this.optJSONArray(name)
     }
 }
 
@@ -167,10 +209,19 @@ fun getJSONArrayFromJSONArray(json: JSONArray?, idx: Int?): JSONArray? {
     return when {
         json == null -> null
         idx == null -> null
-        json.isNull(idx) -> null
         else -> json.optJSONArray(idx)
     }
 }
+
+fun JSONArray?.jsonArray(idx: Int?): JSONArray? {
+    return when {
+        this == null -> null
+        idx == null -> null
+        else -> this.optJSONArray(idx)
+    }
+}
+
+operator fun JSONArray.iterator(): Iterator<JSONObject> = (0 until length()).asSequence().map { get(it) as JSONObject }.iterator()
 
 /**
  * Get the Json String from file in assets dir.
@@ -198,7 +249,7 @@ fun getJsonStringFromAssets(assetsFilePath: String?, context: Context? = ComkitA
  */
 fun getJSONObjectFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): JSONObject {
     return try {
-        JSONObject(getStringFromAssets(assetsFilePath, context))
+        JSONObject(getJsonStringFromAssets(assetsFilePath, context))
     }
     catch (e: JSONException) {
         logE(TAG, t = e)

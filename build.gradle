@@ -130,6 +130,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':CommonResSdk_Android')
+
     implementation dependenciesLib.androidx_appcompat
     implementation dependenciesLib.androidx_compose_material
     implementation dependenciesLib.androidx_activity_compose
@@ -141,7 +143,6 @@ dependencies {
 
     if (isLaunchApp) {
         appImplementation project(':DesignPatternLibrary_Android')
-        appImplementation project(':CommonResSdk_Android')
 
         appImplementation dependenciesLib.androidx_fragment_ktx
         appImplementation dependenciesLib.androidx_constraintlayout

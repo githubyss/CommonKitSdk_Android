@@ -87,6 +87,3 @@ fun getConnectivityManager(context: Context? = ComkitApplicationConfig.getApp())
 
     return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
 }
-
-
-fun currentTimeMillis(): Long = System.currentTimeMillis()
