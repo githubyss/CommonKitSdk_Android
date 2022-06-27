@@ -36,8 +36,10 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
             try {
                 val clazz = type.actualTypeArguments[0] as Class<B>?
                 val inflateMethod: Method? = clazz?.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
-                // _binding = DataBindingUtil.inflate(inflater, getLayoutId(), null, false);
                 _binding = inflateMethod?.invoke(null, inflater, container, false) as B
+
+                // 这个写法有问题，会崩溃
+                // _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
             }
             catch (e: NoSuchMethodException) {
                 logE(TAG, t = e)
