@@ -9,8 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.githubyss.mobile.common.res.common.dimen.SideNone
-import com.githubyss.mobile.common.res.common.dimen.SideNormal
+import com.githubyss.mobile.common.res.common.dimen.SpaceNone
+import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 import com.githubyss.mobile.common.res.page.pageBgLightGray
 
 
@@ -19,10 +19,10 @@ fun PageSideMarginPadding(
     background: Color = Color.pageBgLightGray,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    paddingHorizontal: Dp = Dp.SideNormal,
-    paddingVertical: Dp = Dp.SideNone,
-    marginHorizontal: Dp = Dp.SideNone,
-    marginVertical: Dp = Dp.SideNone,
+    paddingHorizontal: Dp = Dp.SpaceNormal,
+    paddingVertical: Dp = Dp.SpaceNone,
+    marginHorizontal: Dp = Dp.SpaceNone,
+    marginVertical: Dp = Dp.SpaceNone,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
@@ -46,16 +46,16 @@ fun PageSideMargin(
     background: Color = Color.pageBgLightGray,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    marginHorizontal: Dp = Dp.SideNone,
-    marginVertical: Dp = Dp.SideNone,
+    marginHorizontal: Dp = Dp.SpaceNone,
+    marginVertical: Dp = Dp.SpaceNone,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     PageSideMarginPadding(
         background = background,
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
-        paddingHorizontal = Dp.SideNone,
-        paddingVertical = Dp.SideNone,
+        paddingHorizontal = Dp.SpaceNone,
+        paddingVertical = Dp.SpaceNone,
         marginHorizontal = marginHorizontal,
         marginVertical = marginVertical,
         content = content,
@@ -67,8 +67,8 @@ fun PageSidePadding(
     background: Color = Color.pageBgLightGray,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    paddingHorizontal: Dp = Dp.SideNormal,
-    paddingVertical: Dp = Dp.SideNone,
+    paddingHorizontal: Dp = Dp.SpaceNormal,
+    paddingVertical: Dp = Dp.SpaceNone,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     PageSideMarginPadding(
@@ -77,8 +77,8 @@ fun PageSidePadding(
         horizontalAlignment = horizontalAlignment,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
-        marginHorizontal = Dp.SideNone,
-        marginVertical = Dp.SideNone,
+        marginHorizontal = Dp.SpaceNone,
+        marginVertical = Dp.SpaceNone,
         content = content,
     )
 }

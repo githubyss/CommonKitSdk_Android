@@ -18,7 +18,7 @@ import com.githubyss.mobile.common.res.button_click.buttonClickBlueBorder
 import com.githubyss.mobile.common.res.button_click.buttonClickBlueColors
 import com.githubyss.mobile.common.res.button_click.buttonClickBlueFontSize
 import com.githubyss.mobile.common.res.button_click.buttonClickBlueShape
-import com.githubyss.mobile.common.res.common.dimen.SideNone
+import com.githubyss.mobile.common.res.common.dimen.SpaceNone
 
 
 // @Composable
@@ -30,10 +30,10 @@ import com.githubyss.mobile.common.res.common.dimen.SideNone
 fun ButtonClickBlue(
     text: String,
     modifier: Modifier = Modifier,
-    outsidePaddingHorizontal: Dp = Dp.SideNone,
-    outsidePaddingVertical: Dp = Dp.SideNone,
-    insidePaddingHorizontal: Dp = Dp.SideNone,
-    insidePaddingVertical: Dp = Dp.SideNone,
+    outsidePaddingHorizontal: Dp = Dp.SpaceNone,
+    outsidePaddingVertical: Dp = Dp.SpaceNone,
+    insidePaddingHorizontal: Dp = Dp.SpaceNone,
+    insidePaddingVertical: Dp = Dp.SpaceNone,
     width: Dp = 0.dp,
     height: Dp = 60.dp,
     isFillMaxWidth: Boolean = false,

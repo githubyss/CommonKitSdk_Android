@@ -4,18 +4,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.githubyss.mobile.common.res.common.dimen.SideNano
-import com.githubyss.mobile.common.res.common.dimen.SideTiny
+import com.githubyss.mobile.common.res.common.dimen.SpaceNano
+import com.githubyss.mobile.common.res.common.dimen.SpaceTiny
 
 
 @Composable
 fun ButtonClickBlueMargin(
     text: String,
     modifier: Modifier = Modifier,
-    outsidePaddingHorizontal: Dp = Dp.SideNano,
-    outsidePaddingVertical: Dp = Dp.SideNano,
-    insidePaddingHorizontal: Dp = Dp.SideTiny,
-    insidePaddingVertical: Dp = Dp.SideTiny,
+    outsidePaddingHorizontal: Dp = Dp.SpaceNano,
+    outsidePaddingVertical: Dp = Dp.SpaceNano,
+    insidePaddingHorizontal: Dp = Dp.SpaceTiny,
+    insidePaddingVertical: Dp = Dp.SpaceTiny,
     width: Dp = 0.dp,
     height: Dp = 60.dp,
     isFillMaxWidth: Boolean = false,
@@ -43,10 +43,10 @@ fun ButtonClickBlueMargin(
 fun ButtonClickBlueWeightHorizontal(
     text: String,
     modifier: Modifier = Modifier,
-    outsidePaddingHorizontal: Dp = Dp.SideNano,
-    outsidePaddingVertical: Dp = Dp.SideNano,
-    insidePaddingHorizontal: Dp = Dp.SideTiny,
-    insidePaddingVertical: Dp = Dp.SideTiny,
+    outsidePaddingHorizontal: Dp = Dp.SpaceNano,
+    outsidePaddingVertical: Dp = Dp.SpaceNano,
+    insidePaddingHorizontal: Dp = Dp.SpaceTiny,
+    insidePaddingVertical: Dp = Dp.SpaceTiny,
     isFillMaxWidth: Boolean = true,
     height: Dp = 60.dp,
     enabled: Boolean = true,

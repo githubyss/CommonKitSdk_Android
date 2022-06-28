@@ -9,7 +9,7 @@ import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarFragment
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.common.dimen.SideNormal
+import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 
 
 /**
@@ -39,7 +39,7 @@ class ComposeToolbarFragment : BaseComposeToolbarFragment() {
     override fun Content() {
         PageSidePadding(
             verticalArrangement = Arrangement.Center,
-            paddingVertical = Dp.SideNormal,
+            paddingVertical = Dp.SpaceNormal,
         ) {
             InfoDisplay(title = getStringFromRes(R.string.comkit_compose_toolbar))
         }

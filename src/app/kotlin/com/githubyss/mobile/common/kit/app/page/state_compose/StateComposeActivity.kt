@@ -8,7 +8,7 @@ import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
 import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.common.dimen.SideNormal
+import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 
 
 /**
@@ -45,7 +45,7 @@ class StateComposeActivity : BaseComposeToolbarActivity() {
     @Composable
     override fun Content() {
         PageSidePadding(
-            paddingVertical = Dp.SideNormal,
+            paddingVertical = Dp.SpaceNormal,
         ) {
             ChangeTitleButton()
             CounterButtonByCountOutside()

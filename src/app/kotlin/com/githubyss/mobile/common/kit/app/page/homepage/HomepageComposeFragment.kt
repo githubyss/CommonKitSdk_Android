@@ -26,7 +26,7 @@ import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseCompos
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.getStringFromRes
-import com.githubyss.mobile.common.res.common.dimen.SideNormal
+import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 
 
 /**
@@ -57,7 +57,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
     @Composable
     override fun Content() {
         PageSidePadding(
-            paddingVertical = Dp.SideNormal,
+            paddingVertical = Dp.SpaceNormal,
         ) {
             Buttons()
         }
