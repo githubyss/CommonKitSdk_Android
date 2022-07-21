@@ -8,7 +8,6 @@ import androidx.viewbinding.ViewBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFragment
 import com.githubyss.mobile.common.kit.util.logE
 import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
 
@@ -23,8 +22,8 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
 
     /** ****************************** Properties ****************************** */
 
-    private var _binding: B? = null
-    val binding: B? get() = _binding
+    private lateinit var _binding: B
+    val binding get() = _binding
 
 
     /** ****************************** Override ****************************** */
@@ -34,9 +33,9 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
             try {
-                val clazz = type.actualTypeArguments[0] as Class<B>?
-                val inflateMethod: Method? = clazz?.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
-                _binding = inflateMethod?.invoke(null, inflater, container, false) as B
+                val clazz = (type.actualTypeArguments[0] ?: return null) as Class<B>
+                val inflateMethod = clazz.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java) ?: return null
+                _binding = (inflateMethod.invoke(null, inflater, container, false) ?: return null) as B
 
                 // 这个写法有问题，会崩溃
                 // _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
@@ -52,11 +51,11 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
             }
         }
 
-        return binding?.root
+        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        // _binding = null
     }
 }

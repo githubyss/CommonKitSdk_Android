@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.githubyss.mobile.common.res.button_click.buttonClickBlueBackground
 import com.githubyss.mobile.common.res.button_click.buttonClickBlueBorder
-import com.githubyss.mobile.common.res.button_click.buttonClickBlueColors
-import com.githubyss.mobile.common.res.button_click.buttonClickBlueFontSize
-import com.githubyss.mobile.common.res.button_click.buttonClickBlueShape
+import com.githubyss.mobile.common.res.button_click.buttonClickFontSize
+import com.githubyss.mobile.common.res.button_click.buttonClickShape
 import com.githubyss.mobile.common.res.common.dimen.SpaceNone
 
 
@@ -62,15 +63,15 @@ fun ButtonClickBlue(
         onClick = onClick,
         enabled = enabled,
         interactionSource = interactionSource,
-        shape = ButtonDefaults.buttonClickBlueShape,
+        shape = ButtonDefaults.buttonClickShape,
         border = ButtonDefaults.buttonClickBlueBorder,
-        colors = ButtonDefaults.buttonClickBlueColors(pressState),
+        colors = ButtonDefaults.buttonClickBlueBackground(pressState),
         contentPadding = PaddingValues(insidePaddingHorizontal, insidePaddingVertical),
         modifier = modifierRevised,
     ) {
         Text(
             text = text,
-            fontSize = ButtonDefaults.buttonClickBlueFontSize,
+            fontSize = TextUnit.buttonClickFontSize,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .wrapContentWidth()

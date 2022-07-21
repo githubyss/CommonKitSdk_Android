@@ -40,7 +40,7 @@
                     style="@style/comres_equant_horizontal_button_style"
                     android:id="@+id/button_mvvm"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_mvvm"
+                    android:text="@string/comkit_homepage_button_mvvm_activity"
                     />
             </com.google.android.flexbox.FlexboxLayout>
 

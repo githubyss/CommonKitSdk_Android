@@ -1,8 +1,8 @@
 package com.githubyss.mobile.common.kit.app.page.json_utils.model
 
 import com.githubyss.mobile.common.kit.util.getJSONArrayFromJSONObject
-import com.githubyss.mobile.common.kit.util.getJSONObjectFromJSONObject
 import com.githubyss.mobile.common.kit.util.getJSONObjectFromJSONArray
+import com.githubyss.mobile.common.kit.util.getJSONObjectFromJSONObject
 import com.githubyss.mobile.common.kit.util.getStringFromJSONObject
 import org.json.JSONException
 import org.json.JSONObject
@@ -16,8 +16,8 @@ class RespDataJsonObjectAndArray(jsonObject: JSONObject?) {
     init {
         try {
             jsonObject?.let {
-                code = getStringFromJSONObject(it, "code")
-                message = getStringFromJSONObject(it, "message")
+                code = getStringFromJSONObject(it, "code") ?: ""
+                message = getStringFromJSONObject(it, "message") ?: ""
                 data = ResponseData(getJSONObjectFromJSONObject(it, "data"))
             }
         }
@@ -46,7 +46,6 @@ class RespDataJsonObjectAndArray(jsonObject: JSONObject?) {
             catch (e: JSONException) {
             }
         }
-
 
 
     }

@@ -4,7 +4,8 @@
     <string name="comkit_homepage_title">Kit调试首页</string>
 
     <!-- Button -->
-    <string name="comkit_homepage_button_mvvm">MVVM</string>
+    <string name="comkit_homepage_button_mvvm_activity">Mvvm Activity</string>
+    <string name="comkit_homepage_button_mvvm_fragment">Mvvm Fragment</string>
     <string name="comkit_homepage_button_mvi">MVI</string>
     <string name="comkit_homepage_button_mvvm_compose">Mvvm Compose</string>
     <string name="comkit_homepage_button_state_compose">State Compose</string>

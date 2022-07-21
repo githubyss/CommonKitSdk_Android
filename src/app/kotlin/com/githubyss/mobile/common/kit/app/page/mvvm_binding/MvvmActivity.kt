@@ -1,31 +1,31 @@
 package com.githubyss.mobile.common.kit.app.page.mvvm_binding
 
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.Observable
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.DisplayType
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmViewModelObservableField
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMvvmBinding
 import com.githubyss.mobile.common.kit.util.logD
 
 
 /**
- * MvvmFragment
+ * MvvmActivity
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2021/06/10 11:18:21
+ * @createdTime 2022/07/15 14:47:57
  */
-class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding>() {
+class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding>() {
 
     /** ****************************** Properties ****************************** */
 
     companion object {
-        val TAG: String = MvvmFragment::class.java.simpleName
+        val TAG: String = MvvmActivity::class.java.simpleName
     }
 
     // private val mvvmVmLiveData: MvvmViewModelByLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmViewModelByLiveData::class.java) }
@@ -38,7 +38,7 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = this
     }
 
     override fun setupData() {
@@ -71,7 +71,7 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
     /** ****************************** Functions ****************************** */
 
     private fun observeVmByLiveData() {
-        this.mvvmVmLiveData.displayType.observe(viewLifecycleOwner, changeObserverByLiveData)
+        this.mvvmVmLiveData.displayType.observe(this, changeObserverByLiveData)
         this.mvvmVmLiveData.edittext.observe(this) {
             logD(msg = "edittext: $it")
         }
@@ -83,7 +83,8 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
     }
 
     private fun removeVmObserverByLiveData() {
-        this.mvvmVmLiveData.displayType.removeObservers(viewLifecycleOwner)
+        this.mvvmVmLiveData.displayType.removeObservers(this)
+        this.mvvmVmLiveData.edittext.removeObservers(this)
     }
 
     private fun removeVmObserverByObservableField() {

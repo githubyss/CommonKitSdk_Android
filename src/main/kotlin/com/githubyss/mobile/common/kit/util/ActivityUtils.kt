@@ -129,6 +129,10 @@ object ActivityUtils {
         return getActivityIcon(ComponentName(context, clazz), context)
     }
 
+    inline fun <reified A : Activity> getActivityIcon(context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        return getActivityIcon(A::class.java, context)
+    }
+
     /**
      * Return the icon of activity.
      *
@@ -176,6 +180,10 @@ object ActivityUtils {
         context ?: return null
 
         return getActivityLogo(ComponentName(context, clazz), context)
+    }
+
+    inline fun <reified A : Activity> getActivityLogo(context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+        return getActivityLogo(A::class.java, context)
     }
 
     /**
@@ -267,6 +275,10 @@ object ActivityUtils {
             }
         }
         return false
+    }
+
+    inline fun <reified A : Activity> isActivityExistsInStack(): Boolean {
+        return isActivityExistsInStack(A::class.java)
     }
 
     /**
@@ -365,6 +377,10 @@ object ActivityUtils {
             }
             else -> false
         }
+    }
+
+    inline fun <reified A : Activity> startActivity(context: Any? = topActivityOrApp.get(), extras: Bundle? = null, options: Bundle? = null): Boolean {
+        return startActivity(context, A::class.java, extras, options)
     }
 
     /**
@@ -553,6 +569,10 @@ object ActivityUtils {
         clazz ?: return
 
         startActivity(activity, activity.packageName, clazz.name, extras, getOptionsBundle(activity, sharedElements))
+    }
+
+    inline fun <reified A : Activity> startActivity(activity: Activity?, extras: Bundle? = null, vararg sharedElements: View) {
+        startActivity(activity, A::class.java, extras, *sharedElements)
     }
 
     /**

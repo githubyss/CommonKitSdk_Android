@@ -1,5 +1,7 @@
 package com.githubyss.mobile.common.kit.app.page.homepage
 
+import android.os.Bundle
+import android.view.View
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -18,6 +20,7 @@ import com.githubyss.mobile.common.kit.app.page.compose.ComposeToolbarActivity
 import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
 import com.githubyss.mobile.common.kit.app.page.mvi.MviActivity
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.MvvmComposeActivity
 import com.githubyss.mobile.common.kit.app.page.state_compose.StateComposeActivity
@@ -68,8 +71,19 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     @Composable
     private fun Buttons() {
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvvm)) {
-            FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_mvvm_activity),
+                modifier = Modifier.weight(1F),
+            ) {
+                ActivityUtils.startActivity<MvvmActivity>(activity)
+            }
+            ButtonClickBlueWeightHorizontal(
+                text = getStringFromRes(R.string.comkit_homepage_button_mvvm_fragment),
+                modifier = Modifier.weight(1F),
+            ) {
+                FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
+            }
         }
         ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvi)) {
             ActivityUtils.startActivity(activity, MviActivity::class.java)

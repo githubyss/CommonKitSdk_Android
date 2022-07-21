@@ -7,11 +7,12 @@
     >
 
     <data>
+
         <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData" />
 
         <variable
             name="mvvmVm"
-            type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData"
+            type="MvvmViewModelByLiveData"
             />
 
         <!--<import type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmViewModelObservableField" />-->
@@ -41,97 +42,21 @@
             app:justifyContent="space_between"
             >
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flexbox_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:flexDirection="column"
-                app:justifyContent="flex_start"
-                >
+            <include
+                android:id="@+id/layout_text"
+                layout="@layout/comkit_view_mvvm_text"
+                />
 
-                <TextView
-                    style="@style/comres_tips_gray_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="4dp"
-                    android:background="@color/comres_color_999999"
-                    android:contentDescription="text_display"
-                    android:gravity="center"
-                    android:text="@{mvvmVm.text}"
-                    android:textColor="@color/comres_color_black"
-                    android:textSize="@dimen/comres_textSize_18sp"
-                    bind:isVisibleOrInvisible="@{mvvmVm.isTimeShow}"
-                    />
+            <include
+                android:id="@+id/layout_image"
+                layout="@layout/comkit_view_mvvm_image"
+                />
 
-                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+            <include
+                android:id="@+id/layout_edittext"
+                layout="@layout/comkit_view_mvvm_edittext"
+                />
 
-                    <Button
-                        style="@style/comres_equant_horizontal_button_style"
-                        android:onClick="@{() -> mvvmVm.onButtonOperateTimeClick()}"
-                        android:text="@{mvvmVm.timeOperateState.value}"
-                        />
-                </com.google.android.flexbox.FlexboxLayout>
-
-                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                    <Button
-                        style="@style/comres_equant_horizontal_button_style"
-                        android:onClick="@{() -> mvvmVm.onButtonShowTimeTextClick()}"
-                        android:text="@string/comkit_mvvm_button_show_time"
-                        />
-
-                    <Button
-                        style="@style/comres_equant_horizontal_button_style"
-                        android:onClick="@{() -> mvvmVm.onButtonHideTimeTextClick()}"
-                        android:text="@string/comkit_mvvm_button_hide_time"
-                        />
-                </com.google.android.flexbox.FlexboxLayout>
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flexbox_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:flexDirection="column"
-                app:justifyContent="flex_start"
-                >
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="4dp"
-                    android:contentDescription="image_display"
-                    bind:path="@{mvvmVm.imageUrl}"
-                    bind:placeholder="@{null}"
-                    bind:error="@{null}"
-                    />
-
-                <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                    <Button
-                        style="@style/comres_equant_horizontal_button_style"
-                        android:id="@+id/button_image_dog"
-                        android:onClick="@{mvvmVm::onButtonImageClick}"
-                        android:text="@string/comkit_mvvm_button_dog"
-                        />
-
-                    <Button
-                        style="@style/comres_equant_horizontal_button_style"
-                        android:id="@+id/button_image_cat"
-                        android:onClick="@{mvvmVm::onButtonImageClick}"
-                        android:text="@string/comkit_mvvm_button_cat"
-                        />
-
-                    <Button
-                        style="@style/comres_equant_horizontal_button_style"
-                        android:id="@+id/button_image_chameleon"
-                        android:onClick="@{mvvmVm::onButtonImageClick}"
-                        android:text="@string/comkit_mvvm_button_chameleon"
-                        />
-                </com.google.android.flexbox.FlexboxLayout>
-            </com.google.android.flexbox.FlexboxLayout>
 
             <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 
@@ -147,6 +72,13 @@
                     android:id="@+id/button_switch_image"
                     android:onClick="@{() -> mvvmVm.onButtonSwitchImageClick()}"
                     android:text="@string/comkit_mvvm_button_switch_image"
+                    />
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_switch_edittext"
+                    android:onClick="@{() -> mvvmVm.onButtonSwitchEdittextClick()}"
+                    android:text="@string/comkit_mvvm_button_switch_edittext"
                     />
             </com.google.android.flexbox.FlexboxLayout>
         </com.google.android.flexbox.FlexboxLayout>

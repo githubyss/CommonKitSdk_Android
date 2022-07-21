@@ -17,7 +17,7 @@ import com.githubyss.mobile.common.kit.util.logD
  * @github githubyss
  * @createdTime 2021/06/02 15:10:38
  */
-abstract class BaseActivity(@LayoutRes layoutId: Int) : AppCompatActivity(layoutId) {
+abstract class BaseActivity(@LayoutRes layoutId: Int = 0) : AppCompatActivity(layoutId) {
 
     /** ****************************** Properties ****************************** */
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData" />
+
+        <variable
+            name="mvvmVm"
+            type="MvvmViewModelByLiveData"
+            />
+    </data>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexbox_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:flexDirection="column"
+        app:justifyContent="flex_start"
+        >
+
+        <TextView
+            style="@style/comres_tips_gray_style"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/comres_color_999999"
+            android:contentDescription="text_display"
+            android:gravity="center"
+            android:text="@{mvvmVm.text}"
+            android:textColor="@color/comres_color_black"
+            android:textSize="@dimen/comres_textSize_18sp"
+            bind:isVisibleOrInvisible="@{mvvmVm.isTimeShow}"
+            />
+
+        <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+            <Button
+                style="@style/comres_equant_horizontal_button_style"
+                android:onClick="@{() -> mvvmVm.onButtonOperateTimeClick()}"
+                android:text="@{mvvmVm.timeOperateState.value}"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+            <Button
+                style="@style/comres_equant_horizontal_button_style"
+                android:onClick="@{() -> mvvmVm.onButtonShowTimeTextClick()}"
+                android:text="@string/comkit_mvvm_button_show_time"
+                />
+
+            <Button
+                style="@style/comres_equant_horizontal_button_style"
+                android:onClick="@{() -> mvvmVm.onButtonHideTimeTextClick()}"
+                android:text="@string/comkit_mvvm_button_hide_time"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+</layout>

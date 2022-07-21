@@ -11,4 +11,5 @@ package com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration
 sealed class DisplayType {
     object TEXT : DisplayType()
     object IMAGE : DisplayType()
+    object EDITTEXT : DisplayType()
 }

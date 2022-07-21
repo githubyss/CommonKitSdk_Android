@@ -1,5 +1,6 @@
 package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data
 
+import android.text.Editable
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,13 +33,13 @@ class MvvmViewModelByLiveData : ViewModel() {
     private var imageBean: MvvmModel.ImageBean? = null
 
     /** 数据绑定，绑定到 UI 的字段（data field） */
-    var text: MutableLiveData<String>? = null
-    var imageUrl: MutableLiveData<String>? = null
-    var isTimeShow: MutableLiveData<Boolean>? = null
+    var text: MutableLiveData<String> = MutableLiveData()
+    var edittext: MutableLiveData<String> = MutableLiveData()
+    var imageUrl: MutableLiveData<String> = MutableLiveData()
+    var isTimeShow: MutableLiveData<Boolean> = MutableLiveData()
 
-    var displayType: MutableLiveData<DisplayType>? = null
-
-    var timeOperateState: MutableLiveData<TimeOperateState>? = null
+    lateinit var displayType: MutableLiveData<DisplayType>
+    lateinit var timeOperateState: MutableLiveData<TimeOperateState>
 
     // var viewStyle = ViewStyle()
 
@@ -46,7 +47,7 @@ class MvvmViewModelByLiveData : ViewModel() {
     // val onButtonShowCommand=ReplyCom
 
     /** 子 ViewModel */
-    var itemViewModel: MutableLiveData<MvvmChildVm>? = null
+    lateinit var itemViewModel: MutableLiveData<MvvmChildVm>
 
 
     /** ****************************** Constructors ****************************** */
@@ -70,9 +71,6 @@ class MvvmViewModelByLiveData : ViewModel() {
     /** ******************** Data Handling ******************** */
 
     private fun initViewModelField() {
-        this.text = MutableLiveData()
-        this.imageUrl = MutableLiveData()
-        this.isTimeShow = MutableLiveData()
         this.displayType = MutableLiveData()
         this.timeOperateState = MutableLiveData()
     }
@@ -81,11 +79,12 @@ class MvvmViewModelByLiveData : ViewModel() {
         this.textBean = MvvmModel.TextBean("请点击开始！")
         this.imageBean = MvvmModel.ImageBean("https://n.sinaimg.cn/tech/transform/403/w179h224/20210207/befe-kirmaiu6765911.gif")
 
-        this.text?.value = textBean?.text
-        this.imageUrl?.value = imageBean?.imageUrl
-        this.isTimeShow?.value = true
-        this.displayType?.value = DisplayType.TEXT
-        this.timeOperateState?.value = TimeOperateState.START
+        this.text.value = textBean?.text
+        this.imageUrl.value = imageBean?.imageUrl
+        this.edittext.value = ""
+        this.isTimeShow.value = true
+        this.displayType.value = DisplayType.TEXT
+        this.timeOperateState.value = TimeOperateState.START
     }
 
     private fun clearData() {
@@ -96,53 +95,61 @@ class MvvmViewModelByLiveData : ViewModel() {
     /** ******************** Event Handling ******************** */
 
     fun onButtonOperateTimeClick() {
-        when (this.timeOperateState?.value) {
+        when (this.timeOperateState.value) {
             TimeOperateState.START -> {
-                this.timeOperateState?.value = TimeOperateState.STOP
+                this.timeOperateState.value = TimeOperateState.STOP
                 val timerTask = object : TimerTask() {
                     override fun run() {
-                        this@MvvmViewModelByLiveData.text?.postValue("当前时间: ${System.currentTimeMillis()}")
+                        this@MvvmViewModelByLiveData.text.postValue("当前时间: ${System.currentTimeMillis()}")
                     }
                 }
                 runTaskPeriodicallyWithTimeOffset(timerTask, 0, 500)
             }
             TimeOperateState.STOP -> {
-                this.timeOperateState?.value = TimeOperateState.START
+                this.timeOperateState.value = TimeOperateState.START
                 cancelTimer()
             }
         }
     }
 
     fun onButtonShowTimeTextClick() {
-        this.isTimeShow?.value = true
+        this.isTimeShow.value = true
     }
 
     fun onButtonHideTimeTextClick() {
-        this.isTimeShow?.value = false
+        this.isTimeShow.value = false
     }
 
     fun onButtonImageClick(view: View) {
         when (view.id) {
             R.id.button_image_dog -> {
-                this.imageUrl?.value = "https://n.sinaimg.cn/tech/transform/403/w179h224/20210207/befe-kirmaiu6765911.gif"
+                this.imageUrl.value = "https://n.sinaimg.cn/tech/transform/403/w179h224/20210207/befe-kirmaiu6765911.gif"
             }
 
             R.id.button_image_cat -> {
-                this.imageUrl?.value = "https://n.sinaimg.cn/tech/transform/356/w222h134/20210224/4f29-kkmphps7924390.gif"
+                this.imageUrl.value = "https://n.sinaimg.cn/tech/transform/356/w222h134/20210224/4f29-kkmphps7924390.gif"
             }
 
             R.id.button_image_chameleon -> {
-                this.imageUrl?.value = "https://n.sinaimg.cn/tech/transform/398/w212h186/20210309/512c-kmeeius1127364.gif"
+                this.imageUrl.value = "https://n.sinaimg.cn/tech/transform/398/w212h186/20210309/512c-kmeeius1127364.gif"
             }
         }
     }
 
     fun onButtonSwitchTextClick() {
-        this.displayType?.value = DisplayType.TEXT
+        this.displayType.value = DisplayType.TEXT
     }
 
     fun onButtonSwitchImageClick() {
-        this.displayType?.value = DisplayType.IMAGE
+        this.displayType.value = DisplayType.IMAGE
+    }
+
+    fun onButtonSwitchEdittextClick() {
+        this.displayType.value = DisplayType.EDITTEXT
+    }
+
+    fun afterTextChanged(value: Editable) {
+        this.edittext.value = value.toString()
     }
 
 

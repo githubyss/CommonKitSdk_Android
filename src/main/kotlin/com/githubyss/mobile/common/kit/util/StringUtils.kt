@@ -3,6 +3,7 @@ package com.githubyss.mobile.common.kit.util
 import android.content.Context
 import android.content.res.Resources.NotFoundException
 import androidx.annotation.ArrayRes
+import androidx.compose.runtime.Stable
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -379,6 +380,7 @@ fun toSBC(s: String?): String {
     return String(chars)
 }
 
+@Stable
 fun <V> String.jsonString2Map(): Map<String?, V> {
     return Gson().fromJson(this, object : TypeToken<Map<String?, V>?>() {}.type)
 }

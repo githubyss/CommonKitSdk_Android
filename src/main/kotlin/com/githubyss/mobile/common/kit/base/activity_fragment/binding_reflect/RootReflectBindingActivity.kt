@@ -6,7 +6,6 @@ import androidx.viewbinding.ViewBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.util.logE
 import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
 
@@ -21,8 +20,8 @@ abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
 
     /** ****************************** Properties ****************************** */
 
-    private var _binding: B? = null
-    val binding: B? get() = _binding
+    private lateinit var _binding: B
+    val binding get() = _binding
 
 
     /** ****************************** Override ****************************** */
@@ -32,11 +31,11 @@ abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
             try {
-                val clazz = type.actualTypeArguments[0] as Class<B>?
-                val inflateMethod: Method? = clazz?.getMethod("inflate", LayoutInflater::class.java)
+                val clazz = (type.actualTypeArguments[0] ?: return) as Class<B>
+                val inflateMethod = clazz.getMethod("inflate", LayoutInflater::class.java) ?: return
                 val inflater = layoutInflater
-                _binding = inflateMethod?.invoke(null, inflater) as B
-                setContentView(binding?.root ?: return)
+                _binding = (inflateMethod.invoke(null, inflater) ?: return) as B
+                setContentView(binding.root)
             }
             catch (e: NoSuchMethodException) {
                 logE(TAG, t = e)

@@ -38,9 +38,9 @@ class MvvmViewModelObservableField : ViewModel() {
     var isTimeShow: ObservableField<Boolean>? = null
     // var isTimeShow: ObservableBoolean? = null
 
-    var displayType: ObservableField<DisplayType>? = null
+    lateinit var displayType: ObservableField<DisplayType>
 
-    var timeOperateState: ObservableField<TimeOperateState>? = null
+    lateinit var timeOperateState: ObservableField<TimeOperateState>
 
     // var viewStyle = ViewStyle()
 

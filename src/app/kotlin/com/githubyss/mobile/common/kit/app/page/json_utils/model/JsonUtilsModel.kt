@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.app.page.json_utils.model
 
-import com.githubyss.mobile.common.kit.util.logE
 import com.githubyss.mobile.common.kit.util.getStringFromJSONObject
+import com.githubyss.mobile.common.kit.util.logE
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -36,9 +36,9 @@ interface JsonUtilsModel {
         init {
             try {
                 json?.let {
-                    id = getStringFromJSONObject(it, "id")
-                    name = getStringFromJSONObject(it, "name")
-                    action = getStringFromJSONObject(it, "action")
+                    id = getStringFromJSONObject(it, "id") ?: ""
+                    name = getStringFromJSONObject(it, "name") ?: ""
+                    action = getStringFromJSONObject(it, "action") ?: ""
                 }
             }
             catch (e: JSONException) {
@@ -66,9 +66,9 @@ interface JsonUtilsModel {
         init {
             try {
                 json?.let {
-                    time = getStringFromJSONObject(it, "time")
-                    location = getStringFromJSONObject(it, "location")
-                    weather = getStringFromJSONObject(it, "weather")
+                    time = getStringFromJSONObject(it, "time") ?: ""
+                    location = getStringFromJSONObject(it, "location") ?: ""
+                    weather = getStringFromJSONObject(it, "weather") ?: ""
                 }
             }
             catch (e: JSONException) {

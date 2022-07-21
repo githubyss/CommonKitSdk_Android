@@ -11,4 +11,5 @@
     <string name="comkit_mvvm_button_chameleon">Chameleon</string>
     <string name="comkit_mvvm_button_switch_text">Switch Text</string>
     <string name="comkit_mvvm_button_switch_image">Switch Image</string>
+    <string name="comkit_mvvm_button_switch_edittext">Switch Edittext</string>
 </resources>

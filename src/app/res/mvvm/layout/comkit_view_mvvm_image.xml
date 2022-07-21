@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData" />
+
+        <variable
+            name="mvvmVm"
+            type="MvvmViewModelByLiveData"
+            />
+    </data>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexbox_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:flexDirection="column"
+        app:justifyContent="flex_start"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="image_display"
+            bind:path="@{mvvmVm.imageUrl}"
+            bind:placeholder="@{null}"
+            bind:error="@{null}"
+            />
+
+        <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+            <Button
+                style="@style/comres_equant_horizontal_button_style"
+                android:id="@+id/button_image_dog"
+                android:onClick="@{mvvmVm::onButtonImageClick}"
+                android:text="@string/comkit_mvvm_button_dog"
+                />
+
+            <Button
+                style="@style/comres_equant_horizontal_button_style"
+                android:id="@+id/button_image_cat"
+                android:onClick="@{mvvmVm::onButtonImageClick}"
+                android:text="@string/comkit_mvvm_button_cat"
+                />
+
+            <Button
+                style="@style/comres_equant_horizontal_button_style"
+                android:id="@+id/button_image_chameleon"
+                android:onClick="@{mvvmVm::onButtonImageClick}"
+                android:text="@string/comkit_mvvm_button_chameleon"
+                />
+        </com.google.android.flexbox.FlexboxLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+</layout>
