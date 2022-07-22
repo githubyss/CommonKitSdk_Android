@@ -64,14 +64,14 @@ abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@L
     /** Setup Toolbar text by ResId. */
     protected fun setToolbarTitle(titleResId: Int) {
         if (activity is BaseInlineBindingToolbarActivity<*> && (activity as BaseInlineBindingToolbarActivity<*>).binding is ComkitActivityBaseToolbarBinding) {
-            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
+            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setTitle(titleResId)
         }
     }
 
     /** Setup Toolbar text by String. */
     protected fun setToolbarTitle(titleString: String) {
         if (activity is BaseInlineBindingToolbarActivity<*> && (activity as BaseInlineBindingToolbarActivity<*>).binding is ComkitActivityBaseToolbarBinding) {
-            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.title = titleString
+            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.title = titleString
         }
     }
 }

@@ -25,7 +25,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
         super.onCreate(savedInstanceState)
 
         /** Make sure that you can use Toolbar as simple as ActionBar. */
-        if (binding is ComkitActivityBaseToolbarBinding) setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase)
+        if (binding is ComkitActivityBaseToolbarBinding) setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase)
     }
 
     override fun onResume() {
@@ -44,46 +44,46 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
     /** Setup Toolbar text by ResId. */
     protected fun setToolbarTitle(titleResId: Int) {
         // toolbarBase.text = getStringFromRes(this@BaseReflectBindingToolbarActivity, titleResId)
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setTitle(titleResId)
     }
 
     /** Setup Toolbar text by String. */
     protected fun setToolbarTitle(titleString: String) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.title = titleString
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.title = titleString
     }
 
     /** Setup Toolbar navigation icon by ResId. */
     protected fun setToolbarNavigationIcon(iconResId: Int) {
         // toolbarBase.navigationIcon = getDrawableFromRes(this@BaseReflectBindingToolbarActivity, iconResId)
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationIcon(iconResId)
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setNavigationIcon(iconResId)
     }
 
     /** Setup Toolbar navigation icon by Drawable. */
     protected fun setToolbarNavigationIcon(iconDrawable: Drawable) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.navigationIcon = iconDrawable
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.navigationIcon = iconDrawable
     }
 
     /** Setup Toolbar navigation click listener. */
     protected fun setToolbarNavigationOnClickListener(onBaseToolbarNavigationClickListener: OnBaseToolbarNavigationClickListener) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setNavigationOnClickListener { v ->
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setNavigationOnClickListener { v ->
             onBaseToolbarNavigationClickListener.onClick(v)
         }
     }
 
     /** Setup Toolbar menu item click listener. */
     protected fun setToolbarMenuItemOnClickListener(onBaseToolbarMenuItemClickListener: OnBaseToolbarMenuItemClickListener) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setOnMenuItemClickListener { item ->
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnMenuItemClickListener { item ->
             onBaseToolbarMenuItemClickListener.onClick(item)
         }
     }
 
     /** Get the menu in Toolbar. */
     protected fun getMenu(): Menu? {
-        return if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.menu else null
+        return if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.menu else null
     }
 
     protected fun setToolbarOnLongClickListener(onBaseToolbarLongClickListener: OnBaseToolbarLongClickListener) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setOnLongClickListener { v ->
+        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnLongClickListener { v ->
             onBaseToolbarLongClickListener.onLongClick(v)
         }
     }
