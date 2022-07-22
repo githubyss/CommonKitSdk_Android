@@ -1,6 +1,6 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect
 
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.ViewDataBinding
 
 
 /**
@@ -10,4 +10,4 @@ import androidx.viewbinding.ViewBinding
  * @github githubyss
  * @createdTime 2021/07/20 16:40:09
  */
-abstract class BaseReflectBindingFragment<B : ViewBinding> : RootReflectBindingFragment<B>()
+abstract class BaseReflectBindingFragment<B : ViewDataBinding> : RootReflectBindingFragment<B>()

@@ -6,6 +6,9 @@ import androidx.databinding.Observable
 import androidx.lifecycle.Observer
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.DisplayType
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmEdittextVmByLiveData
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmImageVmByLiveData
+import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmTextVmByLiveData
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmViewModelObservableField
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
@@ -30,6 +33,9 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
 
     // private val mvvmVmLiveData: MvvmViewModelByLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmViewModelByLiveData::class.java) }
     private val mvvmVmLiveData: MvvmViewModelByLiveData by viewModels()
+    private val mvvmTextVmLiveData: MvvmTextVmByLiveData by viewModels()
+    private val mvvmImageVmLiveData: MvvmImageVmByLiveData by viewModels()
+    private val mvvmEdittextVmLiveData: MvvmEdittextVmByLiveData by viewModels()
 
     // private val mvvmVmObservableField: MvvmViewModelObservableField by lazy { ViewModelProvider(requireActivity()).get(MvvmViewModelObservableField::class.java) }
     private val mvvmVmObservableField: MvvmViewModelObservableField by viewModels()
@@ -50,9 +56,9 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
 
     override fun setupViewModel() {
         binding.mvvmVm = this.mvvmVmLiveData
-        binding.layoutText.mvvmVm = this.mvvmVmLiveData
-        binding.layoutImage.mvvmVm = this.mvvmVmLiveData
-        binding.layoutEdittext.mvvmVm = this.mvvmVmLiveData
+        binding.layoutText.mvvmVm = this.mvvmTextVmLiveData
+        binding.layoutImage.mvvmVm = this.mvvmImageVmLiveData
+        binding.layoutEdittext.mvvmVm = this.mvvmEdittextVmLiveData
 
         // binding.mvvmVm = this.mvvmVmObservableField
     }
@@ -72,7 +78,7 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
 
     private fun observeVmByLiveData() {
         this.mvvmVmLiveData.displayType.observe(this, changeObserverByLiveData)
-        this.mvvmVmLiveData.edittext.observe(this) {
+        this.mvvmEdittextVmLiveData.edittext.observe(this) {
             logD(msg = "edittext: $it")
         }
     }
@@ -84,7 +90,7 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
 
     private fun removeVmObserverByLiveData() {
         this.mvvmVmLiveData.displayType.removeObservers(this)
-        this.mvvmVmLiveData.edittext.removeObservers(this)
+        this.mvvmEdittextVmLiveData.edittext.removeObservers(this)
     }
 
     private fun removeVmObserverByObservableField() {

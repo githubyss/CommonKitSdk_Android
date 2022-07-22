@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.ViewDataBinding
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
@@ -16,7 +16,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2021/03/09 14:35:21
  */
-abstract class BaseReflectBindingToolbarActivity<B : ViewBinding> : RootReflectBindingActivity<B>() {
+abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootReflectBindingActivity<B>() {
 
     /** ****************************** Override ****************************** */
 

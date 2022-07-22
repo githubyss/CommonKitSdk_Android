@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.ViewDataBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFragment
 import com.githubyss.mobile.common.kit.util.logE
 import java.lang.reflect.InvocationTargetException
@@ -18,7 +18,7 @@ import java.lang.reflect.ParameterizedType
  * @github githubyss
  * @createdTime 2021/04/08 11:27:32
  */
-abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
+abstract class RootReflectBindingFragment<B : ViewDataBinding> : BaseFragment(0) {
 
     /** ****************************** Properties ****************************** */
 
@@ -33,9 +33,9 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
             try {
-                val clazz = (type.actualTypeArguments[0] ?: return null) as Class<B>
-                val inflateMethod = clazz.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java) ?: return null
-                _binding = (inflateMethod.invoke(null, inflater, container, false) ?: return null) as B
+                val clazz = (type.actualTypeArguments[0]) as Class<B>
+                val methodInflate = clazz.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
+                _binding = (methodInflate.invoke(null, inflater, container, false)) as B
 
                 // 这个写法有问题，会崩溃
                 // _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
@@ -55,7 +55,8 @@ abstract class RootReflectBindingFragment<B : ViewBinding> : BaseFragment(0) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        _binding.unbind()
         // _binding = null
+        super.onDestroyView()
     }
 }

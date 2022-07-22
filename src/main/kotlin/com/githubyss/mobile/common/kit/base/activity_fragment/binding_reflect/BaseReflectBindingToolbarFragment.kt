@@ -1,6 +1,6 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect
 
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.ViewDataBinding
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
@@ -11,7 +11,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2021/03/09 14:35:12
  */
-abstract class BaseReflectBindingToolbarFragment<B : ViewBinding> : RootReflectBindingFragment<B>() {
+abstract class BaseReflectBindingToolbarFragment<B : ViewDataBinding> : RootReflectBindingFragment<B>() {
 
     /** ****************************** Override ****************************** */
 

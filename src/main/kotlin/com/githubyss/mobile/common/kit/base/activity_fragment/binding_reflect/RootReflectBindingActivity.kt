@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.ViewDataBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.util.logE
 import java.lang.reflect.InvocationTargetException
@@ -16,7 +16,7 @@ import java.lang.reflect.ParameterizedType
  * @github githubyss
  * @createdTime 2021/04/08 10:48:25
  */
-abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
+abstract class RootReflectBindingActivity<B : ViewDataBinding> : BaseActivity(0) {
 
     /** ****************************** Properties ****************************** */
 
@@ -31,10 +31,10 @@ abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
             try {
-                val clazz = (type.actualTypeArguments[0] ?: return) as Class<B>
-                val inflateMethod = clazz.getMethod("inflate", LayoutInflater::class.java) ?: return
+                val clazz = (type.actualTypeArguments[0]) as Class<B>
+                val methodInflate = clazz.getMethod("inflate", LayoutInflater::class.java)
                 val inflater = layoutInflater
-                _binding = (inflateMethod.invoke(null, inflater) ?: return) as B
+                _binding = (methodInflate.invoke(null, inflater)) as B
                 setContentView(binding.root)
             }
             catch (e: NoSuchMethodException) {
@@ -49,5 +49,10 @@ abstract class RootReflectBindingActivity<B : ViewBinding> : BaseActivity(0) {
         }
 
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        _binding.unbind()
+        super.onDestroy()
     }
 }
