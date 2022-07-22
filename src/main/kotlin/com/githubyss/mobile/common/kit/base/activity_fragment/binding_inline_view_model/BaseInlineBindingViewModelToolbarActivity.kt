@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.inflate
-import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
+import androidx.databinding.ViewDataBinding
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.RootInlineBindingActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
@@ -17,13 +17,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2022/07/22 13:12:26
  */
-abstract class BaseInlineBindingViewModelToolbarActivity : BaseActivity(0) {
-
-    /** ****************************** Properties ****************************** */
-
-    /***/
-    val binding by inflate<ComkitActivityBaseToolbarBinding>()
-
+abstract class BaseInlineBindingViewModelToolbarActivity<B : ViewDataBinding> : RootInlineBindingActivity<B>() {
 
     /** ****************************** Override ****************************** */
 

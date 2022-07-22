@@ -1,8 +1,9 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_view_model
 
 import androidx.annotation.LayoutRes
+import androidx.databinding.ViewDataBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingToolbarActivity
-import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.RootInlineBindingFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
@@ -13,7 +14,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2022/07/22 13:17:48
  */
-abstract class BaseInlineBindingViewModelToolbarFragment(@LayoutRes layoutId: Int) : BaseFragment(layoutId) {
+abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@LayoutRes layoutId: Int) : RootInlineBindingFragment<B>(layoutId) {
 
     /** ****************************** Override ****************************** */
 
