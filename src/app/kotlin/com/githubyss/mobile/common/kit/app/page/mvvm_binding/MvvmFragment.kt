@@ -54,7 +54,7 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
         setToolbarTitle(R.string.comkit_mvvm_title)
     }
 
-    override fun setupViewModel() {
+    override fun bindViewModelXml() {
         binding.mvvmVm = this.mvvmVmLiveData
         binding.layoutText.mvvmVm = this.mvvmTextVmLiveData
         binding.layoutImage.mvvmVm = this.mvvmImageVmLiveData
@@ -63,7 +63,7 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
         // binding.mvvmVm = this.mvvmVmObservableField
     }
 
-    override fun observeViewModel() {
+    override fun observeViewModelData() {
         observeVmByLiveData()
         // observeVmByObservableField()
     }

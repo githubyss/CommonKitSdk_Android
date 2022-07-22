@@ -27,6 +27,10 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
 
     /** ****************************** Properties ****************************** */
 
+    /**
+     *
+     *
+     */
     companion object {
         val TAG: String = MvvmActivity::class.java.simpleName
     }
@@ -44,7 +48,6 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
     /** ****************************** Override ****************************** */
 
     override fun setupUi() {
-        binding.lifecycleOwner = this
     }
 
     override fun setupData() {
@@ -54,7 +57,11 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
         setToolbarTitle(R.string.comkit_mvvm_title)
     }
 
-    override fun setupViewModel() {
+    override fun bindLifecycleOwner() {
+        binding.lifecycleOwner = this
+    }
+
+    override fun bindViewModelXml() {
         binding.mvvmVm = this.mvvmVmLiveData
         binding.layoutText.mvvmVm = this.mvvmTextVmLiveData
         binding.layoutImage.mvvmVm = this.mvvmImageVmLiveData
@@ -63,7 +70,7 @@ class MvvmActivity : BaseReflectBindingToolbarActivity<ComkitFragmentMvvmBinding
         // binding.mvvmVm = this.mvvmVmObservableField
     }
 
-    override fun observeViewModel() {
+    override fun observeViewModelData() {
         observeVmByLiveData()
         // observeVmByObservableField()
     }

@@ -52,11 +52,11 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
         setToolbarTitle(R.string.comkit_homepage_title)
     }
 
-    override fun setupViewModel() {
+    override fun bindViewModelXml() {
         binding?.homepageVm = homepageVm
     }
 
-    override fun observeViewModel() {
+    override fun observeViewModelData() {
         this.homepageVm.viewId?.observe(viewLifecycleOwner, vmObserverViewId)
     }
 

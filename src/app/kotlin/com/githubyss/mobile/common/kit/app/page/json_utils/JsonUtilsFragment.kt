@@ -39,11 +39,11 @@ class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUt
         setToolbarTitle(R.string.comkit_json_utils_title)
     }
 
-    override fun setupViewModel() {
+    override fun bindViewModelXml() {
         binding?.jsonUtilsVm = jsonUtilsVm
     }
 
-    override fun observeViewModel() {
+    override fun observeViewModelData() {
         this.jsonUtilsVm.jsonText?.observe(viewLifecycleOwner, vmObserver)
     }
 

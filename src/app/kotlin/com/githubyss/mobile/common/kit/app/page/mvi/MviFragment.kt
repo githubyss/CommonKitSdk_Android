@@ -60,7 +60,7 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
         setToolbarTitle(R.string.comkit_mvi_title)
     }
 
-    override fun setupViewModel() {
+    override fun bindViewModelXml() {
         // binding?.homepageVm = homepageVm
         mviViewModel = ViewModelProviders.of(
             this,
@@ -72,7 +72,7 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
         ).get(MviViewModel::class.java)
     }
 
-    override fun observeViewModel() {
+    override fun observeViewModelData() {
         lifecycleScope.launch {
             mviViewModel.state.collect {
                 when (it) {

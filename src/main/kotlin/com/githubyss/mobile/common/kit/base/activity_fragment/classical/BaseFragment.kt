@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
@@ -22,15 +21,23 @@ import com.githubyss.mobile.common.kit.util.logD
  */
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
-    /** ****************************** Properties ****************************** */
+    /** ****************************** Companion ****************************** */
 
+    /***/
     companion object {
         val TAG: String = BaseFragment::class.java.simpleName
     }
 
 
+    /** ****************************** Properties ****************************** */
+
+    /***/
+    private var fragmentName = this::class.java.simpleName
+
+
     /** ****************************** Constructors ****************************** */
 
+    /***/
     init {
         logD(TAG, "Constructor init")
     }
@@ -38,109 +45,127 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
     /** ****************************** Open ****************************** */
 
+    /** 初始化 UI */
     open fun setupUi() {}
+
+    /** 初始化数据 */
     open fun setupData() {}
-    open fun setupViewModel() {}
-    open fun observeViewModel() {}
+
+    /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */
+    open fun bindLifecycleOwner() {}
+
+    /** 绑定 ViewModel 到 ViewDataBinding */
+    open fun bindViewModelXml() {}
+
+    /** 观察 ViewModel 的数据变化 */
+    open fun observeViewModelData() {}
+
+    /** 移除 ViewModel 的数据观察 */
     open fun removeViewModelObserver() {}
 
 
     /** ****************************** Override ****************************** */
 
+    /**
+     *
+     *
+     * @param
+     * @return
+     */
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val message = "${this::class.java.simpleName} > onAttach"
+        val message = "$fragmentName > onAttach"
         logD(TAG, message)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val message = "${this::class.java.simpleName} > onCreate"
+        val message = "$fragmentName > onCreate"
         logD(TAG, message)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val message = "${this::class.java.simpleName} > onCreateView"
+        val message = "$fragmentName > onCreateView"
         logD(TAG, message)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val message = "${this::class.java.simpleName} > onViewCreated"
+        val message = "$fragmentName > onViewCreated"
         logD(TAG, message)
 
         setupUi()
         setupData()
-        setupViewModel()
-        observeViewModel()
+        bindViewModelXml()
+        observeViewModelData()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val message = "${this::class.java.simpleName} > onActivityCreated"
+        val message = "$fragmentName > onActivityCreated"
         logD(TAG, message)
     }
 
     override fun onStart() {
         super.onStart()
-        val message = "${this::class.java.simpleName} > onStart"
+        val message = "$fragmentName > onStart"
         logD(TAG, message)
     }
 
     override fun onResume() {
         super.onResume()
-        val message = "${this::class.java.simpleName} > onResume"
+        val message = "$fragmentName > onResume"
         logD(TAG, message)
     }
 
     override fun onPause() {
         super.onPause()
-        val message = "${this::class.java.simpleName} > onPause"
+        val message = "$fragmentName > onPause"
         logD(TAG, message)
     }
 
     override fun onStop() {
         super.onStop()
-        val message = "${this::class.java.simpleName} > onStop"
+        val message = "$fragmentName > onStop"
         logD(TAG, message)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val message = "${this::class.java.simpleName} > onSaveInstanceState"
+        val message = "$fragmentName > onSaveInstanceState"
         logD(TAG, message)
     }
 
     override fun onDestroyView() {
         removeViewModelObserver()
 
-        val message = "${this::class.java.simpleName} > onDestroyView"
+        val message = "$fragmentName > onDestroyView"
         logD(TAG, message)
         super.onDestroyView()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        val message = "${this::class.java.simpleName} > onDestroy"
+        val message = "$fragmentName > onDestroy"
         logD(TAG, message)
     }
 
     override fun onDetach() {
         super.onDetach()
-        val message = "${this::class.java.simpleName} > onDetach"
+        val message = "$fragmentName > onDetach"
         logD(TAG, message)
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
-        val message = "${this::class.java.simpleName} > onAttachFragment"
+        val message = "$fragmentName > onAttachFragment"
         logD(TAG, message)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        val message = "${this::class.java.simpleName} > onHiddenChanged, hidden:${hidden}"
+        val message = "$fragmentName > onHiddenChanged, hidden:${hidden}"
         logD(TAG, message)
     }
 
@@ -148,10 +173,10 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     /** ****************************** Functions ****************************** */
 
     /** Change button status. */
-    protected fun changeBtnStatus(button: Button?, status: Boolean) {
-        button?.isEnabled = status
-        button?.isClickable = status
-    }
+    // protected fun changeBtnStatus(button: Button?, status: Boolean) {
+    //     button?.isEnabled = status
+    //     button?.isClickable = status
+    // }
 
     /** Switch fragment within fragments. */
     protected fun switchFragment(fragment: Fragment, fragmentTag: String? = null, currentFragment: Any?, @IdRes containerId: Int, addToBackStack: Boolean = true) {

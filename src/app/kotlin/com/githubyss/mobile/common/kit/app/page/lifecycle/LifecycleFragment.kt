@@ -48,11 +48,11 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
         setToolbarTitle(R.string.comkit_lifecycle_title)
     }
 
-    override fun setupViewModel() {
+    override fun bindViewModelXml() {
         binding?.lifecycleVm = lifecycleVm
     }
 
-    override fun observeViewModel() {
+    override fun observeViewModelData() {
         // this.lifecycleVm.lifecycleLog?.observe(viewLifecycleOwner, vmObserverLifecycleLog)
         this.lifecycleVm.viewId?.observe(viewLifecycleOwner, vmObserverViewId)
     }

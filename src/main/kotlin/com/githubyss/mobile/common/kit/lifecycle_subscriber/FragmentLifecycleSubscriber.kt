@@ -16,18 +16,18 @@ import com.githubyss.mobile.common.kit.util.logD
  * @createdTime 2021/06/03 10:14:08
  */
 open class FragmentLifecycleSubscriber private constructor() : FragmentManager.FragmentLifecycleCallbacks() {
-    
+
     /** ****************************** Properties ****************************** */
-    
+
     companion object {
         val INSTANCE: FragmentLifecycleSubscriber by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { FragmentLifecycleSubscriber() }
-        
+
         private val TAG: String = FragmentLifecycleSubscriber::class.java.simpleName
     }
-    
-    
+
+
     /** ****************************** Override ****************************** */
-    
+
     /**
      * 对应 Fragment 的 onAttach(context: Context)
      *
@@ -40,7 +40,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentAttached")
         super.onFragmentAttached(fm, f, context)
     }
-    
+
     /**
      * 对应 Fragment 的 onCreate(savedInstanceState: Bundle?)
      *
@@ -53,7 +53,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentCreated")
         super.onFragmentCreated(fm, f, savedInstanceState)
     }
-    
+
     /**
      * 对应 Fragment 的 onViewCreated(view: View, savedInstanceState: Bundle?)
      *
@@ -67,7 +67,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentViewCreated")
         super.onFragmentViewCreated(fm, f, v, savedInstanceState)
     }
-    
+
     /**
      * 对应 Fragment 的 onActivityCreated(savedInstanceState: Bundle?)
      *
@@ -80,7 +80,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentActivityCreated")
         super.onFragmentActivityCreated(fm, f, savedInstanceState)
     }
-    
+
     /**
      * 对应 Fragment 的 onStart()
      *
@@ -92,7 +92,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentStarted")
         super.onFragmentStarted(fm, f)
     }
-    
+
     /**
      * 对应 Fragment 的 onResume()
      *
@@ -104,7 +104,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentResumed")
         super.onFragmentResumed(fm, f)
     }
-    
+
     /**
      * 对应 Fragment 的 onPause()
      *
@@ -116,7 +116,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentPaused")
         super.onFragmentPaused(fm, f)
     }
-    
+
     /**
      * 对应 Fragment 的 onStop()
      *
@@ -128,7 +128,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentStopped")
         super.onFragmentStopped(fm, f)
     }
-    
+
     /**
      * 对应 Fragment 的 onSaveInstanceState(outState: Bundle)
      *
@@ -141,7 +141,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentSaveInstanceState")
         super.onFragmentSaveInstanceState(fm, f, outState)
     }
-    
+
     /**
      * 对应 Fragment 的 onDestroyView()
      *
@@ -153,7 +153,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentViewDestroyed")
         super.onFragmentViewDestroyed(fm, f)
     }
-    
+
     /**
      * 对应 Fragment 的 onDestroy()
      *
@@ -165,7 +165,7 @@ open class FragmentLifecycleSubscriber private constructor() : FragmentManager.F
         logD(TAG, "${f::class.java.simpleName} > onFragmentDestroyed")
         super.onFragmentDestroyed(fm, f)
     }
-    
+
     /**
      * 对应 Fragment 的 onDetach()
      *

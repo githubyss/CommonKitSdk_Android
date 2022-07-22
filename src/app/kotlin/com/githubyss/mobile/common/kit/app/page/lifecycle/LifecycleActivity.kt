@@ -40,10 +40,10 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
         setToolbarTitle(R.string.comkit_lifecycle_title)
     }
 
-    override fun setupViewModel() {
+    override fun bindViewModelXml() {
     }
 
-    override fun observeViewModel() {
+    override fun observeViewModelData() {
         // this.lifecycleVm.lifecycleLog?.observe(this, vmObserver)
     }
 
