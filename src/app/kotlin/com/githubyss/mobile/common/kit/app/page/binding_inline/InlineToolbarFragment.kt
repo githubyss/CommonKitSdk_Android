@@ -14,21 +14,28 @@ import com.githubyss.mobile.common.kit.util.getStringFromRes
  * @github githubyss
  * @createdTime 2021/06/04 14:52:55
  */
-class InlineToolbarFragment : BaseInlineBindingToolbarFragment(R.layout.comkit_fragment_view_binding_inline) {
+class InlineToolbarFragment : BaseInlineBindingToolbarFragment<ComkitFragmentViewBindingInlineBinding>(R.layout.comkit_fragment_view_binding_inline) {
 
-    /** ****************************** Properties ****************************** */
+    /** ****************************** Companion ****************************** */
 
+    /***/
     companion object {
         val TAG: String = InlineToolbarFragment::class.java.simpleName
     }
 
-    private val binding by bindView<ComkitFragmentViewBindingInlineBinding>()
+
+    /** ****************************** Properties ****************************** */
+
+    /***/
+    private val _binding by bindView<ComkitFragmentViewBindingInlineBinding>()
 
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun setupUi() {
-        binding?.textBindingInline?.text = getStringFromRes(R.string.comkit_view_binding_inline_toolbar)
+        binding = _binding
+        binding.textBindingInline.text = getStringFromRes(R.string.comkit_view_binding_inline_toolbar)
     }
 
     override fun setToolbarTitle() {

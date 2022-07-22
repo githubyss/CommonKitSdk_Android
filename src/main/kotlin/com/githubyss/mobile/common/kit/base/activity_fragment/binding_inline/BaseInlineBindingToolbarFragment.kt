@@ -1,7 +1,8 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline
 
 import androidx.annotation.LayoutRes
-import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFragment
+import androidx.databinding.ViewDataBinding
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.RootInlineBindingFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
@@ -12,10 +13,11 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2021/06/02 16:52:19
  */
-abstract class BaseInlineBindingToolbarFragment(@LayoutRes layoutId: Int) : BaseFragment(layoutId) {
+abstract class BaseInlineBindingToolbarFragment<B : ViewDataBinding>(@LayoutRes layoutId: Int) : RootInlineBindingFragment<B>(layoutId) {
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun onResume() {
         super.onResume()
         setToolbarTitle()
@@ -31,6 +33,7 @@ abstract class BaseInlineBindingToolbarFragment(@LayoutRes layoutId: Int) : Base
 
     /** ****************************** Abstract ****************************** */
 
+    /***/
     abstract fun setToolbarTitle()
 
 
@@ -38,15 +41,17 @@ abstract class BaseInlineBindingToolbarFragment(@LayoutRes layoutId: Int) : Base
 
     /** Setup Toolbar text by ResId. */
     protected fun setToolbarTitle(titleResId: Int) {
-        if (activity is BaseInlineBindingToolbarActivity && (activity as BaseInlineBindingToolbarActivity).binding is ComkitActivityBaseToolbarBinding) {
-            ((activity as BaseInlineBindingToolbarActivity).binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
+        if (activity is BaseInlineBindingToolbarActivity<*>
+            && (activity as BaseInlineBindingToolbarActivity<*>).binding is ComkitActivityBaseToolbarBinding) {
+            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.setTitle(titleResId)
         }
     }
 
     /** Setup Toolbar text by String. */
     protected fun setToolbarTitle(titleString: String) {
-        if (activity is BaseInlineBindingToolbarActivity && (activity as BaseInlineBindingToolbarActivity).binding is ComkitActivityBaseToolbarBinding) {
-            ((activity as BaseInlineBindingToolbarActivity).binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.title = titleString
+        if (activity is BaseInlineBindingToolbarActivity<*>
+            && (activity as BaseInlineBindingToolbarActivity<*>).binding is ComkitActivityBaseToolbarBinding) {
+            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase.title = titleString
         }
     }
 }

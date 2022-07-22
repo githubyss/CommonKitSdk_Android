@@ -13,7 +13,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
  * @github githubyss
  * @createdTime 2021/07/20 17:42:44
  */
-class InlineActivity : BaseInlineBindingActivity(R.layout.comkit_activity_base) {
+class InlineActivity : BaseInlineBindingActivity<ComkitActivityBaseBinding>(R.layout.comkit_activity_base) {
 
     /** ****************************** Companion ****************************** */
 
@@ -26,13 +26,14 @@ class InlineActivity : BaseInlineBindingActivity(R.layout.comkit_activity_base) 
     /** ****************************** Properties ****************************** */
 
     /***/
-    val binding by inflate<ComkitActivityBaseBinding>()
+    private val _binding by inflate<ComkitActivityBaseBinding>()
 
 
     /** ****************************** Override ****************************** */
 
     /***/
     override fun setupUi() {
+        binding = _binding
         switchFragment(InlineFragment(), InlineFragment.TAG, FRAGMENT_BASE_CONTAINER_ID, false)
     }
 }

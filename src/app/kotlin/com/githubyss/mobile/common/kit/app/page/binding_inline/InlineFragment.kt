@@ -14,7 +14,7 @@ import com.githubyss.mobile.common.kit.util.getStringFromRes
  * @github githubyss
  * @createdTime 2021/07/20 17:44:22
  */
-class InlineFragment : BaseInlineBindingFragment(R.layout.comkit_fragment_view_binding_inline) {
+class InlineFragment : BaseInlineBindingFragment<ComkitFragmentViewBindingInlineBinding>(R.layout.comkit_fragment_view_binding_inline) {
 
     /** ****************************** Companion ****************************** */
 
@@ -27,13 +27,14 @@ class InlineFragment : BaseInlineBindingFragment(R.layout.comkit_fragment_view_b
     /** ****************************** Properties ****************************** */
 
     /***/
-    private val binding by bindView<ComkitFragmentViewBindingInlineBinding>()
+    private val _binding by bindView<ComkitFragmentViewBindingInlineBinding>()
 
 
     /** ****************************** Override ****************************** */
 
     /***/
     override fun setupUi() {
+        binding = _binding
         binding.textBindingInline.text = getStringFromRes(R.string.comkit_view_binding_inline)
     }
 }
