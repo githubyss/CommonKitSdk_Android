@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentLifecycleBinding
 import com.githubyss.mobile.common.kit.util.ActivityUtils
@@ -23,7 +23,7 @@ import com.githubyss.mobile.common.kit.util.FragmentUtils
  * @github githubyss
  * @createdTime 2022/02/11 14:51:56
  */
-class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecycleBinding>() {
+class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentLifecycleBinding>() {
 
     /** ****************************** Properties ****************************** */
 
@@ -36,10 +36,7 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
 
     /** ****************************** Override ****************************** */
 
-    override fun setupUi() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
+    /***/
     override fun setupData() {
         this.lifecycleVm.viewId?.value = 0
     }
@@ -48,8 +45,12 @@ class LifecycleFragment : BaseReflectBindingToolbarFragment<ComkitFragmentLifecy
         setToolbarTitle(R.string.comkit_lifecycle_title)
     }
 
+    override fun bindLifecycleOwner() {
+        binding.lifecycleOwner = viewLifecycleOwner
+    }
+
     override fun bindViewModelXml() {
-        binding?.lifecycleVm = lifecycleVm
+        binding.lifecycleVm = lifecycleVm
     }
 
     override fun observeViewModelData() {

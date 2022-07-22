@@ -13,7 +13,7 @@ import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
 import com.githubyss.mobile.common.kit.app.page.mvi.MviActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentHomepageBinding
 import com.githubyss.mobile.common.kit.util.ActivityUtils
@@ -27,7 +27,7 @@ import com.githubyss.mobile.common.kit.util.FragmentUtils
  * @github githubyss
  * @createdTime 2021/12/16 11:39:42
  */
-class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepageBinding>() {
+class HomepageFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentHomepageBinding>() {
 
     /** ****************************** Properties ****************************** */
 
@@ -40,10 +40,6 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
 
     /** ****************************** Override ****************************** */
 
-    override fun setupUi() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
     override fun setupData() {
         this.homepageVm.viewId?.value = 0
     }
@@ -52,8 +48,12 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
         setToolbarTitle(R.string.comkit_homepage_title)
     }
 
+    override fun bindLifecycleOwner() {
+        binding.lifecycleOwner = viewLifecycleOwner
+    }
+
     override fun bindViewModelXml() {
-        binding?.homepageVm = homepageVm
+        binding.homepageVm = homepageVm
     }
 
     override fun observeViewModelData() {
@@ -74,6 +74,7 @@ class HomepageFragment : BaseReflectBindingToolbarFragment<ComkitFragmentHomepag
 
     /** ****************************** Implementations ****************************** */
 
+    /***/
     private val vmObserverViewId = Observer<Int> { t ->
         when (t) {
             R.id.button_mvvm -> FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)

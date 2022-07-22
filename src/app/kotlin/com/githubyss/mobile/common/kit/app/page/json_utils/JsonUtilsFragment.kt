@@ -1,10 +1,9 @@
 package com.githubyss.mobile.common.kit.app.page.json_utils
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.json_utils.view_model.JsonUtilsViewModel
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentJsonUtilsBinding
 
 
@@ -15,7 +14,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitFragmentJsonUtilsBindin
  * @github githubyss
  * @createdTime 2022/02/09 16:00:29
  */
-class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUtilsBinding>() {
+class JsonUtilsFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentJsonUtilsBinding>() {
 
     /** ****************************** Properties ****************************** */
 
@@ -28,35 +27,23 @@ class JsonUtilsFragment : BaseReflectBindingToolbarFragment<ComkitFragmentJsonUt
 
     /** ****************************** Override ****************************** */
 
-    override fun setupUi() {
-        binding?.lifecycleOwner = viewLifecycleOwner
-    }
-
-    override fun setupData() {
-    }
-
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_json_utils_title)
     }
 
+    override fun bindLifecycleOwner() {
+        binding.lifecycleOwner = viewLifecycleOwner
+    }
+
     override fun bindViewModelXml() {
-        binding?.jsonUtilsVm = jsonUtilsVm
+        binding.jsonUtilsVm = jsonUtilsVm
     }
 
     override fun observeViewModelData() {
-        this.jsonUtilsVm.jsonText?.observe(viewLifecycleOwner, vmObserver)
+        this.jsonUtilsVm.jsonText?.observe(viewLifecycleOwner) {}
     }
 
     override fun removeViewModelObserver() {
         this.jsonUtilsVm.jsonText?.removeObservers(viewLifecycleOwner)
-    }
-
-
-    /** ****************************** Implementations ****************************** */
-
-    private val vmObserver = Observer<String> { t ->
-        when (t) {
-
-        }
     }
 }

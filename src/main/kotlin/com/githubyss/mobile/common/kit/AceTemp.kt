@@ -6,7 +6,7 @@ class AceTemp {
     companion object {
         var instance = null
 
-        private val TAG = AceTemp::class.java.simpleName
+        val TAG: String = AceTemp::class.java.simpleName
         private val TAG_ = AceTemp::class.simpleName
     }
 

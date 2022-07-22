@@ -71,18 +71,6 @@ abstract class BaseActivity(@LayoutRes layoutId: Int = 0) : AppCompatActivity(la
     /** 初始化数据 */
     open fun setupData() {}
 
-    /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */
-    open fun bindLifecycleOwner() {}
-
-    /** 绑定 ViewModel 到 ViewDataBinding */
-    open fun bindViewModelXml() {}
-
-    /** 观察 ViewModel 的数据变化 */
-    open fun observeViewModelData() {}
-
-    /** 移除 ViewModel 的数据观察 */
-    open fun removeViewModelObserver() {}
-
 
     /** ****************************** Override ****************************** */
 
@@ -104,9 +92,6 @@ abstract class BaseActivity(@LayoutRes layoutId: Int = 0) : AppCompatActivity(la
 
         setupUi()
         setupData()
-        bindLifecycleOwner()
-        bindViewModelXml()
-        observeViewModelData()
     }
 
     /**
@@ -229,8 +214,6 @@ abstract class BaseActivity(@LayoutRes layoutId: Int = 0) : AppCompatActivity(la
      * @return
      */
     override fun onDestroy() {
-        removeViewModelObserver()
-
         val message = "$activityName > onDestroy"
         logD(TAG, message)
 

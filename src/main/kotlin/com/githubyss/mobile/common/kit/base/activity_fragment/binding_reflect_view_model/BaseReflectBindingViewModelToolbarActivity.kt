@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect
+package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -11,18 +11,23 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
 
 
 /**
- * BaseReflectBindingToolbarActivity
+ * BaseReflectBindingViewModelToolbarActivity
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2021/03/09 14:35:21
+ * @createdTime 2022/07/22 12:29:27
  */
-abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootReflectBindingActivity<B>() {
+abstract class BaseReflectBindingViewModelToolbarActivity<B : ViewDataBinding> : RootReflectBindingActivity<B>() {
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        bindLifecycleOwner()
+        bindViewModelXml()
+        observeViewModelData()
 
         /** Make sure that you can use Toolbar as simple as ActionBar. */
         if (binding is ComkitActivityBaseToolbarBinding) setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).toolbarBase.toolbarBase)
@@ -33,10 +38,28 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
         setToolbarTitle()
     }
 
+    override fun onDestroy() {
+        removeViewModelObserver()
+        super.onDestroy()
+    }
+
 
     /** ****************************** Abstract ****************************** */
 
+    /***/
     abstract fun setToolbarTitle()
+
+    /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */
+    abstract fun bindLifecycleOwner()
+
+    /** 绑定 ViewModel 到 ViewDataBinding */
+    abstract fun bindViewModelXml()
+
+    /** 观察 ViewModel 的数据变化 */
+    abstract fun observeViewModelData()
+
+    /** 移除 ViewModel 的数据观察 */
+    abstract fun removeViewModelObserver()
 
 
     /** ****************************** Functions ****************************** */

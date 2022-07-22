@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.mvi.model.User
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMviBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,10 +22,11 @@ import kotlinx.coroutines.launch
  * @github githubyss
  * @createdTime 2022/02/17 17:31:31
  */
-class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>() {
+class MviFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMviBinding>() {
 
     /** ****************************** Properties ****************************** */
 
+    /***/
     companion object {
         val TAG: String = MviFragment::class.java.simpleName
     }
@@ -36,14 +37,14 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun setupUi() {
-        // binding?.lifecycleOwner = viewLifecycleOwner
-        binding?.recyclerView?.layoutManager = LinearLayoutManager(activity)
-        binding?.recyclerView?.run {
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.run {
             addItemDecoration(
                 DividerItemDecoration(
-                    binding?.recyclerView?.context,
-                    (binding?.recyclerView?.layoutManager as LinearLayoutManager).orientation
+                    binding.recyclerView.context,
+                    (binding.recyclerView.layoutManager as LinearLayoutManager).orientation
                 )
             )
         }
@@ -52,16 +53,20 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
     }
 
     override fun setupData() {
-        binding?.recyclerView?.adapter = adapter
-        // this.homepageVm.viewId?.value = 0
+        binding.recyclerView.adapter = adapter
+        // this.homepageVm.viewId.value = 0
     }
 
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_mvi_title)
     }
 
+    override fun bindLifecycleOwner() {
+        // binding.lifecycleOwner = viewLifecycleOwner
+    }
+
     override fun bindViewModelXml() {
-        // binding?.homepageVm = homepageVm
+        // binding.homepageVm = homepageVm
         mviViewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(
@@ -80,18 +85,18 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
 
                     }
                     is MviState.Loading -> {
-                        binding?.buttonFetchUser?.visibility = View.GONE
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        binding.buttonFetchUser.visibility = View.GONE
+                        binding.progressBar.visibility = View.VISIBLE
                     }
 
                     is MviState.Users -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        binding?.buttonFetchUser?.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
+                        binding.buttonFetchUser.visibility = View.GONE
                         renderList(it.user)
                     }
                     is MviState.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        binding?.buttonFetchUser?.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                        binding.buttonFetchUser.visibility = View.VISIBLE
                         Toast.makeText(activity, it.error, Toast.LENGTH_LONG).show()
                     }
                 }
@@ -100,13 +105,13 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
     }
 
     override fun removeViewModelObserver() {
-        // this.mviViewModel.viewId?.removeObservers(viewLifecycleOwner)
+        // this.mviViewModel.viewId.removeObservers(viewLifecycleOwner)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-            // this.homepageVm.viewId?.value = 0
+            // this.homepageVm.viewId.value = 0
         }
     }
 
@@ -114,7 +119,7 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
     /** ****************************** Functions ****************************** */
 
     private fun setupClicks() {
-        binding?.buttonFetchUser?.setOnClickListener {
+        binding.buttonFetchUser.setOnClickListener {
             lifecycleScope.launch {
                 mviViewModel.userIntent.send(MviIntent.FetchUser)
             }
@@ -122,7 +127,7 @@ class MviFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMviBinding>(
     }
 
     private fun renderList(users: List<User>) {
-        binding?.recyclerView?.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.VISIBLE
         users.let { listOfUsers -> listOfUsers.let { adapter.addData(it) } }
         adapter.notifyDataSetChanged()
     }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.inflate
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 

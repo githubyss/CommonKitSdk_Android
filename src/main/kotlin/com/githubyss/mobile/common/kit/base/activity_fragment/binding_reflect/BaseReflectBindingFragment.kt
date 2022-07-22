@@ -1,6 +1,7 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect
 
 import androidx.databinding.ViewDataBinding
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_root.RootReflectBindingFragment
 
 
 /**

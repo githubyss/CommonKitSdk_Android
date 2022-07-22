@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline
+package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root
 
 import android.app.Activity
 import androidx.databinding.ViewDataBinding

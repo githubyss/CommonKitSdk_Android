@@ -11,7 +11,7 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_dat
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmTextVmByLiveData
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmViewModelObservableField
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMvvmBinding
 import com.githubyss.mobile.common.kit.util.logD
 
@@ -23,10 +23,11 @@ import com.githubyss.mobile.common.kit.util.logD
  * @github githubyss
  * @createdTime 2021/06/10 11:18:21
  */
-class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding>() {
+class MvvmFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMvvmBinding>() {
 
     /** ****************************** Properties ****************************** */
 
+    /***/
     companion object {
         val TAG: String = MvvmFragment::class.java.simpleName
     }
@@ -43,15 +44,13 @@ class MvvmFragment : BaseReflectBindingToolbarFragment<ComkitFragmentMvvmBinding
 
     /** ****************************** Override ****************************** */
 
-    override fun setupUi() {
-        binding.lifecycleOwner = viewLifecycleOwner
-    }
-
-    override fun setupData() {
-    }
-
+    /***/
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_mvvm_title)
+    }
+
+    override fun bindLifecycleOwner() {
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     override fun bindViewModelXml() {

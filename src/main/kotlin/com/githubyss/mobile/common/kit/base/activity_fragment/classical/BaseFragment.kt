@@ -51,27 +51,10 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     /** 初始化数据 */
     open fun setupData() {}
 
-    /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */
-    open fun bindLifecycleOwner() {}
-
-    /** 绑定 ViewModel 到 ViewDataBinding */
-    open fun bindViewModelXml() {}
-
-    /** 观察 ViewModel 的数据变化 */
-    open fun observeViewModelData() {}
-
-    /** 移除 ViewModel 的数据观察 */
-    open fun removeViewModelObserver() {}
-
 
     /** ****************************** Override ****************************** */
 
-    /**
-     *
-     *
-     * @param
-     * @return
-     */
+    /***/
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val message = "$fragmentName > onAttach"
@@ -97,8 +80,6 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
         setupUi()
         setupData()
-        bindViewModelXml()
-        observeViewModelData()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -138,8 +119,6 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     }
 
     override fun onDestroyView() {
-        removeViewModelObserver()
-
         val message = "$fragmentName > onDestroyView"
         logD(TAG, message)
         super.onDestroyView()

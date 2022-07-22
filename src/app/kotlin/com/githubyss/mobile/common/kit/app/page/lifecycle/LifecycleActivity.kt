@@ -2,9 +2,8 @@ package com.githubyss.mobile.common.kit.app.page.lifecycle
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
 
 
@@ -15,38 +14,51 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2022/02/11 15:19:51
  */
-class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
+class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<ComkitActivityBaseToolbarBinding>() {
+
+    /** ****************************** Companion ****************************** */
+
+    /***/
+    companion object {
+        private val TAG = LifecycleActivity::class.java.simpleName
+    }
+
 
     /** ****************************** Properties ****************************** */
 
-    companion object {
-        private val TAG: String = LifecycleActivity::class.java.simpleName
-    }
-
+    /***/
     private val lifecycleVm: LifecycleViewModel by viewModels()
+
+    private var activityName = this::class.java.simpleName
 
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun setupUi() {
-        binding?.lifecycleOwner = this
         switchFragment(LifecycleFragment(), LifecycleFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 
-    override fun setupData() {
-    }
-
+    /***/
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_lifecycle_title)
     }
 
+    /***/
+    override fun bindLifecycleOwner() {
+        binding.lifecycleOwner = this
+    }
+
+    /***/
     override fun bindViewModelXml() {
     }
 
+    /***/
     override fun observeViewModelData() {
-        // this.lifecycleVm.lifecycleLog?.observe(this, vmObserver)
+        this.lifecycleVm.lifecycleLog?.observe(this) {}
     }
 
+    /***/
     override fun removeViewModelObserver() {
         this.lifecycleVm.lifecycleLog?.removeObservers(this)
     }
@@ -59,7 +71,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val message = "${this::class.java.simpleName} > onCreate"
+        val message = "$activityName > onCreate"
         refreshLifecycleLog(message)
     }
 
@@ -71,7 +83,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onStart() {
         super.onStart()
-        val message = "${this::class.java.simpleName} > onStart"
+        val message = "$activityName > onStart"
         refreshLifecycleLog(message)
     }
 
@@ -83,7 +95,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onRestart() {
         super.onRestart()
-        val message = "${this::class.java.simpleName} > onRestart"
+        val message = "$activityName > onRestart"
         refreshLifecycleLog(message)
     }
 
@@ -95,7 +107,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onResume() {
         super.onResume()
-        val message = "${this::class.java.simpleName} > onResume"
+        val message = "$activityName > onResume"
         refreshLifecycleLog(message)
     }
 
@@ -107,7 +119,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onPause() {
         super.onPause()
-        val message = "${this::class.java.simpleName} > onPause"
+        val message = "$activityName > onPause"
         refreshLifecycleLog(message)
     }
 
@@ -119,7 +131,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onStop() {
         super.onStop()
-        val message = "${this::class.java.simpleName} > onStop"
+        val message = "$activityName > onStop"
         refreshLifecycleLog(message)
     }
 
@@ -131,7 +143,7 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val message = "${this::class.java.simpleName} > onSaveInstanceState"
+        val message = "$activityName > onSaveInstanceState"
         refreshLifecycleLog(message)
     }
 
@@ -143,24 +155,16 @@ class LifecycleActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseTo
      */
     override fun onDestroy() {
         super.onDestroy()
-        val message = "${this::class.java.simpleName} > onDestroy"
+        val message = "$activityName > onDestroy"
         refreshLifecycleLog(message)
     }
 
 
     /** ****************************** Functions ****************************** */
 
+    /***/
     private fun refreshLifecycleLog(message: String) {
         this.lifecycleVm.lifecycleLogEntity?.append(message)?.appendLine()
         this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity
-    }
-
-
-    /** ****************************** Implementations ****************************** */
-
-    private val vmObserver = Observer<StringBuilder> { t ->
-        when (t) {
-
-        }
     }
 }

@@ -1,6 +1,7 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline
 
 import com.githubyss.mobile.common.kit.R
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.inflate
 import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
 
