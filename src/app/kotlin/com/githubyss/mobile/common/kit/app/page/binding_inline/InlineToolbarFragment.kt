@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.app.page.binding_inline
 
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingToolbarFragment
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.bindView
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.bindView
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentViewBindingInlineBinding
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 

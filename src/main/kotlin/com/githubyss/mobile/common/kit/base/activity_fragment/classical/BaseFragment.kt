@@ -19,7 +19,7 @@ import com.githubyss.mobile.common.kit.util.logD
  * @github githubyss
  * @createdTime 2021/06/02 15:11:59
  */
-abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
+abstract class BaseFragment(@LayoutRes layoutId: Int = 0) : Fragment(layoutId) {
 
     /** ****************************** Companion ****************************** */
 

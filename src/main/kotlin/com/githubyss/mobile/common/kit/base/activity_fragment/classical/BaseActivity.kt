@@ -39,7 +39,7 @@ abstract class BaseActivity(@LayoutRes layoutId: Int = 0) : AppCompatActivity(la
 
     /***/
     companion object {
-        val TAG = BaseActivity::class.java.simpleName
+        val TAG: String = BaseActivity::class.java.simpleName
 
         @IdRes
         val FRAGMENT_BASE_CONTAINER_ID = R.id.layout_fragment_base_container

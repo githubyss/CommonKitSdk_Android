@@ -16,16 +16,18 @@ import java.lang.reflect.ParameterizedType
  * @github githubyss
  * @createdTime 2021/04/08 10:48:25
  */
-abstract class RootReflectBindingActivity<B : ViewDataBinding> : BaseActivity(0) {
+abstract class RootReflectBindingActivity<B : ViewDataBinding> : BaseActivity() {
 
     /** ****************************** Properties ****************************** */
 
+    /***/
     private lateinit var _binding: B
     val binding get() = _binding
 
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun onCreate(savedInstanceState: Bundle?) {
         // Call inflate method to fill view according to specified ViewBinding by using java reflect.
         val type = javaClass.genericSuperclass

@@ -18,7 +18,7 @@ import java.lang.reflect.ParameterizedType
  * @github githubyss
  * @createdTime 2021/04/08 11:27:32
  */
-abstract class RootReflectBindingFragment<B : ViewDataBinding> : BaseFragment(0) {
+abstract class RootReflectBindingFragment<B : ViewDataBinding> : BaseFragment() {
 
     /** ****************************** Properties ****************************** */
 
