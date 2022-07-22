@@ -13,7 +13,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2021/06/04 14:55:13
  */
-class InlineToolbarActivity : BaseInlineBindingToolbarActivity<ComkitActivityBaseToolbarBinding>(0) {
+class InlineToolbarActivity : BaseInlineBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
 
     /** ****************************** Companion ****************************** */
 

@@ -1,6 +1,5 @@
 package com.githubyss.mobile.common.kit.app.page.binding_inline
 
-import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingActivity
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.inflate
 import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
@@ -13,7 +12,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
  * @github githubyss
  * @createdTime 2021/07/20 17:42:44
  */
-class InlineActivity : BaseInlineBindingActivity<ComkitActivityBaseBinding>(R.layout.comkit_activity_base) {
+class InlineActivity : BaseInlineBindingActivity<ComkitActivityBaseBinding>() {
 
     /** ****************************** Companion ****************************** */
 
