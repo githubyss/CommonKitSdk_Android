@@ -28,7 +28,7 @@ abstract class RootReflectBindingFragment<B : ViewDataBinding> : BaseFragment() 
 
     /** ****************************** Override ****************************** */
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Call inflate method to fill view according to specified ViewBinding by using java reflect.
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {

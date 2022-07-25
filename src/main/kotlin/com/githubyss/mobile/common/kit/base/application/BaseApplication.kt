@@ -1,6 +1,8 @@
 package com.githubyss.mobile.common.kit.base.application
 
 import android.app.Application
+import android.content.Context
+import androidx.core.os.TraceCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.kit.BuildConfig
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
@@ -12,6 +14,7 @@ abstract class BaseApplication : Application() {
 
     /** ****************************** Properties ****************************** */
 
+    /***/
     companion object {
         private var instance: BaseApplication by Delegates.notNull()
 
@@ -21,6 +24,7 @@ abstract class BaseApplication : Application() {
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -32,20 +36,30 @@ abstract class BaseApplication : Application() {
         registerLifecycle()
     }
 
+    /***/
     override fun onTerminate() {
         unregisterLifecycle()
         super.onTerminate()
     }
 
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        TraceCompat.beginSection("")
+        TraceCompat.endSection()
+    }
+
 
     /** ****************************** Open ****************************** */
 
+    /***/
     open fun initComkit(application: Application) {
         ComkitApplicationConfig.init(application)
     }
 
+    /***/
     open fun initComnet(application: Application) {}
 
+    /***/
     open fun initLog(level: Int) {
         // 可调试模式，启用日志
         if (BuildConfig.DEBUG) {
@@ -57,6 +71,7 @@ abstract class BaseApplication : Application() {
         logLevel = level
     }
 
+    /***/
     open fun initARouter(application: Application) {
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
@@ -68,10 +83,12 @@ abstract class BaseApplication : Application() {
 
     /** ****************************** Functions ****************************** */
 
+    /***/
     private fun registerLifecycle() {
         registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
     }
 
+    /***/
     private fun unregisterLifecycle() {
         unregisterActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
         ActivityUtils.activityLifecycle.activityList.clear()

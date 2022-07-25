@@ -32,6 +32,7 @@ class MvvmTextVmByLiveData : ViewModel() {
 
     /** ****************************** Constructors ****************************** */
 
+    /***/
     init {
         initViewModelField()
         loadData()
@@ -40,6 +41,7 @@ class MvvmTextVmByLiveData : ViewModel() {
 
     /** ****************************** Override ****************************** */
 
+    /***/
     override fun onCleared() {
         super.onCleared()
         clearData()
@@ -50,6 +52,7 @@ class MvvmTextVmByLiveData : ViewModel() {
 
     /** ******************** Data Handling ******************** */
 
+    /***/
     private fun initViewModelField() {
         this.timeOperateState = MutableLiveData()
     }
@@ -68,6 +71,7 @@ class MvvmTextVmByLiveData : ViewModel() {
 
     /** ******************** Event Handling ******************** */
 
+    /***/
     fun onButtonOperateTimeClick() {
         when (this.timeOperateState.value) {
             TimeOperateState.START -> {
