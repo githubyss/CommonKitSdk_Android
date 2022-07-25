@@ -18,7 +18,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<ComkitActiv
 
     /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
         private val TAG = LifecycleActivity::class.java.simpleName
     }
@@ -26,7 +26,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<ComkitActiv
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     private val lifecycleVm: LifecycleViewModel by viewModels()
 
     private var activityName = this::class.java.simpleName
@@ -34,31 +34,31 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<ComkitActiv
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun setupUi() {
         switchFragment(LifecycleFragment(), LifecycleFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 
-    /***/
+    /**  */
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_lifecycle_title)
     }
 
-    /***/
+    /**  */
     override fun bindLifecycleOwner() {
         binding.lifecycleOwner = this
     }
 
-    /***/
+    /**  */
     override fun bindViewModelXml() {
     }
 
-    /***/
+    /**  */
     override fun observeViewModelData() {
         this.lifecycleVm.lifecycleLog?.observe(this) {}
     }
 
-    /***/
+    /**  */
     override fun removeViewModelObserver() {
         this.lifecycleVm.lifecycleLog?.removeObservers(this)
     }
@@ -162,7 +162,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<ComkitActiv
 
     /** ****************************** Functions ****************************** */
 
-    /***/
+    /**  */
     private fun refreshLifecycleLog(message: String) {
         this.lifecycleVm.lifecycleLogEntity?.append(message)?.appendLine()
         this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity

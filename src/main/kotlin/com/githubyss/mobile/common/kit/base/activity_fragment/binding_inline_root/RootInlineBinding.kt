@@ -20,7 +20,6 @@ inline fun <reified B : ViewDataBinding> Activity.inflate(): Lazy<B> {
 inline fun <reified B : ViewDataBinding> Fragment.bindView() = FragmentBindingDelegate(B::class.java)
 
 class FragmentBindingDelegate<B : ViewDataBinding>(private val clazz: Class<B>) : ReadOnlyProperty<Fragment, B> {
-
     private lateinit var _binding: B
     private val binding get() = _binding
 

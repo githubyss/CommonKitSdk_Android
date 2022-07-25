@@ -18,6 +18,7 @@ abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@L
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onResume() {
         super.onResume()
 
@@ -28,6 +29,7 @@ abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@L
         setToolbarTitle()
     }
 
+    /**  */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
@@ -35,6 +37,7 @@ abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@L
         }
     }
 
+    /**  */
     override fun onDestroy() {
         removeViewModelObserver()
         super.onDestroy()
@@ -43,7 +46,7 @@ abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@L
 
     /** ****************************** Abstract ****************************** */
 
-    /***/
+    /**  */
     abstract fun setToolbarTitle()
 
     /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */

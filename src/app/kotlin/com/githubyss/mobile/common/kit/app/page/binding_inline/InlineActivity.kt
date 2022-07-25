@@ -16,7 +16,7 @@ class InlineActivity : BaseInlineBindingActivity<ComkitActivityBaseBinding>() {
 
     /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
         private val TAG: String = InlineActivity::class.java.simpleName
     }
@@ -24,13 +24,13 @@ class InlineActivity : BaseInlineBindingActivity<ComkitActivityBaseBinding>() {
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     private val _binding by inflate<ComkitActivityBaseBinding>()
 
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun setupUi() {
         binding = _binding
         switchFragment(InlineFragment(), InlineFragment.TAG, FRAGMENT_BASE_CONTAINER_ID, false)

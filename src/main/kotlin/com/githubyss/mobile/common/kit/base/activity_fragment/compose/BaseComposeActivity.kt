@@ -20,6 +20,7 @@ abstract class BaseComposeActivity : RootComposeActivity() {
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     @Composable
     override fun Page() {
         Column(

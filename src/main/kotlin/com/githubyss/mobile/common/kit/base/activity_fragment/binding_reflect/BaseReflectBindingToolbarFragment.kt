@@ -16,11 +16,13 @@ abstract class BaseReflectBindingToolbarFragment<B : ViewDataBinding> : RootRefl
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onResume() {
         super.onResume()
         setToolbarTitle()
     }
 
+    /**  */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
@@ -31,6 +33,7 @@ abstract class BaseReflectBindingToolbarFragment<B : ViewDataBinding> : RootRefl
 
     /** ****************************** Abstract ****************************** */
 
+    /**  */
     abstract fun setToolbarTitle()
 
 

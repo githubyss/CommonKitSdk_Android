@@ -20,14 +20,14 @@ abstract class RootReflectBindingActivity<B : ViewDataBinding> : BaseActivity() 
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     private lateinit var _binding: B
     val binding get() = _binding
 
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun onCreate(savedInstanceState: Bundle?) {
         // Call inflate method to fill view according to specified ViewBinding by using java reflect.
         val type = javaClass.genericSuperclass
@@ -53,6 +53,7 @@ abstract class RootReflectBindingActivity<B : ViewDataBinding> : BaseActivity() 
         super.onCreate(savedInstanceState)
     }
 
+    /**  */
     override fun onDestroy() {
         _binding.unbind()
         super.onDestroy()

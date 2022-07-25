@@ -36,7 +36,7 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun setupData() {
         this.lifecycleVm.viewId?.value = 0
     }

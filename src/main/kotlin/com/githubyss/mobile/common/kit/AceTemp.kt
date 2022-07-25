@@ -2,7 +2,7 @@ class AceTemp {
 
     /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
         var instance = null
 
@@ -13,7 +13,7 @@ class AceTemp {
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     private var xxxName = this::class.java.simpleName
 
 

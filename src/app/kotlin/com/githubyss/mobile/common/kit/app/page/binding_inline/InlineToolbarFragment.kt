@@ -18,7 +18,7 @@ class InlineToolbarFragment : BaseInlineBindingToolbarFragment<ComkitFragmentVie
 
     /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
         val TAG: String = InlineToolbarFragment::class.java.simpleName
     }
@@ -26,13 +26,13 @@ class InlineToolbarFragment : BaseInlineBindingToolbarFragment<ComkitFragmentVie
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     private val _binding by bindView<ComkitFragmentViewBindingInlineBinding>()
 
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun setupUi() {
         binding = _binding
         binding.textBindingInline.text = getStringFromRes(R.string.comkit_view_binding_inline_toolbar)

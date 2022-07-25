@@ -17,6 +17,7 @@ abstract class RootComposeActivity : BaseActivity(0) {
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,9 +28,11 @@ abstract class RootComposeActivity : BaseActivity(0) {
 
     /** ****************************** Abstract ****************************** */
 
+    /**  */
     @Composable
     abstract fun Page()
 
+    /**  */
     @Composable
     abstract fun Content()
 }

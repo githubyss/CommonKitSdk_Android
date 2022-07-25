@@ -21,6 +21,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +29,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
         if (binding is ComkitActivityBaseToolbarBinding) setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase)
     }
 
+    /**  */
     override fun onResume() {
         super.onResume()
         setToolbarTitle()
@@ -36,6 +38,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
 
     /** ****************************** Abstract ****************************** */
 
+    /**  */
     abstract fun setToolbarTitle()
 
 
@@ -82,6 +85,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
         return if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.menu else null
     }
 
+    /**  */
     protected fun setToolbarOnLongClickListener(onBaseToolbarLongClickListener: OnBaseToolbarLongClickListener) {
         if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnLongClickListener { v ->
             onBaseToolbarLongClickListener.onLongClick(v)
@@ -101,6 +105,7 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
         fun onClick(item: MenuItem): Boolean
     }
 
+    /**  */
     interface OnBaseToolbarLongClickListener {
         fun onLongClick(v: View): Boolean
     }

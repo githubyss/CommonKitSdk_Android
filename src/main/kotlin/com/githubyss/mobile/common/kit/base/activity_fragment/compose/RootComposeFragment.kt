@@ -20,6 +20,7 @@ abstract class RootComposeFragment : BaseFragment(0) {
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return ComposeView(requireContext()).apply {
             setContent {
@@ -31,9 +32,11 @@ abstract class RootComposeFragment : BaseFragment(0) {
 
     /** ****************************** Abstract ****************************** */
 
+    /**  */
     @Composable
     abstract fun Page()
 
+    /**  */
     @Composable
     abstract fun Content()
 }

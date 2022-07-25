@@ -17,6 +17,7 @@ abstract class BaseReflectBindingViewModelToolbarFragment<B : ViewDataBinding> :
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onResume() {
         super.onResume()
 
@@ -27,6 +28,7 @@ abstract class BaseReflectBindingViewModelToolbarFragment<B : ViewDataBinding> :
         setToolbarTitle()
     }
 
+    /**  */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
@@ -34,6 +36,7 @@ abstract class BaseReflectBindingViewModelToolbarFragment<B : ViewDataBinding> :
         }
     }
 
+    /**  */
     override fun onDestroy() {
         removeViewModelObserver()
         super.onDestroy()
@@ -42,7 +45,7 @@ abstract class BaseReflectBindingViewModelToolbarFragment<B : ViewDataBinding> :
 
     /** ****************************** Abstract ****************************** */
 
-    /***/
+    /**  */
     abstract fun setToolbarTitle()
 
     /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */

@@ -74,7 +74,7 @@ class HomepageFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragme
 
     /** ****************************** Implementations ****************************** */
 
-    /***/
+    /**  */
     private val vmObserverViewId = Observer<Int> { t ->
         when (t) {
             R.id.button_mvvm -> FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)

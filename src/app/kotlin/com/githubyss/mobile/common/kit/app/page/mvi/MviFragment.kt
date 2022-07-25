@@ -26,7 +26,7 @@ class MviFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMvi
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     companion object {
         val TAG: String = MviFragment::class.java.simpleName
     }
@@ -37,7 +37,7 @@ class MviFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMvi
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun setupUi() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.run {

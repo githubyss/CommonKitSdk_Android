@@ -12,19 +12,19 @@ import kotlin.properties.Delegates
 
 abstract class BaseApplication : Application() {
 
-    /** ****************************** Properties ****************************** */
+    /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
-        private var instance: BaseApplication by Delegates.notNull()
-
         private val TAG: String = BaseApplication::class.java.simpleName
+
+        private var instance: BaseApplication by Delegates.notNull()
     }
 
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -36,12 +36,13 @@ abstract class BaseApplication : Application() {
         registerLifecycle()
     }
 
-    /***/
+    /**  */
     override fun onTerminate() {
         unregisterLifecycle()
         super.onTerminate()
     }
 
+    /**  */
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         TraceCompat.beginSection("")
@@ -51,15 +52,15 @@ abstract class BaseApplication : Application() {
 
     /** ****************************** Open ****************************** */
 
-    /***/
+    /**  */
     open fun initComkit(application: Application) {
         ComkitApplicationConfig.init(application)
     }
 
-    /***/
+    /**  */
     open fun initComnet(application: Application) {}
 
-    /***/
+    /**  */
     open fun initLog(level: Int) {
         // 可调试模式，启用日志
         if (BuildConfig.DEBUG) {
@@ -71,7 +72,7 @@ abstract class BaseApplication : Application() {
         logLevel = level
     }
 
-    /***/
+    /**  */
     open fun initARouter(application: Application) {
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
@@ -83,12 +84,12 @@ abstract class BaseApplication : Application() {
 
     /** ****************************** Functions ****************************** */
 
-    /***/
+    /**  */
     private fun registerLifecycle() {
         registerActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
     }
 
-    /***/
+    /**  */
     private fun unregisterLifecycle() {
         unregisterActivityLifecycleCallbacks(ActivityUtils.activityLifecycle)
         ActivityUtils.activityLifecycle.activityList.clear()

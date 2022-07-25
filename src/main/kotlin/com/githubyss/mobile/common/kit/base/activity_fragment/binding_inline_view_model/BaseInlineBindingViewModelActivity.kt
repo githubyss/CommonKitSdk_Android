@@ -18,13 +18,13 @@ abstract class BaseInlineBindingViewModelActivity : BaseActivity(R.layout.comkit
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     val binding by inflate<ComkitActivityBaseBinding>()
 
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,6 +33,7 @@ abstract class BaseInlineBindingViewModelActivity : BaseActivity(R.layout.comkit
         observeViewModelData()
     }
 
+    /**  */
     override fun onDestroy() {
         removeViewModelObserver()
         super.onDestroy()

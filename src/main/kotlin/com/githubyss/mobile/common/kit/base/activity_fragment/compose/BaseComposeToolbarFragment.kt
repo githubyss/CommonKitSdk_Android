@@ -20,6 +20,7 @@ abstract class BaseComposeToolbarFragment : RootComposeFragment() {
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     @Composable
     override fun Page() {
         Column(
@@ -37,6 +38,7 @@ abstract class BaseComposeToolbarFragment : RootComposeFragment() {
 
     /** ****************************** Abstract ****************************** */
 
+    /**  */
     @Composable
     abstract fun Toolbar()
 

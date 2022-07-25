@@ -22,12 +22,14 @@ abstract class RootReflectBindingFragment<B : ViewDataBinding> : BaseFragment() 
 
     /** ****************************** Properties ****************************** */
 
+    /**  */
     private lateinit var _binding: B
     val binding get() = _binding
 
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Call inflate method to fill view according to specified ViewBinding by using java reflect.
         val type = javaClass.genericSuperclass
@@ -54,6 +56,7 @@ abstract class RootReflectBindingFragment<B : ViewDataBinding> : BaseFragment() 
         return binding.root
     }
 
+    /**  */
     override fun onDestroyView() {
         _binding.unbind()
         // _binding = null

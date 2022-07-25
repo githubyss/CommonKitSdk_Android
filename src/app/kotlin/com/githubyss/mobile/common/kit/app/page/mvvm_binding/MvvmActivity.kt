@@ -27,7 +27,7 @@ class MvvmActivity : BaseReflectBindingViewModelToolbarActivity<ComkitFragmentMv
 
     /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
         val TAG: String = MvvmActivity::class.java.simpleName
     }
@@ -35,7 +35,7 @@ class MvvmActivity : BaseReflectBindingViewModelToolbarActivity<ComkitFragmentMv
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     // private val mvvmVmLiveData: MvvmViewModelByLiveData by lazy { ViewModelProvider(requireActivity()).get(MvvmViewModelByLiveData::class.java) }
     private val mvvmVmLiveData: MvvmViewModelByLiveData by viewModels()
     private val mvvmTextVmLiveData: MvvmTextVmByLiveData by viewModels()
@@ -48,17 +48,17 @@ class MvvmActivity : BaseReflectBindingViewModelToolbarActivity<ComkitFragmentMv
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_mvvm_title)
     }
 
-    /***/
+    /**  */
     override fun bindLifecycleOwner() {
         binding.lifecycleOwner = this
     }
 
-    /***/
+    /**  */
     override fun bindViewModelXml() {
         binding.mvvmVm = this.mvvmVmLiveData
         binding.layoutText.mvvmVm = this.mvvmTextVmLiveData
@@ -68,13 +68,13 @@ class MvvmActivity : BaseReflectBindingViewModelToolbarActivity<ComkitFragmentMv
         // binding.mvvmVm = this.mvvmVmObservableField
     }
 
-    /***/
+    /**  */
     override fun observeViewModelData() {
         observeVmByLiveData()
         // observeVmByObservableField()
     }
 
-    /***/
+    /**  */
     override fun removeViewModelObserver() {
         removeVmObserverByLiveData()
         // removeVmObserverByObservableField()

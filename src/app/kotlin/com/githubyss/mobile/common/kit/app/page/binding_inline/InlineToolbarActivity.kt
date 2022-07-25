@@ -17,7 +17,7 @@ class InlineToolbarActivity : BaseInlineBindingToolbarActivity<ComkitActivityBas
 
     /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
         private val TAG: String = InlineToolbarActivity::class.java.simpleName
     }
@@ -25,7 +25,7 @@ class InlineToolbarActivity : BaseInlineBindingToolbarActivity<ComkitActivityBas
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     private val _binding by inflate<ComkitActivityBaseToolbarBinding>()
 
 
@@ -36,7 +36,7 @@ class InlineToolbarActivity : BaseInlineBindingToolbarActivity<ComkitActivityBas
         switchFragment(InlineToolbarFragment(), InlineToolbarFragment.TAG, FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, false)
     }
 
-    /***/
+    /**  */
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_view_binding_inline_toolbar_title)
     }

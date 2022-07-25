@@ -37,7 +37,7 @@ abstract class BaseActivity(@LayoutRes layoutId: Int = 0) : AppCompatActivity(la
 
     /** ****************************** Companion ****************************** */
 
-    /***/
+    /**  */
     companion object {
         val TAG: String = BaseActivity::class.java.simpleName
 
@@ -51,13 +51,13 @@ abstract class BaseActivity(@LayoutRes layoutId: Int = 0) : AppCompatActivity(la
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     private var activityName = this::class.java.simpleName
 
 
     /** ****************************** Constructors ****************************** */
 
-    /***/
+    /**  */
     init {
         logD(TAG, "Constructor init")
     }

@@ -21,7 +21,7 @@ abstract class BaseInlineBindingToolbarActivity<B : ViewDataBinding> : RootInlin
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,6 +31,7 @@ abstract class BaseInlineBindingToolbarActivity<B : ViewDataBinding> : RootInlin
         }
     }
 
+    /**  */
     override fun onResume() {
         super.onResume()
         setToolbarTitle()
@@ -39,7 +40,7 @@ abstract class BaseInlineBindingToolbarActivity<B : ViewDataBinding> : RootInlin
 
     /** ****************************** Abstract ****************************** */
 
-    /***/
+    /**  */
     abstract fun setToolbarTitle()
 
 
@@ -121,6 +122,7 @@ abstract class BaseInlineBindingToolbarActivity<B : ViewDataBinding> : RootInlin
         }
     }
 
+    /**  */
     protected fun setToolbarOnLongClickListener(onBaseToolbarLongClickListener: OnBaseToolbarLongClickListener) {
         when (binding) {
             is ComkitActivityBaseToolbarBinding -> {
@@ -144,6 +146,7 @@ abstract class BaseInlineBindingToolbarActivity<B : ViewDataBinding> : RootInlin
         fun onClick(item: MenuItem): Boolean
     }
 
+    /**  */
     interface OnBaseToolbarLongClickListener {
         fun onLongClick(v: View): Boolean
     }

@@ -21,7 +21,7 @@ abstract class BaseReflectBindingViewModelToolbarActivity<B : ViewDataBinding> :
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,11 +33,13 @@ abstract class BaseReflectBindingViewModelToolbarActivity<B : ViewDataBinding> :
         if (binding is ComkitActivityBaseToolbarBinding) setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase)
     }
 
+    /**  */
     override fun onResume() {
         super.onResume()
         setToolbarTitle()
     }
 
+    /**  */
     override fun onDestroy() {
         removeViewModelObserver()
         super.onDestroy()
@@ -46,7 +48,7 @@ abstract class BaseReflectBindingViewModelToolbarActivity<B : ViewDataBinding> :
 
     /** ****************************** Abstract ****************************** */
 
-    /***/
+    /**  */
     abstract fun setToolbarTitle()
 
     /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */
@@ -105,6 +107,7 @@ abstract class BaseReflectBindingViewModelToolbarActivity<B : ViewDataBinding> :
         return if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.menu else null
     }
 
+    /**  */
     protected fun setToolbarOnLongClickListener(onBaseToolbarLongClickListener: OnBaseToolbarLongClickListener) {
         if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnLongClickListener { v ->
             onBaseToolbarLongClickListener.onLongClick(v)
@@ -124,6 +127,7 @@ abstract class BaseReflectBindingViewModelToolbarActivity<B : ViewDataBinding> :
         fun onClick(item: MenuItem): Boolean
     }
 
+    /**  */
     interface OnBaseToolbarLongClickListener {
         fun onLongClick(v: View): Boolean
     }

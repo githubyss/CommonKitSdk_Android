@@ -16,7 +16,7 @@ abstract class BaseReflectBindingViewModelActivity<B : ViewDataBinding> : RootRe
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,6 +25,7 @@ abstract class BaseReflectBindingViewModelActivity<B : ViewDataBinding> : RootRe
         observeViewModelData()
     }
 
+    /**  */
     override fun onDestroy() {
         removeViewModelObserver()
         super.onDestroy()

@@ -17,12 +17,13 @@ abstract class BaseInlineBindingToolbarFragment<B : ViewDataBinding>(@LayoutRes 
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun onResume() {
         super.onResume()
         setToolbarTitle()
     }
 
+    /**  */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
@@ -33,7 +34,7 @@ abstract class BaseInlineBindingToolbarFragment<B : ViewDataBinding>(@LayoutRes 
 
     /** ****************************** Abstract ****************************** */
 
-    /***/
+    /**  */
     abstract fun setToolbarTitle()
 
 

@@ -27,7 +27,7 @@ class MvvmFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMv
 
     /** ****************************** Properties ****************************** */
 
-    /***/
+    /**  */
     companion object {
         val TAG: String = MvvmFragment::class.java.simpleName
     }
@@ -44,7 +44,7 @@ class MvvmFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMv
 
     /** ****************************** Override ****************************** */
 
-    /***/
+    /**  */
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_mvvm_title)
     }
