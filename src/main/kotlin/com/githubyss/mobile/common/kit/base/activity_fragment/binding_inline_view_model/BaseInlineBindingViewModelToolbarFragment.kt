@@ -1,10 +1,10 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_view_model
 
+import android.os.Bundle
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingToolbarActivity
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.RootInlineBindingFragment
-import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingToolbarFragment
 
 
 /**
@@ -14,27 +14,17 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2022/07/22 13:17:48
  */
-abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@LayoutRes layoutId: Int) : RootInlineBindingFragment<B>(layoutId) {
+abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@LayoutRes layoutId: Int) : BaseInlineBindingToolbarFragment<B>(layoutId) {
 
     /** ****************************** Override ****************************** */
 
     /**  */
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         bindLifecycleOwner()
-        bindViewModelXml()
+        bindXmlData()
         observeViewModelData()
-
-        setToolbarTitle()
-    }
-
-    /**  */
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
-            setToolbarTitle()
-        }
     }
 
     /**  */
@@ -46,35 +36,15 @@ abstract class BaseInlineBindingViewModelToolbarFragment<B : ViewDataBinding>(@L
 
     /** ****************************** Abstract ****************************** */
 
-    /**  */
-    abstract fun setToolbarTitle()
-
     /** 绑定 Activity LifecycleOwner 到 ViewDataBinding */
     abstract fun bindLifecycleOwner()
 
     /** 绑定 ViewModel 到 ViewDataBinding */
-    abstract fun bindViewModelXml()
+    abstract fun bindXmlData()
 
     /** 观察 ViewModel 的数据变化 */
     abstract fun observeViewModelData()
 
     /** 移除 ViewModel 的数据观察 */
     abstract fun removeViewModelObserver()
-
-
-    /** ****************************** Functions ****************************** */
-
-    /** Setup Toolbar text by ResId. */
-    protected fun setToolbarTitle(titleResId: Int) {
-        if (activity is BaseInlineBindingToolbarActivity<*> && (activity as BaseInlineBindingToolbarActivity<*>).binding is ComkitActivityBaseToolbarBinding) {
-            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setTitle(titleResId)
-        }
-    }
-
-    /** Setup Toolbar text by String. */
-    protected fun setToolbarTitle(titleString: String) {
-        if (activity is BaseInlineBindingToolbarActivity<*> && (activity as BaseInlineBindingToolbarActivity<*>).binding is ComkitActivityBaseToolbarBinding) {
-            ((activity as BaseInlineBindingToolbarActivity<*>).binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.title = titleString
-        }
-    }
 }

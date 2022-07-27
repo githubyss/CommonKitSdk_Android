@@ -61,7 +61,7 @@ class MvvmFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMv
     }
 
     /**  */
-    override fun bindViewModelXml() {
+    override fun bindXmlData() {
         binding.mvvmVm = this.mvvmVmLiveData
         binding.layoutText.mvvmVm = this.mvvmTextVmLiveData
         // binding.layoutImage.mvvmVm = this.mvvmImageVmLiveData

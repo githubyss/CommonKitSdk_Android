@@ -50,7 +50,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<ComkitActiv
     }
 
     /**  */
-    override fun bindViewModelXml() {
+    override fun bindXmlData() {
     }
 
     /**  */

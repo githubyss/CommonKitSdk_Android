@@ -35,7 +35,7 @@ class JsonUtilsFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
         binding.lifecycleOwner = viewLifecycleOwner
     }
 
-    override fun bindViewModelXml() {
+    override fun bindXmlData() {
         binding.jsonUtilsVm = jsonUtilsVm
     }
 

@@ -1,8 +1,10 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_view_model
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.LayoutRes
-import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFragment
+import androidx.databinding.ViewDataBinding
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingFragment
 
 
 /**
@@ -12,16 +14,16 @@ import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFrag
  * @github githubyss
  * @createdTime 2022/07/22 13:16:59
  */
-abstract class BaseInlineBindingViewModelFragment(@LayoutRes layoutId: Int) : BaseFragment(layoutId) {
+abstract class BaseInlineBindingViewModelFragment<B : ViewDataBinding>(@LayoutRes layoutId: Int) : BaseInlineBindingFragment<B>(layoutId) {
 
     /** ****************************** Override ****************************** */
 
     /**  */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         bindLifecycleOwner()
-        bindViewModelXml()
+        bindXmlData()
         observeViewModelData()
     }
 
@@ -38,7 +40,7 @@ abstract class BaseInlineBindingViewModelFragment(@LayoutRes layoutId: Int) : Ba
     abstract fun bindLifecycleOwner()
 
     /** 绑定 ViewModel 到 ViewDataBinding */
-    abstract fun bindViewModelXml()
+    abstract fun bindXmlData()
 
     /** 观察 ViewModel 的数据变化 */
     abstract fun observeViewModelData()

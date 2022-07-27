@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_v
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_root.RootReflectBindingActivity
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingActivity
 
 
 /**
@@ -12,7 +12,7 @@ import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_ro
  * @github githubyss
  * @createdTime 2022/07/22 12:37:54
  */
-abstract class BaseReflectBindingViewModelActivity<B : ViewDataBinding> : RootReflectBindingActivity<B>() {
+abstract class BaseReflectBindingViewModelActivity<B : ViewDataBinding> : BaseReflectBindingActivity<B>() {
 
     /** ****************************** Override ****************************** */
 
@@ -21,7 +21,7 @@ abstract class BaseReflectBindingViewModelActivity<B : ViewDataBinding> : RootRe
         super.onCreate(savedInstanceState)
 
         bindLifecycleOwner()
-        bindViewModelXml()
+        bindXmlData()
         observeViewModelData()
     }
 
@@ -38,7 +38,7 @@ abstract class BaseReflectBindingViewModelActivity<B : ViewDataBinding> : RootRe
     abstract fun bindLifecycleOwner()
 
     /** 绑定 ViewModel 到 ViewDataBinding */
-    abstract fun bindViewModelXml()
+    abstract fun bindXmlData()
 
     /** 观察 ViewModel 的数据变化 */
     abstract fun observeViewModelData()

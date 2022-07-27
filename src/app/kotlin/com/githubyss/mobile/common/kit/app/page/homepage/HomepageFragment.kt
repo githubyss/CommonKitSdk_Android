@@ -52,7 +52,7 @@ class HomepageFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragme
         binding.lifecycleOwner = viewLifecycleOwner
     }
 
-    override fun bindViewModelXml() {
+    override fun bindXmlData() {
         binding.homepageVm = homepageVm
     }
 

@@ -65,7 +65,7 @@ class MviFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMvi
         // binding.lifecycleOwner = viewLifecycleOwner
     }
 
-    override fun bindViewModelXml() {
+    override fun bindXmlData() {
         // binding.homepageVm = homepageVm
         mviViewModel = ViewModelProviders.of(
             this,

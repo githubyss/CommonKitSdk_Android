@@ -49,7 +49,7 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
         binding.lifecycleOwner = viewLifecycleOwner
     }
 
-    override fun bindViewModelXml() {
+    override fun bindXmlData() {
         binding.lifecycleVm = lifecycleVm
     }
 

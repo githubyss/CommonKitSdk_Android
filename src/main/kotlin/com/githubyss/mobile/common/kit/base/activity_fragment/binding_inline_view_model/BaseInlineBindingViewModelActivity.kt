@@ -1,10 +1,8 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_view_model
 
 import android.os.Bundle
-import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.inflate
-import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
-import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
+import androidx.databinding.ViewDataBinding
+import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingActivity
 
 
 /**
@@ -14,13 +12,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
  * @github githubyss
  * @createdTime 2022/07/22 13:10:15
  */
-abstract class BaseInlineBindingViewModelActivity : BaseActivity(R.layout.comkit_activity_base) {
-
-    /** ****************************** Properties ****************************** */
-
-    /**  */
-    val binding by inflate<ComkitActivityBaseBinding>()
-
+abstract class BaseInlineBindingViewModelActivity<B : ViewDataBinding> : BaseInlineBindingActivity<B>() {
 
     /** ****************************** Override ****************************** */
 
@@ -29,7 +21,7 @@ abstract class BaseInlineBindingViewModelActivity : BaseActivity(R.layout.comkit
         super.onCreate(savedInstanceState)
 
         bindLifecycleOwner()
-        bindViewModelXml()
+        bindXmlData()
         observeViewModelData()
     }
 
@@ -46,7 +38,7 @@ abstract class BaseInlineBindingViewModelActivity : BaseActivity(R.layout.comkit
     abstract fun bindLifecycleOwner()
 
     /** 绑定 ViewModel 到 ViewDataBinding */
-    abstract fun bindViewModelXml()
+    abstract fun bindXmlData()
 
     /** 观察 ViewModel 的数据变化 */
     abstract fun observeViewModelData()

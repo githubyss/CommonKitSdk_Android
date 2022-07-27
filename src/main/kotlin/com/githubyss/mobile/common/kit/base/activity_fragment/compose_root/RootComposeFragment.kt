@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.base.activity_fragment.compose
+package com.githubyss.mobile.common.kit.base.activity_fragment.compose_root
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseFrag
  * @github githubyss
  * @createdTime 2022/02/22 15:51:20
  */
-abstract class RootComposeFragment : BaseFragment(0) {
+abstract class RootComposeFragment : BaseFragment() {
 
     /** ****************************** Override ****************************** */
 

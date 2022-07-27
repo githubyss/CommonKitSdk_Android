@@ -26,7 +26,9 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
         super.onCreate(savedInstanceState)
 
         /** Make sure that you can use Toolbar as simple as ActionBar. */
-        if (binding is ComkitActivityBaseToolbarBinding) setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase)
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> setSupportActionBar((binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase)
+        }
     }
 
     /**  */
@@ -47,48 +49,65 @@ abstract class BaseReflectBindingToolbarActivity<B : ViewDataBinding> : RootRefl
     /** Setup Toolbar text by ResId. */
     protected fun setToolbarTitle(titleResId: Int) {
         // toolbarBase.text = getStringFromRes(this@BaseReflectBindingToolbarActivity, titleResId)
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setTitle(titleResId)
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setTitle(titleResId)
+        }
     }
 
     /** Setup Toolbar text by String. */
     protected fun setToolbarTitle(titleString: String) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.title = titleString
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.title = titleString
+        }
     }
 
     /** Setup Toolbar navigation icon by ResId. */
     protected fun setToolbarNavigationIcon(iconResId: Int) {
         // toolbarBase.navigationIcon = getDrawableFromRes(this@BaseReflectBindingToolbarActivity, iconResId)
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setNavigationIcon(iconResId)
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setNavigationIcon(iconResId)
+        }
     }
 
     /** Setup Toolbar navigation icon by Drawable. */
     protected fun setToolbarNavigationIcon(iconDrawable: Drawable) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.navigationIcon = iconDrawable
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.navigationIcon = iconDrawable
+        }
     }
 
     /** Setup Toolbar navigation click listener. */
     protected fun setToolbarNavigationOnClickListener(onBaseToolbarNavigationClickListener: OnBaseToolbarNavigationClickListener) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setNavigationOnClickListener { v ->
-            onBaseToolbarNavigationClickListener.onClick(v)
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setNavigationOnClickListener { v ->
+                onBaseToolbarNavigationClickListener.onClick(v)
+            }
         }
     }
 
     /** Setup Toolbar menu item click listener. */
     protected fun setToolbarMenuItemOnClickListener(onBaseToolbarMenuItemClickListener: OnBaseToolbarMenuItemClickListener) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnMenuItemClickListener { item ->
-            onBaseToolbarMenuItemClickListener.onClick(item)
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnMenuItemClickListener { item ->
+                onBaseToolbarMenuItemClickListener.onClick(item)
+            }
         }
     }
 
     /** Get the menu in Toolbar. */
     protected fun getMenu(): Menu? {
-        return if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.menu else null
+        return when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.menu
+            else -> null
+        }
     }
 
     /**  */
     protected fun setToolbarOnLongClickListener(onBaseToolbarLongClickListener: OnBaseToolbarLongClickListener) {
-        if (binding is ComkitActivityBaseToolbarBinding) (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnLongClickListener { v ->
-            onBaseToolbarLongClickListener.onLongClick(v)
+        when (binding) {
+            is ComkitActivityBaseToolbarBinding -> (binding as ComkitActivityBaseToolbarBinding).layoutToolbar.toolbarBase.setOnLongClickListener { v ->
+                onBaseToolbarLongClickListener.onLongClick(v)
+            }
         }
     }
 

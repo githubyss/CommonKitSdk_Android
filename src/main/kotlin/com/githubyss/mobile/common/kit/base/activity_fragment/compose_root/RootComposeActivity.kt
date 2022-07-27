@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.base.activity_fragment.compose
+package com.githubyss.mobile.common.kit.base.activity_fragment.compose_root
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -13,7 +13,7 @@ import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActi
  * @github githubyss
  * @createdTime 2022/02/24 15:43:29
  */
-abstract class RootComposeActivity : BaseActivity(0) {
+abstract class RootComposeActivity : BaseActivity() {
 
     /** ****************************** Override ****************************** */
 
