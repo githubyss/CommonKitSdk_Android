@@ -1,19 +1,20 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data
+package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field
 
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.child.MvvmChildVm
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.DisplayType
 
 
 /**
- * MvvmViewModelByLiveData
+ * MvvmViewModelByObservableField
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2021/06/11 11:12:44
+ * @createdTime 2021/06/10 11:40:41
  */
-class MvvmViewModelByLiveData : ViewModel() {
+class MvvmViewModelByObservableField : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
@@ -25,10 +26,10 @@ class MvvmViewModelByLiveData : ViewModel() {
     // val onButtonShowCommand=ReplyCom
 
     /** 子 ViewModel */
-    val itemViewModel by lazy { MutableLiveData<MvvmChildVm>() }
+    var itemViewModel: ObservableArrayList<MvvmChildVm>? = null
 
     /** 数据绑定，绑定到 UI 的字段（data field） */
-    val displayType by lazy { MutableLiveData<String>() }
+    val displayType by lazy { ObservableField<String>() }
 
 
     /** ****************************** Constructors ****************************** */
@@ -54,7 +55,7 @@ class MvvmViewModelByLiveData : ViewModel() {
 
     /**  */
     private fun loadData() {
-        this.displayType.value = DisplayType.TEXT
+        this.displayType.set(DisplayType.TEXT)
     }
 
     /**  */
@@ -65,17 +66,17 @@ class MvvmViewModelByLiveData : ViewModel() {
 
     /**  */
     fun onButtonSwitchTextClick() {
-        this.displayType.value = DisplayType.TEXT
+        this.displayType.set(DisplayType.TEXT)
     }
 
     /**  */
     fun onButtonSwitchImageClick() {
-        this.displayType.value = DisplayType.IMAGE
+        this.displayType.set(DisplayType.IMAGE)
     }
 
     /**  */
     fun onButtonSwitchEdittextClick() {
-        this.displayType.value = DisplayType.EDITTEXT
+        this.displayType.set(DisplayType.EDITTEXT)
     }
 
 

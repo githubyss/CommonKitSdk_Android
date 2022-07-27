@@ -1,6 +1,6 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data
+package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field
 
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.TimeOperateState
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.model.MvvmModel
@@ -10,13 +10,13 @@ import java.util.*
 
 
 /**
- * MvvmTextVmByLiveData
+ * MvvmTextVmByObservableField
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2022/07/21 13:47:52
+ * @createdTime 2022/07/27 01:00:46
  */
-class MvvmTextVmByLiveData : ViewModel() {
+class MvvmTextVmByObservableField : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
@@ -24,9 +24,12 @@ class MvvmTextVmByLiveData : ViewModel() {
     private var textBean: MvvmModel.TextBean? = null
 
     /** 数据绑定，绑定到 UI 的字段（data field） */
-    val text by lazy { MutableLiveData<String>() }
-    val isTimeShow by lazy { MutableLiveData<Boolean>() }
-    val timeOperateState by lazy { MutableLiveData<TimeOperateState>() }
+    val text by lazy { ObservableField<String>() }
+
+    // val isTimeShow by lazy { ObservableBoolean() }
+    val isTimeShow by lazy { ObservableField<Boolean>() }
+
+    val timeOperateState by lazy { ObservableField<TimeOperateState>() }
 
 
     /** ****************************** Constructors ****************************** */
@@ -54,9 +57,9 @@ class MvvmTextVmByLiveData : ViewModel() {
     private fun loadData() {
         this.textBean = MvvmModel.TextBean("请点击开始！")
 
-        this.text.value = textBean?.text
-        this.isTimeShow.value = true
-        this.timeOperateState.value = TimeOperateState.START
+        this.text.set(textBean?.text)
+        this.isTimeShow.set(true)
+        this.timeOperateState.set(TimeOperateState.START)
     }
 
     /**  */
@@ -68,18 +71,18 @@ class MvvmTextVmByLiveData : ViewModel() {
 
     /**  */
     fun onButtonOperateTimeClick() {
-        when (this.timeOperateState.value) {
+        when (this.timeOperateState.get()) {
             TimeOperateState.START -> {
-                this.timeOperateState.value = TimeOperateState.STOP
+                this.timeOperateState.set(TimeOperateState.STOP)
                 val timerTask = object : TimerTask() {
                     override fun run() {
-                        this@MvvmTextVmByLiveData.text.postValue("当前时间: ${System.currentTimeMillis()}")
+                        this@MvvmTextVmByObservableField.text.set("当前时间: ${System.currentTimeMillis()}")
                     }
                 }
                 runTaskPeriodicallyWithTimeOffset(timerTask, 0, 500)
             }
             TimeOperateState.STOP -> {
-                this.timeOperateState.value = TimeOperateState.START
+                this.timeOperateState.set(TimeOperateState.START)
                 cancelTimer()
             }
         }
@@ -87,11 +90,11 @@ class MvvmTextVmByLiveData : ViewModel() {
 
     /**  */
     fun onButtonShowTimeTextClick() {
-        this.isTimeShow.value = true
+        this.isTimeShow.set(true)
     }
 
     /**  */
     fun onButtonHideTimeTextClick() {
-        this.isTimeShow.value = false
+        this.isTimeShow.set(false)
     }
 }

@@ -1,6 +1,5 @@
 package com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model
 
-import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_root.RootReflectBindingFragment
 
@@ -17,8 +16,8 @@ abstract class BaseReflectBindingViewModelFragment<B : ViewDataBinding> : RootRe
     /** ****************************** Override ****************************** */
 
     /**  */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
 
         bindLifecycleOwner()
         bindViewModelXml()

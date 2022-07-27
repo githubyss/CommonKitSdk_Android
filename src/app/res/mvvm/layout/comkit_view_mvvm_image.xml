@@ -7,11 +7,14 @@
 
     <data>
 
-        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmImageVmByLiveData" />
+        <!--<variable-->
+        <!--    name="mvvmVm"-->
+        <!--    type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmImageVmByLiveData"-->
+        <!--    />-->
 
         <variable
             name="mvvmVm"
-            type="MvvmImageVmByLiveData"
+            type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmImageVmByObservableField"
             />
     </data>
 

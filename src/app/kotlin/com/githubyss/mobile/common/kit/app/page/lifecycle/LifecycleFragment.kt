@@ -96,7 +96,7 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      * @param savedInstanceState
      * @return
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val message = "${this::class.java.simpleName} > onCreateView"
         refreshLifecycleLog(message)
         return super.onCreateView(inflater, container, savedInstanceState)

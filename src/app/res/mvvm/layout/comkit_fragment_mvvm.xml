@@ -8,25 +8,23 @@
 
     <data>
 
-        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData" />
+        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.enumeration.DisplayType" />
 
         <variable
             name="mvvmVm"
-            type="MvvmViewModelByLiveData"
+            type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmViewModelByLiveData"
             />
-
-        <!--<import type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmViewModelObservableField" />-->
 
         <!--<variable-->
         <!--    name="mvvmVm"-->
-        <!--    type="com.githubyss.mobile.common.kit.app.page.mvvm.observable_field.MvvmViewModelObservableField"-->
+        <!--    type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmViewModelByObservableField"-->
         <!--    />-->
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:background="@color/comres_layoutBg_lightGray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/comres_layoutBg_lightGray"
         android:fillViewport="true"
         android:scrollbars="none"
         >
@@ -35,28 +33,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/comres_sideMargin_normal"
-            android:paddingRight="@dimen/comres_sideMargin_normal"
             android:paddingBottom="@dimen/comres_sideMargin_normal"
             android:paddingLeft="@dimen/comres_sideMargin_normal"
+            android:paddingRight="@dimen/comres_sideMargin_normal"
             app:flexDirection="column"
             app:justifyContent="space_between"
             >
 
             <include
                 android:id="@+id/layout_text"
+                bind:isVisibleOrGone="@{mvvmVm.displayType == DisplayType.TEXT}"
                 layout="@layout/comkit_view_mvvm_text"
                 />
 
             <include
                 android:id="@+id/layout_image"
+                bind:isVisibleOrGone="@{mvvmVm.displayType == DisplayType.IMAGE}"
                 layout="@layout/comkit_view_mvvm_image"
                 />
 
             <include
                 android:id="@+id/layout_edittext"
+                bind:isVisibleOrGone="@{mvvmVm.displayType == DisplayType.EDITTEXT}"
                 layout="@layout/comkit_view_mvvm_edittext"
                 />
-
 
             <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
 

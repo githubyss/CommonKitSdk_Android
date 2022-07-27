@@ -1,23 +1,23 @@
-package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data
+package com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field
 
 import android.text.Editable
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 
 
 /**
- * MvvmEdittextVmByLiveData
+ * MvvmEdittextVmByObservableField
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2022/07/21 13:55:55
+ * @createdTime 2022/07/27 01:00:16
  */
-class MvvmEdittextVmByLiveData : ViewModel() {
+class MvvmEdittextVmByObservableField : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
     /** 数据绑定，绑定到 UI 的字段（data field） */
-    val edittext by lazy { MutableLiveData<String>() }
+    val edittext by lazy { ObservableField<String>() }
 
 
     /** ****************************** Constructors ****************************** */
@@ -43,7 +43,7 @@ class MvvmEdittextVmByLiveData : ViewModel() {
 
     /**  */
     private fun loadData() {
-        this.edittext.value = ""
+        this.edittext.set("")
     }
 
     /**  */
@@ -54,6 +54,6 @@ class MvvmEdittextVmByLiveData : ViewModel() {
 
     /**  */
     fun afterTextChanged(value: Editable) {
-        this.edittext.value = value.toString()
+        this.edittext.set(value.toString())
     }
 }

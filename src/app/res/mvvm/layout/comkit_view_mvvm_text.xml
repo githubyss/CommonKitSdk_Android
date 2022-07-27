@@ -7,12 +7,15 @@
 
     <data>
 
-        <import type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmTextVmByLiveData" />
-
         <variable
             name="mvvmVm"
-            type="MvvmTextVmByLiveData"
+            type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.live_data.MvvmTextVmByLiveData"
             />
+
+        <!--<variable-->
+        <!--    name="mvvmVm"-->
+        <!--    type="com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmTextVmByObservableField"-->
+        <!--    />-->
     </data>
 
     <com.google.android.flexbox.FlexboxLayout
@@ -26,10 +29,10 @@
 
         <TextView
             style="@style/comres_tips_gray_style"
+            android:background="@color/comres_color_999999"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginBottom="4dp"
-            android:background="@color/comres_color_999999"
             android:contentDescription="text_display"
             android:gravity="center"
             android:text="@{mvvmVm.text}"
