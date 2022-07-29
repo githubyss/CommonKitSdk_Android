@@ -194,7 +194,7 @@ class ScreenshotDetectManager private constructor() {
     private fun checkScreenshot(context: Context?, path: String, dateTaken: Long, width: Int, height: Int): Boolean = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
 
     private fun checkDateTaken(dateTaken: Long): Boolean {
-        logD(TAG, "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentTimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentTimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")
+        logD(TAG, "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentDatetimeMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentDatetimeMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")
         return (dateTaken > startDetectTime && (System.currentTimeMillis() - dateTaken) < TimeProcessor.secondToMillis(10))
     }
 
