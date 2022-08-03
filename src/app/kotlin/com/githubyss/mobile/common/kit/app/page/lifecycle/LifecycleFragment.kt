@@ -25,44 +25,52 @@ import com.githubyss.mobile.common.kit.util.FragmentUtils
  */
 class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentLifecycleBinding>() {
 
-    /** ****************************** Properties ****************************** */
+    /** ****************************** Companion ****************************** */
 
+    /**  */
     companion object {
         val TAG: String = LifecycleFragment::class.java.simpleName
     }
 
+
+    /** ****************************** Properties ****************************** */
+
+    /**  */
     private val lifecycleVm: LifecycleViewModel by viewModels()
+
+    /**  */
+    private val onClickPresenter by lazy { OnClickPresenter() }
 
 
     /** ****************************** Override ****************************** */
 
     /**  */
     override fun setupData() {
-        this.lifecycleVm.viewId?.value = 0
+        // this.lifecycleVm.viewId?.value = 0
     }
 
+    /**  */
     override fun setToolbarTitle() {
         setToolbarTitle(R.string.comkit_lifecycle_title)
     }
 
-    override fun bindLifecycleOwner() {
-        binding.lifecycleOwner = viewLifecycleOwner
-    }
-
+    /**  */
     override fun bindXmlData() {
         binding.lifecycleVm = lifecycleVm
+        binding.onClickPresenter = onClickPresenter
     }
 
+    /**  */
     override fun observeViewModelData() {
         // this.lifecycleVm.lifecycleLog?.observe(viewLifecycleOwner, vmObserverLifecycleLog)
-        this.lifecycleVm.viewId?.observe(viewLifecycleOwner, vmObserverViewId)
+        // this.lifecycleVm.viewId?.observe(viewLifecycleOwner, vmObserverViewId)
     }
 
+    /**  */
     override fun removeViewModelObserver() {
-        this.lifecycleVm.lifecycleLog?.removeObservers(viewLifecycleOwner)
-        this.lifecycleVm.viewId?.removeObservers(viewLifecycleOwner)
+        // this.lifecycleVm.lifecycleLog?.removeObservers(viewLifecycleOwner)
+        // this.lifecycleVm.viewId?.removeObservers(viewLifecycleOwner)
     }
-
 
     /**
      * 对应 FragmentLifecycleCallbacks 的 onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context)
@@ -235,6 +243,7 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
         refreshLifecycleLog(message)
     }
 
+    /**  */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         val message = "${this::class.java.simpleName} > onHiddenChanged, hidden:${hidden}"
@@ -244,31 +253,48 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
 
     /** ****************************** Functions ****************************** */
 
+    /**  */
     private fun refreshLifecycleLog(message: String) {
         this.lifecycleVm.lifecycleLogEntity?.append(message)?.appendLine()
         this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity
     }
 
+    /**  */
     private fun clearLifecycleLog() {
         this.lifecycleVm.lifecycleLogEntity?.clear()
         this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity
     }
 
 
-    /** ****************************** Implementations ****************************** */
+    /** ****************************** Class ****************************** */
 
-    private val vmObserverLifecycleLog = Observer<StringBuilder> { t ->
+    /**  */
+    inner class OnClickPresenter {
+        fun onStartActivity1(v: View) {
+            ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
+        }
+
+        fun onStartActivity2(v: View) {
+            ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
+        }
+
+        fun onAddFragment(v: View) {
+            FragmentUtils.switchFragmentByAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this@LifecycleFragment, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
+        }
+
+        fun onReplaceFragment(v: View) {
+            FragmentUtils.replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
+        }
+
+        fun onClearLog(v: View) {
+            clearLifecycleLog()
+        }
     }
 
-    private val vmObserverViewId = Observer<Int> { t ->
-        when (t) {
-            R.id.button_start_activity_1 -> ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
-            R.id.button_start_activity_2 -> ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
-            R.id.button_add_fragment -> FragmentUtils.switchFragmentByAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
-            R.id.button_replace_fragment -> FragmentUtils.replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
-            R.id.button_clear_log -> {
-                clearLifecycleLog()
-            }
-        }
+
+    /** ****************************** Implementations ****************************** */
+
+    /**  */
+    private val vmObserverLifecycleLog = Observer<StringBuilder> { t ->
     }
 }

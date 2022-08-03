@@ -130,7 +130,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(':CommonResSdk_Android')
+    implementation project(':DesignPatternLibrary_Android')
+    implementation project(':CommonResSdk_Android')
 
     api dependenciesLib.androidx_appcompat
     api dependenciesLib.androidx_compose_material
@@ -140,6 +141,8 @@ dependencies {
     implementation dependenciesLib.bumptech_glide
     kapt dependenciesLib.bumptech_glide_compiler
     implementation dependenciesLib.alibaba_arouter_api
+
+    debugImplementation dependenciesLib.leakcanary
 
     if (isLaunchApp) {
         appImplementation project(':DesignPatternLibrary_Android')

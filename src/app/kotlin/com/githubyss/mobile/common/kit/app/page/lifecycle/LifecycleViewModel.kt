@@ -1,6 +1,5 @@
 package com.githubyss.mobile.common.kit.app.page.lifecycle
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -19,7 +18,7 @@ class LifecycleViewModel : ViewModel() {
 
     /** 数据绑定，绑定到 UI 的字段（data field） */
     var lifecycleLog: MutableLiveData<StringBuilder>? = null
-    var viewId: MutableLiveData<Int>? = null
+    // var viewId: MutableLiveData<Int>? = null
 
 
     /** ****************************** Constructors ****************************** */
@@ -44,7 +43,7 @@ class LifecycleViewModel : ViewModel() {
 
     private fun initViewModelField() {
         this.lifecycleLog = MutableLiveData()
-        this.viewId = MutableLiveData()
+        // this.viewId = MutableLiveData()
     }
 
     private fun loadData() {
@@ -53,12 +52,12 @@ class LifecycleViewModel : ViewModel() {
 
     private fun clearData() {
         this.lifecycleLog = null
-        this.viewId = null
+        // this.viewId = null
     }
 
     /** ******************** Event Handling ******************** */
 
-    fun onAnyButtonClick(view: View) {
-        this.viewId?.value = view.id
-    }
+    // fun onAnyButtonClick(view: View) {
+    //     this.viewId?.value = view.id
+    // }
 }
