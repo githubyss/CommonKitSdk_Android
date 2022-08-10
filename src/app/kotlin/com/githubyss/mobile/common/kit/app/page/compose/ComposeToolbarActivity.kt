@@ -8,7 +8,7 @@ import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.compose_ui.InfoDisplay
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
-import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
+import com.githubyss.common.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 

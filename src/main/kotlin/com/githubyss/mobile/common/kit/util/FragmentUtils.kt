@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.githubyss.mobile.common.kit.lifecycle.FragmentLifecycleSubscriber
 
 
 /**
@@ -19,10 +18,8 @@ object FragmentUtils {
 
     /** ****************************** Properties ****************************** */
 
+    /**  */
     private val TAG: String = FragmentUtils::class.java.simpleName
-
-    /** The fragment lifecycle callbacks impl. */
-    var fragmentLifecycle: FragmentLifecycleSubscriber = FragmentLifecycleSubscriber.INSTANCE
 
 
     /** ****************************** Functions ****************************** */
@@ -67,8 +64,10 @@ object FragmentUtils {
 
     /** ******************** Operator ******************** */
 
-    // 正确的切换方式是 add，切换时 hide，add 另一个 fragment；再次切换时，只需 hide 当前，show 另一个。
-    // 这样就能做到多个 fragment 切换不重新实例化。
+    /**
+     * 正确的切换方式是 add，切换时 hide，add 另一个 fragment；再次切换时，只需 hide 当前，show 另一个。
+     * 这样就能做到多个 fragment 切换不重新实例化。
+     */
     fun switchFragmentByAddHideShow(fragment: Fragment?, fragmentTag: String?, currentFragment: Any?, fragmentManager: FragmentManager?, @IdRes containerId: Int, addToBackStack: Boolean = true, bundle: Bundle? = null) {
         fragment ?: return
         fragmentManager ?: return
@@ -101,9 +100,11 @@ object FragmentUtils {
         fragmentTransaction.commitAllowingStateLoss()
     }
 
-    // replace 操作会把这个 containerId 中所有 fragments 清空删除！！！然后再把指定的 fragment 添加进去！
-    // 造成了在切换到以前的 fragment 时，就会重新实例化 fragment。
-    // 重新加载一遍数据，这样非常消耗性能和用户的数据流量。
+    /**
+     * replace 操作会把这个 containerId 中所有 fragments 清空删除！！！然后再把指定的 fragment 添加进去！
+     * 造成了在切换到以前的 fragment 时，就会重新实例化 fragment。
+     * 重新加载一遍数据，这样非常消耗性能和用户的数据流量。
+     */
     fun replaceFragment(fragment: Fragment?, fragmentTag: String?, fragmentManager: FragmentManager?, @IdRes containerId: Int, addToBackStack: Boolean = true, bundle: Bundle? = null) {
         fragment ?: return
         fragmentManager ?: return
@@ -117,6 +118,7 @@ object FragmentUtils {
         }
     }
 
+    /**  */
     fun addFragment(fragment: Fragment?, fragmentTag: String?, fragmentManager: FragmentManager?, @IdRes containerId: Int, addToBackStack: Boolean = true, bundle: Bundle? = null) {
         fragment ?: return
         fragmentManager ?: return
@@ -130,6 +132,7 @@ object FragmentUtils {
         }
     }
 
+    /**  */
     fun showFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true) {
         fragmentManager ?: return
 
@@ -152,6 +155,7 @@ object FragmentUtils {
         }
     }
 
+    /**  */
     fun hideFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true) {
         fragmentManager ?: return
 
@@ -174,6 +178,7 @@ object FragmentUtils {
         }
     }
 
+    /**  */
     fun removeFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true) {
         fragmentManager ?: return
 

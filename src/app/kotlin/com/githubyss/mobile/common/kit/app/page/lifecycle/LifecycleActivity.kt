@@ -3,8 +3,8 @@ package com.githubyss.mobile.common.kit.app.page.lifecycle
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarActivity
-import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
+import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarActivity
+import com.githubyss.common.base.databinding.CombaseActivityBaseToolbarBinding
 
 
 /**
@@ -14,7 +14,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2022/02/11 15:19:51
  */
-class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<ComkitActivityBaseToolbarBinding>() {
+class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActivityBaseToolbarBinding>() {
 
     /** ****************************** Companion ****************************** */
 

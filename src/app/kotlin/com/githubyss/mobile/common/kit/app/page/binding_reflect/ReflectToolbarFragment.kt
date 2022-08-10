@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.app.page.binding_reflect
 
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
+import com.githubyss.common.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentViewBindingReflectBinding
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 

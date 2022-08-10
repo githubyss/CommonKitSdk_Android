@@ -1,8 +1,8 @@
 package com.githubyss.mobile.common.kit.app.page.binding_reflect
 
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
-import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
+import com.githubyss.common.base.activity_fragment.binding_reflect.BaseReflectBindingToolbarActivity
+import com.githubyss.common.base.databinding.CombaseActivityBaseToolbarBinding
 
 
 /**
@@ -12,7 +12,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2021/06/03 19:17:26
  */
-class ReflectToolbarActivity : BaseReflectBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
+class ReflectToolbarActivity : BaseReflectBindingToolbarActivity<CombaseActivityBaseToolbarBinding>() {
 
     /** ****************************** Properties ****************************** */
 

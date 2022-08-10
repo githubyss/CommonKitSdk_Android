@@ -20,8 +20,8 @@ import android.os.Build
 import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
+import com.githubyss.common.base.lifecycle.lifecycle_subscriber.ActivityLifecycleSubscriber
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleSubscriber
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader

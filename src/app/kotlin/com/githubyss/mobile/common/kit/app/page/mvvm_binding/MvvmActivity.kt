@@ -14,7 +14,7 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observab
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmImageVmByObservableField
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmTextVmByObservableField
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.view_model.observable_field.MvvmViewModelByObservableField
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarActivity
+import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMvvmBinding
 import com.githubyss.mobile.common.kit.util.logD
 

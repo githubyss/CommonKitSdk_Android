@@ -16,8 +16,8 @@ import android.widget.Toast
 import androidx.annotation.AnimRes
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import com.githubyss.common.base.lifecycle.lifecycle_subscriber.LifecycleContainer.activityLifecycle
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.lifecycle.ActivityLifecycleSubscriber
 import java.lang.ref.WeakReference
 
 
@@ -32,10 +32,8 @@ object ActivityUtils {
 
     /** ****************************** Properties ****************************** */
 
+    /**  */
     private val TAG: String = ActivityUtils::class.java.simpleName
-
-    /** The activity lifecycle callbacks impl. */
-    var activityLifecycle: ActivityLifecycleSubscriber = ActivityLifecycleSubscriber.INSTANCE
 
     /** The list of activity. */
     var activityList: List<Activity> = activityLifecycle.activityList
@@ -277,6 +275,7 @@ object ActivityUtils {
         return false
     }
 
+    /**  */
     inline fun <reified A : Activity> isActivityExistsInStack(): Boolean {
         return isActivityExistsInStack(A::class.java)
     }
@@ -379,6 +378,7 @@ object ActivityUtils {
         }
     }
 
+    /**  */
     inline fun <reified A : Activity> startActivity(context: Any? = topActivityOrApp.get(), extras: Bundle? = null, options: Bundle? = null): Boolean {
         return startActivity(context, A::class.java, extras, options)
     }
@@ -571,6 +571,7 @@ object ActivityUtils {
         startActivity(activity, activity.packageName, clazz.name, extras, getOptionsBundle(activity, sharedElements))
     }
 
+    /**  */
     inline fun <reified A : Activity> startActivity(activity: Activity?, extras: Bundle? = null, vararg sharedElements: View) {
         startActivity(activity, A::class.java, extras, *sharedElements)
     }

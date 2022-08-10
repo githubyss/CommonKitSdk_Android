@@ -8,7 +8,7 @@ import com.githubyss.mobile.common.kit.app.compose_ui.comui.ButtonClickBlueMargi
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.view_model.MvvmComposeViewModelByState
-import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarActivity
+import com.githubyss.common.base.activity_fragment.compose.BaseComposeToolbarActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 

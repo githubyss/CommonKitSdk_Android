@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.app.page.binding_reflect
 
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect.BaseReflectBindingActivity
-import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
+import com.githubyss.common.base.activity_fragment.binding_reflect.BaseReflectBindingActivity
+import com.githubyss.common.base.databinding.CombaseActivityBaseBinding
 
 
 /**
@@ -11,7 +11,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseBinding
  * @github githubyss
  * @createdTime 2021/07/20 18:01:36
  */
-class ReflectActivity : BaseReflectBindingActivity<ComkitActivityBaseBinding>() {
+class ReflectActivity : BaseReflectBindingActivity<CombaseActivityBaseBinding>() {
 
     /** ****************************** Properties ****************************** */
 

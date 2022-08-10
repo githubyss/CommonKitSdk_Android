@@ -1,6 +1,6 @@
 package com.githubyss.mobile.common.kit.app.application
 
-import com.githubyss.mobile.common.kit.base.application.BaseApplication
+import com.githubyss.mobile.common.kit.base.application.ComkitBaseApplication
 import kotlin.properties.Delegates
 
 
@@ -11,10 +11,11 @@ import kotlin.properties.Delegates
  * @github githubyss
  * @createdTime 2021/08/24 19:34:38
  */
-class ComkitApplication : BaseApplication() {
+class ComkitApplication : ComkitBaseApplication() {
 
     /** ****************************** Properties ****************************** */
 
+    /**  */
     companion object {
         var instance: ComkitApplication by Delegates.notNull()
             private set
@@ -25,10 +26,9 @@ class ComkitApplication : BaseApplication() {
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun onCreate() {
         super.onCreate()
         instance = this
-
-        initARouter(instance)
     }
 }

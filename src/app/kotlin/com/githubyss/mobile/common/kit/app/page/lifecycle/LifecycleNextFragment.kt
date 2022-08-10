@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.app.page.lifecycle
 
 import android.view.View
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
+import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentLifecycleNextBinding
 
 

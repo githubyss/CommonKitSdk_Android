@@ -1,9 +1,9 @@
 package com.githubyss.mobile.common.kit.app.page.binding_inline
 
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline.BaseInlineBindingToolbarActivity
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_inline_root.inflate
-import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBinding
+import com.githubyss.common.base.activity_fragment.binding_inline.BaseInlineBindingToolbarActivity
+import com.githubyss.common.base.activity_fragment.binding_inline_root.inflate
+import com.githubyss.common.base.databinding.CombaseActivityBaseToolbarBinding
 
 
 /**
@@ -13,7 +13,7 @@ import com.githubyss.mobile.common.kit.databinding.ComkitActivityBaseToolbarBind
  * @github githubyss
  * @createdTime 2021/06/04 14:55:13
  */
-class InlineToolbarActivity : BaseInlineBindingToolbarActivity<ComkitActivityBaseToolbarBinding>() {
+class InlineToolbarActivity : BaseInlineBindingToolbarActivity<CombaseActivityBaseToolbarBinding>() {
 
     /** ****************************** Companion ****************************** */
 
@@ -26,7 +26,7 @@ class InlineToolbarActivity : BaseInlineBindingToolbarActivity<ComkitActivityBas
     /** ****************************** Properties ****************************** */
 
     /**  */
-    private val _binding by inflate<ComkitActivityBaseToolbarBinding>()
+    private val _binding by inflate<CombaseActivityBaseToolbarBinding>()
 
 
     /** ****************************** Override ****************************** */

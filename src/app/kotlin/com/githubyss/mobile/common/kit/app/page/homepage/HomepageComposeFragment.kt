@@ -1,7 +1,5 @@
 package com.githubyss.mobile.common.kit.app.page.homepage
 
-import android.os.Bundle
-import android.view.View
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -24,8 +22,8 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.MvvmComposeActivity
 import com.githubyss.mobile.common.kit.app.page.state_compose.StateComposeActivity
-import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
-import com.githubyss.mobile.common.kit.base.activity_fragment.compose.BaseComposeToolbarFragment
+import com.githubyss.common.base.activity_fragment.classical.BaseActivity
+import com.githubyss.common.base.activity_fragment.compose.BaseComposeToolbarFragment
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.getStringFromRes

@@ -69,9 +69,6 @@ android {
             res {
                 srcDirs 'src/main/res'
                 srcDirs 'src/main/res/common'
-
-                srcDirs 'src/main/res/activity'
-                srcDirs 'src/main/res/fragment'
             }
             manifest {
                 srcFile 'src/main/AndroidManifest.xml'
@@ -132,6 +129,7 @@ dependencies {
 
     implementation project(':DesignPatternLibrary_Android')
     implementation project(':CommonResSdk_Android')
+    implementation project(':CommonBaseSdk_Android')
 
     api dependenciesLib.androidx_appcompat
     api dependenciesLib.androidx_compose_material

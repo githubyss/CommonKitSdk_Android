@@ -13,8 +13,8 @@ import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.lifecycle.LifecycleActivity
 import com.githubyss.mobile.common.kit.app.page.mvi.MviActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
-import com.githubyss.mobile.common.kit.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
-import com.githubyss.mobile.common.kit.base.activity_fragment.classical.BaseActivity
+import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
+import com.githubyss.common.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentHomepageBinding
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
