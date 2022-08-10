@@ -132,8 +132,8 @@ dependencies {
     implementation project(':CommonBaseSdk_Android')
 
     api dependenciesLib.androidx_appcompat
-    api dependenciesLib.androidx_compose_material
     api dependenciesLib.androidx_activity_compose
+    api dependenciesLib.androidx_compose_material
     implementation dependenciesLib.google_gson
     implementation dependenciesLib.joda_time
     implementation dependenciesLib.bumptech_glide
