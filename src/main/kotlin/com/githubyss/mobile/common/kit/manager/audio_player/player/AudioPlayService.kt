@@ -8,7 +8,7 @@ import android.content.IntentFilter
 import android.os.Binder
 import android.os.IBinder
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.githubyss.common.base.lifecycle.lifecycle_subscriber.ActivityLifecycleSubscriber
+import com.githubyss.common.base.lifecycle.LifecycleConstant
 import com.githubyss.mobile.common.kit.constant.Constants
 
 
@@ -112,7 +112,7 @@ class AudioPlayService : Service() {
     private fun initLocalBroadcastReceiver() {
         // mMusicNotification.initBroadcastReceiver();
         val intentFilter = IntentFilter()
-        intentFilter.addAction(ActivityLifecycleSubscriber.INTENT_ACTION_IS_FOREGROUND)
+        intentFilter.addAction(LifecycleConstant.INTENT_ACTION_IS_FOREGROUND)
         intentFilter.addAction(Constants.INTENT_ACTION_CLOSE_FLOAT)
         receiver = MyBroadcastReceiver()
         // 注册广播接收器, LocalBroadcastManager.getInstance(getBaseContext())接不到通知栏的广播
@@ -132,7 +132,7 @@ class AudioPlayService : Service() {
     private class MyBroadcastReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            if (action == ActivityLifecycleSubscriber.INTENT_ACTION_IS_FOREGROUND) {
+            if (action == LifecycleConstant.INTENT_ACTION_IS_FOREGROUND) {
                 // if (floatView != null && mMusicNotification != null) {
                 //     if (intent.getBooleanExtra("isForeground", true)) { // 程序是否进入后台
                 //         if(!floatView.isShowing()) {

@@ -3,15 +3,14 @@ package com.githubyss.mobile.common.kit.app.page.mvi
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.page.mvi.model.User
-import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentMviBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -67,7 +66,7 @@ class MviFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmentMvi
 
     override fun bindXmlData() {
         // binding.homepageVm = homepageVm
-        mviViewModel = ViewModelProviders.of(
+        mviViewModel = ViewModelProvider(
             this,
             ViewModelFactory(
                 // ApiHelperImpl(

@@ -82,6 +82,7 @@ class MvvmTextVmByLiveData : ViewModel() {
                 this.timeOperateState.value = TimeOperateState.START
                 cancelTimer()
             }
+            else -> {}
         }
     }
 

@@ -131,14 +131,18 @@ dependencies {
     implementation project(':CommonResSdk_Android')
     implementation project(':CommonBaseSdk_Android')
 
-    api dependenciesLib.androidx_appcompat
-    api dependenciesLib.androidx_activity_compose
-    api dependenciesLib.androidx_compose_material
+    implementation dependenciesLib.androidx_appcompat
+    implementation dependenciesLib.androidx_activity_compose
+    implementation dependenciesLib.androidx_compose_material
+    // implementation dependenciesLib.androidx_lifecycle_runtime
+    // implementation dependenciesLib.androidx_lifecycle_viewmodel
+
     implementation dependenciesLib.google_gson
     implementation dependenciesLib.joda_time
     implementation dependenciesLib.bumptech_glide
-    kapt dependenciesLib.bumptech_glide_compiler
     implementation dependenciesLib.alibaba_arouter_api
+
+    kapt dependenciesLib.bumptech_glide_compiler
 
     debugImplementation dependenciesLib.leakcanary
 

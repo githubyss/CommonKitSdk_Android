@@ -20,7 +20,7 @@ import android.os.Build
 import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
-import com.githubyss.common.base.lifecycle.lifecycle_subscriber.ActivityLifecycleSubscriber
+import com.githubyss.common.base.lifecycle.lifecycle_callbacks.ActivityLifecycleCallbacks
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import java.io.BufferedReader
 import java.io.File
@@ -670,8 +670,8 @@ fun isAppRunning(packageName: String?, context: Context? = ComkitApplicationConf
  * @param obj      The object.
  * @param listener The status of application changed listener
  */
-fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleSubscriber.OnAppStatusChangedListener?) {
-    ActivityLifecycleSubscriber.INSTANCE.addOnAppStatusChangedListener(obj, listener)
+fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleCallbacks.OnAppStatusChangedListener?) {
+    ActivityLifecycleCallbacks.INSTANCE.addOnAppStatusChangedListener(obj, listener)
 }
 
 /**
@@ -680,7 +680,7 @@ fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleSubsc
  * @param obj The object.
  */
 fun unregisterAppStatusChangedListener(obj: Any?) {
-    ActivityLifecycleSubscriber.INSTANCE.removeOnAppStatusChangedListener(obj)
+    ActivityLifecycleCallbacks.INSTANCE.removeOnAppStatusChangedListener(obj)
 }
 
 /** ********** installApp ********** */

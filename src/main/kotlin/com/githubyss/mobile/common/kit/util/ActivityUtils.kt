@@ -16,7 +16,7 @@ import android.widget.Toast
 import androidx.annotation.AnimRes
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
-import com.githubyss.common.base.lifecycle.lifecycle_subscriber.LifecycleContainer.activityLifecycle
+import com.githubyss.common.base.lifecycle.LifecycleContainer.activityLifecycleCallbacks
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import java.lang.ref.WeakReference
 
@@ -36,16 +36,16 @@ object ActivityUtils {
     private val TAG: String = ActivityUtils::class.java.simpleName
 
     /** The list of activity. */
-    var activityList: List<Activity> = activityLifecycle.activityList
+    var activityList: List<Activity> = activityLifecycleCallbacks.activityList
 
     /** The name of launcher activity. */
     var launcherActivityName: String = getLauncherActivityName(ComkitApplicationConfig.getApp()?.packageName)
 
     /** The top activity in activity's stack. */
-    var topActivity: WeakReference<Activity?> = WeakReference<Activity?>(activityLifecycle.getTopActivity())
+    var topActivity: WeakReference<Activity?> = WeakReference<Activity?>(activityLifecycleCallbacks.getTopActivity())
 
     var topActivityOrApp: WeakReference<Context?> = if (isAppForeground()) {
-        WeakReference<Context?>(activityLifecycle.getTopActivity())
+        WeakReference<Context?>(activityLifecycleCallbacks.getTopActivity())
     }
     else {
         WeakReference<Context?>(ComkitApplicationConfig.getApp())
@@ -1201,7 +1201,7 @@ object ActivityUtils {
             // activityList remove the index activity at onActivityDestroyed
             finishActivity(aActivity, enterAnim, exitAnim)
         }
-        activityLifecycle.activityList.clear()
+        activityLifecycleCallbacks.activityList.clear()
     }
 
     /** ********** finishAllActivitiesExceptNewest by isLoadAnim ********** */

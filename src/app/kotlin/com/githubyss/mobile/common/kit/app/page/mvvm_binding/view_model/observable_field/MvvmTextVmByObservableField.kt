@@ -85,6 +85,7 @@ class MvvmTextVmByObservableField : ViewModel() {
                 this.timeOperateState.set(TimeOperateState.START)
                 cancelTimer()
             }
+            else -> {}
         }
     }
 
