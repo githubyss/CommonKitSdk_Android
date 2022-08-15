@@ -2,9 +2,9 @@ package com.githubyss.mobile.common.kit.app.page.lifecycle
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.githubyss.mobile.common.kit.R
 import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarActivity
 import com.githubyss.common.base.databinding.CombaseActivityBaseToolbarBinding
+import com.githubyss.mobile.common.kit.R
 
 
 /**
@@ -27,7 +27,8 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     /** ****************************** Properties ****************************** */
 
     /**  */
-    private val lifecycleVm: LifecycleViewModel by viewModels()
+    // private val lifecycleVm by lazy { LifecycleSingletonViewModel }
+    val lifecycleVm by viewModels<LifecycleViewModel>()
 
     private var activityName = this::class.java.simpleName
 
@@ -44,25 +45,6 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
         setToolbarTitle(R.string.comkit_lifecycle_title)
     }
 
-    /**  */
-    override fun bindLifecycleOwner() {
-        binding.lifecycleOwner = this
-    }
-
-    /**  */
-    override fun bindXmlData() {
-    }
-
-    /**  */
-    override fun observeViewModelData() {
-        this.lifecycleVm.lifecycleLog?.observe(this) {}
-    }
-
-    /**  */
-    override fun removeViewModelObserver() {
-        this.lifecycleVm.lifecycleLog?.removeObservers(this)
-    }
-
     /**
      * 对应 ActivityLifecycleCallbacks 的 onActivityCreated(activity: Activity, savedInstanceState: Bundle?)
      *
@@ -72,7 +54,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val message = "$activityName > onCreate"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -84,7 +66,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onStart() {
         super.onStart()
         val message = "$activityName > onStart"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -96,7 +78,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onRestart() {
         super.onRestart()
         val message = "$activityName > onRestart"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -108,7 +90,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onResume() {
         super.onResume()
         val message = "$activityName > onResume"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -120,7 +102,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onPause() {
         super.onPause()
         val message = "$activityName > onPause"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -132,7 +114,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onStop() {
         super.onStop()
         val message = "$activityName > onStop"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -144,7 +126,7 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val message = "$activityName > onSaveInstanceState"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -156,15 +138,9 @@ class LifecycleActivity : BaseReflectBindingViewModelToolbarActivity<CombaseActi
     override fun onDestroy() {
         super.onDestroy()
         val message = "$activityName > onDestroy"
-        refreshLifecycleLog(message)
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
 
     /** ****************************** Functions ****************************** */
-
-    /**  */
-    private fun refreshLifecycleLog(message: String) {
-        this.lifecycleVm.lifecycleLogEntity?.append(message)?.appendLine()
-        this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity
-    }
 }

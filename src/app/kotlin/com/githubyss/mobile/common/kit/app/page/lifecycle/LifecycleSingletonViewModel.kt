@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 
 
 /**
- * LifecycleViewModel
+ * LifecycleSingletonViewModel
  *
  * @author Ace Yan
  * @github githubyss
- * @createdTime 2022/08/12 15:50:04
+ * @createdTime 2022/02/11 14:55:07
  */
-class LifecycleViewModel : ViewModel() {
+object LifecycleSingletonViewModel : ViewModel() {
 
     /**  */
     val lifecycleLog by lazy { MutableLiveData(StringBuilder()) }

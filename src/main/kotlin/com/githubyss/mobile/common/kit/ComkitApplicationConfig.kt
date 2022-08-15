@@ -3,7 +3,8 @@ package com.githubyss.mobile.common.kit
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.githubyss.common.base.lifecycle.LifecycleContainer
+import com.githubyss.common.base.lifecycle.registerLifecycle
+import com.githubyss.common.base.lifecycle.unregisterLifecycle
 import com.githubyss.mobile.common.kit.util.getApplicationByReflect
 
 
@@ -59,10 +60,9 @@ object ComkitApplicationConfig {
         // 参数 app 非空，并与缓存 application 非同类
         if (app != null && app.javaClass != application?.javaClass) {
             // 重置 ActivityLifecycleCallbacks，以及清空缓存的 activityList
-            application?.unregisterActivityLifecycleCallbacks(LifecycleContainer.activityLifecycleCallbacks)
-            LifecycleContainer.activityLifecycleCallbacks.activityList.clear()
+            application?.unregisterLifecycle()
             application = app
-            application?.registerActivityLifecycleCallbacks(LifecycleContainer.activityLifecycleCallbacks)
+            application?.registerLifecycle()
         }
         // 其他情况，保持 application 不变
     }

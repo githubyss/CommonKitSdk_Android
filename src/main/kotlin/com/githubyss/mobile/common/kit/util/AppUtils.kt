@@ -20,13 +20,13 @@ import android.os.Build
 import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
-import com.githubyss.common.base.lifecycle.lifecycle_callbacks.ActivityLifecycleCallbacks
+import com.githubyss.common.base.lifecycle.LifecycleHolder
+import com.githubyss.common.base.lifecycle.lifecycle_callbacks.ActivityHolder
 import com.githubyss.mobile.common.kit.ComkitApplicationConfig
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.lang.reflect.InvocationTargetException
-import java.util.*
 
 
 /**
@@ -670,8 +670,8 @@ fun isAppRunning(packageName: String?, context: Context? = ComkitApplicationConf
  * @param obj      The object.
  * @param listener The status of application changed listener
  */
-fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleCallbacks.OnAppStatusChangedListener?) {
-    ActivityLifecycleCallbacks.INSTANCE.addOnAppStatusChangedListener(obj, listener)
+fun registerAppStatusChangedListener(obj: Any?, listener: ActivityHolder.OnAppStatusChangedListener?) {
+    LifecycleHolder.activityLifecycle.activityHolder.addOnAppStatusChangedListener(obj, listener)
 }
 
 /**
@@ -680,7 +680,7 @@ fun registerAppStatusChangedListener(obj: Any?, listener: ActivityLifecycleCallb
  * @param obj The object.
  */
 fun unregisterAppStatusChangedListener(obj: Any?) {
-    ActivityLifecycleCallbacks.INSTANCE.removeOnAppStatusChangedListener(obj)
+    LifecycleHolder.activityLifecycle.activityHolder.removeOnAppStatusChangedListener(obj)
 }
 
 /** ********** installApp ********** */

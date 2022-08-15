@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import com.githubyss.mobile.common.kit.R
 import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.common.base.activity_fragment.classical.BaseActivity
+import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentLifecycleBinding
 import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
@@ -36,18 +34,16 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
     /** ****************************** Properties ****************************** */
 
     /**  */
-    private val lifecycleVm: LifecycleViewModel by viewModels()
+    // private val lifecycleVm by lazy { LifecycleSingletonViewModel }
+    private val lifecycleVm by lazy { (activity as LifecycleActivity).lifecycleVm }
+
+    private var fragmentName = this::class.java.simpleName
 
     /**  */
     private val onClickPresenter by lazy { OnClickPresenter() }
 
 
     /** ****************************** Override ****************************** */
-
-    /**  */
-    override fun setupData() {
-        // this.lifecycleVm.viewId?.value = 0
-    }
 
     /**  */
     override fun setToolbarTitle() {
@@ -60,18 +56,6 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
         binding.onClickPresenter = onClickPresenter
     }
 
-    /**  */
-    override fun observeViewModelData() {
-        // this.lifecycleVm.lifecycleLog?.observe(viewLifecycleOwner, vmObserverLifecycleLog)
-        // this.lifecycleVm.viewId?.observe(viewLifecycleOwner, vmObserverViewId)
-    }
-
-    /**  */
-    override fun removeViewModelObserver() {
-        // this.lifecycleVm.lifecycleLog?.removeObservers(viewLifecycleOwner)
-        // this.lifecycleVm.viewId?.removeObservers(viewLifecycleOwner)
-    }
-
     /**
      * 对应 FragmentLifecycleCallbacks 的 onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context)
      *
@@ -80,8 +64,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val message = "${this::class.java.simpleName} > onAttach"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onAttach"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -92,8 +76,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val message = "${this::class.java.simpleName} > onCreate"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onCreate"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -105,8 +89,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      * @return
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val message = "${this::class.java.simpleName} > onCreateView"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onCreateView"
+        lifecycleVm.refreshLifecycleLog(message)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -119,8 +103,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val message = "${this::class.java.simpleName} > onViewCreated"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onViewCreated"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -131,8 +115,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val message = "${this::class.java.simpleName} > onActivityCreated"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onActivityCreated"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -143,8 +127,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onStart() {
         super.onStart()
-        val message = "${this::class.java.simpleName} > onStart"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onStart"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -155,8 +139,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onResume() {
         super.onResume()
-        val message = "${this::class.java.simpleName} > onResume"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onResume"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -167,8 +151,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onPause() {
         super.onPause()
-        val message = "${this::class.java.simpleName} > onPause"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onPause"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -179,8 +163,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onStop() {
         super.onStop()
-        val message = "${this::class.java.simpleName} > onStop"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onStop"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -191,8 +175,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val message = "${this::class.java.simpleName} > onSaveInstanceState"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onSaveInstanceState"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -203,8 +187,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onDestroyView() {
         super.onDestroyView()
-        val message = "${this::class.java.simpleName} > onDestroyView"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onDestroyView"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -215,8 +199,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onDestroy() {
         super.onDestroy()
-        val message = "${this::class.java.simpleName} > onDestroy"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onDestroy"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -227,8 +211,8 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onDetach() {
         super.onDetach()
-        val message = "${this::class.java.simpleName} > onDetach"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onDetach"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**
@@ -239,31 +223,19 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
      */
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
-        val message = "${this::class.java.simpleName} > onAttachFragment"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onAttachFragment"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
     /**  */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        val message = "${this::class.java.simpleName} > onHiddenChanged, hidden:${hidden}"
-        refreshLifecycleLog(message)
+        val message = "$fragmentName > onHiddenChanged, hidden:${hidden}"
+        lifecycleVm.refreshLifecycleLog(message)
     }
 
 
     /** ****************************** Functions ****************************** */
-
-    /**  */
-    private fun refreshLifecycleLog(message: String) {
-        this.lifecycleVm.lifecycleLogEntity?.append(message)?.appendLine()
-        this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity
-    }
-
-    /**  */
-    private fun clearLifecycleLog() {
-        this.lifecycleVm.lifecycleLogEntity?.clear()
-        this.lifecycleVm.lifecycleLog?.value = this.lifecycleVm.lifecycleLogEntity
-    }
 
 
     /** ****************************** Class ****************************** */
@@ -287,14 +259,7 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
         }
 
         fun onClearLog(v: View) {
-            clearLifecycleLog()
+            lifecycleVm.clearLifecycleLog()
         }
-    }
-
-
-    /** ****************************** Implementations ****************************** */
-
-    /**  */
-    private val vmObserverLifecycleLog = Observer<StringBuilder> { t ->
     }
 }
