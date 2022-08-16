@@ -77,16 +77,16 @@ class HomepageFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragme
     /**  */
     private val vmObserverViewId = Observer<Int> { t ->
         when (t) {
-            R.id.button_mvvm -> FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
+            R.id.button_mvvm -> switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
             R.id.button_mvi -> startActivityExt(activity, MviActivity::class.java)
 
             R.id.button_compose -> {
                 startActivityExt(activity, ComposeActivity::class.java)
-                // FragmentUtils.switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
+                // switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
             }
             R.id.button_compose_toolbar -> {
                 startActivityExt(activity, ComposeToolbarActivity::class.java)
-                // FragmentUtils.switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
+                // switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
             }
 
             R.id.button_binding_reflect -> startActivityExt(activity, ReflectActivity::class.java)
@@ -96,7 +96,7 @@ class HomepageFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragme
 
             R.id.button_log -> {
             }
-            R.id.button_json_utils -> FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
+            R.id.button_json_utils -> switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
             R.id.btn_lifecycle -> startActivityExt(activity, LifecycleActivity::class.java)
         }
     }

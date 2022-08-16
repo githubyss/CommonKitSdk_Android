@@ -23,8 +23,8 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.util.Util
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
-import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.isActivityDestroy
+import com.githubyss.mobile.common.kit.util.isFragmentDestroy
 
 
 /**
@@ -158,8 +158,8 @@ object GlideUtils {
                 when (context) {
                     is Activity -> if (isActivityDestroy(context)) return
                     is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
+                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
                 }
             }
         }
@@ -248,8 +248,8 @@ object GlideUtils {
                 when (context) {
                     is Activity -> if (isActivityDestroy(context)) return
                     is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
+                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
                 }
             }
         }
@@ -350,8 +350,8 @@ object GlideUtils {
                 when (context) {
                     is Activity -> if (isActivityDestroy(context)) return
                     is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
+                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
                 }
             }
         }
@@ -442,8 +442,8 @@ object GlideUtils {
                 when (context) {
                     is Activity -> if (isActivityDestroy(context)) return
                     is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
+                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
                 }
             }
         }

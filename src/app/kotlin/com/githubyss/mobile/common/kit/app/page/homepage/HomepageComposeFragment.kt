@@ -80,7 +80,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 text = getStringFromRes(R.string.comkit_homepage_button_mvvm_fragment),
                 modifier = Modifier.weight(1F),
             ) {
-                FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
+                switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
             }
         }
         ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvi)) {
@@ -106,14 +106,14 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 modifier = Modifier.weight(1F)
             ) {
                 startActivityExt(activity, ComposeActivity::class.java)
-                // FragmentUtils.switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
+                // switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
             }
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_compose_toolbar),
                 modifier = Modifier.weight(1F)
             ) {
                 startActivityExt(activity, ComposeToolbarActivity::class.java)
-                // FragmentUtils.switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
+                // switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
             }
         }
         LayoutWeightHorizontal {
@@ -154,7 +154,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 text = getStringFromRes(R.string.comkit_homepage_button_json_utils),
                 modifier = Modifier.weight(1F)
             ) {
-                FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
+                switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
             }
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_glide),

@@ -251,11 +251,11 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
         }
 
         fun onAddFragment(v: View) {
-            FragmentUtils.switchFragmentByAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this@LifecycleFragment, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
+            switchFragmentByAddHideShow(LifecycleNextFragment(), LifecycleNextFragment.TAG, this@LifecycleFragment, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
         }
 
         fun onReplaceFragment(v: View) {
-            FragmentUtils.replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
+            replaceFragment(LifecycleNextFragment(), LifecycleNextFragment.TAG, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
         }
 
         fun onClearLog(v: View) {
