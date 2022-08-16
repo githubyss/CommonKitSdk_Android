@@ -43,442 +43,449 @@ import com.githubyss.mobile.common.kit.util.isFragmentDestroy
  * @github githubyss
  * @createdTime 2021/02/05 10:11:54
  */
-object GlideUtils {
 
-    /**
-     * Load image by path.
-     *
-     * @param imageView      The image view to load.
-     * @param context        The context.
-     * @param loadPath       The image path, see top description.
-     * @param placeholderRes The placeholder resource when loading.
-     * @param errorRes       The error resource when load failed.
-     */
-    fun loadImage(imageView: ImageView?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
-        imageView ?: return
-        context ?: return
-        loadPath ?: return
+/** ****************************** Properties ****************************** */
 
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.skipMemoryCache(false)
-        requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
-        requestOptions = when (placeholderRes) {
-            is Int -> requestOptions.placeholder(placeholderRes)
-            is Drawable -> requestOptions.placeholder(placeholderRes)
-            else -> requestOptions
-        }
-        requestOptions = when (errorRes) {
-            is Int -> requestOptions.error(errorRes)
-            is Drawable -> requestOptions.error(errorRes)
-            else -> requestOptions
-        }
+/**  */
+private const val TAG: String = "GlideUtils"
 
-        loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_DRAWABLE)
+
+/** ****************************** Functions ****************************** */
+
+/**
+ * Load image by path.
+ *
+ * @param imageView      The image view to load.
+ * @param context        The context.
+ * @param loadPath       The image path, see top description.
+ * @param placeholderRes The placeholder resource when loading.
+ * @param errorRes       The error resource when load failed.
+ */
+fun loadImage(imageView: ImageView?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
+    imageView ?: return
+    context ?: return
+    loadPath ?: return
+
+    var requestOptions = RequestOptions()
+    requestOptions = requestOptions.skipMemoryCache(false)
+    requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
+    requestOptions = when (placeholderRes) {
+        is Int -> requestOptions.placeholder(placeholderRes)
+        is Drawable -> requestOptions.placeholder(placeholderRes)
+        else -> requestOptions
+    }
+    requestOptions = when (errorRes) {
+        is Int -> requestOptions.error(errorRes)
+        is Drawable -> requestOptions.error(errorRes)
+        else -> requestOptions
     }
 
-    /**
-     * Load image as gif by path.
-     *
-     * @param imageView      The image view to load.
-     * @param context        The context.
-     * @param loadPath       The image path, see top description.
-     * @param placeholderRes The placeholder resource when loading.
-     * @param errorRes       The error resource when load failed.
-     */
-    fun loadImageAsGif(imageView: ImageView?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
-        imageView ?: return
-        context ?: return
-        loadPath ?: return
+    loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_DRAWABLE)
+}
 
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.skipMemoryCache(false)
-        requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-        requestOptions = when (placeholderRes) {
-            is Int -> requestOptions.placeholder(placeholderRes)
-            is Drawable -> requestOptions.placeholder(placeholderRes)
-            else -> requestOptions
-        }
-        requestOptions = when (errorRes) {
-            is Int -> requestOptions.error(errorRes)
-            is Drawable -> requestOptions.error(errorRes)
-            else -> requestOptions
-        }
+/**
+ * Load image as gif by path.
+ *
+ * @param imageView      The image view to load.
+ * @param context        The context.
+ * @param loadPath       The image path, see top description.
+ * @param placeholderRes The placeholder resource when loading.
+ * @param errorRes       The error resource when load failed.
+ */
+fun loadImageAsGif(imageView: ImageView?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
+    imageView ?: return
+    context ?: return
+    loadPath ?: return
 
-        loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_GIF)
+    var requestOptions = RequestOptions()
+    requestOptions = requestOptions.skipMemoryCache(false)
+    requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+    requestOptions = when (placeholderRes) {
+        is Int -> requestOptions.placeholder(placeholderRes)
+        is Drawable -> requestOptions.placeholder(placeholderRes)
+        else -> requestOptions
+    }
+    requestOptions = when (errorRes) {
+        is Int -> requestOptions.error(errorRes)
+        is Drawable -> requestOptions.error(errorRes)
+        else -> requestOptions
     }
 
-    /**
-     * Load image as circled by path.
-     *
-     * @param imageView      The image view to load.
-     * @param context        The context.
-     * @param loadPath       The image path, see top description.
-     * @param placeholderRes The placeholder resource when loading.
-     * @param errorRes       The error resource when load failed.
-     */
-    fun loadCircleImage(imageView: ImageView?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
-        imageView ?: return
-        context ?: return
-        loadPath ?: return
+    loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_GIF)
+}
 
-        var requestOptions = RequestOptions.circleCropTransform()
-        requestOptions = requestOptions.skipMemoryCache(false)
-        requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
-        requestOptions = when (placeholderRes) {
-            is Int -> requestOptions.placeholder(placeholderRes)
-            is Drawable -> requestOptions.placeholder(placeholderRes)
-            else -> requestOptions
-        }
-        requestOptions = when (errorRes) {
-            is Int -> requestOptions.error(errorRes)
-            is Drawable -> requestOptions.error(errorRes)
-            else -> requestOptions
-        }
+/**
+ * Load image as circled by path.
+ *
+ * @param imageView      The image view to load.
+ * @param context        The context.
+ * @param loadPath       The image path, see top description.
+ * @param placeholderRes The placeholder resource when loading.
+ * @param errorRes       The error resource when load failed.
+ */
+fun loadCircleImage(imageView: ImageView?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
+    imageView ?: return
+    context ?: return
+    loadPath ?: return
 
-        loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_DRAWABLE)
+    var requestOptions = RequestOptions.circleCropTransform()
+    requestOptions = requestOptions.skipMemoryCache(false)
+    requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
+    requestOptions = when (placeholderRes) {
+        is Int -> requestOptions.placeholder(placeholderRes)
+        is Drawable -> requestOptions.placeholder(placeholderRes)
+        else -> requestOptions
+    }
+    requestOptions = when (errorRes) {
+        is Int -> requestOptions.error(errorRes)
+        is Drawable -> requestOptions.error(errorRes)
+        else -> requestOptions
     }
 
-    /**
-     * Load image by path, requestOptions, transitionOptions.
-     * Default load as drawable.
-     *
-     * @param imageView         The image view to load.
-     * @param context           The context.
-     * @param loadPath          The image path, see top description.
-     * @param requestOptions    The request options.
-     * @param decodeStrategy    The decode strategy to load image resource.
-     */
-    fun <C, L> loadImageByOptions(imageView: ImageView?, context: C?, loadPath: L?, requestOptions: RequestOptions? = null, @GlideDecodeStrategy decodeStrategy: String = GlideDecodeStrategy.AS_DRAWABLE) {
-        imageView ?: return
-        context ?: return
-        loadPath ?: return
+    loadImageByOptions(imageView, context, loadPath, requestOptions, GlideDecodeStrategy.AS_DRAWABLE)
+}
 
-        if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
-            if (Util.isOnMainThread()) {
-                when (context) {
-                    is Activity -> if (isActivityDestroy(context)) return
-                    is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                }
-            }
-        }
+/**
+ * Load image by path, requestOptions, transitionOptions.
+ * Default load as drawable.
+ *
+ * @param imageView         The image view to load.
+ * @param context           The context.
+ * @param loadPath          The image path, see top description.
+ * @param requestOptions    The request options.
+ * @param decodeStrategy    The decode strategy to load image resource.
+ */
+fun <C, L> loadImageByOptions(imageView: ImageView?, context: C?, loadPath: L?, requestOptions: RequestOptions? = null, @GlideDecodeStrategy decodeStrategy: String = GlideDecodeStrategy.AS_DRAWABLE) {
+    imageView ?: return
+    context ?: return
+    loadPath ?: return
 
-        var requestManager: RequestManager? = null
-        when (context) {
-            is Context -> requestManager = Glide.with(context)
-            is Activity -> requestManager = Glide.with(context)
-            is FragmentActivity -> requestManager = Glide.with(context)
-            is Fragment -> requestManager = Glide.with(context)
-            is android.app.Fragment -> requestManager = Glide.with(context)
-            is View -> requestManager = Glide.with(context)
-        }
-        requestManager ?: return
-
-        var requestBuilder: RequestBuilder<*>? = when (decodeStrategy) {
-            GlideDecodeStrategy.AS_BITMAP -> requestManager.asBitmap()
-                .transition(BitmapTransitionOptions.withCrossFade())
-            GlideDecodeStrategy.AS_GIF -> requestManager.asGif()
-                .transition(DrawableTransitionOptions.withCrossFade())
-            GlideDecodeStrategy.AS_DRAWABLE -> requestManager.asDrawable()
-                .transition(DrawableTransitionOptions.withCrossFade())
-            GlideDecodeStrategy.AS_FILE -> requestManager.asFile()
-                .transition(GenericTransitionOptions.withNoTransition())
-            else -> null
-        }
-        requestBuilder = requestOptions?.let {
-            requestBuilder?.apply(requestOptions)
-        }
-        requestBuilder ?: return
-
-        when (loadPath) {
-            is Int, is String -> {
-                requestBuilder.load(loadPath)
-                    .into(imageView)
+    if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
+        if (Util.isOnMainThread()) {
+            when (context) {
+                is Activity -> if (isActivityDestroy(context)) return
+                is FragmentActivity -> if (isActivityDestroy(context)) return
+                is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
             }
         }
     }
 
-    /**
-     * Load image into view group background by path.
-     *
-     * @param viewGroup      The view group to load.
-     * @param context        The context.
-     * @param loadPath       The image path, see top description.
-     * @param placeholderRes The placeholder resource when loading.
-     * @param errorRes       The error resource when load failed.
-     */
-    fun loadBackground(viewGroup: ViewGroup?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
-        viewGroup ?: return
-        context ?: return
-        loadPath ?: return
-
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.skipMemoryCache(false)
-        requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
-        requestOptions = when (placeholderRes) {
-            is Int -> requestOptions.placeholder(placeholderRes)
-            is Drawable -> requestOptions.placeholder(placeholderRes)
-            else -> requestOptions
-        }
-        requestOptions = when (errorRes) {
-            is Int -> requestOptions.error(errorRes)
-            is Drawable -> requestOptions.error(errorRes)
-            else -> requestOptions
-        }
-
-        loadBackgroundByOptions(viewGroup, context, loadPath, requestOptions)
+    var requestManager: RequestManager? = null
+    when (context) {
+        is Context -> requestManager = Glide.with(context)
+        is Activity -> requestManager = Glide.with(context)
+        is FragmentActivity -> requestManager = Glide.with(context)
+        is Fragment -> requestManager = Glide.with(context)
+        is android.app.Fragment -> requestManager = Glide.with(context)
+        is View -> requestManager = Glide.with(context)
     }
+    requestManager ?: return
 
-    /**
-     * Load image into view group background by path.
-     *
-     * @param viewGroup      The view group to load.
-     * @param context        The context.
-     * @param loadPath       The image path, see top description.
-     * @param requestOptions The request options.
-     */
-    fun loadBackgroundByOptions(viewGroup: ViewGroup?, context: Any?, loadPath: Any?, requestOptions: RequestOptions? = null) {
-        viewGroup ?: return
-        context ?: return
-        loadPath ?: return
-
-        if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
-            if (Util.isOnMainThread()) {
-                when (context) {
-                    is Activity -> if (isActivityDestroy(context)) return
-                    is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                }
-            }
-        }
-
-        var requestManager: RequestManager? = null
-        when (context) {
-            is Context -> requestManager = Glide.with(context)
-            is Activity -> requestManager = Glide.with(context)
-            is FragmentActivity -> requestManager = Glide.with(context)
-            is Fragment -> requestManager = Glide.with(context)
-            is android.app.Fragment -> requestManager = Glide.with(context)
-            is View -> requestManager = Glide.with(context)
-        }
-        requestManager ?: return
-
-        var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
+    var requestBuilder: RequestBuilder<*>? = when (decodeStrategy) {
+        GlideDecodeStrategy.AS_BITMAP -> requestManager.asBitmap()
             .transition(BitmapTransitionOptions.withCrossFade())
-        requestBuilder = requestOptions?.let {
-            requestBuilder?.apply(requestOptions)
+        GlideDecodeStrategy.AS_GIF -> requestManager.asGif()
+            .transition(DrawableTransitionOptions.withCrossFade())
+        GlideDecodeStrategy.AS_DRAWABLE -> requestManager.asDrawable()
+            .transition(DrawableTransitionOptions.withCrossFade())
+        GlideDecodeStrategy.AS_FILE -> requestManager.asFile()
+            .transition(GenericTransitionOptions.withNoTransition())
+        else -> null
+    }
+    requestBuilder = requestOptions?.let {
+        requestBuilder?.apply(requestOptions)
+    }
+    requestBuilder ?: return
+
+    when (loadPath) {
+        is Int, is String -> {
+            requestBuilder.load(loadPath)
+                .into(imageView)
         }
-        requestBuilder ?: return
+    }
+}
 
-        val viewGroupTarget = object : CustomTarget<Bitmap?>() {
-            override fun onLoadCleared(placeholderDrawable: Drawable?) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    viewGroup.background = placeholderDrawable
-                }
-            }
+/**
+ * Load image into view group background by path.
+ *
+ * @param viewGroup      The view group to load.
+ * @param context        The context.
+ * @param loadPath       The image path, see top description.
+ * @param placeholderRes The placeholder resource when loading.
+ * @param errorRes       The error resource when load failed.
+ */
+fun loadBackground(viewGroup: ViewGroup?, context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
+    viewGroup ?: return
+    context ?: return
+    loadPath ?: return
 
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                super.onLoadFailed(errorDrawable)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    viewGroup.background = errorDrawable
-                }
-            }
+    var requestOptions = RequestOptions()
+    requestOptions = requestOptions.skipMemoryCache(false)
+    requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
+    requestOptions = when (placeholderRes) {
+        is Int -> requestOptions.placeholder(placeholderRes)
+        is Drawable -> requestOptions.placeholder(placeholderRes)
+        else -> requestOptions
+    }
+    requestOptions = when (errorRes) {
+        is Int -> requestOptions.error(errorRes)
+        is Drawable -> requestOptions.error(errorRes)
+        else -> requestOptions
+    }
 
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    viewGroup.background = BitmapDrawable(null, resource)
-                }
-            }
-        }
+    loadBackgroundByOptions(viewGroup, context, loadPath, requestOptions)
+}
 
-        when (loadPath) {
-            is Int, is String -> {
-                requestBuilder.load(loadPath)
-                    .into(viewGroupTarget)
+/**
+ * Load image into view group background by path.
+ *
+ * @param viewGroup      The view group to load.
+ * @param context        The context.
+ * @param loadPath       The image path, see top description.
+ * @param requestOptions The request options.
+ */
+fun loadBackgroundByOptions(viewGroup: ViewGroup?, context: Any?, loadPath: Any?, requestOptions: RequestOptions? = null) {
+    viewGroup ?: return
+    context ?: return
+    loadPath ?: return
+
+    if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
+        if (Util.isOnMainThread()) {
+            when (context) {
+                is Activity -> if (isActivityDestroy(context)) return
+                is FragmentActivity -> if (isActivityDestroy(context)) return
+                is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
             }
         }
     }
 
-    /**
-     * Get bitmap by path.
-     *
-     * @param context        The context.
-     * @param loadPath       The image path, see top description.
-     * @param listener       Get bitmap listener.
-     * @param placeholderRes The placeholder resource when loading.
-     * @param errorRes       The error resource when load failed.
-     */
-    fun getBitmap(context: Any?, loadPath: Any?, listener: GlideGetBitmapListener?, placeholderRes: Any? = null, errorRes: Any? = null) {
-        context ?: return
-        loadPath ?: return
-        listener ?: return
-
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.skipMemoryCache(false)
-        requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
-        requestOptions = when (placeholderRes) {
-            is Int -> requestOptions.placeholder(placeholderRes)
-            is Drawable -> requestOptions.placeholder(placeholderRes)
-            else -> requestOptions
-        }
-        requestOptions = when (errorRes) {
-            is Int -> requestOptions.error(errorRes)
-            is Drawable -> requestOptions.error(errorRes)
-            else -> requestOptions
-        }
-
-        getBitmapByOptions(context, loadPath, listener, requestOptions)
+    var requestManager: RequestManager? = null
+    when (context) {
+        is Context -> requestManager = Glide.with(context)
+        is Activity -> requestManager = Glide.with(context)
+        is FragmentActivity -> requestManager = Glide.with(context)
+        is Fragment -> requestManager = Glide.with(context)
+        is android.app.Fragment -> requestManager = Glide.with(context)
+        is View -> requestManager = Glide.with(context)
     }
+    requestManager ?: return
 
-    /**
-     * Get bitmap by path.
-     *
-     * @param context        The context.
-     * @param loadPath       The image path, see top description.
-     * @param listener       Get bitmap listener.
-     * @param requestOptions The request options.
-     */
-    fun getBitmapByOptions(context: Any?, loadPath: Any?, listener: GlideGetBitmapListener?, requestOptions: RequestOptions? = null) {
-        context ?: return
-        loadPath ?: return
-        listener ?: return
+    var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
+        .transition(BitmapTransitionOptions.withCrossFade())
+    requestBuilder = requestOptions?.let {
+        requestBuilder?.apply(requestOptions)
+    }
+    requestBuilder ?: return
 
-        if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
-            if (Util.isOnMainThread()) {
-                when (context) {
-                    is Activity -> if (isActivityDestroy(context)) return
-                    is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                }
+    val viewGroupTarget = object : CustomTarget<Bitmap?>() {
+        override fun onLoadCleared(placeholderDrawable: Drawable?) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewGroup.background = placeholderDrawable
             }
         }
 
-        var requestManager: RequestManager? = null
-        when (context) {
-            is Context -> requestManager = Glide.with(context)
-            is Activity -> requestManager = Glide.with(context)
-            is FragmentActivity -> requestManager = Glide.with(context)
-            is Fragment -> requestManager = Glide.with(context)
-            is android.app.Fragment -> requestManager = Glide.with(context)
-            is View -> requestManager = Glide.with(context)
-        }
-        requestManager ?: return
-
-        var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
-            .transition(BitmapTransitionOptions.withCrossFade())
-        requestBuilder = requestOptions?.let {
-            requestBuilder?.apply(requestOptions)
-        }
-        requestBuilder ?: return
-
-        val listenerTarget = object : CustomTarget<Bitmap?>() {
-            override fun onLoadCleared(placeholder: Drawable?) {
-                listener.onFail()
-            }
-
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                super.onLoadFailed(errorDrawable)
-                listener.onFail()
-            }
-
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                listener.onSucceed(resource)
+        override fun onLoadFailed(errorDrawable: Drawable?) {
+            super.onLoadFailed(errorDrawable)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewGroup.background = errorDrawable
             }
         }
 
-        when (loadPath) {
-            is Int, is String -> {
-                requestBuilder.load(loadPath)
-                    .into(listenerTarget)
+        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewGroup.background = BitmapDrawable(null, resource)
             }
         }
     }
 
-    /**
-     * Preload image into cache by path.
-     *
-     * @param context  The context.
-     * @param loadPath The image path, see top description.
-     * @param placeholderRes The placeholder resource when loading.
-     * @param errorRes       The error resource when load failed.
-     */
-    fun preloadImage(context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
-        context ?: return
-        loadPath ?: return
-
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.skipMemoryCache(false)
-        requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
-        requestOptions = when (placeholderRes) {
-            is Int -> requestOptions.placeholder(placeholderRes)
-            is Drawable -> requestOptions.placeholder(placeholderRes)
-            else -> requestOptions
+    when (loadPath) {
+        is Int, is String -> {
+            requestBuilder.load(loadPath)
+                .into(viewGroupTarget)
         }
-        requestOptions = when (errorRes) {
-            is Int -> requestOptions.error(errorRes)
-            is Drawable -> requestOptions.error(errorRes)
-            else -> requestOptions
-        }
+    }
+}
 
-        preloadImage(context, loadPath, requestOptions)
+/**
+ * Get bitmap by path.
+ *
+ * @param context        The context.
+ * @param loadPath       The image path, see top description.
+ * @param listener       Get bitmap listener.
+ * @param placeholderRes The placeholder resource when loading.
+ * @param errorRes       The error resource when load failed.
+ */
+fun getBitmap(context: Any?, loadPath: Any?, listener: GlideGetBitmapListener?, placeholderRes: Any? = null, errorRes: Any? = null) {
+    context ?: return
+    loadPath ?: return
+    listener ?: return
+
+    var requestOptions = RequestOptions()
+    requestOptions = requestOptions.skipMemoryCache(false)
+    requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
+    requestOptions = when (placeholderRes) {
+        is Int -> requestOptions.placeholder(placeholderRes)
+        is Drawable -> requestOptions.placeholder(placeholderRes)
+        else -> requestOptions
+    }
+    requestOptions = when (errorRes) {
+        is Int -> requestOptions.error(errorRes)
+        is Drawable -> requestOptions.error(errorRes)
+        else -> requestOptions
     }
 
-    /**
-     * Preload image into cache by path.
-     *
-     * @param context  The context.
-     * @param loadPath The image path, see top description.
-     * @param requestOptions The request options.
-     */
-    fun preloadImageByOptions(context: Any?, loadPath: Any?, requestOptions: RequestOptions? = null) {
-        context ?: return
-        loadPath ?: return
+    getBitmapByOptions(context, loadPath, listener, requestOptions)
+}
 
-        if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
-            if (Util.isOnMainThread()) {
-                when (context) {
-                    is Activity -> if (isActivityDestroy(context)) return
-                    is FragmentActivity -> if (isActivityDestroy(context)) return
-                    is Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                    is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
-                }
-            }
-        }
+/**
+ * Get bitmap by path.
+ *
+ * @param context        The context.
+ * @param loadPath       The image path, see top description.
+ * @param listener       Get bitmap listener.
+ * @param requestOptions The request options.
+ */
+fun getBitmapByOptions(context: Any?, loadPath: Any?, listener: GlideGetBitmapListener?, requestOptions: RequestOptions? = null) {
+    context ?: return
+    loadPath ?: return
+    listener ?: return
 
-        var requestManager: RequestManager? = null
-        when (context) {
-            is Context -> requestManager = Glide.with(context)
-            is Activity -> requestManager = Glide.with(context)
-            is FragmentActivity -> requestManager = Glide.with(context)
-            is Fragment -> requestManager = Glide.with(context)
-            is android.app.Fragment -> requestManager = Glide.with(context)
-            is View -> requestManager = Glide.with(context)
-        }
-        requestManager ?: return
-
-        var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
-            .transition(BitmapTransitionOptions.withCrossFade())
-        requestBuilder = requestOptions?.let {
-            requestBuilder?.apply(requestOptions)
-        }
-        requestBuilder ?: return
-
-        when (loadPath) {
-            is Int, is String -> {
-                requestBuilder.load(loadPath)
-                    .preload()
+    if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
+        if (Util.isOnMainThread()) {
+            when (context) {
+                is Activity -> if (isActivityDestroy(context)) return
+                is FragmentActivity -> if (isActivityDestroy(context)) return
+                is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
             }
         }
     }
 
-
-    /** ****************************** Interface ****************************** */
-
-    interface GlideGetBitmapListener {
-        fun onSucceed(resource: Bitmap?)
-        fun onFail()
+    var requestManager: RequestManager? = null
+    when (context) {
+        is Context -> requestManager = Glide.with(context)
+        is Activity -> requestManager = Glide.with(context)
+        is FragmentActivity -> requestManager = Glide.with(context)
+        is Fragment -> requestManager = Glide.with(context)
+        is android.app.Fragment -> requestManager = Glide.with(context)
+        is View -> requestManager = Glide.with(context)
     }
+    requestManager ?: return
+
+    var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
+        .transition(BitmapTransitionOptions.withCrossFade())
+    requestBuilder = requestOptions?.let {
+        requestBuilder?.apply(requestOptions)
+    }
+    requestBuilder ?: return
+
+    val listenerTarget = object : CustomTarget<Bitmap?>() {
+        override fun onLoadCleared(placeholder: Drawable?) {
+            listener.onFail()
+        }
+
+        override fun onLoadFailed(errorDrawable: Drawable?) {
+            super.onLoadFailed(errorDrawable)
+            listener.onFail()
+        }
+
+        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+            listener.onSucceed(resource)
+        }
+    }
+
+    when (loadPath) {
+        is Int, is String -> {
+            requestBuilder.load(loadPath)
+                .into(listenerTarget)
+        }
+    }
+}
+
+/**
+ * Preload image into cache by path.
+ *
+ * @param context  The context.
+ * @param loadPath The image path, see top description.
+ * @param placeholderRes The placeholder resource when loading.
+ * @param errorRes       The error resource when load failed.
+ */
+fun preloadImage(context: Any?, loadPath: Any?, placeholderRes: Any? = null, errorRes: Any? = null) {
+    context ?: return
+    loadPath ?: return
+
+    var requestOptions = RequestOptions()
+    requestOptions = requestOptions.skipMemoryCache(false)
+    requestOptions = requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL)
+    requestOptions = when (placeholderRes) {
+        is Int -> requestOptions.placeholder(placeholderRes)
+        is Drawable -> requestOptions.placeholder(placeholderRes)
+        else -> requestOptions
+    }
+    requestOptions = when (errorRes) {
+        is Int -> requestOptions.error(errorRes)
+        is Drawable -> requestOptions.error(errorRes)
+        else -> requestOptions
+    }
+
+    preloadImage(context, loadPath, requestOptions)
+}
+
+/**
+ * Preload image into cache by path.
+ *
+ * @param context  The context.
+ * @param loadPath The image path, see top description.
+ * @param requestOptions The request options.
+ */
+fun preloadImageByOptions(context: Any?, loadPath: Any?, requestOptions: RequestOptions? = null) {
+    context ?: return
+    loadPath ?: return
+
+    if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
+        if (Util.isOnMainThread()) {
+            when (context) {
+                is Activity -> if (isActivityDestroy(context)) return
+                is FragmentActivity -> if (isActivityDestroy(context)) return
+                is Fragment -> if (isFragmentDestroy(context.activity, context)) return
+                is android.app.Fragment -> if (isFragmentDestroy(context.activity, context)) return
+            }
+        }
+    }
+
+    var requestManager: RequestManager? = null
+    when (context) {
+        is Context -> requestManager = Glide.with(context)
+        is Activity -> requestManager = Glide.with(context)
+        is FragmentActivity -> requestManager = Glide.with(context)
+        is Fragment -> requestManager = Glide.with(context)
+        is android.app.Fragment -> requestManager = Glide.with(context)
+        is View -> requestManager = Glide.with(context)
+    }
+    requestManager ?: return
+
+    var requestBuilder: RequestBuilder<Bitmap>? = requestManager.asBitmap()
+        .transition(BitmapTransitionOptions.withCrossFade())
+    requestBuilder = requestOptions?.let {
+        requestBuilder?.apply(requestOptions)
+    }
+    requestBuilder ?: return
+
+    when (loadPath) {
+        is Int, is String -> {
+            requestBuilder.load(loadPath)
+                .preload()
+        }
+    }
+}
+
+
+/** ****************************** Interface ****************************** */
+
+/**  */
+interface GlideGetBitmapListener {
+    fun onSucceed(resource: Bitmap?)
+    fun onFail()
 }
