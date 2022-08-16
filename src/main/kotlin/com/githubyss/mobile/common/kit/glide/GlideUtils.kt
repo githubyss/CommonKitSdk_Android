@@ -23,8 +23,8 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.util.Util
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
-import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
+import com.githubyss.mobile.common.kit.util.isActivityDestroy
 
 
 /**
@@ -156,8 +156,8 @@ object GlideUtils {
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
-                    is Activity -> if (ActivityUtils.isActivityDestroy(context)) return
-                    is FragmentActivity -> if (ActivityUtils.isActivityDestroy(context)) return
+                    is Activity -> if (isActivityDestroy(context)) return
+                    is FragmentActivity -> if (isActivityDestroy(context)) return
                     is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                     is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                 }
@@ -246,8 +246,8 @@ object GlideUtils {
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
-                    is Activity -> if (ActivityUtils.isActivityDestroy(context)) return
-                    is FragmentActivity -> if (ActivityUtils.isActivityDestroy(context)) return
+                    is Activity -> if (isActivityDestroy(context)) return
+                    is FragmentActivity -> if (isActivityDestroy(context)) return
                     is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                     is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                 }
@@ -348,8 +348,8 @@ object GlideUtils {
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
-                    is Activity -> if (ActivityUtils.isActivityDestroy(context)) return
-                    is FragmentActivity -> if (ActivityUtils.isActivityDestroy(context)) return
+                    is Activity -> if (isActivityDestroy(context)) return
+                    is FragmentActivity -> if (isActivityDestroy(context)) return
                     is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                     is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                 }
@@ -440,8 +440,8 @@ object GlideUtils {
         if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
             if (Util.isOnMainThread()) {
                 when (context) {
-                    is Activity -> if (ActivityUtils.isActivityDestroy(context)) return
-                    is FragmentActivity -> if (ActivityUtils.isActivityDestroy(context)) return
+                    is Activity -> if (isActivityDestroy(context)) return
+                    is FragmentActivity -> if (isActivityDestroy(context)) return
                     is Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                     is android.app.Fragment -> if (FragmentUtils.isFragmentDestroy(context.activity, context)) return
                 }

@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.annotation.RawRes
 import androidx.core.content.ContextCompat
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import java.io.IOException
 import java.io.InputStream
 import java.io.UnsupportedEncodingException
@@ -40,7 +40,7 @@ val systemResources: Resources = Resources.getSystem()
  * @param context The context.
  * @return The resources.
  */
-fun getContextResources(context: Context? = ComkitApplicationConfig.getApp()): Resources {
+fun getContextResources(context: Context? = BaseApplicationHolder.getApp()): Resources {
     context ?: return Resources.getSystem()
     return context.resources
 }
@@ -52,7 +52,7 @@ fun getContextResources(context: Context? = ComkitApplicationConfig.getApp()): R
  * @param context The context.
  * @return The integer.
  */
-fun getIntFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getIntFromRes(resId: Int, context: Context? = BaseApplicationHolder.getApp()): Int {
     context ?: return 0
 
     return try {
@@ -71,7 +71,7 @@ fun getIntFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp
  * @param context The context.
  * @return The float.
  */
-fun getFloatFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
+fun getFloatFromRes(resId: Int, context: Context? = BaseApplicationHolder.getApp()): Float {
     context ?: return 0f
 
     return try {
@@ -91,7 +91,7 @@ fun getFloatFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getA
  * @param context The context.
  * @return The boolean.
  */
-fun getBooleanFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun getBooleanFromRes(resId: Int, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     context ?: return false
 
     return try {
@@ -111,7 +111,7 @@ fun getBooleanFromRes(resId: Int, context: Context? = ComkitApplicationConfig.ge
  * @param context   The context.
  * @return The string value associated with a particular resource ID.
  */
-fun getStringFromRes(resId: Int, vararg resFormat: Any = emptyArray(), context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getStringFromRes(resId: Int, vararg resFormat: Any = emptyArray(), context: Context? = BaseApplicationHolder.getApp()): String {
     context ?: return ""
 
     return try {
@@ -131,7 +131,7 @@ fun getStringFromRes(resId: Int, vararg resFormat: Any = emptyArray(), context: 
  * @param context The context.
  * @return The color.
  */
-fun getColorFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getColorFromRes(resId: Int, context: Context? = BaseApplicationHolder.getApp()): Int {
     context ?: return 0
 
     return try {
@@ -150,7 +150,7 @@ fun getColorFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getA
  * @param context The context.
  * @return The dimension.
  */
-fun getDimensionFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Float {
+fun getDimensionFromRes(resId: Int, context: Context? = BaseApplicationHolder.getApp()): Float {
     context ?: return 0f
 
     return try {
@@ -169,7 +169,7 @@ fun getDimensionFromRes(resId: Int, context: Context? = ComkitApplicationConfig.
  * @param context The context.
  * @return The dimension pixel size.
  */
-fun getDimensionPixelSizeFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getDimensionPixelSizeFromRes(resId: Int, context: Context? = BaseApplicationHolder.getApp()): Int {
     context ?: return 0
 
     return try {
@@ -188,7 +188,7 @@ fun getDimensionPixelSizeFromRes(resId: Int, context: Context? = ComkitApplicati
  * @param context The context.
  * @return The drawable.
  */
-fun getDrawableFromRes(resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+fun getDrawableFromRes(resId: Int, context: Context? = BaseApplicationHolder.getApp()): Drawable? {
     context ?: return null
 
     return try {
@@ -207,7 +207,7 @@ fun getDrawableFromRes(resId: Int, context: Context? = ComkitApplicationConfig.g
  * @param context        The context.
  * @return the content of assets
  */
-fun getStringFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getStringFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): String {
     return readAssets2String(assetsFilePath, context = context)
 }
 
@@ -218,7 +218,7 @@ fun getStringFromAssets(assetsFilePath: String?, context: Context? = ComkitAppli
  * @param context The context.
  * @return the drawable identifier by name
  */
-fun getDrawableIdByName(name: String?, context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getDrawableIdByName(name: String?, context: Context? = BaseApplicationHolder.getApp()): Int {
     name ?: return 0
     context ?: return 0
 
@@ -236,7 +236,7 @@ fun getDrawableIdByName(name: String?, context: Context? = ComkitApplicationConf
  * @param destFilePath   The path of destination file.
  * @return `true`: success<br></br>`false`: fail
  */
-fun copyFileFromAssets(assetsFilePath: String?, destFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun copyFileFromAssets(assetsFilePath: String?, destFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     assetsFilePath ?: return false
     destFilePath ?: return false
     context ?: return false
@@ -269,7 +269,7 @@ fun copyFileFromAssets(assetsFilePath: String?, destFilePath: String?, context: 
  * @param charsetName    The name of charset.
  * @return the content of assets
  */
-fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
+fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = BaseApplicationHolder.getApp()): String {
     assetsFilePath ?: return ""
     context ?: return ""
     if (isSpace(assetsFilePath)) return ""
@@ -303,7 +303,7 @@ fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, cont
  * @param charsetName The name of charset.
  * @return the content of file in assets
  */
-fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String>? {
+fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, context: Context? = BaseApplicationHolder.getApp()): List<String>? {
     assetsFilePath ?: return null
     if (isSpace(assetsFilePath)) return null
 
@@ -325,7 +325,7 @@ fun readAssets2List(assetsFilePath: String?, charsetName: String? = null, contex
  * @param destFilePath The path of destination file.
  * @return `true`: success<br></br>`false`: fail
  */
-fun copyFileFromRaw(@RawRes resId: Int, destFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun copyFileFromRaw(@RawRes resId: Int, destFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     return writeFileFromInput(destFilePath, getContextResources(context).openRawResource(resId), false)
 }
 
@@ -336,7 +336,7 @@ fun copyFileFromRaw(@RawRes resId: Int, destFilePath: String?, context: Context?
  * @param charsetName The name of charset.
  * @return the content of resource in raw
  */
-fun readRaw2String(@RawRes resId: Int, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): String {
+fun readRaw2String(@RawRes resId: Int, charsetName: String? = null, context: Context? = BaseApplicationHolder.getApp()): String {
     val `is`: InputStream = getContextResources(context).openRawResource(resId)
     val bytes = input2Bytes(`is`) ?: return ""
     return if (isSpace(charsetName)) {
@@ -360,6 +360,6 @@ fun readRaw2String(@RawRes resId: Int, charsetName: String? = null, context: Con
  * @param charsetName The name of charset.
  * @return the content of file in assets
  */
-fun readRaw2List(@RawRes resId: Int, charsetName: String? = null, context: Context? = ComkitApplicationConfig.getApp()): List<String>? {
+fun readRaw2List(@RawRes resId: Int, charsetName: String? = null, context: Context? = BaseApplicationHolder.getApp()): List<String>? {
     return input2List(getContextResources(context).openRawResource(resId), charsetName)
 }

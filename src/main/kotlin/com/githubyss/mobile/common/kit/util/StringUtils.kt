@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Resources.NotFoundException
 import androidx.annotation.ArrayRes
 import androidx.compose.runtime.Stable
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlin.experimental.and
@@ -49,7 +49,7 @@ fun length(s: CharSequence?): Int {
  * @param context The context.
  * @return The string array associated with the resource.
  */
-fun getStringArray(@ArrayRes id: Int, context: Context? = ComkitApplicationConfig.getApp()): Array<String?>? {
+fun getStringArray(@ArrayRes id: Int, context: Context? = BaseApplicationHolder.getApp()): Array<String?>? {
     context ?: return null
 
     return try {

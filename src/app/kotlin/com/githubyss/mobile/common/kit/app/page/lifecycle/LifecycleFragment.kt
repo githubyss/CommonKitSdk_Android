@@ -10,8 +10,8 @@ import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.Ba
 import com.githubyss.common.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentLifecycleBinding
-import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
+import com.githubyss.mobile.common.kit.util.startActivityExt
 
 
 /**
@@ -243,11 +243,11 @@ class LifecycleFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragm
     /**  */
     inner class OnClickPresenter {
         fun onStartActivity1(v: View) {
-            ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
+            startActivityExt(activity, LifecycleNextActivity::class.java)
         }
 
         fun onStartActivity2(v: View) {
-            ActivityUtils.startActivity(activity, LifecycleNextActivity::class.java)
+            startActivityExt(activity, LifecycleNextActivity::class.java)
         }
 
         fun onAddFragment(v: View) {

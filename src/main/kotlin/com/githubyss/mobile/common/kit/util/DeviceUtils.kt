@@ -13,7 +13,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -74,7 +74,7 @@ fun getManufacturer(): String {
  * @return the android id of device
  */
 @SuppressLint("HardwareIds")
-fun getAndroidID(context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getAndroidID(context: Context? = BaseApplicationHolder.getApp()): String {
     context ?: return ""
 
     return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID) ?: ""
@@ -117,7 +117,7 @@ fun getMacAddress(vararg excepts: String?): String {
 }
 
 @SuppressLint("MissingPermission", "HardwareIds")
-private fun getMacAddressByWifiInfo(context: Context? = ComkitApplicationConfig.getApp()): String {
+private fun getMacAddressByWifiInfo(context: Context? = BaseApplicationHolder.getApp()): String {
     context ?: return ""
 
     try {
@@ -272,7 +272,7 @@ fun isDeviceRooted(): Boolean {
  * @return `true`: yes<br></br>`false`: no
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-fun isAdbEnabled(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isAdbEnabled(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     context ?: return false
 
     return Settings.Secure.getInt(context.contentResolver, Settings.Global.ADB_ENABLED, 0) > 0
@@ -283,7 +283,7 @@ fun isAdbEnabled(context: Context? = ComkitApplicationConfig.getApp()): Boolean 
  *
  * @return `true`: yes<br></br>`false`: no
  */
-fun isTablet(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isTablet(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     context ?: return false
 
     return (systemResources.configuration?.screenLayout ?: return false) and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
@@ -294,7 +294,7 @@ fun isTablet(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
  *
  * @return `true`: yes<br></br>`false`: no
  */
-fun isEmulator(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isEmulator(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     context ?: return false
 
     val checkProperty = Build.FINGERPRINT.startsWith("generic") || Build.FINGERPRINT.toLowerCase().contains("vbox") || Build.FINGERPRINT.toLowerCase()
@@ -344,7 +344,7 @@ private fun isAddressNotInExcepts(address: String?, vararg excepts: String?): Bo
  * `<uses-permission android:name="android.permission.SHUTDOWN/>`
  * in manifest.
  */
-fun shutdown(context: Context? = ComkitApplicationConfig.getApp()) {
+fun shutdown(context: Context? = BaseApplicationHolder.getApp()) {
     context ?: return
 
     execCmd("reboot -p", true)
@@ -359,7 +359,7 @@ fun shutdown(context: Context? = ComkitApplicationConfig.getApp()) {
  * Requires root permission
  * or hold `android:sharedUserId="android.uid.system"` in manifest.
  */
-fun reboot(context: Context? = ComkitApplicationConfig.getApp()) {
+fun reboot(context: Context? = BaseApplicationHolder.getApp()) {
     context ?: return
 
     execCmd("reboot", true)
@@ -380,7 +380,7 @@ fun reboot(context: Context? = ComkitApplicationConfig.getApp()) {
  * @param reason code to pass to the kernel (e.g., "recovery") to
  * request special boot modes, or null.
  */
-fun reboot(reason: String?, context: Context? = ComkitApplicationConfig.getApp()) {
+fun reboot(reason: String?, context: Context? = BaseApplicationHolder.getApp()) {
     context ?: return
 
     val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager

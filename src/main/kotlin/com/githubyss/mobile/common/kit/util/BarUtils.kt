@@ -14,7 +14,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.drawerlayout.widget.DrawerLayout
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 
@@ -48,7 +48,7 @@ private const val KEY_OFFSET = -123
  * @param context The context.
  * @return the status bar's height
  */
-fun getStatusBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int {
+fun getStatusBarHeight(context: Context = BaseApplicationHolder.getApp()): Int {
     val resources = getContextResources(context)
     val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
     return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else -1
@@ -61,7 +61,7 @@ fun getStatusBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int
  *
  * @return the action bar's height
  */
-fun getActionBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int {
+fun getActionBarHeight(context: Context = BaseApplicationHolder.getApp()): Int {
     val resources = getContextResources(context)
     val tv = TypedValue()
     return if (context.theme?.resolveAttribute(R.attr.actionBarSize, tv, true) ?: return -1) TypedValue.complexToDimensionPixelSize(tv.data, displayMetrics) else -1
@@ -74,7 +74,7 @@ fun getActionBarHeight(context: Context = ComkitApplicationConfig.getApp()): Int
  *
  * @return the navigation bar's height
  */
-fun getNavBarHeight(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getNavBarHeight(context: Context? = BaseApplicationHolder.getApp()): Int {
     val resources = getContextResources(context)
     val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
     return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else -1
@@ -188,7 +188,7 @@ fun isNavBarVisible(activity: Activity?): Boolean {
  * @param window The window.
  * @return `true`: yes<br></br>`false`: no
  */
-fun isNavBarVisible(window: Window?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isNavBarVisible(window: Window?, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     window ?: return false
     context ?: return false
 
@@ -220,7 +220,7 @@ fun isNavBarVisible(window: Window?, context: Context? = ComkitApplicationConfig
  *
  * @return `true`: yes<br></br>`false`: no
  */
-fun isSupportNavBar(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isSupportNavBar(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
         val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager? ?: return false
         val display = wm.defaultDisplay
@@ -369,7 +369,7 @@ fun setStatusBarColor(activity: Activity?, @ColorInt color: Int, isDecor: Boolea
 fun setStatusBarColor(fakeStatusBar: View?, @ColorInt color: Int) {
     if (fakeStatusBar == null) return
     if (Build.VERSION.SDK_INT < VersionCode.KITKAT) return
-    val activity: Activity = ActivityUtils.getActivityByView(fakeStatusBar) ?: return
+    val activity: Activity = getActivityByView(fakeStatusBar) ?: return
     transparentStatusBar(activity)
     fakeStatusBar.visibility = View.VISIBLE
     val layoutParams = fakeStatusBar.layoutParams
@@ -386,7 +386,7 @@ fun setStatusBarColor(fakeStatusBar: View?, @ColorInt color: Int) {
 fun setStatusBarCustom(fakeStatusBar: View?) {
     if (fakeStatusBar == null) return
     if (Build.VERSION.SDK_INT < VersionCode.KITKAT) return
-    val activity: Activity = ActivityUtils.getActivityByView(fakeStatusBar) ?: return
+    val activity: Activity = getActivityByView(fakeStatusBar) ?: return
     transparentStatusBar(activity)
     fakeStatusBar.visibility = View.VISIBLE
     var layoutParams = fakeStatusBar.layoutParams
@@ -413,7 +413,7 @@ fun setStatusBarCustom(fakeStatusBar: View?) {
 fun setStatusBarColor4Drawer(drawer: DrawerLayout?, fakeStatusBar: View?, @ColorInt color: Int, isTop: Boolean = false) {
     if (drawer == null || fakeStatusBar == null) return
     if (Build.VERSION.SDK_INT < VersionCode.KITKAT) return
-    val activity: Activity = ActivityUtils.getActivityByView(fakeStatusBar) ?: return
+    val activity: Activity = getActivityByView(fakeStatusBar) ?: return
     transparentStatusBar(activity)
     drawer.fitsSystemWindows = false
     setStatusBarColor(fakeStatusBar, color)
@@ -516,7 +516,7 @@ fun setNotificationBarVisibility(isVisible: Boolean) {
     invokePanels(methodName)
 }
 
-private fun invokePanels(methodName: String, context: Context? = ComkitApplicationConfig.getApp()) {
+private fun invokePanels(methodName: String, context: Context? = BaseApplicationHolder.getApp()) {
     try {
         @SuppressLint("WrongConstant")
         val service: Any? = context?.getSystemService("statusbar")
@@ -550,7 +550,7 @@ fun setNavBarVisibility(activity: Activity?, isVisible: Boolean) {
  * @param window    The window.
  * @param isVisible True to set navigation bar visible, false otherwise.
  */
-fun setNavBarVisibility(window: Window?, isVisible: Boolean, context: Context? = ComkitApplicationConfig.getApp()) {
+fun setNavBarVisibility(window: Window?, isVisible: Boolean, context: Context? = BaseApplicationHolder.getApp()) {
     if (window == null) return
     if (Build.VERSION.SDK_INT < VersionCode.KITKAT) return
     val decorView = window.decorView as ViewGroup

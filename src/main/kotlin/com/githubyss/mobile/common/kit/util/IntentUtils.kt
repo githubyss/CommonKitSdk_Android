@@ -12,7 +12,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
 import androidx.core.content.FileProvider
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import java.io.File
 import java.util.*
 
@@ -45,7 +45,7 @@ private const val TAG: String = "IntentUtils"
  * @param context   The context.
  * @return the intent of install app
  */
-fun getInstallAppIntent(filePath: String?, isNewTask: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()): Intent? {
+fun getInstallAppIntent(filePath: String?, isNewTask: Boolean = false, context: Context? = BaseApplicationHolder.getApp()): Intent? {
     filePath ?: return null
     context ?: return null
 
@@ -63,7 +63,7 @@ fun getInstallAppIntent(filePath: String?, isNewTask: Boolean = false, context: 
  * @param context   The context.
  * @return the intent of install app
  */
-fun getInstallAppIntent(file: File?, isNewTask: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()): Intent? {
+fun getInstallAppIntent(file: File?, isNewTask: Boolean = false, context: Context? = BaseApplicationHolder.getApp()): Intent? {
     file ?: return null
     context ?: return null
 
@@ -106,7 +106,7 @@ fun getUninstallAppIntent(packageName: String?, isNewTask: Boolean = false): Int
  * @param context     The context.
  * @return the intent of launch app
  */
-fun getLaunchAppIntent(packageName: String?, isNewTask: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()): Intent? {
+fun getLaunchAppIntent(packageName: String?, isNewTask: Boolean = false, context: Context? = BaseApplicationHolder.getApp()): Intent? {
     packageName ?: return null
     context ?: return null
 
@@ -358,7 +358,7 @@ private fun getIntent(intent: Intent?, isNewTask: Boolean = false): Intent? {
  * @param context The context.
  * @return `true`: yes<br></br>`false`: no
  */
-fun isIntentAvailable(intent: Intent?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isIntentAvailable(intent: Intent?, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     intent ?: return false
     context ?: return false
 

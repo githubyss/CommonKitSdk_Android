@@ -3,7 +3,7 @@ package com.githubyss.mobile.common.kit.util
 import android.content.Context
 import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException
@@ -45,7 +45,7 @@ enum class NetworkType {
 /** ****************************** Functions ****************************** */
 
 @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-fun getActiveNetworkInfo(context: Context? = ComkitApplicationConfig.getApp()): NetworkInfo? {
+fun getActiveNetworkInfo(context: Context? = BaseApplicationHolder.getApp()): NetworkInfo? {
     context ?: return null
 
     val connectivityManager = getConnectivityManager(context) ?: return null
@@ -94,7 +94,7 @@ fun getDomainAddress(domain: String?): String {
 }
 
 @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-fun getNetworkType(context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getNetworkType(context: Context? = BaseApplicationHolder.getApp()): String {
     context ?: return ""
 
     val networkInfo = getActiveNetworkInfo(context) ?: return ""
@@ -106,7 +106,7 @@ fun getNetworkType(context: Context? = ComkitApplicationConfig.getApp()): String
 }
 
 @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-fun getApnProxy(context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getApnProxy(context: Context? = BaseApplicationHolder.getApp()): String {
     context ?: return ""
 
     val networkInfo = getActiveNetworkInfo(context) ?: return ""

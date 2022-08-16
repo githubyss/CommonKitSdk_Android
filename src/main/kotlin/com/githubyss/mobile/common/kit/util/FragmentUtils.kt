@@ -56,8 +56,8 @@ object FragmentUtils {
         fragment ?: return false
 
         return when (fragment) {
-            is Fragment -> ActivityUtils.isActivityAlive(activity) && !fragment.isDetached
-            is android.app.Fragment -> ActivityUtils.isActivityAlive(activity) && !fragment.isDetached
+            is Fragment -> isActivityAlive(activity) && !fragment.isDetached
+            is android.app.Fragment -> isActivityAlive(activity) && !fragment.isDetached
             else -> false
         }
     }

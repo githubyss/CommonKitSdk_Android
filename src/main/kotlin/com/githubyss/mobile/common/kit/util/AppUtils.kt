@@ -22,7 +22,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import com.githubyss.common.base.lifecycle.LifecycleHolder
 import com.githubyss.common.base.lifecycle.lifecycle_callbacks.ActivityHolder
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -39,6 +39,7 @@ import java.lang.reflect.InvocationTargetException
 
 /** ****************************** Properties ****************************** */
 
+/**  */
 private const val TAG: String = "AppUtils"
 
 
@@ -46,6 +47,7 @@ private const val TAG: String = "AppUtils"
 
 /** ******************** Getter ******************** */
 
+/**  */
 fun getApplicationByReflect(): Application {
     try {
         @SuppressLint("PrivateApi")
@@ -78,7 +80,7 @@ fun getApplicationByReflect(): Application {
  * @param context     The context.
  * @return the application's icon
  */
-fun getAppIcon(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+fun getAppIcon(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): Drawable? {
     packageName ?: return null
     context ?: return null
     if (isSpace(packageName)) return null
@@ -100,7 +102,7 @@ fun getAppIcon(packageName: String? = getAppPackageName(), context: Context? = C
  * @param context The context.
  * @return the application's package name
  */
-fun getAppPackageName(context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getAppPackageName(context: Context? = BaseApplicationHolder.getApp()): String {
     return context?.packageName ?: ""
 }
 
@@ -111,7 +113,7 @@ fun getAppPackageName(context: Context? = ComkitApplicationConfig.getApp()): Str
  * @param context     The context.
  * @return the application's name
  */
-fun getAppName(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getAppName(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): String {
     packageName ?: return ""
     context ?: return ""
     if (isSpace(packageName)) return ""
@@ -135,7 +137,7 @@ fun getAppName(packageName: String? = getAppPackageName(), context: Context? = C
  * @param context     The context.
  * @return the application's path
  */
-fun getAppPath(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getAppPath(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): String {
     packageName ?: return ""
     context ?: return ""
     if (isSpace(packageName)) return ""
@@ -158,7 +160,7 @@ fun getAppPath(packageName: String? = getAppPackageName(), context: Context? = C
  * @param context     The context.
  * @return the application's version name
  */
-fun getAppVersionName(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getAppVersionName(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): String {
     packageName ?: return ""
     context ?: return ""
     if (isSpace(packageName)) return ""
@@ -181,7 +183,7 @@ fun getAppVersionName(packageName: String? = getAppPackageName(), context: Conte
  * @param context     The context.
  * @return the application's version code
  */
-fun getAppVersionCode(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getAppVersionCode(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): Int {
     packageName ?: return -1
     context ?: return -1
     if (isSpace(packageName)) return -1
@@ -204,7 +206,7 @@ fun getAppVersionCode(packageName: String? = getAppPackageName(), context: Conte
  * @param context     The context.
  * @return the application's signature
  */
-fun getAppSignature(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Array<Signature?>? {
+fun getAppSignature(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): Array<Signature?>? {
     packageName ?: return null
     context ?: return null
     if (isSpace(packageName)) return null
@@ -270,7 +272,7 @@ private fun getAppSignatureHash(packageName: String?, algorithm: String?): Strin
  * @param context     The context.
  * @return the application's signature for MD5 value
  */
-fun getAppUid(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getAppUid(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): Int {
     packageName ?: return -1
     context ?: return -1
     if (isSpace(packageName)) return -1
@@ -300,7 +302,7 @@ fun getAppUid(packageName: String? = getAppPackageName(), context: Context? = Co
  * @param context     The context.
  * @return the application's information
  */
-fun getAppInfo(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): AppInfo? {
+fun getAppInfo(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): AppInfo? {
     packageName ?: return null
     context ?: return null
     if (isSpace(packageName)) return null
@@ -321,7 +323,7 @@ fun getAppInfo(packageName: String? = getAppPackageName(), context: Context? = C
  * @param context The context.
  * @return the applications' information
  */
-fun getAppsInfo(context: Context? = ComkitApplicationConfig.getApp()): List<AppInfo>? {
+fun getAppsInfo(context: Context? = BaseApplicationHolder.getApp()): List<AppInfo>? {
     context ?: return null
 
     val list: MutableList<AppInfo> = ArrayList()
@@ -341,7 +343,7 @@ fun getAppsInfo(context: Context? = ComkitApplicationConfig.getApp()): List<AppI
  * @param context The context.
  * @return the application's package information
  */
-fun getApkInfo(apkFile: File?, context: Context? = ComkitApplicationConfig.getApp()): AppInfo? {
+fun getApkInfo(apkFile: File?, context: Context? = BaseApplicationHolder.getApp()): AppInfo? {
     apkFile ?: return null
     if (!apkFile.isFile || !apkFile.exists()) return null
 
@@ -355,7 +357,7 @@ fun getApkInfo(apkFile: File?, context: Context? = ComkitApplicationConfig.getAp
  * @param context     The context.
  * @return the application's package information
  */
-fun getApkInfo(apkFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): AppInfo? {
+fun getApkInfo(apkFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): AppInfo? {
     apkFilePath ?: return null
     context ?: return null
     if (isSpace(apkFilePath)) return null
@@ -368,6 +370,7 @@ fun getApkInfo(apkFilePath: String?, context: Context? = ComkitApplicationConfig
     return getBean(packageManager, packageInfo)
 }
 
+/**  */
 private fun getBean(packageManager: PackageManager?, packageInfo: PackageInfo?): AppInfo? {
     packageManager ?: return null
     packageInfo ?: return null
@@ -384,7 +387,8 @@ private fun getBean(packageManager: PackageManager?, packageInfo: PackageInfo?):
     return AppInfo(packageName, name, icon, packagePath, versionName, versionCode, isSystem)
 }
 
-fun getForegroundProcessName(application: Application? = ComkitApplicationConfig.getApp()): String {
+/**  */
+fun getForegroundProcessName(application: Application? = BaseApplicationHolder.getApp()): String {
     application ?: return ""
 
     val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -450,7 +454,8 @@ fun getForegroundProcessName(application: Application? = ComkitApplicationConfig
     return ""
 }
 
-fun getCurrentProcessName(application: Application? = ComkitApplicationConfig.getApp()): String {
+/**  */
+fun getCurrentProcessName(application: Application? = BaseApplicationHolder.getApp()): String {
     application ?: return ""
 
     var name = getCurrentProcessNameByFile()
@@ -461,6 +466,7 @@ fun getCurrentProcessName(application: Application? = ComkitApplicationConfig.ge
     return name
 }
 
+/**  */
 fun getCurrentProcessNameByFile(): String {
     return try {
         val file = File("/proc/" + Process.myPid() + "/" + "cmdline")
@@ -476,7 +482,8 @@ fun getCurrentProcessNameByFile(): String {
     }
 }
 
-fun getCurrentProcessNameByAms(application: Application? = ComkitApplicationConfig.getApp()): String {
+/**  */
+fun getCurrentProcessNameByAms(application: Application? = BaseApplicationHolder.getApp()): String {
     application ?: return ""
 
     val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -494,7 +501,8 @@ fun getCurrentProcessNameByAms(application: Application? = ComkitApplicationConf
     return ""
 }
 
-fun getCurrentProcessNameByReflect(application: Application? = ComkitApplicationConfig.getApp()): String {
+/**  */
+fun getCurrentProcessNameByReflect(application: Application? = BaseApplicationHolder.getApp()): String {
     application ?: return ""
 
     var processName = ""
@@ -526,7 +534,7 @@ fun getCurrentProcessNameByReflect(application: Application? = ComkitApplication
  * @param context     The context.
  * @return `true`: yes<br></br>`false`: no
  */
-fun isAppInstalled(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isAppInstalled(packageName: String?, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     packageName ?: return false
     context ?: return false
     if (isSpace(packageName)) return false
@@ -562,7 +570,7 @@ fun isAppRoot(): Boolean {
  * @param context     The context.
  * @return `true`: yes<br></br>`false`: no
  */
-fun isAppDebug(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isAppDebug(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): Boolean {
     packageName ?: return false
     context ?: return false
     if (isSpace(packageName)) return false
@@ -585,7 +593,7 @@ fun isAppDebug(packageName: String? = getAppPackageName(), context: Context? = C
  * @param context     The context.
  * @return `true`: yes<br></br>`false`: no
  */
-fun isAppSystem(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isAppSystem(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()): Boolean {
     packageName ?: return false
     context ?: return false
     if (isSpace(packageName)) return false
@@ -623,7 +631,7 @@ fun isAppForeground(packageName: String? = getAppPackageName()): Boolean {
  * @param context     The context.
  * @return `true`: yes<br></br>`false`: no
  */
-fun isAppRunning(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isAppRunning(packageName: String?, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     packageName ?: return false
     context ?: return false
     if (isSpace(packageName)) return false
@@ -694,7 +702,7 @@ fun unregisterAppStatusChangedListener(obj: Any?) {
  * @param filePath The path of file.
  * @param context  The context.
  */
-fun installApp(filePath: String?, context: Context? = ComkitApplicationConfig.getApp()) {
+fun installApp(filePath: String?, context: Context? = BaseApplicationHolder.getApp()) {
     installApp(getFileByPath(filePath), context)
 }
 
@@ -707,7 +715,7 @@ fun installApp(filePath: String?, context: Context? = ComkitApplicationConfig.ge
  * @param file    The file.
  * @param context The context.
  */
-fun installApp(file: File?, context: Context? = ComkitApplicationConfig.getApp()) {
+fun installApp(file: File?, context: Context? = BaseApplicationHolder.getApp()) {
     file ?: return
     context ?: return
     if (!isFileExists(file)) return
@@ -805,7 +813,7 @@ fun installAppSilent(file: File?, params: String? = null, isRooted: Boolean = is
  * @param packageName The name of the package.
  * @param context     The context.
  */
-fun uninstallApp(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()) {
+fun uninstallApp(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()) {
     packageName ?: return
     context ?: return
     if (isSpace(packageName)) return
@@ -867,7 +875,7 @@ fun uninstallAppSilent(packageName: String? = getAppPackageName(), isKeepData: B
  * @param packageName The name of the package.
  * @param context     The context.
  */
-fun launchApp(packageName: String?, context: Context? = ComkitApplicationConfig.getApp()) {
+fun launchApp(packageName: String?, context: Context? = BaseApplicationHolder.getApp()) {
     packageName ?: return
     context ?: return
     if (isSpace(packageName)) return
@@ -899,7 +907,7 @@ fun launchApp(packageName: String?, requestCode: Int, activity: Activity?) {
  * @param isKillProcess True to kill the process, false otherwise.
  * @param context       The context.
  */
-fun relaunchApp(isKillProcess: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+fun relaunchApp(isKillProcess: Boolean = false, context: Context? = BaseApplicationHolder.getApp()) {
     context ?: return
 
     val packageManager = context.packageManager ?: return
@@ -919,7 +927,7 @@ fun relaunchApp(isKillProcess: Boolean = false, context: Context? = ComkitApplic
  * @param packageName The name of the package.
  * @param context     The context.
  */
-fun launchAppDetailsSettings(packageName: String? = getAppPackageName(), context: Context? = ComkitApplicationConfig.getApp()) {
+fun launchAppDetailsSettings(packageName: String? = getAppPackageName(), context: Context? = BaseApplicationHolder.getApp()) {
     packageName ?: return
     context ?: return
     if (isSpace(packageName)) return
@@ -935,10 +943,10 @@ fun launchAppDetailsSettings(packageName: String? = getAppPackageName(), context
  * Exit the application.
  */
 fun exitApp() {
-    val activityList = ActivityUtils.activityList
+    val activityList = activityList
     for (aActivity in activityList.reversed()) { // remove from top
         // activityList remove the index activity at onActivityDestroyed
-        ActivityUtils.finishActivity(aActivity)
+        finishActivity(aActivity)
     }
     System.exit(0)
 }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Looper
 import android.view.Gravity
 import android.widget.Toast
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 
 
 /**
@@ -31,7 +31,7 @@ private var toast: Toast? = null
  * @param centerable Is toast show in center.
  * @param context    The context to use. Usually your Application or Activity object.
  */
-fun showToast(msgId: Int, duration: Int = if (getStringFromRes(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+fun showToast(msgId: Int, duration: Int = if (getStringFromRes(msgId).length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = BaseApplicationHolder.getApp()) {
     showToast(getStringFromRes(msgId), duration, centerable, context)
 }
 
@@ -43,7 +43,7 @@ fun showToast(msgId: Int, duration: Int = if (getStringFromRes(msgId).length <= 
  * @param centerable Is toast show in center.
  * @param context    The context to use. Usually your Application or Activity object.
  */
-fun showToast(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = ComkitApplicationConfig.getApp()) {
+fun showToast(msgStr: String, duration: Int = if (msgStr.length <= 10) Toast.LENGTH_SHORT else Toast.LENGTH_LONG, centerable: Boolean = false, context: Context? = BaseApplicationHolder.getApp()) {
     context ?: return
 
     if (Looper.myLooper() == null) {

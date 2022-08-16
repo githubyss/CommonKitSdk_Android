@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.content.Context
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
@@ -230,7 +230,7 @@ operator fun JSONArray.iterator(): Iterator<JSONObject> = (0 until length()).asS
  * @param context        The context.
  * @return Json String if file content is Json String, otherwise "".
  */
-fun getJsonStringFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): String {
+fun getJsonStringFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): String {
     val string = getStringFromAssets(assetsFilePath, context)
     return if (isJsonString(string)) {
         string
@@ -247,7 +247,7 @@ fun getJsonStringFromAssets(assetsFilePath: String?, context: Context? = ComkitA
  * @param context        The context.
  * @return JSONObject if file content is Json String, otherwise null.
  */
-fun getJSONObjectFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): JSONObject {
+fun getJSONObjectFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): JSONObject {
     return try {
         JSONObject(getJsonStringFromAssets(assetsFilePath, context))
     }
@@ -257,7 +257,7 @@ fun getJSONObjectFromAssets(assetsFilePath: String?, context: Context? = ComkitA
     }
 }
 
-fun <V> getMapFromAssets(assetsFilePath: String?, context: Context? = ComkitApplicationConfig.getApp()): Map<String?, V?> {
+fun <V> getMapFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): Map<String?, V?> {
     return try {
         getJsonStringFromAssets(assetsFilePath, context).jsonString2Map<V?>()
     }

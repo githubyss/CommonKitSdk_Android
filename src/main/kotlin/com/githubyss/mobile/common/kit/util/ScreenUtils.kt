@@ -18,7 +18,7 @@ import android.view.Surface
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.RequiresPermission
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 
 
@@ -97,7 +97,7 @@ val yDpi: Float = displayMetrics.ydpi
  * @param context The context.
  * @return The width of screen in pixels.
  */
-fun screenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun screenWidthPx(context: Context? = BaseApplicationHolder.getApp()): Int {
     return if (context == null) {
         displayMetrics.widthPixels
     }
@@ -112,7 +112,7 @@ fun screenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
  * @param context The context.
  * @return The height of screen in pixels.
  */
-fun screenHeightPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun screenHeightPx(context: Context? = BaseApplicationHolder.getApp()): Int {
     return if (context == null) {
         displayMetrics.heightPixels
     }
@@ -127,7 +127,7 @@ fun screenHeightPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
  * @param context The context.
  * @return The screen point in pixels.
  */
-fun screenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point {
+fun screenPointPx(context: Context? = BaseApplicationHolder.getApp()): Point {
     val point = Point()
     if (Build.VERSION.SDK_INT >= VersionCode.JELLY_BEAN_MR1) {
         defaultDisplay(context)?.getRealSize(point) ?: return point
@@ -146,7 +146,7 @@ fun screenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point {
  *
  * @return the application's width of screen in pixel
  */
-fun appScreenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun appScreenWidthPx(context: Context? = BaseApplicationHolder.getApp()): Int {
     return if (windowManager(context) == null) {
         displayMetrics.widthPixels
     }
@@ -160,7 +160,7 @@ fun appScreenWidthPx(context: Context? = ComkitApplicationConfig.getApp()): Int 
  *
  * @return the application's height of screen in pixel
  */
-fun appScreenHeightPx(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun appScreenHeightPx(context: Context? = BaseApplicationHolder.getApp()): Int {
     return if (windowManager(context) == null) {
         displayMetrics.heightPixels
     }
@@ -175,7 +175,7 @@ fun appScreenHeightPx(context: Context? = ComkitApplicationConfig.getApp()): Int
  * @param context The context.
  * @return The application's screen point in pixels.
  */
-fun appScreenPointPx(context: Context? = ComkitApplicationConfig.getApp()): Point {
+fun appScreenPointPx(context: Context? = BaseApplicationHolder.getApp()): Point {
     val point = Point()
     defaultDisplay(context)?.getSize(point) ?: return point
     // logD(TAG, "appScreenPointPx(): {appScreenWidthPx:${point.x}, appScreenHeightPx:${point.y}}")
@@ -207,7 +207,7 @@ fun screenRotation(activity: Activity?): Int {
  *
  * @return the duration of sleep.
  */
-fun sleepDuration(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun sleepDuration(context: Context? = BaseApplicationHolder.getApp()): Int {
     return try {
         Settings.System.getInt(context?.contentResolver, Settings.System.SCREEN_OFF_TIMEOUT)
     }
@@ -223,7 +223,7 @@ fun sleepDuration(context: Context? = ComkitApplicationConfig.getApp()): Int {
  * @param context The context.
  * @return The default display.
  */
-fun defaultDisplay(context: Context? = ComkitApplicationConfig.getApp()): Display? {
+fun defaultDisplay(context: Context? = BaseApplicationHolder.getApp()): Display? {
     return windowManager(context)?.defaultDisplay
 }
 
@@ -259,7 +259,7 @@ fun isFullScreen(window: Window?): Boolean {
  *
  * @return `true`: yes<br></br>`false`: no
  */
-fun isLandscape(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isLandscape(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     return systemResources.configuration?.orientation == Configuration.ORIENTATION_LANDSCAPE
 }
 
@@ -268,7 +268,7 @@ fun isLandscape(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
  *
  * @return `true`: yes<br></br>`false`: no
  */
-fun isPortrait(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isPortrait(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     return systemResources.configuration?.orientation == Configuration.ORIENTATION_PORTRAIT
 }
 
@@ -277,7 +277,7 @@ fun isPortrait(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
  *
  * @return `true`: yes<br></br>`false`: no
  */
-fun isScreenLock(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isScreenLock(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     return getKeyguardManager(context)?.inKeyguardRestrictedInputMode() ?: false
 }
 
@@ -388,7 +388,7 @@ fun setPortrait(activity: Activity?) {
  * @param duration The duration.
  */
 @RequiresPermission(permission.WRITE_SETTINGS)
-fun setSleepDuration(duration: Int, context: Context? = ComkitApplicationConfig.getApp()) {
+fun setSleepDuration(duration: Int, context: Context? = BaseApplicationHolder.getApp()) {
     context ?: return
 
     Settings.System.putInt(context.contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, duration)

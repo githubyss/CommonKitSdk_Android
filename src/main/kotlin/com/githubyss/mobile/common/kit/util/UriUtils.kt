@@ -10,7 +10,7 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import java.io.File
 
 
@@ -31,7 +31,7 @@ private const val TAG: String = "UriUtils"
 
 /** ******************** Getter ******************** */
 
-fun getFileFromUri(uri: Uri?, code: Int, selection: String? = null, selectionArgs: Array<String>? = null, context: Context? = ComkitApplicationConfig.getApp()): File? {
+fun getFileFromUri(uri: Uri?, code: Int, selection: String? = null, selectionArgs: Array<String>? = null, context: Context? = BaseApplicationHolder.getApp()): File? {
     uri ?: return null
     context ?: return null
 
@@ -74,7 +74,7 @@ fun getFileFromUri(uri: Uri?, code: Int, selection: String? = null, selectionArg
  * @param file The file.
  * @return uri
  */
-fun file2Uri(file: File?, context: Context? = ComkitApplicationConfig.getApp()): Uri? {
+fun file2Uri(file: File?, context: Context? = BaseApplicationHolder.getApp()): Uri? {
     file ?: return null
     context ?: return null
 
@@ -93,7 +93,7 @@ fun file2Uri(file: File?, context: Context? = ComkitApplicationConfig.getApp()):
  * @param uri The uri.
  * @return file
  */
-fun uri2File(uri: Uri?, context: Context? = ComkitApplicationConfig.getApp()): File? {
+fun uri2File(uri: Uri?, context: Context? = BaseApplicationHolder.getApp()): File? {
     uri ?: return null
     context ?: return null
 

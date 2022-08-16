@@ -1,7 +1,7 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.content.Context
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import java.io.IOException
 import java.io.InputStream
 import java.util.*
@@ -23,7 +23,7 @@ private const val TAG: String = "PropertyUtils"
 /** ****************************** Functions ****************************** */
 
 /** ******************** Getter ******************** */
-fun loadProperties(path: String, context: Context = ComkitApplicationConfig.getApp()): Properties? {
+fun loadProperties(path: String, context: Context = BaseApplicationHolder.getApp()): Properties? {
     val properties = Properties()
     try {
         val `in`: InputStream = context.assets.open(path)

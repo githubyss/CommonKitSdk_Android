@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.fragment.app.viewModels
+import com.githubyss.common.base.activity_fragment.classical.BaseActivity
+import com.githubyss.common.base.activity_fragment.compose.BaseComposeToolbarFragment
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.ButtonClickBlueWeightHorizontal
 import com.githubyss.mobile.common.kit.app.compose_ui.comui.LayoutWeightHorizontal
@@ -22,11 +24,9 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.MvvmComposeActivity
 import com.githubyss.mobile.common.kit.app.page.state_compose.StateComposeActivity
-import com.githubyss.common.base.activity_fragment.classical.BaseActivity
-import com.githubyss.common.base.activity_fragment.compose.BaseComposeToolbarFragment
-import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.getStringFromRes
+import com.githubyss.mobile.common.kit.util.startActivityExt
 import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 
 
@@ -74,7 +74,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 text = getStringFromRes(R.string.comkit_homepage_button_mvvm_activity),
                 modifier = Modifier.weight(1F),
             ) {
-                ActivityUtils.startActivity<MvvmActivity>(activity)
+                startActivityExt<MvvmActivity>(activity)
             }
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_mvvm_fragment),
@@ -84,20 +84,20 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
             }
         }
         ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_mvi)) {
-            ActivityUtils.startActivity(activity, MviActivity::class.java)
+            startActivityExt(activity, MviActivity::class.java)
         }
         LayoutWeightHorizontal {
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_mvvm_compose),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, MvvmComposeActivity::class.java)
+                startActivityExt(activity, MvvmComposeActivity::class.java)
             }
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_state_compose),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, StateComposeActivity::class.java)
+                startActivityExt(activity, StateComposeActivity::class.java)
             }
         }
         LayoutWeightHorizontal {
@@ -105,14 +105,14 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 text = getStringFromRes(R.string.comkit_homepage_button_compose),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, ComposeActivity::class.java)
+                startActivityExt(activity, ComposeActivity::class.java)
                 // FragmentUtils.switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
             }
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_compose_toolbar),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, ComposeToolbarActivity::class.java)
+                startActivityExt(activity, ComposeToolbarActivity::class.java)
                 // FragmentUtils.switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
             }
         }
@@ -121,13 +121,13 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 text = getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, ReflectActivity::class.java)
+                startActivityExt(activity, ReflectActivity::class.java)
             }
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_view_binding_reflect_toolbar),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, ReflectToolbarActivity::class.java)
+                startActivityExt(activity, ReflectToolbarActivity::class.java)
             }
         }
         LayoutWeightHorizontal {
@@ -135,13 +135,13 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 text = getStringFromRes(R.string.comkit_homepage_button_view_binding_inline),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, InlineActivity::class.java)
+                startActivityExt(activity, InlineActivity::class.java)
             }
             ButtonClickBlueWeightHorizontal(
                 text = getStringFromRes(R.string.comkit_homepage_button_view_binding_inline_toolbar),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, InlineToolbarActivity::class.java)
+                startActivityExt(activity, InlineToolbarActivity::class.java)
             }
         }
         LayoutWeightHorizontal {
@@ -165,7 +165,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
                 text = getStringFromRes(R.string.comkit_homepage_button_lifecycle),
                 modifier = Modifier.weight(1F)
             ) {
-                ActivityUtils.startActivity(activity, LifecycleActivity::class.java)
+                startActivityExt(activity, LifecycleActivity::class.java)
             }
         }
         ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_audio_player)) {

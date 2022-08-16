@@ -2,7 +2,7 @@ package com.githubyss.mobile.common.kit.manager.speech_recognition
 
 import android.content.Context
 import android.os.Bundle
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import com.githubyss.mobile.common.kit.util.logD
 import com.githubyss.mobile.common.kit.util.showToast
 import com.iflytek.cloud.*
@@ -39,7 +39,7 @@ object SpeechRecognitionManager {
      * @param context
      * @param appId 确保 appId 和 MSC 库相匹配，此处为"b579ee15"
      */
-    fun initSdk(context: Context = ComkitApplicationConfig.getApp(), appId: String = "b579ee15") {
+    fun initSdk(context: Context = BaseApplicationHolder.getApp(), appId: String = "b579ee15") {
         // 初始化科大讯飞 SDK
         SpeechUtility.createUtility(context, "${SpeechConstant.APPID}=$appId")
     }
@@ -50,7 +50,7 @@ object SpeechRecognitionManager {
      * @param context
      * @param listener 本地听写时传 InitListener
      */
-    fun configSDK(context: Context = ComkitApplicationConfig.getApp()) {
+    fun configSDK(context: Context = BaseApplicationHolder.getApp()) {
         // 创建「语音识别器」 SpeechRecognizer 对象
         speechRecognizer = SpeechRecognizer.createRecognizer(context, null)
 
@@ -69,7 +69,7 @@ object SpeechRecognitionManager {
      * @param vadBos
      * @param vadEos
      */
-    fun setSpeechRecognizerParam(context: Context = ComkitApplicationConfig.getApp(), domain: String = "iat", language: String = "zh_cn", accent: String = "mandarin ", asrPtt: String = "0", vadBos: String = "100000", vadEos: String = "100000") {
+    fun setSpeechRecognizerParam(context: Context = BaseApplicationHolder.getApp(), domain: String = "iat", language: String = "zh_cn", accent: String = "mandarin ", asrPtt: String = "0", vadBos: String = "100000", vadEos: String = "100000") {
         if (speechRecognizer != null) {
             speechRecognizer?.setParameter(SpeechConstant.DOMAIN, domain)
             speechRecognizer?.setParameter(SpeechConstant.LANGUAGE, language)

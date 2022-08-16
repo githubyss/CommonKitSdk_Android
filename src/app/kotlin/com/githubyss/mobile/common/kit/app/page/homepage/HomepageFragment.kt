@@ -16,8 +16,8 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
 import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.common.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentHomepageBinding
-import com.githubyss.mobile.common.kit.util.ActivityUtils
 import com.githubyss.mobile.common.kit.util.FragmentUtils
+import com.githubyss.mobile.common.kit.util.startActivityExt
 
 
 /**
@@ -78,26 +78,26 @@ class HomepageFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragme
     private val vmObserverViewId = Observer<Int> { t ->
         when (t) {
             R.id.button_mvvm -> FragmentUtils.switchFragmentByAddHideShow(MvvmFragment(), MvvmFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
-            R.id.button_mvi -> ActivityUtils.startActivity(activity, MviActivity::class.java)
+            R.id.button_mvi -> startActivityExt(activity, MviActivity::class.java)
 
             R.id.button_compose -> {
-                ActivityUtils.startActivity(activity, ComposeActivity::class.java)
+                startActivityExt(activity, ComposeActivity::class.java)
                 // FragmentUtils.switchFragmentByAddHideShow(ComposeFragment(), ComposeFragment.TAG, this, parentFragmentManager, true)
             }
             R.id.button_compose_toolbar -> {
-                ActivityUtils.startActivity(activity, ComposeToolbarActivity::class.java)
+                startActivityExt(activity, ComposeToolbarActivity::class.java)
                 // FragmentUtils.switchFragmentByAddHideShow(ComposeToolbarFragment(), ComposeToolbarFragment.TAG, this, parentFragmentManager, true)
             }
 
-            R.id.button_binding_reflect -> ActivityUtils.startActivity(activity, ReflectActivity::class.java)
-            R.id.button_binding_reflect_toolbar -> ActivityUtils.startActivity(activity, ReflectToolbarActivity::class.java)
-            R.id.button_binding_inline -> ActivityUtils.startActivity(activity, InlineActivity::class.java)
-            R.id.button_binding_inline_toolbar -> ActivityUtils.startActivity(activity, InlineToolbarActivity::class.java)
+            R.id.button_binding_reflect -> startActivityExt(activity, ReflectActivity::class.java)
+            R.id.button_binding_reflect_toolbar -> startActivityExt(activity, ReflectToolbarActivity::class.java)
+            R.id.button_binding_inline -> startActivityExt(activity, InlineActivity::class.java)
+            R.id.button_binding_inline_toolbar -> startActivityExt(activity, InlineToolbarActivity::class.java)
 
             R.id.button_log -> {
             }
             R.id.button_json_utils -> FragmentUtils.switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_TOOLBAR_CONTAINER_ID, true)
-            R.id.btn_lifecycle -> ActivityUtils.startActivity(activity, LifecycleActivity::class.java)
+            R.id.btn_lifecycle -> startActivityExt(activity, LifecycleActivity::class.java)
         }
     }
 }

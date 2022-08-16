@@ -4,8 +4,10 @@ import androidx.core.os.TraceCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.common.base.application.BaseApplication
 import com.githubyss.mobile.common.kit.BuildConfig
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
-import com.githubyss.mobile.common.kit.util.*
+import com.githubyss.mobile.common.kit.util.LOG_LEVEL_VERBOSE
+import com.githubyss.mobile.common.kit.util.disableLog
+import com.githubyss.mobile.common.kit.util.enableLog
+import com.githubyss.mobile.common.kit.util.logLevel
 
 
 /**
@@ -26,14 +28,6 @@ abstract class ComkitBaseApplication : BaseApplication() {
 
 
     /** ****************************** Override ****************************** */
-
-    /**  */
-    override fun initComkit() {
-        ComkitApplicationConfig.init(instance)
-    }
-
-    /**  */
-    override fun initComnet() {}
 
     /**  */
     override fun initLog() {

@@ -16,7 +16,7 @@ import android.renderscript.ScriptIntrinsicBlur
 import android.view.View
 import androidx.annotation.*
 import androidx.annotation.IntRange
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 import com.githubyss.mobile.common.kit.enumeration.VersionCode
 import java.io.*
 
@@ -107,7 +107,7 @@ fun getBitmap(fileDescriptor: FileDescriptor?): Bitmap? {
  * @param resId The resource id.
  * @return bitmap
  */
-fun getBitmap(@DrawableRes resId: Int, context: Context? = ComkitApplicationConfig.getApp()): Bitmap? {
+fun getBitmap(@DrawableRes resId: Int, context: Context? = BaseApplicationHolder.getApp()): Bitmap? {
     context ?: return null
 
     val drawable = getDrawableFromRes(resId) ?: return null
@@ -225,7 +225,7 @@ fun getBitmap(fileDescriptor: FileDescriptor?, maxWidth: Int, maxHeight: Int): B
  */
 fun getBitmap(@DrawableRes resId: Int, maxWidth: Int, maxHeight: Int): Bitmap? {
     val options = BitmapFactory.Options()
-    val resources: Resources? = ComkitApplicationConfig.getApp()?.resources
+    val resources: Resources? = BaseApplicationHolder.getApp()?.resources
     options.inJustDecodeBounds = true
     BitmapFactory.decodeResource(resources, resId, options)
     options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
@@ -425,7 +425,7 @@ fun bytes2Bitmap(bytes: ByteArray?): Bitmap? {
  * @param bitmap The bitmap.
  * @return The drawable.
  */
-fun bitmap2Drawable(bitmap: Bitmap?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+fun bitmap2Drawable(bitmap: Bitmap?, context: Context? = BaseApplicationHolder.getApp()): Drawable? {
     bitmap ?: return null
 
     return BitmapDrawable(getContextResources(context), bitmap)
@@ -476,7 +476,7 @@ fun drawable2Bytes(drawable: Drawable?, format: CompressFormat?): ByteArray? {
  * @param bytes The bytes.
  * @return The drawable.
  */
-fun bytes2Drawable(bytes: ByteArray?, context: Context? = ComkitApplicationConfig.getApp()): Drawable? {
+fun bytes2Drawable(bytes: ByteArray?, context: Context? = BaseApplicationHolder.getApp()): Drawable? {
     bytes ?: return null
 
     return bitmap2Drawable(bytes2Bitmap(bytes), context)
@@ -1019,7 +1019,7 @@ fun renderScriptBlur(src: Bitmap?, @FloatRange(from = 0.0, to = 25.0, fromInclus
     var rs: RenderScript? = null
     val ret = if (recycle) src else src.copy(src.config, true)
     try {
-        rs = RenderScript.create(ComkitApplicationConfig.getApp())
+        rs = RenderScript.create(BaseApplicationHolder.getApp())
         rs.messageHandler = RSMessageHandler()
         val input = Allocation.createFromBitmap(rs, ret, Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT)
         val output = Allocation.createTyped(rs, input.type)

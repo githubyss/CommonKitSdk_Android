@@ -5,7 +5,7 @@ import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.view.Window
 import androidx.annotation.IntRange
-import com.githubyss.mobile.common.kit.ComkitApplicationConfig
+import com.githubyss.common.base.application.BaseApplicationHolder
 
 
 /**
@@ -30,7 +30,7 @@ private const val TAG: String = "BrightnessUtils"
  *
  * @return 屏幕亮度 0-255
  */
-fun getBrightness(context: Context? = ComkitApplicationConfig.getApp()): Int {
+fun getBrightness(context: Context? = BaseApplicationHolder.getApp()): Int {
     context ?: return -1
 
     return try {
@@ -61,7 +61,7 @@ fun getWindowBrightness(window: Window?): Int {
  *
  * @return `true`: yes<br></br>`false`: no
  */
-fun isAutoBrightnessEnabled(context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun isAutoBrightnessEnabled(context: Context? = BaseApplicationHolder.getApp()): Boolean {
     context ?: return false
 
     return try {
@@ -84,7 +84,7 @@ fun isAutoBrightnessEnabled(context: Context? = ComkitApplicationConfig.getApp()
  * @param enabled True to enabled, false otherwise.
  * @return `true`: success<br></br>`false`: fail
  */
-fun setAutoBrightnessEnabled(enabled: Boolean, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun setAutoBrightnessEnabled(enabled: Boolean, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     context ?: return false
 
     return Settings.System.putInt(context.contentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, if (enabled) Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC else Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL)
@@ -98,7 +98,7 @@ fun setAutoBrightnessEnabled(enabled: Boolean, context: Context? = ComkitApplica
  *
  * @param brightness 亮度值
  */
-fun setBrightness(@IntRange(from = 0, to = 255) brightness: Int, context: Context? = ComkitApplicationConfig.getApp()): Boolean {
+fun setBrightness(@IntRange(from = 0, to = 255) brightness: Int, context: Context? = BaseApplicationHolder.getApp()): Boolean {
     context ?: return false
 
     val resolver = context.contentResolver
