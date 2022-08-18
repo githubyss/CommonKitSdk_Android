@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="webViewVm"
+            type="com.githubyss.mobile.common.kit.app.page.web_view.WebViewViewModel"
+            />
+
+        <variable
+            name="webViewPage"
+            type="com.githubyss.mobile.common.kit.app.page.web_view.WebViewFragment"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <ProgressBar
+            android:id="@+id/webViewProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/webViewContent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <WebView
+            android:id="@+id/webViewContent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/webViewProgressBar"
+            app:layout_constraintBottom_toTopOf="@id/btnHighlightText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/etHighlightText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@={webViewVm.highlightKeyword}"
+            app:layout_constraintTop_toBottomOf="@id/webViewContent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnHighlightText"
+            />
+
+        <Button
+            android:id="@+id/btnHighlightText"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="@{()->webViewPage.onHighlightTextClick()}"
+            app:layout_constraintTop_toBottomOf="@id/webViewContent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/etHighlightText"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

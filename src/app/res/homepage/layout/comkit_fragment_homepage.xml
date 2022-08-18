@@ -15,9 +15,9 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:background="@color/comres_layoutBg_lightGray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/comres_layoutBg_lightGray"
         android:fillViewport="true"
         android:scrollbars="none"
         >
@@ -26,9 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/comres_sideMargin_normal"
-            android:paddingRight="@dimen/comres_sideMargin_normal"
             android:paddingBottom="@dimen/comres_sideMargin_normal"
             android:paddingLeft="@dimen/comres_sideMargin_normal"
+            android:paddingRight="@dimen/comres_sideMargin_normal"
             app:flexDirection="column"
             app:justifyContent="flex_start"
             app:alignItems="center"
@@ -102,6 +102,16 @@
                     android:id="@+id/button_binding_inline_toolbar"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
                     android:text="@string/comkit_homepage_button_view_binding_inline_toolbar"
+                    />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
+
+                <Button
+                    style="@style/comres_equant_horizontal_button_style"
+                    android:id="@+id/button_web_view"
+                    android:onClick="@{homepageVm::onAnyButtonClick}"
+                    android:text="@string/comkit_homepage_button_web_view"
                     />
             </com.google.android.flexbox.FlexboxLayout>
 

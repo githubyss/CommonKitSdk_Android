@@ -15,6 +15,7 @@
     <string name="comkit_homepage_button_view_binding_reflect_toolbar">Binding Reflect\nToolbar</string>
     <string name="comkit_homepage_button_view_binding_inline">Binding Inline</string>
     <string name="comkit_homepage_button_view_binding_inline_toolbar">Binding Inline\nToolbar</string>
+    <string name="comkit_homepage_button_web_view">Web View</string>
     <string name="comkit_homepage_button_log">Log</string>
     <string name="comkit_homepage_button_json_utils">Json Utils</string>
     <string name="comkit_homepage_button_glide">Glide</string>

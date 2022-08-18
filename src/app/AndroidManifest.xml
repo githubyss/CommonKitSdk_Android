@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/comres_ic_launcher_default_round"
         android:supportsRtl="true"
         android:theme="@style/comres_app_gray_theme"
+        android:usesCleartextTraffic="true"
         >
 
         <activity
@@ -121,6 +122,14 @@
 
         <activity
             android:name=".app.page.lifecycle.LifecycleNextActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/comres_activity_noActionBar_theme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            />
+
+        <activity
+            android:name=".app.page.web_view.WebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/comres_activity_noActionBar_theme"

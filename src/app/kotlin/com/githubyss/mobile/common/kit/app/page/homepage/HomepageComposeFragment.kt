@@ -24,6 +24,7 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.MvvmComposeActivity
 import com.githubyss.mobile.common.kit.app.page.state_compose.StateComposeActivity
+import com.githubyss.mobile.common.kit.app.page.web_view.WebViewActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 import com.githubyss.mobile.common.kit.util.startActivityExt
 import com.githubyss.mobile.common.kit.util.switchFragmentByAddHideShow
@@ -41,20 +42,24 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     /** ****************************** Properties ****************************** */
 
+    /**  */
     companion object {
         val TAG: String = HomepageComposeFragment::class.java.simpleName
     }
 
+    /**  */
     private val homepageVm: HomepageComposeViewModel by viewModels()
 
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     @Composable
     override fun Toolbar() {
         TopNavigationBar(homepageVm.title)
     }
 
+    /**  */
     @Composable
     override fun Content() {
         PageSidePadding(
@@ -67,6 +72,7 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
 
     /** ****************************** Functions ****************************** */
 
+    /**  */
     @Composable
     private fun Buttons() {
         LayoutWeightHorizontal {
@@ -143,6 +149,9 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
             ) {
                 startActivityExt(activity, InlineToolbarActivity::class.java)
             }
+        }
+        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_web_view)) {
+            activity.startActivityExt<WebViewActivity>()
         }
         LayoutWeightHorizontal {
             ButtonClickBlueWeightHorizontal(

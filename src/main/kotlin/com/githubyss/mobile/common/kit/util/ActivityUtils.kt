@@ -557,6 +557,14 @@ fun startActivityExt(context: Any? = topActivityOrApp.get(), intent: Intent?, @A
 
 /** ********** startActivityExt by sharedElements ********** */
 
+/**  */
+@JvmName("startActivityExt_")
+inline fun <reified A : Activity> startActivityExt(activity: Activity?, extras: Bundle? = null, vararg sharedElements: View) =
+    activity.startActivityExt<A>(extras, *sharedElements)
+
+inline fun <reified A : Activity> Activity?.startActivityExt(extras: Bundle? = null, vararg sharedElements: View) =
+    this.startActivityExt(A::class.java, extras, *sharedElements)
+
 /**
  * Start the activity.
  *
@@ -565,16 +573,15 @@ fun startActivityExt(context: Any? = topActivityOrApp.get(), intent: Intent?, @A
  * @param extras         The Bundle of extras to add to this intent.
  * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
  */
-fun startActivityExt(activity: Activity?, clazz: Class<out Activity?>?, extras: Bundle? = null, vararg sharedElements: View) {
-    activity ?: return
+@JvmName("startActivityExt_")
+fun startActivityExt(activity: Activity?, clazz: Class<out Activity?>?, extras: Bundle? = null, vararg sharedElements: View) =
+    activity.startActivityExt(clazz, extras, *sharedElements)
+
+fun Activity?.startActivityExt(clazz: Class<out Activity?>?, extras: Bundle? = null, vararg sharedElements: View) {
+    this ?: return
     clazz ?: return
 
-    startActivityExt(activity, activity.packageName, clazz.name, extras, getOptionsBundle(activity, sharedElements))
-}
-
-/**  */
-inline fun <reified A : Activity> startActivityExt(activity: Activity?, extras: Bundle? = null, vararg sharedElements: View) {
-    startActivityExt(activity, A::class.java, extras, *sharedElements)
+    startActivityExt(this, this.packageName, clazz.name, extras, getOptionsBundle(this, sharedElements))
 }
 
 /**
