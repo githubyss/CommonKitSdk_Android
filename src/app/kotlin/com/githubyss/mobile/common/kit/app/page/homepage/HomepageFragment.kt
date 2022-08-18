@@ -16,8 +16,8 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
 import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.common.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentHomepageBinding
-import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.startActivityExt
+import com.githubyss.mobile.common.kit.util.switchFragmentByAddHideShow
 
 
 /**

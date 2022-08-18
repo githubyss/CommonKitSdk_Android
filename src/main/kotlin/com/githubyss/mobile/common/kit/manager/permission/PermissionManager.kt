@@ -8,8 +8,7 @@ import com.githubyss.mobile.common.kit.enumeration.VersionCode
 
 /**
  * PermissionInfo
- * <Description> 权限工具
- * <Details>
+ * 权限工具
  *
  * @author Ace Yan
  * @github githubyss

@@ -1,6 +1,5 @@
 package com.githubyss.mobile.common.kit.util
 
-import android.util.Base64
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -996,7 +995,7 @@ fun decryptRSA(data: ByteArray?, key: ByteArray?, isPublicKey: Boolean, transfor
  */
 fun hashTemplate(data: ByteArray?, algorithm: String): ByteArray? {
     data ?: return null
-    if (isEmpty(data)) return null
+    if (isEmptyOrNull(data)) return null
 
     return try {
         val messageDigest = MessageDigest.getInstance(algorithm)
@@ -1020,8 +1019,8 @@ fun hashTemplate(data: ByteArray?, algorithm: String): ByteArray? {
 private fun hmacTemplate(data: ByteArray?, key: ByteArray?, algorithm: String): ByteArray? {
     data ?: return null
     key ?: return null
-    if (isEmpty(data)) return null
-    if (isEmpty(key)) return null
+    if (isEmptyOrNull(data)) return null
+    if (isEmptyOrNull(key)) return null
 
     return try {
         val secretKey = SecretKeySpec(key, algorithm)
@@ -1052,8 +1051,8 @@ private fun hmacTemplate(data: ByteArray?, key: ByteArray?, algorithm: String): 
 private fun symmetricTemplate(data: ByteArray?, key: ByteArray?, algorithm: String, transformation: String?, iv: ByteArray?, isEncrypt: Boolean): ByteArray? {
     data ?: return null
     key ?: return null
-    if (isEmpty(data)) return null
-    if (isEmpty(key)) return null
+    if (isEmptyOrNull(data)) return null
+    if (isEmptyOrNull(key)) return null
 
     return try {
         val secretKey: SecretKey
@@ -1094,8 +1093,8 @@ private fun symmetricTemplate(data: ByteArray?, key: ByteArray?, algorithm: Stri
 private fun rsaTemplate(data: ByteArray?, key: ByteArray?, isPublicKey: Boolean, transformation: String?, isEncrypt: Boolean): ByteArray? {
     data ?: return null
     key ?: return null
-    if (isEmpty(data)) return null
-    if (isEmpty(key)) return null
+    if (isEmptyOrNull(data)) return null
+    if (isEmptyOrNull(key)) return null
 
     try {
         val rsaKey: Key?
@@ -1155,15 +1154,6 @@ private fun rsaTemplate(data: ByteArray?, key: ByteArray?, isPublicKey: Boolean,
     return null
 }
 
-/** ********** base64 ********** */
-
-private fun base64Encode(input: ByteArray?): ByteArray? {
-    return Base64.encode(input, Base64.NO_WRAP)
-}
-
-private fun base64Decode(input: ByteArray?): ByteArray? {
-    return Base64.decode(input, Base64.NO_WRAP)
-}
 
 /** ********** joins ********** */
 

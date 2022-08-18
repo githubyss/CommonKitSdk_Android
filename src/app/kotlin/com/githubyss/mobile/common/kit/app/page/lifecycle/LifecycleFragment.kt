@@ -10,8 +10,9 @@ import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.Ba
 import com.githubyss.common.base.activity_fragment.classical.BaseActivity
 import com.githubyss.mobile.common.kit.R
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentLifecycleBinding
-import com.githubyss.mobile.common.kit.util.FragmentUtils
+import com.githubyss.mobile.common.kit.util.replaceFragment
 import com.githubyss.mobile.common.kit.util.startActivityExt
+import com.githubyss.mobile.common.kit.util.switchFragmentByAddHideShow
 
 
 /**

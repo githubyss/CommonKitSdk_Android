@@ -12,7 +12,6 @@ import com.githubyss.mobile.common.kit.util.logE
 /**
  * FingerprintAuthManager
  * <Description>
- * <Details>
  *
  * @author Ace Yan
  * @github githubyss

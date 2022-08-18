@@ -11,8 +11,7 @@ import java.lang.ref.SoftReference
 
 /**
  * FontManager
- * <Description> 字体管理器
- * <Details>
+ * 字体管理器
  *
  * @author Ace Yan
  * @github githubyss
@@ -40,7 +39,7 @@ object FontManager {
 
     /**
      * FontManager.replaceSystemDefaultFontFromAsset([context, fontPath])
-     * <Description> Replace system default font.
+     * Replace system default font.
      * <Details>
      *     You should also add code below to your app theme in styles.xml:
      *     {@code <item name="android:typeface">monospace</item>}
@@ -65,7 +64,7 @@ object FontManager {
 
     /**
      * FontManager.replaceFont([rootView, typeface, fontStyle])
-     * <Description> Replace the font of specified view and it's children with specified typeface and font style.
+     * Replace the font of specified view and it's children with specified typeface and font style.
      * <Details>
      *
      * @params [rootView, typeface, fontStyle]
@@ -92,7 +91,7 @@ object FontManager {
 
     /**
      * FontManager.createTypefaceFromAsset([context, fontPath])
-     * <Description> Create a Typeface instance with specified font file.
+     * Create a Typeface instance with specified font file.
      * <Details>
      *
      * @params [context, fontPath]

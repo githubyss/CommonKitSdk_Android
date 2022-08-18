@@ -11,7 +11,7 @@ import androidx.annotation.IntDef;
 
 /**
  * MemoryUnit
- * <Description> 内存单位
+ * 内存单位
  * <Details> 以字节计
  *
  * @author Ace Yan

@@ -12,8 +12,7 @@ import androidx.annotation.IntDef;
 
 /**
  * WindowManagerLayoutParamsType
- * <Description> WindowManager 窗口样式
- * <Details>
+ * WindowManager 窗口样式
  *
  * @author Ace Yan
  * @github githubyss

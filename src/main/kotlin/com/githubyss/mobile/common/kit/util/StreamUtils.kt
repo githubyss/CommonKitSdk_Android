@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.util
 
 import com.githubyss.mobile.common.kit.enumeration.MemoryUnit
 import java.io.*
-import java.util.*
 
 
 /**
@@ -88,7 +87,7 @@ fun input2Bytes(`is`: InputStream?): ByteArray? {
  */
 fun bytes2Input(bytes: ByteArray?): InputStream? {
     bytes ?: return null
-    if (isEmpty(bytes)) return null
+    if (isEmptyOrNull(bytes)) return null
 
     return ByteArrayInputStream(bytes)
 }
@@ -113,7 +112,7 @@ fun output2Bytes(os: OutputStream?): ByteArray? {
  */
 fun bytes2Output(bytes: ByteArray?): OutputStream? {
     bytes ?: return null
-    if (isEmpty(bytes)) return null
+    if (isEmptyOrNull(bytes)) return null
 
     var baos: ByteArrayOutputStream? = null
     return try {

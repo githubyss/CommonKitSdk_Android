@@ -11,6 +11,7 @@ package com.githubyss.mobile.common.kit.util
 
 /** ****************************** Properties ****************************** */
 
+/**  */
 private const val TAG: String = "ArrayUtils"
 
 
@@ -19,118 +20,95 @@ private const val TAG: String = "ArrayUtils"
 /** ******************** Checker ******************** */
 
 /**
- * <Description> Return whether the array is null or 0-length.
- * <Details>
+ * Return whether the array is null or 0-length.
  *
  * @param array The array.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(array: Array<*>?): Boolean {
-    array ?: return true
-
-    return array.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(array: Array<*>?) = array.isEmptyOrNull()
+fun Array<*>?.isEmptyOrNull() = this.isNullOrEmpty()
 
 /**
- * <Description> Return whether the bytes is null or 0-length.
- * <Details>
+ * Return whether the bytes is null or 0-length.
  *
  * @param bytes The bytes.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(bytes: ByteArray?): Boolean {
-    bytes ?: return true
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(bytes: ByteArray?) = bytes.isEmptyOrNull()
+fun ByteArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
-    return bytes.isEmpty()
-}
+@JvmName("isEmptyNonNull_")
+fun isEmptyNonNull(bytes: ByteArray) = bytes.isEmptyNonNull()
+fun ByteArray.isEmptyNonNull() = this.isEmpty()
 
 /**
- * <Description> Return whether the chars is null or 0-length.
- * <Details>
+ * Return whether the chars is null or 0-length.
  *
  * @param chars The chars.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(chars: CharArray?): Boolean {
-    chars ?: return true
-
-    return chars.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(chars: CharArray?) = chars.isEmptyOrNull()
+fun CharArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
 /**
- * <Description> Return whether the shorts is null or 0-length.
- * <Details>
+ * Return whether the shorts is null or 0-length.
  *
  * @param shorts The shorts.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(shorts: ShortArray?): Boolean {
-    shorts ?: return true
-
-    return shorts.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(shorts: ShortArray?) = shorts.isEmptyOrNull()
+fun ShortArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
 /**
- * <Description> Return whether the ints is null or 0-length.
- * <Details>
+ * Return whether the ints is null or 0-length.
  *
  * @param ints The ints.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(ints: IntArray?): Boolean {
-    ints ?: return true
-
-    return ints.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(ints: IntArray?) = ints.isEmptyOrNull()
+fun IntArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
 /**
- * <Description> Return whether the longs is null or 0-length.
- * <Details>
+ * Return whether the longs is null or 0-length.
  *
  * @param longs The longs.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(longs: LongArray?): Boolean {
-    longs ?: return true
-
-    return longs.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(longs: LongArray?) = longs.isEmptyOrNull()
+fun LongArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
 /**
- * <Description> Return whether the floats is null or 0-length.
- * <Details>
+ * Return whether the floats is null or 0-length.
  *
  * @param floats The floats.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(floats: FloatArray?): Boolean {
-    floats ?: return true
-
-    return floats.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(floats: FloatArray?) = floats.isEmptyOrNull()
+fun FloatArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
 /**
- * <Description> Return whether the doubles is null or 0-length.
- * <Details>
+ * Return whether the doubles is null or 0-length.
  *
  * @param doubles The doubles.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(doubles: DoubleArray?): Boolean {
-    doubles ?: return true
-
-    return doubles.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(doubles: DoubleArray?) = doubles.isEmptyOrNull()
+fun DoubleArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
 /**
- * <Description> Return whether the booleans is null or 0-length.
- * <Details>
+ * Return whether the booleans is null or 0-length.
  *
  * @param booleans The booleans.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(booleans: BooleanArray?): Boolean {
-    booleans ?: return true
-
-    return booleans.isEmpty()
-}
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(booleans: BooleanArray?) = booleans.isEmptyOrNull()
+fun BooleanArray?.isEmptyOrNull() = this?.isEmpty() ?: true

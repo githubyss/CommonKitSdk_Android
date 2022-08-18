@@ -11,8 +11,7 @@ import androidx.annotation.StringDef;
 
 /**
  * NodeTapState
- * <Description> 节点点击状态
- * <Details>
+ * 节点点击状态
  *
  * @author Ace Yan
  * @github githubyss

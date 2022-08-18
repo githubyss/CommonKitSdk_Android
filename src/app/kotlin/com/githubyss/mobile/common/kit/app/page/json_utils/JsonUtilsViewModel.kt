@@ -1,11 +1,11 @@
-package com.githubyss.mobile.common.kit.app.page.json_utils.view_model
+package com.githubyss.mobile.common.kit.app.page.json_utils
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.githubyss.mobile.common.kit.app.page.json_utils.model.JsonUtilsModel
 import com.githubyss.mobile.common.kit.app.page.json_utils.model.RespDataJsonObjectAndArray
 import com.githubyss.mobile.common.kit.util.getJsonStringFromAssets
-import com.githubyss.mobile.common.kit.util.jsonString2JSONObject
+import com.githubyss.mobile.common.kit.util.string2JSONObject
 
 
 /**
@@ -19,7 +19,10 @@ class JsonUtilsViewModel : ViewModel() {
 
     /** ****************************** Properties ****************************** */
 
-    private val OBJECT_AND_ARRAY = "json/netres/resp_data_sample/resp_data_object_and_array.json"
+    /**  */
+    private val DATA_OBJECT_AND_ARRAY = "json/sample/data_object_and_array.json"
+    private val DATA_ARRAY = "json/sample/data_array.json"
+    private val DATA_OBJECT = "json/sample/data_object.json"
 
     /** model（数据源 Java Bean） */
     private var infos: List<JsonUtilsModel.Info>? = null
@@ -64,11 +67,11 @@ class JsonUtilsViewModel : ViewModel() {
     /** ******************** Event Handling ******************** */
 
     fun onButtonReadJsonTextClick() {
-        this.jsonText?.value = getJsonStringFromAssets(OBJECT_AND_ARRAY)
+        this.jsonText?.value = getJsonStringFromAssets(DATA_OBJECT_AND_ARRAY)
     }
 
     fun onButtonParseJsonClick() {
-        val response = RespDataJsonObjectAndArray(jsonString2JSONObject(this.jsonText?.value))
+        val response = RespDataJsonObjectAndArray(this.jsonText?.value.string2JSONObject())
         this.infos = response.data?.infos
         this.detail = response.data?.detail
 

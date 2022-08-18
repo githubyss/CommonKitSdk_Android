@@ -207,9 +207,8 @@ fun getDrawableFromRes(resId: Int, context: Context? = BaseApplicationHolder.get
  * @param context        The context.
  * @return the content of assets
  */
-fun getStringFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): String {
-    return readAssets2String(assetsFilePath, context = context)
-}
+fun getStringFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = context.getStringFromAssets(assetsFilePath)
+fun Context?.getStringFromAssets(assetsFilePath: String?) = this.readAssets2String(assetsFilePath)
 
 /**
  * Return the drawable identifier by name.
@@ -267,15 +266,17 @@ fun copyFileFromAssets(assetsFilePath: String?, destFilePath: String?, context: 
  *
  * @param assetsFilePath The path of file in assets.
  * @param charsetName    The name of charset.
+ * @param context        The context.
  * @return the content of assets
  */
-fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = BaseApplicationHolder.getApp()): String {
+fun readAssets2String(assetsFilePath: String?, charsetName: String? = null, context: Context? = BaseApplicationHolder.getApp()) = context.readAssets2String(assetsFilePath, charsetName)
+fun Context?.readAssets2String(assetsFilePath: String?, charsetName: String? = null): String {
+    this ?: return ""
     assetsFilePath ?: return ""
-    context ?: return ""
-    if (isSpace(assetsFilePath)) return ""
+    if (assetsFilePath.isSpaceNonNull()) return ""
 
     val `is`: InputStream = try {
-        context.assets.open(assetsFilePath)
+        this.assets.open(assetsFilePath)
     }
     catch (e: IOException) {
         logE(TAG, t = e)

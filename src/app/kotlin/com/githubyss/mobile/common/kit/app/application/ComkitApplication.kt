@@ -1,7 +1,6 @@
 package com.githubyss.mobile.common.kit.app.application
 
 import com.githubyss.mobile.common.kit.base.application.ComkitBaseApplication
-import kotlin.properties.Delegates
 
 
 /**
@@ -17,9 +16,6 @@ class ComkitApplication : ComkitBaseApplication() {
 
     /**  */
     companion object {
-        var instance: ComkitApplication by Delegates.notNull()
-            private set
-
         private val TAG: String = ComkitApplication::class.java.simpleName
     }
 

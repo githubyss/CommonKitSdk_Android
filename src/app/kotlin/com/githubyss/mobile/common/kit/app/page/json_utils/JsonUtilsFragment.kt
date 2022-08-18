@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.app.page.json_utils
 
 import androidx.fragment.app.viewModels
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.page.json_utils.view_model.JsonUtilsViewModel
 import com.githubyss.common.base.activity_fragment.binding_reflect_view_model.BaseReflectBindingViewModelToolbarFragment
 import com.githubyss.mobile.common.kit.databinding.ComkitFragmentJsonUtilsBinding
 

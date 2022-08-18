@@ -54,9 +54,4 @@ abstract class ComkitBaseApplication : BaseApplication() {
         TraceCompat.beginSection("")
         TraceCompat.endSection()
     }
-
-
-    /** ****************************** Functions ****************************** */
-
-    /**  */
 }

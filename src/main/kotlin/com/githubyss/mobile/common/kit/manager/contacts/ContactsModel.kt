@@ -3,7 +3,6 @@ package com.githubyss.mobile.common.kit.manager.contacts
 /**
  * ContactsModel
  * <Description>
- * <Details>
  *
  * @author Ace Yan
  * @github githubyss

@@ -8,11 +8,11 @@
 
     <data>
 
-        <import type="com.githubyss.mobile.common.kit.app.page.json_utils.view_model.JsonUtilsViewModel" />
+        <import type="com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsViewModel" />
 
         <variable
             name="jsonUtilsVm"
-            type="JsonUtilsViewModel"
+            type="com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsViewModel"
             />
     </data>
 

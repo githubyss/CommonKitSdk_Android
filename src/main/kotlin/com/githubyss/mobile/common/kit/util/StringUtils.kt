@@ -3,10 +3,7 @@ package com.githubyss.mobile.common.kit.util
 import android.content.Context
 import android.content.res.Resources.NotFoundException
 import androidx.annotation.ArrayRes
-import androidx.compose.runtime.Stable
 import com.githubyss.common.base.application.BaseApplicationHolder
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlin.experimental.and
 
 
@@ -20,8 +17,10 @@ import kotlin.experimental.and
 
 /** ****************************** Properties ****************************** */
 
+/**  */
 private const val TAG: String = "StringUtils"
 
+/**  */
 private val TYPES = arrayOf("int", "java.lang.String", "boolean", "char", "float", "double", "long", "short", "byte")
 private val HEX_DIGITS = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
 
@@ -36,11 +35,9 @@ private val HEX_DIGITS = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8'
  * @param s The string.
  * @return The length of string.
  */
-fun length(s: CharSequence?): Int {
-    s ?: return 0
+fun length(s: CharSequence?) = s.length
+val CharSequence?.length get() = this?.length ?: 0
 
-    return s.length
-}
 
 /**
  * Return the string array associated with a particular resource ID.
@@ -68,15 +65,21 @@ fun getStringArray(@ArrayRes id: Int, context: Context? = BaseApplicationHolder.
  * @param s The string.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isEmpty(s: CharSequence?): Boolean {
-    s ?: return true
+fun isEmpty(s: CharSequence?) = s?.isEmptyNonNull() ?: true
+fun isNotEmpty(s: CharSequence?) = s?.isNotEmptyNonNull() ?: false
 
-    return s.isEmpty()
-}
+@JvmName("isEmptyNonNull_")
+fun isEmptyNonNull(s: CharSequence) = s.isEmptyNonNull()
+fun CharSequence.isEmptyNonNull() = this.isEmpty()
 
-fun isNotEmpty(s: CharSequence?): Boolean {
-    return !isEmpty(s)
-}
+@JvmName("isNotEmptyNonNull_")
+fun isNotEmptyNonNull(s: CharSequence) = s.isNotEmptyNonNull()
+fun CharSequence.isNotEmptyNonNull() = this.isNotEmpty()
+
+/**  */
+@JvmName("isEmptyOrNull_")
+fun isEmptyOrNull(s: CharSequence?) = s.isEmptyOrNull()
+fun CharSequence?.isEmptyOrNull() = this.isNullOrEmpty()
 
 /**
  * Return whether the string is null or whitespace.
@@ -84,11 +87,13 @@ fun isNotEmpty(s: CharSequence?): Boolean {
  * @param s The string.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isTrimEmpty(s: String?): Boolean {
-    s ?: return true
+@JvmName("isTrimEmpty_")
+fun isTrimEmpty(s: CharSequence?) = s?.isTrimEmpty()
+fun CharSequence?.isTrimEmpty() = this?.isTrimEmptyNonNull() ?: true
 
-    return s.trim().isEmpty()
-}
+@JvmName("isTrimEmptyNonNull_")
+fun isTrimEmptyNonNull(s: CharSequence) = s.isTrimEmptyNonNull()
+fun CharSequence.isTrimEmptyNonNull() = this.trim().isEmpty()
 
 /**
  * Return whether the string is null or white space.
@@ -96,11 +101,16 @@ fun isTrimEmpty(s: String?): Boolean {
  * @param s The string.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun isSpace(s: String?): Boolean {
-    s ?: return true
-    if (s.isEmpty()) return true
+@JvmName("isSpace_")
+fun isSpace(s: CharSequence?) = s.isSpace()
+fun CharSequence?.isSpace() = this?.isSpaceNonNull() ?: true
 
-    for (element in s) {
+@JvmName("isSpaceNonNull_")
+fun isSpaceNonNull(s: CharSequence) = s.isSpaceNonNull()
+fun CharSequence.isSpaceNonNull(): Boolean {
+    if (this.isEmptyNonNull()) return true
+
+    for (element in this) {
         if (!Character.isWhitespace(element)) {
             return false
         }
@@ -108,9 +118,10 @@ fun isSpace(s: String?): Boolean {
     return true
 }
 
-fun isNotSpace(s: String?): Boolean {
-    return !isSpace(s)
-}
+/**  */
+@JvmName("isNotSpaceNonNull_")
+fun isNotSpaceNonNull(s: CharSequence) = s.isNotSpaceNonNull()
+fun CharSequence.isNotSpaceNonNull() = !this.isSpaceNonNull()
 
 /**
  * Return whether string1 is equals to string2.
@@ -119,19 +130,24 @@ fun isNotSpace(s: String?): Boolean {
  * @param s2 The second string.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun equals(s1: CharSequence?, s2: CharSequence?): Boolean {
-    if (s1 === s2) return true
+@JvmName("equals_")
+fun equals(s1: CharSequence?, s2: CharSequence?) = s1.equals(s2)
+fun CharSequence?.equals(s: CharSequence?): Boolean {
+    this ?: return s == null
+    // if (this === null) return s === null
+
+    if (this === s) return true
 
     val length: Int
-    if (s1 != null && s2 != null) {
-        length = s1.length
-        if (s1.length == s2.length) {
-            if (s1 is String && s2 is String) {
-                return s1 == s2
+    if (this != null && s != null) {
+        length = this.length
+        if (this.length == s.length) {
+            if (this is String && s is String) {
+                return this == s
             }
             else {
                 for (i in 0 until length) {
-                    if (s1[i] != s2[i]) return false
+                    if (this[i] != s[i]) return false
                 }
                 return true
             }
@@ -141,16 +157,26 @@ fun equals(s1: CharSequence?, s2: CharSequence?): Boolean {
 }
 
 /**
- * Return whether string1 is equals to string2, ignoring case considerations..
+ * Return whether string1 is equals to string2, strictly.
  *
  * @param s1 The first string.
  * @param s2 The second string.
  * @return {@code true}: yes, {@code false}: no.
  */
-fun equalsIgnoreCase(s1: String?, s2: String?): Boolean {
-    s1 ?: return s2 == null
-    return s1.equals(s2, ignoreCase = true)
-}
+@JvmName("equals_")
+fun equals(s1: String?, s2: String?) = s1.equals(s2)
+fun String?.equals(s: String?) = this.equals(s, ignoreCase = false)
+
+/**
+ * Return whether string1 is equals to string2, ignoring case considerations.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string.
+ * @return {@code true}: yes, {@code false}: no.
+ */
+@JvmName("equalsIgnoreCase_")
+fun equalsIgnoreCase(s1: String?, s2: String?) = s1.equalsIgnoreCase(s2)
+fun String?.equalsIgnoreCase(s: String?) = this.equals(s, ignoreCase = true)
 
 /** ******************** Converter ******************** */
 
@@ -160,9 +186,9 @@ fun equalsIgnoreCase(s1: String?, s2: String?): Boolean {
  * @param s The string.
  * @return {@code ""} if string equals null.
  */
-fun null2Length0(s: String?): String {
-    return s ?: ""
-}
+@JvmName("null2Length0_")
+fun null2Length0(s: String?) = s.null2Length0()
+fun String?.null2Length0() = this ?: ""
 
 /**
  * Object to string.
@@ -171,13 +197,14 @@ fun null2Length0(s: String?): String {
  * @param object The Object.
  * @return The object string.
  */
-fun <T : Any> object2String(`object`: T?): String {
-    `object` ?: return "Object {object is null}"
+@JvmName("object2String_")
+fun <T : Any> object2String(`object`: T?) = `object`.object2String()
+fun <T : Any> T?.object2String(): String {
+    this ?: return "Object {object is null}"
 
-    if (`object`.toString()
-            .startsWith(`object`.javaClass.name + "@")) {
-        val stringBuilder = StringBuilder(`object`.javaClass.simpleName + "Object {")
-        val fields = `object`.javaClass.declaredFields
+    if (this.toString().startsWith(this.javaClass.name + "@")) {
+        val stringBuilder = StringBuilder(this.javaClass.simpleName + "Object {")
+        val fields = this.javaClass.declaredFields
         for (field in fields) {
             field.isAccessible = true
             var flag = false
@@ -186,7 +213,7 @@ fun <T : Any> object2String(`object`: T?): String {
                     flag = true
                     var value: Any? = null
                     try {
-                        value = field.get(`object`)
+                        value = field.get(this)
                     }
                     catch (e: IllegalAccessException) {
                         logE(TAG, t = e)
@@ -205,7 +232,7 @@ fun <T : Any> object2String(`object`: T?): String {
             .toString()
     }
     else {
-        return `object`.toString()
+        return this.toString()
     }
 }
 
@@ -216,16 +243,18 @@ fun <T : Any> object2String(`object`: T?): String {
  * @param array The array.
  * @return The array string.
  */
-fun array2String(array: Array<*>?): String {
-    array ?: return "Array [array is null]"
+@JvmName("array2String_")
+fun array2String(array: Array<*>?) = array.array2String()
+fun Array<*>?.array2String(): String {
+    this ?: return "Array [array is null]"
 
     val stringBuilder = StringBuilder()
-    val arraySize = array.size
+    val arraySize = this.size
     for (idx in 0 until arraySize) {
         if (idx == 0) {
             stringBuilder.append("Array [")
         }
-        stringBuilder.append(array[idx].toString())
+        stringBuilder.append(this[idx].toString())
         if (idx == (arraySize - 1)) {
             stringBuilder.append("]")
         }
@@ -243,11 +272,9 @@ fun array2String(array: Array<*>?): String {
  * @param list The list.
  * @return The list string.
  */
-fun list2String(list: List<*>?): String {
-    list ?: return "List[ list is null ]"
-
-    return list.toString()
-}
+@JvmName("list2String_")
+fun list2String(list: List<*>?) = list.list2String()
+fun List<*>?.list2String() = this?.toString() ?: "List[ list is null ]"
 
 /**
  * Bytes to hex string.
@@ -256,16 +283,18 @@ fun list2String(list: List<*>?): String {
  * @param bytes The bytes.
  * @return The hex string.
  */
-fun bytes2HexString(bytes: ByteArray?): String {
-    bytes ?: return ""
-    if (isEmpty(bytes)) return ""
+@JvmName("bytes2HexString_")
+fun bytes2HexString(bytes: ByteArray?) = bytes.bytes2HexString()
+fun ByteArray?.bytes2HexString(): String {
+    this ?: return ""
+    if (this.isEmptyNonNull()) return ""
 
-    val bytesSize = bytes.size
+    val bytesSize = this.size
     val chars = CharArray(bytesSize shl 1)
     var j = 0
     for (i in 0 until bytesSize) {
-        chars[j++] = HEX_DIGITS[(bytes[i].toInt() shr 4) and 0x0f]
-        chars[j++] = HEX_DIGITS[(bytes[i] and 0x0f).toInt()]
+        chars[j++] = HEX_DIGITS[(this[i].toInt() shr 4) and 0x0f]
+        chars[j++] = HEX_DIGITS[(this[i] and 0x0f).toInt()]
     }
     return String(chars)
 }
@@ -276,14 +305,15 @@ fun bytes2HexString(bytes: ByteArray?): String {
  * @param s The string.
  * @return The string with first letter upper.
  */
-fun uppercaseFirstLetter(s: String?): String {
-    s ?: return ""
-    if (isSpace(s)) return s
+@JvmName("uppercaseFirstLetter_")
+fun uppercaseFirstLetter(s: String?) = s.uppercaseFirstLetter()
+fun String?.uppercaseFirstLetter(): String {
+    this ?: return ""
+    if (this.isSpaceNonNull()) return this
 
     // 首字符可能会是数字，所以不能直接用 Character.isUpperCase 判断
-    if (!Character.isLowerCase(s[0])) return s
-    return (s[0].toInt() - 32).toChar()
-        .toString() + s.substring(1)
+    if (!Character.isLowerCase(this[0])) return this
+    return (this[0].toInt() - 32).toChar().toString() + this.substring(1)
 }
 
 /**
@@ -292,14 +322,15 @@ fun uppercaseFirstLetter(s: String?): String {
  * @param s The string.
  * @return The string with first letter lower.
  */
-fun lowercaseFirstLetter(s: String?): String {
-    s ?: return ""
-    if (isSpace(s)) return s
+@JvmName("lowercaseFirstLetter_")
+fun lowercaseFirstLetter(s: String?) = s.lowercaseFirstLetter()
+fun String?.lowercaseFirstLetter(): String {
+    this ?: return ""
+    if (this.isSpaceNonNull()) return this
 
     // 首字符可能会是数字，所以不能直接用 Character.isLowerCase 判断
-    if (!Character.isUpperCase(s[0])) return s
-    return (s[0].toInt() + 32).toChar()
-        .toString() + s.substring(1)
+    if (!Character.isUpperCase(this[0])) return this
+    return (this[0].toInt() + 32).toChar().toString() + this.substring(1)
 }
 
 /**
@@ -308,15 +339,17 @@ fun lowercaseFirstLetter(s: String?): String {
  * @param s The string.
  * @return The reverse string.
  */
-fun reverse(s: String?): String {
-    s ?: return ""
-    if (isSpace(s)) return s
+@JvmName("reverse_")
+fun reverse(s: String?) = s.reverse()
+fun String?.reverse(): String {
+    this ?: return ""
+    if (this.isSpaceNonNull()) return this
 
-    val len = s.length
-    if (len <= 1) return s
+    val len = this.length
+    if (len <= 1) return this
 
     val mid = len shr 1
-    val chars = s.toCharArray()
+    val chars = this.toCharArray()
     var c: Char
     for (i in 0 until mid) {
         c = chars[i]
@@ -332,11 +365,13 @@ fun reverse(s: String?): String {
  * @param s The string.
  * @return The DBC string.
  */
-fun toDBC(s: String?): String {
-    s ?: return ""
-    if (isSpace(s)) return ""
+@JvmName("toDBC_")
+fun toDBC(s: String?) = s.toDBC()
+fun String?.toDBC(): String {
+    this ?: return ""
+    if (this.isSpaceNonNull()) return ""
 
-    val chars = s.toCharArray()
+    val chars = this.toCharArray()
     for (i in chars.indices) {
         when {
             chars[i].toInt() == 12288 -> {
@@ -359,11 +394,13 @@ fun toDBC(s: String?): String {
  * @param s The string.
  * @return The SBC string.
  */
-fun toSBC(s: String?): String {
-    s ?: return ""
-    if (isSpace(s)) return ""
+@JvmName("toSBC_")
+fun toSBC(s: String?) = s.toSBC()
+fun String?.toSBC(): String {
+    this ?: return ""
+    if (isSpace(this)) return ""
 
-    val chars = s.toCharArray()
+    val chars = this.toCharArray()
     for (i in chars.indices) {
         when {
             chars[i] == ' ' -> {
@@ -378,9 +415,4 @@ fun toSBC(s: String?): String {
         }
     }
     return String(chars)
-}
-
-@Stable
-fun <V> String.jsonString2Map(): Map<String?, V> {
-    return Gson().fromJson(this, object : TypeToken<Map<String?, V>?>() {}.type)
 }

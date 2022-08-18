@@ -13,8 +13,7 @@ import androidx.annotation.StringDef;
 
 /**
  * PermissionType
- * <Description> 权限类型
- * <Details>
+ * 权限类型
  *
  * @author Ace Yan
  * @github githubyss

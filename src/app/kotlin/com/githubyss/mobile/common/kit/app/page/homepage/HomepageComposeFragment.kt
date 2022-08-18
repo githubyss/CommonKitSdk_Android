@@ -24,9 +24,9 @@ import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmActivity
 import com.githubyss.mobile.common.kit.app.page.mvvm_binding.MvvmFragment
 import com.githubyss.mobile.common.kit.app.page.mvvm_compose.MvvmComposeActivity
 import com.githubyss.mobile.common.kit.app.page.state_compose.StateComposeActivity
-import com.githubyss.mobile.common.kit.util.FragmentUtils
 import com.githubyss.mobile.common.kit.util.getStringFromRes
 import com.githubyss.mobile.common.kit.util.startActivityExt
+import com.githubyss.mobile.common.kit.util.switchFragmentByAddHideShow
 import com.githubyss.mobile.common.res.common.dimen.SpaceNormal
 
 

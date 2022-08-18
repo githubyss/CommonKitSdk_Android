@@ -11,8 +11,7 @@ import androidx.annotation.IntDef;
 
 /**
  * VersionCode
- * <Description> 安卓系统版本号
- * <Details>
+ * 安卓系统版本号
  *
  * @author Ace Yan
  * @github githubyss

@@ -431,7 +431,7 @@ private fun <T : Any> printAny(element: StackTraceElement, any: T?) {
         }
 
         else -> {
-            val message = object2String(any)
+            val message = any.object2String()
             logD(fileName, LOG_TOP____BORDER_DOUBLE__THIN)
             logD(fileName, "$LOG_VERTICAL___DOUBLE__THIN $tag")
             logD(fileName, LOG_MIDDLE_BORDER_DOUBLE__THIN)
@@ -502,7 +502,7 @@ private fun printCollectionOneLine(tag: String, fileName: String, simpleName: St
         while (iterator.hasNext()) {
             val itemString = "%s%s"
             val item = iterator.next()
-            stringBuilder.append(String.format(itemString, object2String(item), if (index++ < collection.size - 1) ", " else ""))
+            stringBuilder.append(String.format(itemString, item.object2String(), if (index++ < collection.size - 1) ", " else ""))
         }
         stringBuilder.append("]\n")
             .append(LOG_BOTTOM_BORDER_DOUBLE__THIN)
@@ -541,7 +541,7 @@ private fun printCollection(tag: String, fileName: String, simpleName: String, c
         while (iterator.hasNext()) {
             val itemString = "$LOG_VERTICAL___DOUBLE__THIN [%d]:%s%s"
             val item = iterator.next()
-            stringBuilder.append(String.format(itemString, index, object2String(item), if (index++ < collection.size - 1) ",\n" else "\n"))
+            stringBuilder.append(String.format(itemString, index, item.object2String(), if (index++ < collection.size - 1) ",\n" else "\n"))
         }
         stringBuilder.append("$LOG_VERTICAL___DOUBLE__THIN ]\n")
             .append(LOG_BOTTOM_BORDER_DOUBLE__THIN)
@@ -580,7 +580,7 @@ private fun printMap(tag: String, fileName: String, simpleName: String, map: Map
         for (key in keys) {
             stringBuilder.append(LOG_VERTICAL___DOUBLE__THIN)
                 .append(" ")
-                .append(String.format("[%s -> %s]\n", object2String(key), object2String(if (map[key] is Array<*>) array2String(map[key] as Array<*>) else map[key])))
+                .append(String.format("[%s -> %s]\n", key.object2String(), (if (map[key] is Array<*>) (map[key] as Array<*>).array2String() else map[key]))).object2String()
         }
         stringBuilder.append(LOG_VERTICAL___DOUBLE__THIN)
             .append(" ")

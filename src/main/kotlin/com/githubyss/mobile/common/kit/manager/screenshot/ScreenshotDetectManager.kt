@@ -24,8 +24,7 @@ import java.lang.ref.WeakReference
 
 /**
  * ScreenshotDetectManager
- * <Description> Detect the action of screenshot.
- * <Details>
+ * Detect the action of screenshot.
  *     Detect data change in media database to decide whether catch screenshot or not.
  *     Obtain the latest image data inserted in media database.
  *     It will be regarded as screenshot action when the image data accord with the following judgements:
