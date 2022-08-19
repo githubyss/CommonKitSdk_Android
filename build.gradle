@@ -55,7 +55,7 @@ android {
                 applicationId 'com.githubyss.mobile.common.kit'
                 versionCode 1
                 versionName "1.0"
-                manifestPlaceholders = [APP_NAME: "通用工具库"]
+                manifestPlaceholders = [APP_NAME: "通用Kit库"]
             }
         }
     }
@@ -110,12 +110,15 @@ android {
         }
     }
 
-    dataBinding {
-        enabled feature.isDataBindingEnabled
-    }
+    /** App 模式下需要 */
+    if (isLaunchApp) {
+        dataBinding {
+            enabled feature.isDataBindingEnabled
+        }
 
-    buildFeatures {
-        compose feature.isComposeEnabled
+        buildFeatures {
+            compose feature.isComposeEnabled
+        }
     }
 }
 
@@ -125,12 +128,6 @@ dependencies {
     implementation project(':DesignPatternLibrary_Android')
     implementation project(':CommonBaseSdk_Android')
 
-    // implementation dependenciesLib.androidx_appcompat
-    // implementation dependenciesLib.androidx_activity_compose
-    // implementation dependenciesLib.androidx_compose_material
-    // implementation dependenciesLib.androidx_lifecycle_runtime
-    // implementation dependenciesLib.androidx_lifecycle_viewmodel
-
     implementation dependenciesLib.google_gson
     implementation dependenciesLib.joda_time
     implementation dependenciesLib.bumptech_glide
@@ -138,11 +135,11 @@ dependencies {
 
     kapt dependenciesLib.bumptech_glide_compiler
 
-    debugImplementation dependenciesLib.leakcanary
-
     if (isLaunchApp) {
         appImplementation project(':CommonResSdk_Android')
 
+        appImplementation dependenciesLib.androidx_appcompat
+        appImplementation dependenciesLib.androidx_compose_material
         appImplementation dependenciesLib.androidx_fragment_ktx
         appImplementation dependenciesLib.androidx_constraintlayout
         appImplementation dependenciesLib.androidx_recyclerview

@@ -15,6 +15,7 @@ class HomepageActivity : BaseReflectBindingActivity<CombaseActivityBaseBinding>(
 
     /** ****************************** Properties ****************************** */
 
+    /**  */
     companion object {
         private val TAG: String = HomepageActivity::class.java.simpleName
     }
@@ -22,6 +23,7 @@ class HomepageActivity : BaseReflectBindingActivity<CombaseActivityBaseBinding>(
 
     /** ****************************** Override ****************************** */
 
+    /**  */
     override fun setupUi() {
         switchFragment(HomepageComposeFragment(), HomepageComposeFragment.TAG, FRAGMENT_BASE_CONTAINER_ID, false)
     }
