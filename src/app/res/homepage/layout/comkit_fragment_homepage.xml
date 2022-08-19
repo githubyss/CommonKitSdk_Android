@@ -38,77 +38,6 @@
 
                 <Button
                     style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_mvvm"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_mvvm_activity"
-                    />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_mvi"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_mvi"
-                    />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_compose"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_compose"
-                    />
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_compose_toolbar"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_compose_toolbar"
-                    />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_binding_reflect"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_reflect"
-                    />
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_binding_reflect_toolbar"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_reflect_toolbar"
-                    />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_binding_inline"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_inline"
-                    />
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/button_binding_inline_toolbar"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_view_binding_inline_toolbar"
-                    />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
                     android:id="@+id/button_web_view"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
                     android:text="@string/comkit_homepage_button_web_view"
@@ -142,16 +71,6 @@
                     android:id="@+id/btn_glide"
                     android:onClick="@{homepageVm::onAnyButtonClick}"
                     android:text="@string/comkit_homepage_button_glide"
-                    />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout style="@style/comres_equant_horizontal_flex_style">
-
-                <Button
-                    style="@style/comres_equant_horizontal_button_style"
-                    android:id="@+id/btn_lifecycle"
-                    android:onClick="@{homepageVm::onAnyButtonClick}"
-                    android:text="@string/comkit_homepage_button_lifecycle"
                     />
             </com.google.android.flexbox.FlexboxLayout>
 

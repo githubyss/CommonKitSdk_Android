@@ -4,29 +4,17 @@
     <string name="comkit_homepage_title">Kit调试首页</string>
 
     <!-- Button -->
-    <string name="comkit_homepage_button_mvvm_activity">Mvvm Activity</string>
-    <string name="comkit_homepage_button_mvvm_fragment">Mvvm Fragment</string>
-    <string name="comkit_homepage_button_mvi">MVI</string>
-    <string name="comkit_homepage_button_mvvm_compose">Mvvm Compose</string>
-    <string name="comkit_homepage_button_state_compose">State Compose</string>
-    <string name="comkit_homepage_button_compose">Compose</string>
-    <string name="comkit_homepage_button_compose_toolbar">Compose\nToolbar</string>
-    <string name="comkit_homepage_button_view_binding_reflect">Binding Reflect</string>
-    <string name="comkit_homepage_button_view_binding_reflect_toolbar">Binding Reflect\nToolbar</string>
-    <string name="comkit_homepage_button_view_binding_inline">Binding Inline</string>
-    <string name="comkit_homepage_button_view_binding_inline_toolbar">Binding Inline\nToolbar</string>
     <string name="comkit_homepage_button_web_view">网页容器</string>
     <string name="comkit_homepage_button_log">日志</string>
     <string name="comkit_homepage_button_json_utils">Json 工具</string>
     <string name="comkit_homepage_button_glide">Glide</string>
-    <string name="comkit_homepage_button_lifecycle">生命周期</string>
     <string name="comkit_homepage_button_audio_player">音频播放</string>
     <string name="comkit_homepage_button_contacts_fetch">通讯录获取</string>
     <string name="comkit_homepage_button_font">字体设置</string>
     <string name="comkit_homepage_button_permission">权限管理</string>
     <string name="comkit_homepage_button_screenshot_detect">截屏监听</string>
     <string name="comkit_homepage_button_speech_recognition">语音识别</string>
-    <string name="comkit_homepage_button_activity_utils">Activity 工具</string>
+    <string name="comkit_homepage_button_activity_utils">页面工具</string>
     <string name="comkit_homepage_button_adapt_screen_utils">屏幕工具</string>
     <string name="comkit_homepage_button_app_utils">App 工具</string>
     <string name="comkit_homepage_button_array_utils">数组工具</string>

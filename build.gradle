@@ -89,13 +89,7 @@ android {
                     srcDirs 'src/app/res/common'
 
                     srcDirs 'src/app/res/homepage'
-                    srcDirs 'src/app/res/binding_inline'
-                    srcDirs 'src/app/res/binding_reflect'
-                    srcDirs 'src/app/res/compose'
                     srcDirs 'src/app/res/json_utils'
-                    srcDirs 'src/app/res/lifecycle'
-                    srcDirs 'src/app/res/mvvm'
-                    srcDirs 'src/app/res/mvi'
                     srcDirs 'src/app/res/web_view'
                 }
                 manifest {
@@ -129,12 +123,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':DesignPatternLibrary_Android')
-    implementation project(':CommonResSdk_Android')
     implementation project(':CommonBaseSdk_Android')
 
-    implementation dependenciesLib.androidx_appcompat
-    implementation dependenciesLib.androidx_activity_compose
-    implementation dependenciesLib.androidx_compose_material
+    // implementation dependenciesLib.androidx_appcompat
+    // implementation dependenciesLib.androidx_activity_compose
+    // implementation dependenciesLib.androidx_compose_material
     // implementation dependenciesLib.androidx_lifecycle_runtime
     // implementation dependenciesLib.androidx_lifecycle_viewmodel
 
@@ -148,7 +141,7 @@ dependencies {
     debugImplementation dependenciesLib.leakcanary
 
     if (isLaunchApp) {
-        appImplementation project(':DesignPatternLibrary_Android')
+        appImplementation project(':CommonResSdk_Android')
 
         appImplementation dependenciesLib.androidx_fragment_ktx
         appImplementation dependenciesLib.androidx_constraintlayout
