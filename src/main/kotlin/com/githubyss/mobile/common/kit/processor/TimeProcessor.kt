@@ -7,7 +7,6 @@ import java.util.*
 
 /**
  * TimeProcessor
- * <Description>
  *
  * @author Ace Yan
  * @github githubyss

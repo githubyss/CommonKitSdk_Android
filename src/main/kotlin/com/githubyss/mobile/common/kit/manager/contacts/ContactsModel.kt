@@ -2,7 +2,6 @@ package com.githubyss.mobile.common.kit.manager.contacts
 
 /**
  * ContactsModel
- * <Description>
  *
  * @author Ace Yan
  * @github githubyss

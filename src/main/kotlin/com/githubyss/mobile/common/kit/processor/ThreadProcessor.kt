@@ -4,7 +4,6 @@ import android.os.Looper
 
 /**
  * ThreadProcessor
- * <Description>
  *
  * @author Ace Yan
  * @github githubyss
@@ -13,7 +12,6 @@ object ThreadProcessor {
     /**
      * ThreadProcessor.assertMainThread()
      * Assert function run in main thread.
-     * <Details>
      *
      * @param
      * @return

@@ -12,7 +12,7 @@ import androidx.annotation.IntDef;
 /**
  * MemoryUnit
  * 内存单位
- * <Details> 以字节计
+ * 以字节计
  *
  * @author Ace Yan
  * @github githubyss

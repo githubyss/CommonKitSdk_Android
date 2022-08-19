@@ -12,7 +12,6 @@ import java.lang.ref.WeakReference
 
 /**
  * ContactsFetchManager
- * <Description>
  *
  * @author Ace Yan
  * @github githubyss
@@ -94,7 +93,6 @@ class ContactsFetchManager private constructor() {
     /**
      * ContactsFetchManager.getDeviceContacts(contextWeakRef, contactsModelList, cellphoneSet)
      * Fetch contacts in cellphone device.
-     * <Details>
      *     Traverse table [raw_contacts] to obtain all "display_name" and "_id" in cellphone device.
      *     Query table [data] by "raw_contact_id"("_id" above) and "mimetype_id" and find out all number("data1") according to "display_name"
      *

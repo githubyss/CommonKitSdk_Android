@@ -5,7 +5,6 @@ import android.graphics.Typeface
 
 /**
  * ComkitFontConfig
- * <Description>
  *
  * @author Ace Yan
  * @github githubyss

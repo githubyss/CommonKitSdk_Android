@@ -40,7 +40,6 @@ object FontManager {
     /**
      * FontManager.replaceSystemDefaultFontFromAsset([context, fontPath])
      * Replace system default font.
-     * <Details>
      *     You should also add code below to your app theme in styles.xml:
      *     {@code <item name="android:typeface">monospace</item>}
      *     The best place to call this method is {@link Application#onCreate()}, it will affect the whole app font.
@@ -65,7 +64,6 @@ object FontManager {
     /**
      * FontManager.replaceFont([rootView, typeface, fontStyle])
      * Replace the font of specified view and it's children with specified typeface and font style.
-     * <Details>
      *
      * @params [rootView, typeface, fontStyle]
      * @param rootView The root view.
@@ -92,7 +90,6 @@ object FontManager {
     /**
      * FontManager.createTypefaceFromAsset([context, fontPath])
      * Create a Typeface instance with specified font file.
-     * <Details>
      *
      * @params [context, fontPath]
      * @param context
