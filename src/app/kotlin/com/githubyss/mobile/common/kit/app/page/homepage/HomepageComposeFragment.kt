@@ -7,10 +7,10 @@ import androidx.fragment.app.viewModels
 import com.githubyss.common.base.activity_fragment.classical.BaseActivity
 import com.githubyss.common.base.activity_fragment.compose.BaseComposeToolbarFragment
 import com.githubyss.mobile.common.kit.R
-import com.githubyss.mobile.common.kit.app.compose_ui.comui.ButtonClickBlueWeightHorizontal
-import com.githubyss.mobile.common.kit.app.compose_ui.comui.LayoutWeightHorizontal
-import com.githubyss.mobile.common.kit.app.compose_ui.comui.PageSidePadding
-import com.githubyss.mobile.common.kit.app.compose_ui.comui.TopNavigationBar
+import com.githubyss.mobile.common.kit.app.z_copy.compose_ui.ButtonClickBlueWeightHorizontal
+import com.githubyss.mobile.common.kit.app.z_copy.compose_ui.LayoutWeightHorizontal
+import com.githubyss.mobile.common.kit.app.z_copy.compose_ui.PageSidePadding
+import com.githubyss.mobile.common.kit.app.z_copy.compose_ui.TopNavigationBar
 import com.githubyss.mobile.common.kit.app.page.json_utils.JsonUtilsFragment
 import com.githubyss.mobile.common.kit.app.page.web_view.WebViewActivity
 import com.githubyss.mobile.common.kit.util.getStringFromRes

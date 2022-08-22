@@ -1,4 +1,4 @@
-package com.githubyss.mobile.common.kit.app.compose_ui.comui
+package com.githubyss.mobile.common.kit.app.z_copy.compose_ui
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
