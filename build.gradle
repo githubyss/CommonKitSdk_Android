@@ -131,7 +131,7 @@ dependencies {
     implementation dependenciesLib.google_gson
     implementation dependenciesLib.joda_time
     implementation dependenciesLib.bumptech_glide
-    implementation dependenciesLib.alibaba_arouter_api
+    implementation dependenciesLib.alibaba_arouter
 
     kapt dependenciesLib.bumptech_glide_compiler
 
