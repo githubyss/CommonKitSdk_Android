@@ -61,6 +61,7 @@ class WebViewFragment : BaseReflectBindingViewModelToolbarFragment<ComkitFragmen
 
     /** ****************************** Functions ****************************** */
 
+    /**  */
     fun onHighlightTextClick() {
         binding.webViewContent.findAllAsync(webViewVm.highlightKeyword.value ?: return)
     }

@@ -63,58 +63,127 @@ class HomepageComposeFragment : BaseComposeToolbarFragment() {
     /**  */
     @Composable
     private fun Buttons() {
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_web_view)) {
-            activity.startActivityExt<WebViewActivity>()
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_log), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_shell), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_stack_trace), modifier = Modifier.weight(1F)) {
+            }
         }
         LayoutWeightHorizontal {
-            ButtonClickBlueWeightHorizontal(
-                text = getStringFromRes(R.string.comkit_homepage_button_log),
-                modifier = Modifier.weight(1F)
-            ) {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_array), modifier = Modifier.weight(1F)) {
             }
-            ButtonClickBlueWeightHorizontal(
-                text = getStringFromRes(R.string.comkit_homepage_button_json_utils),
-                modifier = Modifier.weight(1F)
-            ) {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_list), modifier = Modifier.weight(1F)) {
+            }
+        }
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_class), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_string), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_number), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_regex), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_json), modifier = Modifier.weight(1F)) {
                 switchFragmentByAddHideShow(JsonUtilsFragment(), JsonUtilsFragment.TAG, this, parentFragmentManager, BaseActivity.FRAGMENT_BASE_CONTAINER_ID, true)
             }
-            ButtonClickBlueWeightHorizontal(
-                text = getStringFromRes(R.string.comkit_homepage_button_glide),
-                modifier = Modifier.weight(1F)
-            ) {
+        }
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_encrypt), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_encode), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_datetime), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_convert), modifier = Modifier.weight(1F)) {
             }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_audio_player)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_contacts_fetch), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_screenshot_detect), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_permission), modifier = Modifier.weight(1F)) {
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_contacts_fetch)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_image), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_glide), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_audio_player), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_speech_recognition), modifier = Modifier.weight(1F)) {
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_font)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_file), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_kv), modifier = Modifier.weight(1F)) {
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_permission)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_uri), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_bundle), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_intent), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_stream), modifier = Modifier.weight(1F)) {
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_screenshot_detect)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_app), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_activity), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_fragment), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_bar), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_web_view), modifier = Modifier.weight(1F)) {
+                activity.startActivityExt<WebViewActivity>()
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_speech_recognition)) {
+        LayoutWeightHorizontal {
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_activity_utils)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_font), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_property), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_resource), modifier = Modifier.weight(1F)) {
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_adapt_screen_utils)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_adapt_screen), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_brightness), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_device), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_system), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_network), modifier = Modifier.weight(1F)) {
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_app_utils)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_anti_shake), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_snackbar), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_toast), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_typewriter), modifier = Modifier.weight(1F)) {
+            }
         }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_array_utils)) {
-        }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_bar_utils)) {
-        }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_brightness_utils)) {
-        }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_convert_utils)) {
-        }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_datetime_utils)) {
-        }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_device_utils)) {
-        }
-        ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_encrypt_utils)) {
+        LayoutWeightHorizontal {
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_task), modifier = Modifier.weight(1F)) {
+            }
+            ButtonClickBlueWeightHorizontal(text = getStringFromRes(R.string.comkit_homepage_button_timer), modifier = Modifier.weight(1F)) {
+            }
         }
     }
 }

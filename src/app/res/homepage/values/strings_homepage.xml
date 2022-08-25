@@ -1,27 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           tools:ignore="MissingTranslation">
+
     <!-- Title -->
     <string name="comkit_homepage_title">Kit调试首页</string>
 
     <!-- Button -->
-    <string name="comkit_homepage_button_web_view">网页容器</string>
     <string name="comkit_homepage_button_log">日志</string>
-    <string name="comkit_homepage_button_json_utils">Json 工具</string>
+    <string name="comkit_homepage_button_shell">Shell</string>
+    <string name="comkit_homepage_button_stack_trace">Stack Trace</string>
+
+    <string name="comkit_homepage_button_array">数组</string>
+    <string name="comkit_homepage_button_list">列表</string>
+
+    <string name="comkit_homepage_button_class">类与类型</string>
+    <string name="comkit_homepage_button_string">字符串</string>
+    <string name="comkit_homepage_button_number">数字</string>
+    <string name="comkit_homepage_button_regex">正则</string>
+    <string name="comkit_homepage_button_json">Json</string>
+
+    <string name="comkit_homepage_button_encrypt">加解密</string>
+    <string name="comkit_homepage_button_encode">编解码</string>
+    <string name="comkit_homepage_button_datetime">日期时间</string>
+    <string name="comkit_homepage_button_convert">转换</string>
+
+    <string name="comkit_homepage_button_contacts_fetch">通讯录获取</string>
+    <string name="comkit_homepage_button_screenshot_detect">截屏监听</string>
+    <string name="comkit_homepage_button_permission">权限管理</string>
+
+    <string name="comkit_homepage_button_image">图像</string>
     <string name="comkit_homepage_button_glide">Glide</string>
     <string name="comkit_homepage_button_audio_player">音频播放</string>
-    <string name="comkit_homepage_button_contacts_fetch">通讯录获取</string>
-    <string name="comkit_homepage_button_font">字体设置</string>
-    <string name="comkit_homepage_button_permission">权限管理</string>
-    <string name="comkit_homepage_button_screenshot_detect">截屏监听</string>
     <string name="comkit_homepage_button_speech_recognition">语音识别</string>
-    <string name="comkit_homepage_button_activity_utils">页面工具</string>
-    <string name="comkit_homepage_button_adapt_screen_utils">屏幕工具</string>
-    <string name="comkit_homepage_button_app_utils">App 工具</string>
-    <string name="comkit_homepage_button_array_utils">数组工具</string>
-    <string name="comkit_homepage_button_bar_utils">导航栏工具</string>
-    <string name="comkit_homepage_button_brightness_utils">亮度工具</string>
-    <string name="comkit_homepage_button_convert_utils">转换工具</string>
-    <string name="comkit_homepage_button_datetime_utils">日期时间工具</string>
-    <string name="comkit_homepage_button_device_utils">设备工具</string>
-    <string name="comkit_homepage_button_encrypt_utils">加密工具</string>
+
+    <string name="comkit_homepage_button_file">文件</string>
+    <string name="comkit_homepage_button_kv">键值存储</string>
+
+    <string name="comkit_homepage_button_uri">Uri</string>
+    <string name="comkit_homepage_button_bundle">Bundle</string>
+    <string name="comkit_homepage_button_intent">Intent</string>
+    <string name="comkit_homepage_button_stream">Stream</string>
+
+    <string name="comkit_homepage_button_app">App</string>
+    <string name="comkit_homepage_button_activity">Activity</string>
+    <string name="comkit_homepage_button_fragment">Fragment</string>
+    <string name="comkit_homepage_button_bar">状态栏</string>
+    <string name="comkit_homepage_button_web_view">网页容器</string>
+
+    <string name="comkit_homepage_button_font">字体</string>
+    <string name="comkit_homepage_button_property">属性</string>
+    <string name="comkit_homepage_button_resource">资源</string>
+
+    <string name="comkit_homepage_button_adapt_screen">屏幕</string>
+    <string name="comkit_homepage_button_brightness">亮度</string>
+    <string name="comkit_homepage_button_device">设备</string>
+    <string name="comkit_homepage_button_system">系统</string>
+    <string name="comkit_homepage_button_network">网络</string>
+
+    <string name="comkit_homepage_button_anti_shake">防抖</string>
+    <string name="comkit_homepage_button_snackbar">Snackbar</string>
+    <string name="comkit_homepage_button_toast">Toast</string>
+    <string name="comkit_homepage_button_typewriter">打字机</string>
+
+    <string name="comkit_homepage_button_task">任务</string>
+    <string name="comkit_homepage_button_timer">定时器</string>
 </resources>

@@ -1,7 +1,6 @@
-package com.githubyss.mobile.common.kit.view_operator
+package com.githubyss.mobile.common.kit.util
 
 import android.widget.TextView
-import com.githubyss.mobile.common.kit.util.logE
 import kotlin.concurrent.thread
 
 
