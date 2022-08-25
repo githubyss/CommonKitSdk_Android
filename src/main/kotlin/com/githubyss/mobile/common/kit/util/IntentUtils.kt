@@ -1,6 +1,8 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.Manifest.permission
+import android.app.Activity
+import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -347,6 +349,28 @@ private fun getIntent(intent: Intent?, isNewTask: Boolean = false): Intent? {
     intent ?: return null
 
     return if (isNewTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
+}
+
+/**  */
+@JvmName("getIntentByActivity_")
+inline fun <reified A : Activity> getIntentByActivity(context: Context?) = context.getIntentByActivity<A>()
+inline fun <reified A : Activity> Context?.getIntentByActivity() = Intent(this, A::class.java)
+
+/**  */
+@JvmName("getIntentByAction_")
+fun getIntentByAction(action: String) = Intent(action)
+
+/**  */
+fun getPendingIntent(context: Context, intent: Intent, appWidgetId: Int, extra: String) = intent.getPendingIntent(context, appWidgetId, extra)
+fun Intent?.getPendingIntent(context: Context, appWidgetId: Int, extra: String) = this?.let { intent ->
+    intent.putExtra("extra", extra)
+    // 使用 FLAG_ACTIVITY_CLEAR_TOP 会将该启动的 activity 上层 activity 弹出栈，确保该 activity 能显示在顶层
+    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+    var flag = PendingIntent.FLAG_UPDATE_CURRENT
+    if (Build.VERSION.SDK_INT >= 31) {
+        flag = flag or PendingIntent.FLAG_MUTABLE
+    }
+    PendingIntent.getActivity(context, appWidgetId, intent, flag)
 }
 
 /** ******************** Checker ******************** */
