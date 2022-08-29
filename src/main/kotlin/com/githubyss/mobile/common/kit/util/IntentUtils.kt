@@ -3,6 +3,7 @@ package com.githubyss.mobile.common.kit.util
 import android.Manifest.permission
 import android.app.Activity
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -29,6 +30,7 @@ import java.util.*
 
 /** ****************************** Properties ****************************** */
 
+/**  */
 private const val TAG: String = "IntentUtils"
 
 
@@ -352,26 +354,56 @@ private fun getIntent(intent: Intent?, isNewTask: Boolean = false): Intent? {
 }
 
 /**  */
-@JvmName("getIntentByActivity_")
-inline fun <reified A : Activity> getIntentByActivity(context: Context?) = context.getIntentByActivity<A>()
-inline fun <reified A : Activity> Context?.getIntentByActivity() = Intent(this, A::class.java)
+fun getIntent(action: String) = Intent(action)
 
 /**  */
-@JvmName("getIntentByAction_")
-fun getIntentByAction(action: String) = Intent(action)
-
-/**  */
-fun getPendingIntent(context: Context, intent: Intent, appWidgetId: Int, extra: String) = intent.getPendingIntent(context, appWidgetId, extra)
-fun Intent?.getPendingIntent(context: Context, appWidgetId: Int, extra: String) = this?.let { intent ->
-    intent.putExtra("extra", extra)
-    // 使用 FLAG_ACTIVITY_CLEAR_TOP 会将该启动的 activity 上层 activity 弹出栈，确保该 activity 能显示在顶层
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-    var flag = PendingIntent.FLAG_UPDATE_CURRENT
-    if (Build.VERSION.SDK_INT >= 31) {
-        flag = flag or PendingIntent.FLAG_MUTABLE
-    }
-    PendingIntent.getActivity(context, appWidgetId, intent, flag)
+@JvmName("getIntent_")
+inline fun <reified A : Any> getIntent(context: Context?) = when {
+    extendsClass<A>("android.content.Context") -> Intent(context, A::class.java)
+    extendsClass<A>("android.content.BroadcastReceiver") -> Intent(context, A::class.java)
+    else -> null
 }
+
+inline fun <reified A : Any> Context?.getIntent() = getIntent<A>(this)
+
+/**  */
+@JvmName("getPendingIntent_")
+inline fun <reified A : Any> getPendingIntent(context: Context?, action: String, requestCode: Int, extra: String): PendingIntent? {
+    val intent = context.getIntent<A>()?.apply {
+        this.action = action
+    }
+    return getPendingIntent<A>(context, intent, requestCode, extra)
+}
+
+inline fun <reified A : Any> Context?.getPendingIntent(action: String, requestCode: Int, extra: String) = getPendingIntent<A>(this, action, requestCode, extra)
+
+/**  */
+@JvmName("getPendingIntentActivity_")
+inline fun <reified A : Any> getPendingIntent(context: Context?, intent: Intent?, requestCode: Int, extra: String): PendingIntent? {
+    context ?: return null
+    intent ?: return null
+
+    intent.apply {
+        // 使用 FLAG_ACTIVITY_CLEAR_TOP 会将该启动的 activity 上层 activity 弹出栈，确保该 activity 能显示在顶层
+        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        putExtra("extra", extra)
+    }
+
+    val flag = when {
+        Build.VERSION.SDK_INT >= 31 -> PendingIntent.FLAG_MUTABLE
+        else -> PendingIntent.FLAG_UPDATE_CURRENT
+    }
+
+    return when {
+        extendsClass<A>("android.content.Context") -> PendingIntent.getActivity(context, requestCode, intent, flag)
+        extendsClass<A>("android.content.BroadcastReceiver") -> PendingIntent.getBroadcast(context, requestCode, intent, flag)
+        else -> null
+    }
+}
+
+inline fun <reified A : Any> Context?.getPendingIntent(intent: Intent?, requestCode: Int, extra: String) = getPendingIntent<A>(this, intent, requestCode, extra)
+inline fun <reified A : Any> Intent?.getPendingIntent(context: Context?, requestCode: Int, extra: String) = getPendingIntent<A>(context, this, requestCode, extra)
+
 
 /** ******************** Checker ******************** */
 
