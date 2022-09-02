@@ -369,7 +369,7 @@ inline fun <reified A : Any> Context?.getIntent() = getIntent<A>(this)
 /**  */
 @JvmName("getPendingIntent_")
 inline fun <reified A : Any> getPendingIntent(context: Context?, action: String, requestCode: Int, extra: String): PendingIntent? {
-    val intent = context.getIntent<A>()?.apply {
+    val intent = getIntent<A>(context)?.apply {
         this.action = action
     }
     return getPendingIntent<A>(context, intent, requestCode, extra)
