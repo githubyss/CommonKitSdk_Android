@@ -55,13 +55,13 @@ fun getAppWidgetIds(appWidgetManager: AppWidgetManager?, appWidgetComponentName:
  * @param
  * @return
  */
-@JvmName("refreshAppWidget_")
-fun refreshAppWidget(context: Context?, appWidgetId: Int, remoteViews: RemoteViews) {
+@JvmName("refreshAppWidgetView_")
+fun refreshAppWidgetView(context: Context?, appWidgetId: Int, remoteViews: RemoteViews) {
     val appWidgetManager = AppWidgetManager.getInstance(context)
     appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
 }
 
-fun Context?.refreshAppWidget(appWidgetId: Int, remoteViews: RemoteViews) = refreshAppWidget(this, appWidgetId, remoteViews)
+fun Context?.refreshAppWidgetView(appWidgetId: Int, remoteViews: RemoteViews) = refreshAppWidgetView(this, appWidgetId, remoteViews)
 
 /**
  *
@@ -69,8 +69,8 @@ fun Context?.refreshAppWidget(appWidgetId: Int, remoteViews: RemoteViews) = refr
  * @param
  * @return
  */
-@JvmName("refreshAppWidget_")
-inline fun <reified W : AppWidgetProvider> refreshAppWidget(context: Context?, remoteViews: RemoteViews) {
+@JvmName("refreshAppWidgetView_")
+inline fun <reified W : AppWidgetProvider> refreshAppWidgetView(context: Context?, remoteViews: RemoteViews) {
     context ?: return
 
     val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -79,7 +79,7 @@ inline fun <reified W : AppWidgetProvider> refreshAppWidget(context: Context?, r
     appWidgetManager.updateAppWidget(appWidgetComponentName, remoteViews)
 }
 
-inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidget(remoteViews: RemoteViews) = refreshAppWidget<W>(this, remoteViews)
+inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetView(remoteViews: RemoteViews) = refreshAppWidgetView<W>(this, remoteViews)
 
 
 /** ********** notifyAppWidgetViewDataChanged ********** */
@@ -90,8 +90,8 @@ inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidget(remoteViews
  * @param
  * @return
  */
-@JvmName("refreshAppWidget_")
-inline fun <reified W : AppWidgetProvider> refreshAppWidget(context: Context?, @IdRes listResId: Int) {
+@JvmName("refreshAppWidgetList_")
+inline fun <reified W : AppWidgetProvider> refreshAppWidgetList(context: Context?, @IdRes listResId: Int) {
     context ?: return
 
     val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -104,4 +104,4 @@ inline fun <reified W : AppWidgetProvider> refreshAppWidget(context: Context?, @
     appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, listResId)
 }
 
-inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidget(@IdRes redId: Int) = refreshAppWidget<W>(this, redId)
+inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetList(@IdRes redId: Int) = refreshAppWidgetList<W>(this, redId)
