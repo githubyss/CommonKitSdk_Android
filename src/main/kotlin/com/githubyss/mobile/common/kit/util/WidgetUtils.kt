@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
+import android.widget.RemoteViews
 import androidx.annotation.IdRes
 
 
@@ -23,17 +24,84 @@ private const val TAG: String = "WidgetUtils"
 
 /** ****************************** Functions ****************************** */
 
-/** 刷新 RemoteViewsService.RemoteViewsFactory 的视图 */
-@JvmName("refreshWidget_")
-inline fun <reified W : AppWidgetProvider> refreshWidget(context: Context?, @IdRes redId: Int) {
-    context ?: return
+/** ******************** Getter ******************** */
 
-    val widgetManager = AppWidgetManager.getInstance(context)
-    val widgetComponentName = ComponentName(context, W::class.java)
-    val appWidgetIds = widgetManager.getAppWidgetIds(widgetComponentName)
+/**
+ * Get AppWidgetIds from given context.
+ *
+ * @param
+ * @return
+ */
+@JvmName("getAppWidgetIds_")
+inline fun <reified W : AppWidgetProvider> getAppWidgetIds(context: Context?) = if (context == null) null else getAppWidgetIds(AppWidgetManager.getInstance(context), ComponentName(context, W::class.java))
+inline fun <reified W : AppWidgetProvider> Context?.getAppWidgetIds() = getAppWidgetIds<W>(this)
 
-    // 这句话会调用 RemoteViewsService 中 RemoteViewsFactory 的 onDataSetChanged() 方法
-    widgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, redId)
+/**
+ *
+ *
+ * @param
+ * @return
+ */
+fun getAppWidgetIds(appWidgetManager: AppWidgetManager?, appWidgetComponentName: ComponentName) = appWidgetManager?.getAppWidgetIds(appWidgetComponentName)
+
+
+/** ******************** Checker ******************** */
+
+/** ********** updateAppWidget ********** */
+
+/**
+ * 刷新 RemoteViews 的视图
+ *
+ * @param
+ * @return
+ */
+@JvmName("refreshAppWidget_")
+fun refreshAppWidget(context: Context?, appWidgetId: Int, remoteViews: RemoteViews) {
+    val appWidgetManager = AppWidgetManager.getInstance(context)
+    appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
 }
 
-inline fun <reified W : AppWidgetProvider> Context?.refreshWidget(@IdRes redId: Int) = refreshWidget<W>(this, redId)
+fun Context?.refreshAppWidget(appWidgetId: Int, remoteViews: RemoteViews) = refreshAppWidget(this, appWidgetId, remoteViews)
+
+/**
+ *
+ *
+ * @param
+ * @return
+ */
+@JvmName("refreshAppWidget_")
+inline fun <reified W : AppWidgetProvider> refreshAppWidget(context: Context?, remoteViews: RemoteViews) {
+    context ?: return
+
+    val appWidgetManager = AppWidgetManager.getInstance(context)
+    val appWidgetComponentName = ComponentName(context, W::class.java)
+
+    appWidgetManager.updateAppWidget(appWidgetComponentName, remoteViews)
+}
+
+inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidget(remoteViews: RemoteViews) = refreshAppWidget<W>(this, remoteViews)
+
+
+/** ********** notifyAppWidgetViewDataChanged ********** */
+
+/**
+ * 刷新 RemoteViewsService.RemoteViewsFactory 的视图
+ *
+ * @param
+ * @return
+ */
+@JvmName("refreshAppWidget_")
+inline fun <reified W : AppWidgetProvider> refreshAppWidget(context: Context?, @IdRes listResId: Int) {
+    context ?: return
+
+    val appWidgetManager = AppWidgetManager.getInstance(context)
+    val appWidgetComponentName = ComponentName(context, W::class.java)
+
+    // val appWidgetIds = getAppWidgetIds(appWidgetManager, appWidgetComponentName)
+    val appWidgetIds = getAppWidgetIds<W>(context)
+
+    // 这句话会调用 RemoteViewsService 中 RemoteViewsFactory 的 onDataSetChanged() 方法
+    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, listResId)
+}
+
+inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidget(@IdRes redId: Int) = refreshAppWidget<W>(this, redId)
