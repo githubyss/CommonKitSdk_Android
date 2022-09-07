@@ -1,7 +1,6 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.Manifest.permission
-import android.app.Activity
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.ComponentName
@@ -353,62 +352,98 @@ fun getIntent(intent: Intent?, isNewTask: Boolean = false) = if (isNewTask) inte
 fun Intent.getIntent(isNewTask: Boolean = false) = getIntent(this, isNewTask)
 
 /**
- * Return the intent of given target T.
+ * Return the intent of given clazz.
  *
- * @param T Class type of the target.
+ * @param context
+ * @param clazz
+ * @return
+ */
+fun getIntent(context: Context?, clazz: Class<*>) = Intent(context, clazz)
+
+/**
+ * Return the intent of given action.
+ *
+ * @param action
+ * @param uri
+ * @return
+ */
+fun getIntent(action: String, uri: Uri? = null) = Intent(action, uri)
+
+/**
+ * Return the intent of given T target.
+ *
+ * @param T The target extend T (Context or BroadcastReceiver).
  * @param context The context.
  * @return
  */
 @JvmName("getIntent_")
 inline fun <reified T : Any> getIntent(context: Context?) = when {
-    extendsClass<T>("android.content.Context") -> Intent(context, T::class.java)
-    extendsClass<T>("android.content.BroadcastReceiver") -> Intent(context, T::class.java)
+    extendsClass<T>("android.content.Context") -> getIntent(context, T::class.java)
+    extendsClass<T>("android.content.BroadcastReceiver") -> getIntent(context, T::class.java)
     else -> null
 }
 
 inline fun <reified T : Any> Context?.getIntent() = getIntent<T>(this)
 
 /**
- * Return the pending intent of given target T.
+ * Return the pending intent of given Context target.
  *
- * @param
+ * @param C The target extend Context.
+ * @param context
+ * @param requestCode
+ * @param extra
  * @return
  */
 @JvmName("getPendingIntent_")
-inline fun <reified T : Any> getPendingIntent(context: Context?, requestCode: Int = 0, extra: String = "") = getPendingIntent<T>(context, getIntent<T>(context), requestCode, extra)
-inline fun <reified T : Any> Context?.getPendingIntent(requestCode: Int = 0, extra: String = "") = getPendingIntent<T>(this, requestCode, extra)
+inline fun <reified C : Context> getPendingIntent(context: Context?, requestCode: Int = 0, extra: String = "") = getPendingIntent<C>(context, getIntent<C>(context), requestCode, extra)
+inline fun <reified C : Context> Context?.getPendingIntent(requestCode: Int = 0, extra: String = "") = getPendingIntent<C>(this, requestCode, extra)
 
 /**
- * Return the pending intent of given action.
+ * Return the pending intent of given BroadcastReceiver target with action.
  *
- * @param
+ * @param B The target extend BroadcastReceiver.
+ * @param context
+ * @param action
+ * @param requestCode
+ * @param extra
  * @return
  */
 @JvmName("getPendingIntent_")
-inline fun <reified T : Any> getPendingIntent(context: Context?, action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<T>(context, getIntent<T>(context)?.apply { this.action = action }, requestCode, extra)
-inline fun <reified T : Any> Context?.getPendingIntent(action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<T>(this, action, requestCode, extra)
+inline fun <reified B : BroadcastReceiver> getPendingIntent(context: Context?, action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<B>(context, getIntent<B>(context)?.apply { this.action = action }, requestCode, extra)
+inline fun <reified B : BroadcastReceiver> Context?.getPendingIntent(action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<B>(this, action, requestCode, extra)
 
-
-/**  */
+/**
+ * Return the pending intent of given T target.
+ *
+ * @param T The target extend T (Context or BroadcastReceiver)
+ * @param context
+ * @param intent
+ * @param requestCode
+ * @param extra
+ * @return
+ */
 @JvmName("getPendingIntent_")
 inline fun <reified T : Any> getPendingIntent(context: Context?, intent: Intent?, requestCode: Int = 0, extra: String = ""): PendingIntent? {
     context ?: return null
     intent ?: return null
 
     intent.apply {
-        // 使用 FLAG_ACTIVITY_CLEAR_TOP 会将该启动的 activity 上层 activity 弹出栈，确保该 activity 能显示在顶层
+        /** 使用 FLAG_ACTIVITY_CLEAR_TOP 会将该启动的 activity 上层 activity 弹出栈，确保该 activity 能显示在顶层 */
         flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        /** 这是为了让 intent 能够带上 extras 数据一起传递，否则在 intent 的比较的过程中会被忽略掉。*/
+        data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
+        /** 传入参数。*/
         putExtra("extra", extra)
     }
 
-    val flag = when {
+    val pendingIntentFlag = when {
         Build.VERSION.SDK_INT >= 31 -> PendingIntent.FLAG_MUTABLE
         else -> PendingIntent.FLAG_UPDATE_CURRENT
     }
 
     return when {
-        extendsClass<T>("android.content.Context") -> PendingIntent.getActivity(context, requestCode, intent, flag)
-        extendsClass<T>("android.content.BroadcastReceiver") -> PendingIntent.getBroadcast(context, requestCode, intent, flag)
+        extendsClass<T>("android.content.Context") -> PendingIntent.getActivity(context, requestCode, intent, pendingIntentFlag)
+        extendsClass<T>("android.content.BroadcastReceiver") -> PendingIntent.getBroadcast(context, requestCode, intent, pendingIntentFlag)
         else -> null
     }
 }
