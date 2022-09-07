@@ -6,6 +6,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 
 
 /**
@@ -26,10 +27,25 @@ private const val TAG: String = "WidgetUtils"
 
 /** ******************** Getter ******************** */
 
+/** ********** RemoteViews ********** */
+
+/**
+ * Get RemoteViews from given layoutId.
+ *
+ * @param context
+ * @param layoutId
+ * @return
+ */
+@JvmName("getRemoteViews_")
+fun getRemoteViews(context: Context?, @LayoutRes layoutId: Int) = RemoteViews(context?.packageName, layoutId)
+fun Context?.getRemoteViews(@LayoutRes layoutId: Int) = getRemoteViews(this, layoutId)
+
+/** ********** AppWidgetIds ********** */
+
 /**
  * Get AppWidgetIds from given context.
  *
- * @param
+ * @param context
  * @return
  */
 @JvmName("getAppWidgetIds_")
@@ -37,57 +53,102 @@ inline fun <reified W : AppWidgetProvider> getAppWidgetIds(context: Context?) = 
 inline fun <reified W : AppWidgetProvider> Context?.getAppWidgetIds() = getAppWidgetIds<W>(this)
 
 /**
+ * Get AppWidgetIds from given component name.
  *
- *
- * @param
+ * @param context
+ * @param appWidgetComponentName
  * @return
  */
-fun getAppWidgetIds(appWidgetManager: AppWidgetManager?, appWidgetComponentName: ComponentName) = appWidgetManager?.getAppWidgetIds(appWidgetComponentName)
-
-
-/** ******************** Checker ******************** */
-
-/** ********** updateAppWidget ********** */
+@JvmName("getAppWidgetIds_")
+fun getAppWidgetIds(context: Context?, appWidgetComponentName: ComponentName?) = getAppWidgetIds(AppWidgetManager.getInstance(context), appWidgetComponentName)
+fun Context?.getAppWidgetIds(appWidgetComponentName: ComponentName?) = getAppWidgetIds(this, appWidgetComponentName)
 
 /**
- * 刷新 RemoteViews 的视图
+ * Get AppWidgetIds from given component name.
+ *
+ * @param appWidgetManager
+ * @param appWidgetComponentName
+ * @return
+ */
+fun getAppWidgetIds(appWidgetManager: AppWidgetManager?, appWidgetComponentName: ComponentName?) = appWidgetManager?.getAppWidgetIds(appWidgetComponentName)
+
+
+/** ******************** Refresh ******************** */
+
+/** ********** Refresh view in widget by updateAppWidget ********** */
+
+/**
+ * Refresh RemoteViews in Widget with AppWidgetIds build by given Widget Class.
+ *
+ * @param context
+ * @param remoteViews
+ * @return
+ */
+@JvmName("refreshAppWidgetViewByIds_")
+inline fun <reified W : AppWidgetProvider> refreshAppWidgetViewByIds(context: Context?, remoteViews: RemoteViews?) = context?.let {
+    refreshAppWidgetView(context, getAppWidgetIds<W>(context) ?: return@let, remoteViews)
+}
+
+inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetViewByIds(remoteViews: RemoteViews?) = refreshAppWidgetViewByIds<W>(this, remoteViews)
+
+/**
+ * Refresh RemoteViews in Widget with ComponentName build by given Widget Class.
+ *
+ * @param context
+ * @param remoteViews
+ * @return
+ */
+@JvmName("refreshAppWidgetViewByComponentName_")
+inline fun <reified W : AppWidgetProvider> refreshAppWidgetViewByComponentName(context: Context?, remoteViews: RemoteViews?) = context?.let {
+    refreshAppWidgetView(context, ComponentName(context, W::class.java), remoteViews)
+}
+
+inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetViewByComponentName(remoteViews: RemoteViews?) = refreshAppWidgetViewByComponentName<W>(this, remoteViews)
+
+
+/**
+ * Refresh RemoteViews in Widget with given WidgetId.
+ *
+ * @param context
+ * @param appWidgetId
+ * @param remoteViews
+ * @return
+ */
+@JvmName("refreshAppWidgetView_")
+fun refreshAppWidgetView(context: Context?, appWidgetId: Int, remoteViews: RemoteViews?) = AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews)
+fun Context?.refreshAppWidgetView(appWidgetId: Int, remoteViews: RemoteViews?) = refreshAppWidgetView(this, appWidgetId, remoteViews)
+
+/**
+ * Refresh RemoteViews in Widget with given WidgetIds.
+ *
+ * @param context
+ * @param appWidgetIds
+ * @param remoteViews
+ * @return
+ */
+@JvmName("refreshAppWidgetView_")
+fun refreshAppWidgetView(context: Context?, appWidgetIds: IntArray?, remoteViews: RemoteViews?) = AppWidgetManager.getInstance(context).updateAppWidget(appWidgetIds, remoteViews)
+fun Context?.refreshAppWidgetView(appWidgetIds: IntArray?, remoteViews: RemoteViews?) = refreshAppWidgetView(this, appWidgetIds, remoteViews)
+
+/**
+ * Refresh RemoteViews in Widget with given ComponentName.
  *
  * @param
  * @return
  */
 @JvmName("refreshAppWidgetView_")
-fun refreshAppWidgetView(context: Context?, appWidgetId: Int, remoteViews: RemoteViews) {
-    val appWidgetManager = AppWidgetManager.getInstance(context)
-    appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
-}
-
-fun Context?.refreshAppWidgetView(appWidgetId: Int, remoteViews: RemoteViews) = refreshAppWidgetView(this, appWidgetId, remoteViews)
-
-/**
- *
- *
- * @param
- * @return
- */
-@JvmName("refreshAppWidgetView_")
-inline fun <reified W : AppWidgetProvider> refreshAppWidgetView(context: Context?, remoteViews: RemoteViews) {
-    context ?: return
-
-    val appWidgetManager = AppWidgetManager.getInstance(context)
-    val appWidgetComponentName = ComponentName(context, W::class.java)
-
-    appWidgetManager.updateAppWidget(appWidgetComponentName, remoteViews)
-}
-
-inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetView(remoteViews: RemoteViews) = refreshAppWidgetView<W>(this, remoteViews)
+fun refreshAppWidgetView(context: Context?, appWidgetComponentName: ComponentName?, remoteViews: RemoteViews?) = AppWidgetManager.getInstance(context).updateAppWidget(appWidgetComponentName, remoteViews)
+fun Context?.refreshAppWidgetView(appWidgetComponentName: ComponentName?, remoteViews: RemoteViews?) = refreshAppWidgetView(this, appWidgetComponentName, remoteViews)
 
 
-/** ********** notifyAppWidgetViewDataChanged ********** */
+/** ********** Refresh list in widget by notifyAppWidgetViewDataChanged ********** */
 
 /**
  * 刷新 RemoteViewsService.RemoteViewsFactory 的视图
+ * Refresh RemoteViews ListView in Widget with given listResId.
  *
- * @param
+ * @param context
+ * @param listResId
  * @return
  */
 @JvmName("refreshAppWidgetList_")
