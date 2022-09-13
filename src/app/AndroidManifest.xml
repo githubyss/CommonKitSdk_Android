@@ -14,7 +14,7 @@
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/comres_ic_launcher_default_round"
         android:supportsRtl="true"
-        android:theme="@style/comres_app_gray_theme"
+        android:theme="@style/comresTheme_application_gray"
         android:usesCleartextTraffic="true"
         >
 
@@ -23,7 +23,7 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/comres_activity_noActionBar_theme"
+            android:theme="@style/comresTheme_activity_noActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             >
             <intent-filter>
@@ -35,7 +35,7 @@
         <activity
             android:name=".app.page.web_view.WebViewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/comres_activity_noActionBar_theme"
+            android:theme="@style/comresTheme_activity_noActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             />
     </application>

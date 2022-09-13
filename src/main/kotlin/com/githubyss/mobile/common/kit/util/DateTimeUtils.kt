@@ -67,19 +67,29 @@ const val PATTERN_DATETIME_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSSZZ"
 
 /** 1970-01-01T08:00:00.000+0800 */
 const val PATTERN_DATETIME_UTC_ABBR = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH = "yyyy-MM-dd"
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT = "yyyy.MM.dd"
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_SLASH = "yyyy/MM/dd"
+const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_CHS = "yyyy年MM月dd日"
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_NONE = "yyyyMMdd"
 const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_EN_DASH = "yyyy-M-d"
 const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_DOT = "yyyy.M.d"
 const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_SLASH = "yyyy/M/d"
+const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_CHS = "yyyy年M月d日"
+
 const val PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON = "hh:mm:ss.SSS"
 const val PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON = "HH:mm:ss.SSS"
+const val PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS = "hh时mm分ss秒SSS毫秒"
+const val PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS = "HH时mm分ss秒SSS毫秒"
 const val PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON = "hh:mm:ss"
 const val PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON = "HH:mm:ss"
+const val PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_CHS = "hh时mm分ss秒"
+const val PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_CHS = "HH时mm分ss秒"
 const val PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_COLON = "hh:mm"
 const val PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_COLON = "HH:mm"
+const val PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_CHS = "hh时mm分"
+const val PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_CHS = "HH时mm分"
 
 
 /** ****************************** Functions ****************************** */
@@ -89,8 +99,7 @@ const val PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_COLON = "HH:mm"
 /** ********** Milliseconds from 1970-01-01T00:00:00Z ********** */
 
 /**  */
-val currentDatetimeMillis
-    get() = System.currentTimeMillis()
+val currentDatetimeMillis get() = System.currentTimeMillis()
 
 /**  */
 private val currentDatetimeJoda get() = DateTime.now()
@@ -105,21 +114,37 @@ private val currentDatetimeJoda get() = DateTime.now()
  */
 fun currentDatetimeString(pattern: String) = currentDatetimeJoda.datetimeString(pattern)
 
-@JvmField
-var currentDatetimeStringUtc = currentDatetimeJoda.datetimeStringUtc
+val currentDatetimeStringUtc get() = currentDatetimeJoda.datetimeStringUtc
 
-@JvmField
-var currentDatetimeStringYmdH12msFullDividedByEnDash = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
+val currentDateStringYmdFullDividedByEnDash get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH)
+val currentDateStringYmdFullDividedByDot get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT)
+val currentDateStringYmdFullDividedBySlash get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_SLASH)
+val currentDateStringYmdFullDividedByChs get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_CHS)
+val currentDateStringYmdFullDividedByNone get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_NONE)
 
-@JvmField
-var currentDatetimeStringYmdH24msFullDividedByEnDash = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
-var currentDatetimeStringYmdH12msMillisFullDividedByEnDash = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
-var currentDatetimeStringYmdH24msMillisFullDividedByEnDash = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+val currentTimeStringH12msmFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON)
+val currentTimeStringH24msmFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON)
+val currentTimeStringH12msmFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS)
+val currentTimeStringH24msmFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS)
+val currentTimeStringH12msFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON)
+val currentTimeStringH24msFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON)
+val currentTimeStringH12msFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_CHS)
+val currentTimeStringH24msFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_CHS)
+val currentTimeStringH12mFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_COLON)
+val currentTimeStringH24mFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_COLON)
+val currentTimeStringH12mFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_CHS)
+val currentTimeStringH24mFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_CHS)
 
-var currentDatetimeStringYmdH12msFullDividedByDot = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
-var currentDatetimeStringYmdH24msFullDividedByDot = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
-var currentDatetimeStringYmdH12msMillisFullDividedByDot = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
-var currentDatetimeStringYmdH24msMillisFullDividedByDot = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+val currentDatetimeStringYmdH12msFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
+val currentDatetimeStringYmdH24msFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
+val currentDatetimeStringYmdH12msMillisFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+
+val currentDatetimeStringYmdH24msMillisFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+
+val currentDatetimeStringYmdH12msFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
+val currentDatetimeStringYmdH24msFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
+val currentDatetimeStringYmdH12msMillisFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+val currentDatetimeStringYmdH24msMillisFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
 
 /** ******************** Checker ******************** */
 
@@ -344,7 +369,7 @@ private val DateTime.datetimeStringUtc get() = this.toString()
 /** ********** 日期时间 Joda -> 日期时间 String pattern 格式 ********** */
 
 /**  */
-private fun DateTime.datetimeString(pattern: String) = this.toString(pattern)
+private fun DateTime.datetimeString(pattern: String) = this.toString(pattern) ?: ""
 
 /** ********** 日期时间 Millis -> 日期时间 String pattern 格式 ********** */
 

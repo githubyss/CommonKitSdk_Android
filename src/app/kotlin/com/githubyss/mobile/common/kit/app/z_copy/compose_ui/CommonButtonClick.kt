@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.githubyss.mobile.common.res.button_click.buttonClickBlueBackground
 import com.githubyss.mobile.common.res.button_click.buttonClickBlueBorder
 import com.githubyss.mobile.common.res.button_click.buttonClickFontSize
-import com.githubyss.mobile.common.res.button_click.buttonClickShape
+import com.githubyss.mobile.common.res.button_click.buttonClickShapeRound
 import com.githubyss.mobile.common.res.common.dimen.SpaceNone
 
 
@@ -63,7 +63,7 @@ fun ButtonClickBlue(
         onClick = onClick,
         enabled = enabled,
         interactionSource = interactionSource,
-        shape = ButtonDefaults.buttonClickShape,
+        shape = ButtonDefaults.buttonClickShapeRound,
         border = ButtonDefaults.buttonClickBlueBorder,
         colors = ButtonDefaults.buttonClickBlueBackground(pressState),
         contentPadding = PaddingValues(insidePaddingHorizontal, insidePaddingVertical),

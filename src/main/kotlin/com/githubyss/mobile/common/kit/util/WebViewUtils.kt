@@ -1,9 +1,14 @@
 package com.githubyss.mobile.common.kit.util
 
 import android.graphics.Bitmap
+import android.os.Build
+import android.util.Log
 import android.view.View
 import android.webkit.*
 import android.widget.ProgressBar
+import java.lang.reflect.Constructor
+import java.lang.reflect.Field
+import java.lang.reflect.Method
 
 
 /**
@@ -17,7 +22,7 @@ import android.widget.ProgressBar
 /** ****************************** Properties ****************************** */
 
 /**  */
-private const val TAG = "EncodeUtils"
+private const val TAG = "WebViewUtils"
 
 /** 点击不会跳转到 WebView 外的 WebViewClient */
 val webViewClientLoadInside = object : WebViewClient() {
@@ -202,4 +207,76 @@ fun WebView?.destroy() {
 
     this.visibility = View.GONE
     this.destroy()
+}
+
+/**
+ * 当我们申请我们的 app 为系统应用，也就是当我们在 AndroidManifest 文件中添加 android:sharedUserId="android.uid.system" 这一行的时候，如果我们使用 WebView 就会报错：For security reasons, WebView is not allowed in privileged processes。
+ * 这个是 8.0 代码中的一种安全机制。
+ *
+ * 另一种说法是：由于 WebView 存在安全漏洞，谷歌从 5.1 开始全面禁止系统应用使用 WebView，使用会导致应用崩溃错误提示：Caused by: java.lang.UnsupportedOperationException: For security reasons, WebView is not allowed in privileged processes
+ *
+ * 异常信息可以看出，崩溃是在 WebViewFactory.java 的 getProvider 方法抛出的。源码路径为 frameworks/base/core/java/android/webkit/WebViewFactory.java
+ *
+ * 解决方案都是通过 Hook 技术根本思想是在异常发生前就给 sProviderInstance 赋值，因为在 getProvider 方法中当判断这个值不为空就直接返回了就不会抛异常了。
+ * 需要在 Activity 的 onCreate() 方法中调用，并且一定要在 setContentView() 之前调用，或者在 WebView 创建之前调用。
+ *
+ * @param
+ * @return
+ */
+fun hookWebview() {
+    val sdkInt = Build.VERSION.SDK_INT
+    try {
+        val factoryClass = Class.forName("android.webkit.WebViewFactory")
+        val field = factoryClass.getDeclaredField("sProviderInstance")
+        field.isAccessible = true
+        var sProviderInstance = field.get(null)
+        if (sProviderInstance != null) {
+            logI(TAG, "sProviderInstance isn't null")
+            return
+        }
+        val getProviderClassMethod = if (sdkInt > 22) {
+            factoryClass.getDeclaredMethod("getProviderClass")
+        }
+        else if (sdkInt == 22) {
+            factoryClass.getDeclaredMethod("getFactoryClass")
+        }
+        else {
+            logI(TAG, "Don't need to Hook Webview")
+            return
+        }
+        getProviderClassMethod.isAccessible = true
+        val factoryProviderClass = getProviderClassMethod.invoke(factoryClass) as Class<*>
+        val delegateClass = Class.forName("android.webkit.WebViewDelegate")
+        val delegateConstructor: Constructor<*> = delegateClass.getDeclaredConstructor()
+        delegateConstructor.isAccessible = true
+        if (sdkInt < 26) { // 低于 Android O 版本
+            val providerConstructor: Constructor<*>? = factoryProviderClass.getConstructor(delegateClass)
+            if (providerConstructor != null) {
+                providerConstructor.isAccessible = true
+                sProviderInstance = providerConstructor.newInstance(delegateConstructor.newInstance())
+            }
+        }
+        else {
+            val chromiumMethodName: Field = factoryClass.getDeclaredField("CHROMIUM_WEBVIEW_FACTORY_METHOD")
+            chromiumMethodName.isAccessible = true
+            var chromiumMethodNameStr = chromiumMethodName.get(null) as String?
+            if (chromiumMethodNameStr == null) {
+                chromiumMethodNameStr = "create"
+            }
+            val staticFactory: Method? = factoryProviderClass.getMethod(chromiumMethodNameStr, delegateClass)
+            if (staticFactory != null) {
+                sProviderInstance = staticFactory.invoke(null, delegateConstructor.newInstance())
+            }
+        }
+        if (sProviderInstance != null) {
+            field.set("sProviderInstance", sProviderInstance)
+            logI(TAG, "Hook success!")
+        }
+        else {
+            logI(TAG, "Hook failed!")
+        }
+    }
+    catch (e: Throwable) {
+        logE(TAG, t = e)
+    }
 }
