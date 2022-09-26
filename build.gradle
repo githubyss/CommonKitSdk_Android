@@ -132,6 +132,10 @@ dependencies {
     implementation dependenciesLib.joda_time
     implementation dependenciesLib.bumptech_glide
     implementation dependenciesLib.alibaba_arouter
+    implementation dependenciesLib.jsoup
+    // implementation('org.jsoup:jsoup:1.8.3')
+    // implementation 'org.jsoup:jsoup:1.13.1'
+    // implementation group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
 
     kapt dependenciesLib.bumptech_glide_compiler
 

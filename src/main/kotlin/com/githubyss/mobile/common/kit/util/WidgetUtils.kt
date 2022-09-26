@@ -49,8 +49,12 @@ fun Context?.getRemoteViews(@LayoutRes layoutId: Int) = getRemoteViews(this, lay
  * @return
  */
 @JvmName("getAppWidgetIds_")
-inline fun <reified W : AppWidgetProvider> getAppWidgetIds(context: Context?) = if (context == null) null else getAppWidgetIds(AppWidgetManager.getInstance(context), ComponentName(context, W::class.java))
+inline fun <reified W : AppWidgetProvider> getAppWidgetIds(context: Context?) = getAppWidgetIds(context, W::class.java)
 inline fun <reified W : AppWidgetProvider> Context?.getAppWidgetIds() = getAppWidgetIds<W>(this)
+
+@JvmName("getAppWidgetIds_")
+fun getAppWidgetIds(context: Context?, clazz: Class<*>) = if (context == null) null else getAppWidgetIds(AppWidgetManager.getInstance(context), ComponentName(context, clazz))
+fun Context?.getAppWidgetIds(clazz: Class<*>) = getAppWidgetIds(this, clazz)
 
 /**
  * Get AppWidgetIds from given component name.
@@ -152,17 +156,19 @@ fun Context?.refreshAppWidgetView(appWidgetComponentName: ComponentName?, remote
  * @return
  */
 @JvmName("refreshAppWidgetList_")
-inline fun <reified W : AppWidgetProvider> refreshAppWidgetList(context: Context?, @IdRes listResId: Int) {
-    context ?: return
+inline fun <reified W : AppWidgetProvider> refreshAppWidgetList(context: Context?, @IdRes listResId: Int) = refreshAppWidgetList(context, W::class.java, listResId)
+inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetList(@IdRes redId: Int) = refreshAppWidgetList<W>(this, redId)
 
+@JvmName("refreshAppWidgetList_")
+fun refreshAppWidgetList(context: Context?, clazz: Class<*>, @IdRes listResId: Int) = context?.let {
     val appWidgetManager = AppWidgetManager.getInstance(context)
-    val appWidgetComponentName = ComponentName(context, W::class.java)
+    val appWidgetComponentName = ComponentName(context, clazz)
 
     // val appWidgetIds = getAppWidgetIds(appWidgetManager, appWidgetComponentName)
-    val appWidgetIds = getAppWidgetIds<W>(context)
+    val appWidgetIds = getAppWidgetIds(context, clazz)
 
     // 这句话会调用 RemoteViewsService 中 RemoteViewsFactory 的 onDataSetChanged() 方法
     appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, listResId)
 }
 
-inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetList(@IdRes redId: Int) = refreshAppWidgetList<W>(this, redId)
+fun Context?.refreshAppWidgetList(clazz: Class<*>, @IdRes redId: Int) = refreshAppWidgetList(this, clazz, redId)
