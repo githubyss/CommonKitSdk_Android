@@ -20,10 +20,10 @@ if (isLaunchApp) {
 
 apply from: "${rootDir}/config/buildConfigs.gradle"
 apply from: "${rootDir}/config/optionConfigs.gradle"
-apply from: "${rootDir}/config/featureConfigs.gradle"
-apply from: "${rootDir}/config/versionConfigs.gradle"
+apply from: "${rootDir}/config/featureExt.gradle"
+apply from: "${rootDir}/config/versionExt.gradle"
 apply from: "${rootDir}/config/signingConfigs.gradle"
-apply from: "${rootDir}/config/libConfigs.gradle"
+apply from: "${rootDir}/config/dependencyExt.gradle"
 
 android {
     resourcePrefix 'comkit_'
