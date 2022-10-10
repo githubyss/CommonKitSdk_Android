@@ -52,7 +52,7 @@ android {
         if (isLaunchApp) {
             app {
                 dimension 'library'
-                applicationId 'com.githubyss.mobile.common.kit'
+                applicationId 'com.githubyss.common.kit'
                 versionCode 1
                 versionName "1.0"
                 manifestPlaceholders = [APP_NAME: "通用Kit库"]

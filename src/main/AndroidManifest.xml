@@ -1,6 +1,6 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.githubyss.mobile.common.kit"
+    package="com.githubyss.common.kit"
     >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

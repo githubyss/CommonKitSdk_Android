@@ -10,12 +10,12 @@
 
         <variable
             name="webViewVm"
-            type="com.githubyss.mobile.common.kit.app.page.web_view.WebViewViewModel"
+            type="com.githubyss.common.kit.app.page.web_view.WebViewViewModel"
             />
 
         <variable
             name="webViewPage"
-            type="com.githubyss.mobile.common.kit.app.page.web_view.WebViewFragment"
+            type="com.githubyss.common.kit.app.page.web_view.WebViewFragment"
             />
     </data>
 
