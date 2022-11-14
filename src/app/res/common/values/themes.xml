@@ -2,7 +2,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="comkit_app_theme"
-           parent="@style/comresTheme_application_default">
+           parent="@style/comresTheme_default">
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/holo_red_light</item>
@@ -10,5 +10,5 @@
 
     <!-- 页面 -->
     <style name="comkit_activity_theme"
-           parent="comresTheme_activity_noActionBar" />
+           parent="comresTheme_gray" />
 </resources>

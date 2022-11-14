@@ -95,8 +95,8 @@ fun disableLog() {
  * @param tag 记号
  * @param msg 信息
  */
-fun logV(tag: String = TAG, msg: String) {
-    check(tag, msg, LOG_LEVEL_VERBOSE) { tag_, msg_ -> Log.v(tag_, msg_) }
+fun logV(tag: String? = TAG, msg: String?) {
+    check(tag, msg, LOG_LEVEL_VERBOSE) { tag_, msg_ -> Log.v(tag_, msg_ ?: "") }
 }
 
 /**
@@ -106,7 +106,7 @@ fun logV(tag: String = TAG, msg: String) {
  * @param msg 信息
  * @param canSection 是否可分段
  */
-fun logV(tag: String = TAG, msg: String, canSection: Boolean) {
+fun logV(tag: String? = TAG, msg: String?, canSection: Boolean) {
     // section(tag, msg, canSection) { tag_, msg_ -> v(tag_, msg_) }
     section(tag, msg, canSection, ::logV)
 }
@@ -119,8 +119,8 @@ fun logV(tag: String = TAG, msg: String, canSection: Boolean) {
  * @param tag 记号
  * @param msg 信息
  */
-fun logD(tag: String = TAG, msg: String) {
-    check(tag, msg, LOG_LEVEL_DEBUG) { tag_, msg_ -> Log.d(tag_, msg_) }
+fun logD(tag: String? = TAG, msg: String?) {
+    check(tag, msg, LOG_LEVEL_DEBUG) { tag_, msg_ -> Log.d(tag_, msg_ ?: "") }
 }
 
 /**
@@ -130,7 +130,7 @@ fun logD(tag: String = TAG, msg: String) {
  * @param msg 信息
  * @param canSection 是否可分段
  */
-fun logD(tag: String = TAG, msg: String, canSection: Boolean) {
+fun logD(tag: String? = TAG, msg: String?, canSection: Boolean) {
     // section(tag, msg, canSection) { tag_, msg_ -> d(tag_, msg_) }
     section(tag, msg, canSection, ::logD)
 }
@@ -143,8 +143,8 @@ fun logD(tag: String = TAG, msg: String, canSection: Boolean) {
  * @param tag 记号
  * @param msg 信息
  */
-fun logI(tag: String = TAG, msg: String) {
-    check(tag, msg, LOG_LEVEL_INFO) { tag_, msg_ -> Log.i(tag_, msg_) }
+fun logI(tag: String? = TAG, msg: String?) {
+    check(tag, msg, LOG_LEVEL_INFO) { tag_, msg_ -> Log.i(tag_, msg_ ?: "") }
 }
 
 /**
@@ -154,7 +154,7 @@ fun logI(tag: String = TAG, msg: String) {
  * @param msg 信息
  * @param canSection 是否可分段
  */
-fun logI(tag: String = TAG, msg: String, canSection: Boolean) {
+fun logI(tag: String? = TAG, msg: String?, canSection: Boolean) {
     // section(tag, msg, canSection) { tag_, msg_ -> logI(tag_, msg_) }
     section(tag, msg, canSection, ::logI)
 }
@@ -167,8 +167,8 @@ fun logI(tag: String = TAG, msg: String, canSection: Boolean) {
  * @param tag 记号
  * @param msg 信息
  */
-fun logW(tag: String = TAG, msg: String) {
-    check(tag, msg, LOG_LEVEL_WARN) { tag_, msg_ -> Log.w(tag_, msg_) }
+fun logW(tag: String? = TAG, msg: String?) {
+    check(tag, msg, LOG_LEVEL_WARN) { tag_, msg_ -> Log.w(tag_, msg_ ?: "") }
 }
 
 /**
@@ -178,7 +178,7 @@ fun logW(tag: String = TAG, msg: String) {
  * @param msg 信息
  * @param canSection 是否可分段
  */
-fun logW(tag: String = TAG, msg: String, canSection: Boolean) {
+fun logW(tag: String? = TAG, msg: String?, canSection: Boolean) {
     // section(tag, msg, canSection) { tag_, msg_ -> logW(tag_, msg_) }
     section(tag, msg, canSection, ::logW)
 }
@@ -191,8 +191,8 @@ fun logW(tag: String = TAG, msg: String, canSection: Boolean) {
  * @param tag 记号
  * @param msg 信息
  */
-fun logE(tag: String = TAG, msg: String) {
-    check(tag, msg, LOG_LEVEL_ERROR) { tag_, msg_ -> Log.e(tag_, msg_) }
+fun logE(tag: String? = TAG, msg: String?) {
+    check(tag, msg, LOG_LEVEL_ERROR) { tag_, msg_ -> Log.e(tag_, msg_ ?: "") }
 }
 
 /**
@@ -202,7 +202,7 @@ fun logE(tag: String = TAG, msg: String) {
  * @param msg 信息
  * @param canSection 是否可分段
  */
-fun logE(tag: String = TAG, msg: String, canSection: Boolean) {
+fun logE(tag: String? = TAG, msg: String?, canSection: Boolean) {
     // section(tag, msg, canSection) { tag_, msg_ -> e(tag_, msg_) }
     section(tag, msg, canSection, ::logE)
 }
@@ -214,7 +214,7 @@ fun logE(tag: String = TAG, msg: String, canSection: Boolean) {
  * @param msg 信息
  * @param t 异常
  */
-fun logE(tag: String = TAG, msg: String = "", t: Throwable) {
+fun logE(tag: String? = TAG, msg: String? = "", t: Throwable) {
     check(tag, msg, t, LOG_LEVEL_ERROR) { tag_, msg_, t_ -> Log.e(tag_, msg_, t_) }
 }
 
@@ -228,7 +228,7 @@ fun logE(tag: String = TAG, msg: String = "", t: Throwable) {
  * @param level 日志级别
  * @param log 指定打印方法
  */
-private fun check(tag: String, msg: String, level: Int, log: (tag: String, msg: String) -> Unit) {
+private fun check(tag: String?, msg: String?, level: Int, log: (tag: String?, msg: String?) -> Unit) {
     if (isShowLog && logLevel <= level) {
         log("$logPrefix $tag", msg)
     }
@@ -243,7 +243,7 @@ private fun check(tag: String, msg: String, level: Int, log: (tag: String, msg: 
  * @param level 日志级别
  * @param log 指定打印方法
  */
-private fun check(tag: String, msg: String, t: Throwable, level: Int, log: (tag: String, msg: String, t: Throwable) -> Unit) {
+private fun check(tag: String?, msg: String?, t: Throwable, level: Int, log: (tag: String?, msg: String?, t: Throwable) -> Unit) {
     if (isShowLog && logLevel <= level) {
         log("$logPrefix $tag", msg, t)
     }
@@ -259,14 +259,14 @@ private fun check(tag: String, msg: String, t: Throwable, level: Int, log: (tag:
  * @param canSection 是否可分段
  * @param log 指定打印方法
  */
-private fun section(tag: String = TAG, msg: String, canSection: Boolean, log: (tag: String, msg: String) -> Unit) {
+private fun section(tag: String? = TAG, msg: String?, canSection: Boolean, log: (tag: String?, msg: String?) -> Unit) {
     var msg = msg
     if (canSection) {
         while (msg.length > MAX_SECTION_LENGTH) {
-            log(tag, msg.substring(0, MAX_SECTION_LENGTH))
-            msg = msg.substring(MAX_SECTION_LENGTH)
+            log(tag, msg?.substring(0, MAX_SECTION_LENGTH))
+            msg = msg?.substring(MAX_SECTION_LENGTH)
         }
-        if (msg.isNotEmpty()) {
+        if (msg?.isNotEmpty() == true) {
             log(tag, msg)
         }
     }
@@ -279,35 +279,42 @@ private fun section(tag: String = TAG, msg: String, canSection: Boolean, log: (t
 
 /** ********** 通用格式化打印 ********** */
 
+/**  */
 fun logStart(msg: String, level: Int) {
     logStart(msg, level, ::logD)
 }
 
+/**  */
 private fun logStart(msg: String, level: Int, log: (tag: String, msg: String) -> Unit) {
     val logPrefix = "$LOG_LEFT_TOP____CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_1"
     val logPostfix = logPostfix(level)
     log(TAG, "$logPrefix $msg >> START $logPostfix")
 }
 
+/**  */
 fun logMiddle(msg: String) {
     logMiddle(msg, ::logD)
 }
 
+/**  */
 private fun logMiddle(msg: String, log: (tag: String, msg: String) -> Unit) {
     val logPrefix = LOG_LEFT_MIDDLE_CORNER_SINGLE_THICK
     log(TAG, "$logPrefix $msg")
 }
 
+/**  */
 fun logEnd(msg: String, level: Int) {
     logEnd(msg, level, ::logD)
 }
 
+/**  */
 private fun logEnd(msg: String, level: Int, log: (tag: String, msg: String) -> Unit) {
     val logPrefix = "$LOG_LEFT_BOTTOM_CORNER_SINGLE_THICK $LOG_HORIZONTAL_SINGLE_THICK_1"
     val logPostfix = logPostfix(level)
     log(TAG, "$logPrefix $msg >> END $logPostfix")
 }
 
+/**  */
 private fun logPostfix(level: Int): String {
     return when (level) {
         1 -> LOG_HORIZONTAL_SINGLE_THICK_1
