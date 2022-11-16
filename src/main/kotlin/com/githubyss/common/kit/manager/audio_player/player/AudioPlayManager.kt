@@ -11,6 +11,7 @@ import com.githubyss.common.kit.manager.audio_player.enumeration.VoiceType
 import com.githubyss.common.kit.manager.audio_player.model.AudioListModel
 import com.githubyss.common.kit.manager.audio_player.model.AudioModel
 import com.githubyss.common.kit.manager.audio_player.util.ProgressTextUtils
+import com.githubyss.common.kit.util.logD
 
 
 /**
@@ -22,48 +23,48 @@ import com.githubyss.common.kit.manager.audio_player.util.ProgressTextUtils
  * @createdTime 2021/02/24 14:07:21
  */
 class AudioPlayManager private constructor() {
-    
+
     /** ****************************** Properties ****************************** */
-    
+
     companion object {
         val INSTANCE: AudioPlayManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { AudioPlayManager() }
-        
+
         private val TAG: String = AudioPlayManager::class.java.simpleName
         private val WHAT_REFRESH = 0x268
         private val MAX_PROGRESS = 100
     }
-    
+
     var MaxProgress = MAX_PROGRESS
-    
+
     @AudioState
     var audioState = AudioState.END
         private set
-    
+
     var audioListModel: AudioListModel? = null
     var audioPlayListener: AudioPlayListener? = null
-    
+
     private var mediaPlayer: MediaPlayer? = null
     private var audioManager: AudioManager? = null
     private var audioFocusChangeListener: OnAudioFocusChangeListener? = null
-    
+
     /** 8.0新方法 */
     // private AudioFocusRequest mFocusRequest;
-    
+
     /** 音量  */
     private var originalVol = 0
-    
+
     /** 缓存进度  */
     var updateProgress = 0
-    
+
     /** 是否是手动停止  */
     private var isManualStop = false
-    
+
     /** 是否重新开始  */
     private var isPlayRestart = false
-    
+
     /** 是否循环播放  */
     var isLoop = false
-    
+
     private val handler: Handler? = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -77,17 +78,17 @@ class AudioPlayManager private constructor() {
             }
         }
     }
-    
-    
+
+
     /** ****************************** Constructors ****************************** */
-    
+
     init {
         setAudioState(AudioState.STOP)
     }
-    
-    
+
+
     /** ****************************** Functions ****************************** */
-    
+
     /**
      * 外部调用，第一次开始播放
      */
@@ -97,7 +98,7 @@ class AudioPlayManager private constructor() {
         isPlayRestart = true
         audioFocusInit(context)
     }
-    
+
     /**
      * 开始播放，当暂停或准备好后才行
      */
@@ -108,7 +109,7 @@ class AudioPlayManager private constructor() {
         }
         requestFocus()
     }
-    
+
     /** 暂停  */
     fun pause(): Boolean {
         if (audioListModel == null) {
@@ -124,7 +125,7 @@ class AudioPlayManager private constructor() {
         }
         return false
     }
-    
+
     /**
      * 上一首歌
      */
@@ -146,7 +147,7 @@ class AudioPlayManager private constructor() {
         audioPrepare()
         return 0
     }
-    
+
     /**
      * 下一首歌
      */
@@ -168,7 +169,7 @@ class AudioPlayManager private constructor() {
         setAudioState(AudioState.SWITCH)
         audioPrepare()
     }
-    
+
     /**
      * 切换音频类型
      */
@@ -196,7 +197,7 @@ class AudioPlayManager private constructor() {
         audioPrepare()
         return true
     }
-    
+
     /**
      * 停止
      * 注意停止后得重新 prepare，无法直接 start
@@ -211,7 +212,7 @@ class AudioPlayManager private constructor() {
         }
         return false
     }
-    
+
     /**
      * 进度条跳转
      */
@@ -220,7 +221,7 @@ class AudioPlayManager private constructor() {
             mediaPlayer?.seekTo(progress)
         }
     }
-    
+
     fun destroy() {
         end()
         // 最后清空数据
@@ -236,7 +237,7 @@ class AudioPlayManager private constructor() {
         isPlayRestart = false
         handler?.removeMessages(WHAT_REFRESH)
     }
-    
+
     /**
      * 音频焦点监听返回
      */
@@ -296,10 +297,11 @@ class AudioPlayManager private constructor() {
             }
         }
     }
-    
-    
+
+
     /** ****************************** Private ****************************** */
-    
+
+    /**  */
     private fun audioInit(): Boolean {
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer()
@@ -311,19 +313,21 @@ class AudioPlayManager private constructor() {
             }
             mediaPlayer?.setOnCompletionListener { next() }
             mediaPlayer?.setOnBufferingUpdateListener { mp, percent ->
+                logD(TAG, "mp: $mp, percent: $percent")
                 if (audioPlayListener != null) {
                     updateProgress = MaxProgress * percent / 100
                     audioPlayListener?.onBufferingUpdateProgress(updateProgress)
                 }
             }
             mediaPlayer?.setOnErrorListener { mp, what, extra ->
+                logD(TAG, "mp: $mp, what: $what, extra: $extra")
                 when (extra) {
                     -1003 -> {
                         stop()
                         isPlayRestart = true
                     }
                 }
-                
+
                 // e(TAG, "OnError what=" + what + " extra=" + extra);
                 // 返回false会继续回调onCompletion，true不会。
                 true
@@ -332,7 +336,7 @@ class AudioPlayManager private constructor() {
         }
         return false
     }
-    
+
     /**
      * 刷新音频状态
      *
@@ -344,7 +348,7 @@ class AudioPlayManager private constructor() {
         this.audioState = audioState
         audioPlayListener?.onStateChanged(audioState)
     }
-    
+
     /**
      * 获取焦点
      * 屏蔽8.0方法，升级后打开
@@ -360,7 +364,7 @@ class AudioPlayManager private constructor() {
         }
         // }
     }
-    
+
     /**
      * 释放焦点
      * 屏蔽8.0方法，升级后打开
@@ -376,7 +380,7 @@ class AudioPlayManager private constructor() {
         }
         // }
     }
-    
+
     /**
      * 初始化焦点获取
      */
@@ -390,7 +394,7 @@ class AudioPlayManager private constructor() {
         // }
         requestFocus()
     }
-    
+
     /**
      * 当前歌曲重新开始播放
      */
@@ -399,7 +403,7 @@ class AudioPlayManager private constructor() {
             audioPrepare()
         }
     }
-    
+
     private fun startSelf() {
         if (audioListModel == null) {
             destroy()
@@ -416,7 +420,7 @@ class AudioPlayManager private constructor() {
             setAudioState(AudioState.PLAYING)
         }
     }
-    
+
     /**
      * 每一首歌开始前的准备工作
      */
@@ -438,7 +442,7 @@ class AudioPlayManager private constructor() {
         mediaPlayer?.prepareAsync()
         setAudioState(AudioState.PREPARE)
     }
-    
+
     private fun end() {
         if (mediaPlayer != null) {
             abandonFocus()
@@ -447,27 +451,27 @@ class AudioPlayManager private constructor() {
             setAudioState(AudioState.END)
         }
     }
-    
+
     fun getCurrentIndex(): Int {
         return audioListModel?.currentIndex ?: 0
     }
-    
+
     fun getAudioList(): List<AudioModel?>? {
         return if (audioListModel == null) null else audioListModel?.audioList
     }
-    
+
     fun getCurrentAudio(): AudioModel? {
         return if (audioListModel == null) null else audioListModel?.currentIndex?.let { audioListModel?.audioList?.get(it) }
     }
-    
+
     fun getCurrentPosition(): Int {
         return mediaPlayer?.currentPosition ?: 0
     }
-    
+
     fun getCurrentTime(): String? {
         return ProgressTextUtils.getProgressText(mediaPlayer?.currentPosition?.toLong() ?: return "")
     }
-    
+
     fun getDurationTime(): String? {
         return ProgressTextUtils.getProgressText(mediaPlayer?.duration?.toLong() ?: return "")
     }

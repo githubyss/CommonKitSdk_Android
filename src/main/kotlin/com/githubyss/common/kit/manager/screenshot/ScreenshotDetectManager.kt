@@ -163,7 +163,7 @@ class ScreenshotDetectManager private constructor() {
                 }
 
                 logD(TAG, SystemClock.elapsedRealtime().toString())
-                checkMediaData(context, pathStr, dateTakenLong, widthInt, heightInt)
+                checkMediaData(pathStr, dateTakenLong, widthInt, heightInt)
             }
             tableImageMediaCursor.close()
         }
@@ -172,8 +172,8 @@ class ScreenshotDetectManager private constructor() {
         }
     }
 
-    private fun checkMediaData(context: Context?, path: String, dateTaken: Long, width: Int, height: Int): Boolean {
-        return if (checkScreenshot(context, path, dateTaken, width, height)) {
+    private fun checkMediaData(path: String, dateTaken: Long, width: Int, height: Int): Boolean {
+        return if (checkScreenshot(path, dateTaken, width, height)) {
             if (!checkCallbackPath(path)) {
                 logD(TAG, "onScreenshotDetect time: ${SystemClock.elapsedRealtime()}")
                 onScreenshotDetectListener?.onScreenshotDetect(path)
@@ -190,7 +190,7 @@ class ScreenshotDetectManager private constructor() {
         }
     }
 
-    private fun checkScreenshot(context: Context?, path: String, dateTaken: Long, width: Int, height: Int): Boolean = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
+    private fun checkScreenshot(path: String, dateTaken: Long, width: Int, height: Int): Boolean = checkDateTaken(dateTaken) && checkImageSize(width, height) && checkPathKeywords(path)
 
     private fun checkDateTaken(dateTaken: Long): Boolean {
         logD(TAG, "checkDateTaken(): " + "{dateTaken:$dateTaken, startDetectTime:$startDetectTime, currentMillis:${System.currentTimeMillis()}}\t" + "{dateTaken-startDetectTime:${dateTaken - startDetectTime}, currentMillis-dateTaken:${System.currentTimeMillis() - dateTaken}}")

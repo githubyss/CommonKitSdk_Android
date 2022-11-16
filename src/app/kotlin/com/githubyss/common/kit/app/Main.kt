@@ -5,6 +5,8 @@ import org.joda.time.DateTime
 
 
 fun main(args: Array<String>) {
+    println(args)
+
     // println(currentMillis)
     // println(currentDatetimeJoda)
     // println(DateTime("2022-12-21"))
@@ -19,6 +21,6 @@ fun main(args: Array<String>) {
     println(0L.datetimeString(PATTERN_DATETIME_UTC_ABBR))
     println()
     println("2022/07/29 22:51:20".datetimeStringUtc("yyyy/MM/DD HH:mm:ss"))
-    println("2022-07-29T22:51:20.000+00:00".equalTodayForUtc)
+    println("2022-07-29T22:51:20.000+00:00".equalTodayForUtc())
     println("2022-07-29T22:51:20.000".datetimeStringForUtc("M月d日"))
 }

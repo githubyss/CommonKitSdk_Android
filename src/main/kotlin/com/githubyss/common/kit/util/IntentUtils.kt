@@ -48,12 +48,8 @@ private const val TAG: String = "IntentUtils"
  * @param context   The context.
  * @return the intent of install app
  */
-fun getInstallAppIntent(filePath: String?, isNewTask: Boolean = false, context: Context? = BaseApplicationHolder.getApp()): Intent? {
-    filePath ?: return null
-    context ?: return null
+fun getInstallAppIntent(filePath: String?, isNewTask: Boolean = false, context: Context? = BaseApplicationHolder.getApp()) = getInstallAppIntent(getFileByPath(filePath), isNewTask, context)
 
-    return getInstallAppIntent(getFileByPath(filePath), isNewTask, context)
-}
 
 /**
  * Return the intent of install app.
