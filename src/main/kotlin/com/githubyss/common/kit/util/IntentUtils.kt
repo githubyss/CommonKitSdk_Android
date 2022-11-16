@@ -347,7 +347,7 @@ fun getCaptureIntent(outUri: Uri?, isNewTask: Boolean = false): Intent? {
 }
 
 /**  */
-@JvmName("getIntent_")
+@JvmName("getIntent1")
 fun getIntent(intent: Intent?, isNewTask: Boolean = false) = if (isNewTask) intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
 fun Intent.getIntent(isNewTask: Boolean = false) = getIntent(this, isNewTask)
 
@@ -376,7 +376,7 @@ fun getIntent(action: String, uri: Uri? = null) = Intent(action, uri)
  * @param context The context.
  * @return
  */
-@JvmName("getIntent_")
+@JvmName("getIntent1")
 inline fun <reified T : Any> getIntent(context: Context?) = when {
     extendsClass<T>("android.content.Context") -> getIntent(context, T::class.java)
     extendsClass<T>("android.content.BroadcastReceiver") -> getIntent(context, T::class.java)
@@ -394,7 +394,7 @@ inline fun <reified T : Any> Context?.getIntent() = getIntent<T>(this)
  * @param extra
  * @return
  */
-@JvmName("getPendingIntent_")
+@JvmName("getPendingIntent1")
 inline fun <reified C : Context> getPendingIntent(context: Context?, requestCode: Int = 0, extra: String = "") = getPendingIntent<C>(context, getIntent<C>(context), requestCode, extra)
 inline fun <reified C : Context> Context?.getPendingIntent(requestCode: Int = 0, extra: String = "") = getPendingIntent<C>(this, requestCode, extra)
 
@@ -408,7 +408,7 @@ inline fun <reified C : Context> Context?.getPendingIntent(requestCode: Int = 0,
  * @param extra
  * @return
  */
-@JvmName("getPendingIntent_")
+@JvmName("getPendingIntent1")
 inline fun <reified B : BroadcastReceiver> getPendingIntent(context: Context?, action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<B>(context, getIntent<B>(context)?.apply { this.action = action }, requestCode, extra)
 inline fun <reified B : BroadcastReceiver> Context?.getPendingIntent(action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<B>(this, action, requestCode, extra)
 
@@ -422,7 +422,7 @@ inline fun <reified B : BroadcastReceiver> Context?.getPendingIntent(action: Str
  * @param extra
  * @return
  */
-@JvmName("getPendingIntent_")
+@JvmName("getPendingIntent1")
 inline fun <reified T : Any> getPendingIntent(context: Context?, intent: Intent?, requestCode: Int = 0, extra: String = ""): PendingIntent? {
     context ?: return null
     intent ?: return null

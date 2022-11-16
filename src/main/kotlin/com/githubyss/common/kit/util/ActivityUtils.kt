@@ -558,7 +558,7 @@ fun startActivityExt(context: Any? = topActivityOrApp.get(), intent: Intent?, @A
 /** ********** startActivityExt by sharedElements ********** */
 
 /**  */
-@JvmName("startActivityExt_")
+@JvmName("startActivityExt1")
 inline fun <reified A : Activity> startActivityExt(activity: Activity?, extras: Bundle? = null, vararg sharedElements: View) =
     activity.startActivityExt<A>(extras, *sharedElements)
 
@@ -573,7 +573,7 @@ inline fun <reified A : Activity> Activity?.startActivityExt(extras: Bundle? = n
  * @param extras         The Bundle of extras to add to this intent.
  * @param sharedElements The names of the shared elements to transfer to the called activity and their associated Views.
  */
-@JvmName("startActivityExt_")
+@JvmName("startActivityExt1")
 fun startActivityExt(activity: Activity?, clazz: Class<out Activity?>?, extras: Bundle? = null, vararg sharedElements: View) =
     activity.startActivityExt(clazz, extras, *sharedElements)
 

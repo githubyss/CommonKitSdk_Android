@@ -68,16 +68,16 @@ fun getStringArray(@ArrayRes id: Int, context: Context? = BaseApplicationHolder.
 fun isEmpty(s: CharSequence?) = s?.isEmptyNonNull() ?: true
 fun isNotEmpty(s: CharSequence?) = s?.isNotEmptyNonNull() ?: false
 
-@JvmName("isEmptyNonNull_")
+@JvmName("isEmptyNonNull1")
 fun isEmptyNonNull(s: CharSequence) = s.isEmptyNonNull()
 fun CharSequence.isEmptyNonNull() = this.isEmpty()
 
-@JvmName("isNotEmptyNonNull_")
+@JvmName("isNotEmptyNonNull1")
 fun isNotEmptyNonNull(s: CharSequence) = s.isNotEmptyNonNull()
 fun CharSequence.isNotEmptyNonNull() = this.isNotEmpty()
 
 /**  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(s: CharSequence?) = s.isEmptyOrNull()
 fun CharSequence?.isEmptyOrNull() = this.isNullOrEmpty()
 
@@ -87,11 +87,11 @@ fun CharSequence?.isEmptyOrNull() = this.isNullOrEmpty()
  * @param s The string.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isTrimEmpty_")
+@JvmName("isTrimEmpty1")
 fun isTrimEmpty(s: CharSequence?) = s?.isTrimEmpty()
 fun CharSequence?.isTrimEmpty() = this?.isTrimEmptyNonNull() ?: true
 
-@JvmName("isTrimEmptyNonNull_")
+@JvmName("isTrimEmptyNonNull1")
 fun isTrimEmptyNonNull(s: CharSequence) = s.isTrimEmptyNonNull()
 fun CharSequence.isTrimEmptyNonNull() = this.trim().isEmpty()
 
@@ -101,11 +101,11 @@ fun CharSequence.isTrimEmptyNonNull() = this.trim().isEmpty()
  * @param s The string.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isSpace_")
+@JvmName("isSpace1")
 fun isSpace(s: CharSequence?) = s.isSpace()
 fun CharSequence?.isSpace() = this?.isSpaceNonNull() ?: true
 
-@JvmName("isSpaceNonNull_")
+@JvmName("isSpaceNonNull1")
 fun isSpaceNonNull(s: CharSequence) = s.isSpaceNonNull()
 fun CharSequence.isSpaceNonNull(): Boolean {
     if (this.isEmptyNonNull()) return true
@@ -119,7 +119,7 @@ fun CharSequence.isSpaceNonNull(): Boolean {
 }
 
 /**  */
-@JvmName("isNotSpaceNonNull_")
+@JvmName("isNotSpaceNonNull1")
 fun isNotSpaceNonNull(s: CharSequence) = s.isNotSpaceNonNull()
 fun CharSequence.isNotSpaceNonNull() = !this.isSpaceNonNull()
 
@@ -130,7 +130,7 @@ fun CharSequence.isNotSpaceNonNull() = !this.isSpaceNonNull()
  * @param s2 The second string.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("equals_")
+@JvmName("equals1")
 fun equals(s1: CharSequence?, s2: CharSequence?) = s1.equals(s2)
 fun CharSequence?.equals(s: CharSequence?): Boolean {
     this ?: return s == null
@@ -163,7 +163,7 @@ fun CharSequence?.equals(s: CharSequence?): Boolean {
  * @param s2 The second string.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("equals_")
+@JvmName("equals1")
 fun equals(s1: String?, s2: String?) = s1.equals(s2)
 fun String?.equals(s: String?) = this.equals(s, ignoreCase = false)
 
@@ -174,7 +174,7 @@ fun String?.equals(s: String?) = this.equals(s, ignoreCase = false)
  * @param s2 The second string.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("equalsIgnoreCase_")
+@JvmName("equalsIgnoreCase1")
 fun equalsIgnoreCase(s1: String?, s2: String?) = s1.equalsIgnoreCase(s2)
 fun String?.equalsIgnoreCase(s: String?) = this.equals(s, ignoreCase = true)
 
@@ -186,7 +186,7 @@ fun String?.equalsIgnoreCase(s: String?) = this.equals(s, ignoreCase = true)
  * @param s The string.
  * @return {@code ""} if string equals null.
  */
-@JvmName("null2Length0_")
+@JvmName("null2Length01")
 fun null2Length0(s: String?) = s.null2Length0()
 fun String?.null2Length0() = this ?: ""
 
@@ -197,7 +197,7 @@ fun String?.null2Length0() = this ?: ""
  * @param object The Object.
  * @return The object string.
  */
-@JvmName("object2String_")
+@JvmName("object2String1")
 fun <T : Any> object2String(`object`: T?) = `object`.object2String()
 fun <T : Any> T?.object2String(): String {
     this ?: return "Object {object is null}"
@@ -243,7 +243,7 @@ fun <T : Any> T?.object2String(): String {
  * @param array The array.
  * @return The array string.
  */
-@JvmName("array2String_")
+@JvmName("array2String1")
 fun array2String(array: Array<*>?) = array.array2String()
 fun Array<*>?.array2String(): String {
     this ?: return "Array [array is null]"
@@ -272,7 +272,7 @@ fun Array<*>?.array2String(): String {
  * @param list The list.
  * @return The list string.
  */
-@JvmName("list2String_")
+@JvmName("list2String1")
 fun list2String(list: List<*>?) = list.list2String()
 fun List<*>?.list2String() = this?.toString() ?: "List[ list is null ]"
 
@@ -283,7 +283,7 @@ fun List<*>?.list2String() = this?.toString() ?: "List[ list is null ]"
  * @param bytes The bytes.
  * @return The hex string.
  */
-@JvmName("bytes2HexString_")
+@JvmName("bytes2HexString1")
 fun bytes2HexString(bytes: ByteArray?) = bytes.bytes2HexString()
 fun ByteArray?.bytes2HexString(): String {
     this ?: return ""
@@ -305,7 +305,7 @@ fun ByteArray?.bytes2HexString(): String {
  * @param s The string.
  * @return The string with first letter upper.
  */
-@JvmName("uppercaseFirstLetter_")
+@JvmName("uppercaseFirstLetter1")
 fun uppercaseFirstLetter(s: String?) = s.uppercaseFirstLetter()
 fun String?.uppercaseFirstLetter(): String {
     this ?: return ""
@@ -322,7 +322,7 @@ fun String?.uppercaseFirstLetter(): String {
  * @param s The string.
  * @return The string with first letter lower.
  */
-@JvmName("lowercaseFirstLetter_")
+@JvmName("lowercaseFirstLetter1")
 fun lowercaseFirstLetter(s: String?) = s.lowercaseFirstLetter()
 fun String?.lowercaseFirstLetter(): String {
     this ?: return ""
@@ -339,7 +339,7 @@ fun String?.lowercaseFirstLetter(): String {
  * @param s The string.
  * @return The reverse string.
  */
-@JvmName("reverse_")
+@JvmName("reverse1")
 fun reverse(s: String?) = s.reverse()
 fun String?.reverse(): String {
     this ?: return ""
@@ -365,7 +365,7 @@ fun String?.reverse(): String {
  * @param s The string.
  * @return The DBC string.
  */
-@JvmName("toDBC_")
+@JvmName("toDBC1")
 fun toDBC(s: String?) = s.toDBC()
 fun String?.toDBC(): String {
     this ?: return ""
@@ -394,7 +394,7 @@ fun String?.toDBC(): String {
  * @param s The string.
  * @return The SBC string.
  */
-@JvmName("toSBC_")
+@JvmName("toSBC1")
 fun toSBC(s: String?) = s.toSBC()
 fun String?.toSBC(): String {
     this ?: return ""

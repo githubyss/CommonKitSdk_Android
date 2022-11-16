@@ -38,7 +38,7 @@ val webViewClientLoadInside = object : WebViewClient() {
  * 设置 WebView 默认配置
  * @param webView
  */
-@JvmName("defaultWebSetting_")
+@JvmName("defaultWebSetting1")
 fun defaultWebSetting(webView: WebView?) = webView.defaultWebSetting()
 fun WebView?.defaultWebSetting() {
     this ?: return
@@ -172,7 +172,7 @@ fun WebView?.getHtml(url: String?) {
  * 返回 Html 的上一个页面
  * @param webView
  */
-@JvmName("backHtml_")
+@JvmName("backHtml1")
 fun backHtml(webView: WebView?) = webView.backHtml()
 fun WebView?.backHtml(): Boolean {
     this ?: return false

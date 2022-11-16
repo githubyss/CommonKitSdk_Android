@@ -55,133 +55,288 @@ private const val TAG: String = "DateTimeUtils"
 
 /**
  * String 满足 UTC，指的是满足 UTC 书写格式，但不是要完全对应 UTC，比如可以是 "yyyy-MM-dd" 这种单独日期的格式，当转换为 DateTime 后会用 0 补齐其他位置。
- * 需要注意的是，必须是按照 UTC 格式的顺序从前往后写。举个反例，"MM-dd"、"HH:mm:ss"就是不符合的。
+ * 需要注意的是，必须是按照 UTC 格式的顺序从前往后写，顺序不能错，省略只能省后面的，不能省前面的。举个反例，"MM-dd"、"HH:mm:ss"就是不符合的。
  */
 
-/**  */
+/** 最初的时间的 UTC 格式字符串 */
 const val DATETIME_MILLIS_0_UTC = "1970-01-01T00:00:00Z"
+const val DATETIME_MILLIS_0_UTC_FULL = "1970-01-01T08:00:00.000+08:00"
+const val DATETIME_MILLIS_0_UTC_ABBR = "1970-01-01T08:00:00.000+0800"
 
-/** 格式 */
+
+/** ******************** 格式模板 ******************** */
+
 /** 1970-01-01T08:00:00.000+08:00 */
-const val PATTERN_DATETIME_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSSZZ"
+const val PATTERN_DATETIME_UTC_FULL = "yyyy-MM-dd'T'HH:mm:ss.SSSZZ"
 
 /** 1970-01-01T08:00:00.000+0800 */
 const val PATTERN_DATETIME_UTC_ABBR = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
+/** 年月日 */
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH = "yyyy-MM-dd"
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT = "yyyy.MM.dd"
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_SLASH = "yyyy/MM/dd"
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_CHS = "yyyy年MM月dd日"
 const val PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_NONE = "yyyyMMdd"
+
 const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_EN_DASH = "yyyy-M-d"
 const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_DOT = "yyyy.M.d"
 const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_SLASH = "yyyy/M/d"
 const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_CHS = "yyyy年M月d日"
+const val PATTERN_DATE_YEAR_MONTH_DAY_ABBR_DIVIDED_BY_NONE = "yyyyMd"
 
+/** 年月 */
+const val PATTERN_DATE_YEAR_MONTH_FULL_DIVIDED_BY_EN_DASH = "yyyy-MM"
+const val PATTERN_DATE_YEAR_MONTH_FULL_DIVIDED_BY_DOT = "yyyy.MM"
+const val PATTERN_DATE_YEAR_MONTH_FULL_DIVIDED_BY_SLASH = "yyyy/MM"
+const val PATTERN_DATE_YEAR_MONTH_FULL_DIVIDED_BY_CHS = "yyyy年MM月"
+const val PATTERN_DATE_YEAR_MONTH_FULL_DIVIDED_BY_NONE = "yyyyMM"
+
+const val PATTERN_DATE_YEAR_MONTH_ABBR_DIVIDED_BY_EN_DASH = "yyyy-M"
+const val PATTERN_DATE_YEAR_MONTH_ABBR_DIVIDED_BY_DOT = "yyyy.M"
+const val PATTERN_DATE_YEAR_MONTH_ABBR_DIVIDED_BY_SLASH = "yyyy/M"
+const val PATTERN_DATE_YEAR_MONTH_ABBR_DIVIDED_BY_CHS = "yyyy年M月"
+const val PATTERN_DATE_YEAR_MONTH_ABBR_DIVIDED_BY_NONE = "yyyyM"
+
+/** 月日 */
+const val PATTERN_DATE_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH = "MM-dd"
+const val PATTERN_DATE_MONTH_DAY_FULL_DIVIDED_BY_DOT = "MM.dd"
+const val PATTERN_DATE_MONTH_DAY_FULL_DIVIDED_BY_SLASH = "MM/dd"
+const val PATTERN_DATE_MONTH_DAY_FULL_DIVIDED_BY_CHS = "MM月dd日"
+const val PATTERN_DATE_MONTH_DAY_FULL_DIVIDED_BY_NONE = "MMdd"
+
+const val PATTERN_DATE_MONTH_DAY_ABBR_DIVIDED_BY_EN_DASH = "M-d"
+const val PATTERN_DATE_MONTH_DAY_ABBR_DIVIDED_BY_DOT = "M.d"
+const val PATTERN_DATE_MONTH_DAY_ABBR_DIVIDED_BY_SLASH = "M/d"
+const val PATTERN_DATE_MONTH_DAY_ABBR_DIVIDED_BY_CHS = "M月d日"
+const val PATTERN_DATE_MONTH_DAY_ABBR_DIVIDED_BY_NONE = "Md"
+
+/** 时分秒毫秒 */
 const val PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON = "hh:mm:ss.SSS"
 const val PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON = "HH:mm:ss.SSS"
 const val PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS = "hh时mm分ss秒SSS毫秒"
 const val PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS = "HH时mm分ss秒SSS毫秒"
+
+const val PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_ABBR_DIVIDED_BY_COLON = "h:m:s.SSS"
+const val PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_ABBR_DIVIDED_BY_COLON = "H:m:s.SSS"
+const val PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_ABBR_DIVIDED_BY_CHS = "h时m分s秒SSS毫秒"
+const val PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_ABBR_DIVIDED_BY_CHS = "H时m分s秒SSS毫秒"
+
+/** 时分秒 */
 const val PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON = "hh:mm:ss"
 const val PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON = "HH:mm:ss"
 const val PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_CHS = "hh时mm分ss秒"
 const val PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_CHS = "HH时mm分ss秒"
+
+const val PATTERN_TIME_HOUR12_MINUTE_SECOND_ABBR_DIVIDED_BY_COLON = "h:m:s"
+const val PATTERN_TIME_HOUR24_MINUTE_SECOND_ABBR_DIVIDED_BY_COLON = "H:m:s"
+const val PATTERN_TIME_HOUR12_MINUTE_SECOND_ABBR_DIVIDED_BY_CHS = "h时m分s秒"
+const val PATTERN_TIME_HOUR24_MINUTE_SECOND_ABBR_DIVIDED_BY_CHS = "H时m分s秒"
+
+/** 时分 */
 const val PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_COLON = "hh:mm"
 const val PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_COLON = "HH:mm"
 const val PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_CHS = "hh时mm分"
 const val PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_CHS = "HH时mm分"
+
+const val PATTERN_TIME_HOUR12_MINUTE_ABBR_DIVIDED_BY_COLON = "h:m"
+const val PATTERN_TIME_HOUR24_MINUTE_ABBR_DIVIDED_BY_COLON = "H:m"
+const val PATTERN_TIME_HOUR12_MINUTE_ABBR_DIVIDED_BY_CHS = "h时m分"
+const val PATTERN_TIME_HOUR24_MINUTE_ABBR_DIVIDED_BY_CHS = "H时m分"
+
+/** 分秒 */
+const val PATTERN_TIME_MINUTE_SECOND_FULL_DIVIDED_BY_COLON = "mm:ss"
+const val PATTERN_TIME_MINUTE_SECOND_FULL_DIVIDED_BY_CHS = "mm分ss秒"
+
+const val PATTERN_TIME_MINUTE_SECOND_ABBR_DIVIDED_BY_COLON = "m:s"
+const val PATTERN_TIME_MINUTE_SECOND_ABBR_DIVIDED_BY_CHS = "m分s秒"
 
 
 /** ****************************** Functions ****************************** */
 
 /** ******************** Getter ******************** */
 
-/** ********** Milliseconds from 1970-01-01T00:00:00Z ********** */
+/** ********** 当前时间 ********** */
+
+/** 当前时间毫秒表示 */
+fun currentTimeMillis() = System.currentTimeMillis()
+
+/** 当前时间 Joda 表示 */
+private fun currentDatetimeJoda() = DateTime.now()
+
+/** 当前时间指定格式字符串表示 */
+fun currentDatetimeString(pattern: String) = currentDatetimeJoda().datetimeString(pattern)
+
+/** 当前时间 UTC 格式字符串表示 */
+fun currentDatetimeStringUtc() = currentDatetimeJoda().datetimeStringUtc()
+
+
+/** ******************** Converter ******************** */
+
+/** ********** Millis -> Joda DateTime ********** */
 
 /**  */
-val currentDatetimeMillis get() = System.currentTimeMillis()
+@JvmName("datetimeJoda1")
+private fun Long.datetimeJoda() = datetimeJoda(this)
+private fun datetimeJoda(millis: Long) = DateTime(millis)
+
+/** ********** Date -> Joda DateTime ********** */
 
 /**  */
-private val currentDatetimeJoda get() = DateTime.now()
+@JvmName("datetimeJoda1")
+private fun Date.datetimeJoda() = datetimeJoda(this)
+private fun datetimeJoda(date: Date) = DateTime(date)
 
-/** ********** 当前日期时间 String 指定 pattern ********** */
+/** ********** Calendar -> Joda DateTime ********** */
 
-/**
- * Get datetime string with specified format pattern.
- *
- * @param pattern The specified format pattern.
- * @return The formatted datetime string.
- */
-fun currentDatetimeString(pattern: String) = currentDatetimeJoda.datetimeString(pattern)
+/**  */
+@JvmName("datetimeJoda1")
+private fun Calendar.datetimeJoda() = datetimeJoda(this)
+private fun datetimeJoda(calendar: Calendar) = DateTime(calendar)
 
-val currentDatetimeStringUtc get() = currentDatetimeJoda.datetimeStringUtc
+/** ********** 年、月、日、时、分、秒、毫秒 -> Joda DateTime ********** */
 
-val currentDateStringYmdFullDividedByEnDash get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH)
-val currentDateStringYmdFullDividedByDot get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT)
-val currentDateStringYmdFullDividedBySlash get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_SLASH)
-val currentDateStringYmdFullDividedByChs get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_CHS)
-val currentDateStringYmdFullDividedByNone get() = currentDatetimeString(PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_NONE)
+/**  */
+private fun datetimeJoda(year: Int, monthOfYear: Int, dayOfMonth: Int, hourOfDay: Int, minuteOfHour: Int, secondOfMinute: Int = 0, millisOfSecond: Int = 0) = DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond)
 
-val currentTimeStringH12msmFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON)
-val currentTimeStringH24msmFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON)
-val currentTimeStringH12msmFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS)
-val currentTimeStringH24msmFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_CHS)
-val currentTimeStringH12msFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON)
-val currentTimeStringH24msFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON)
-val currentTimeStringH12msFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_CHS)
-val currentTimeStringH24msFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_CHS)
-val currentTimeStringH12mFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_COLON)
-val currentTimeStringH24mFullDividedByColon get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_COLON)
-val currentTimeStringH12mFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR12_MINUTE_FULL_DIVIDED_BY_CHS)
-val currentTimeStringH24mFullDividedByChs get() = currentDatetimeString(PATTERN_TIME_HOUR24_MINUTE_FULL_DIVIDED_BY_CHS)
+/** ********** String -> Joda DateTime ********** */
 
-val currentDatetimeStringYmdH12msFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
-val currentDatetimeStringYmdH24msFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
-val currentDatetimeStringYmdH12msMillisFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+/** String 必须满足 pattern */
+@JvmName("jodaDatetime1")
+private fun String.datetimeJoda(pattern: String) = datetimeJoda(this, pattern)
+private fun datetimeJoda(datetimeString: String, pattern: String) = DateTime.parse(datetimeString, DateTimeFormat.forPattern(pattern))
 
-val currentDatetimeStringYmdH24msMillisFullDividedByEnDash get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_EN_DASH $PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+/** String 必须满足 UTC */
+@JvmName("datetimeJodaForUtc1")
+private fun String.datetimeJodaFromUtc() = datetimeJodaFromUtc(this)
+private fun datetimeJodaFromUtc(datetimeString: String) = DateTime(datetimeString)
 
-val currentDatetimeStringYmdH12msFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR12_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
-val currentDatetimeStringYmdH24msFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR24_MINUTE_SECOND_FULL_DIVIDED_BY_COLON")
-val currentDatetimeStringYmdH12msMillisFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR12_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
-val currentDatetimeStringYmdH24msMillisFullDividedByDot get() = currentDatetimeString("$PATTERN_DATE_YEAR_MONTH_DAY_FULL_DIVIDED_BY_DOT $PATTERN_TIME_HOUR24_MINUTE_SECOND_MILLIS_FULL_DIVIDED_BY_COLON")
+/** ********** String -> Joda LocalDate ********** */
+
+/** String 必须满足 pattern */
+private fun String.localDateJoda(pattern: String) = this.datetimeStringUtc(pattern).localDateJodaFromUtc()
+
+/** String 必须满足 UTC */
+private fun String.localDateJodaFromUtc() = this.datetimeJodaFromUtc().toLocalDate()
+
+/** ********** 日期时间 String -> Joda LocalTime ********** */
+
+/** String 必须满足 pattern */
+private fun String.localTimeJoda(pattern: String) = this.datetimeStringUtc(pattern).localTimeJodaFromUtc()
+
+/** String 必须满足 UTC */
+private fun String.localTimeJodaFromUtc() = this.datetimeJodaFromUtc().toLocalTime()
+
+/** ********** 日期时间 String -> Joda LocalDateTime ********** */
+
+/** String 必须满足 pattern */
+private fun String.localDatetimeJoda(pattern: String) = this.datetimeStringUtc(pattern).localDatetimeJodaFromUtc()
+
+/** String 必须满足 UTC */
+private fun String.localDatetimeJodaFromUtc() = this.datetimeJodaFromUtc().toLocalDateTime()
+
+/** ********** 日期时间 Joda -> 日期时间 Millis ********** */
+
+/**  */
+private fun DateTime.datetimeMillis() = this.millis
+
+/** ********** 日期时间 String -> 日期时间 Millis ********** */
+
+/** String 必须满足 pattern */
+@JvmName("datetimeMillis1")
+fun String.datetimeMillis(pattern: String) = datetimeMillis(this, pattern)
+fun datetimeMillis(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).datetimeMillisForUtc()
+
+/** String 必须满足 UTC */
+@JvmName("datetimeMillisForUtc1")
+fun String.datetimeMillisForUtc() = datetimeMillisForUtc(this)
+fun datetimeMillisForUtc(datetimeStringUtc: String) = datetimeStringUtc.datetimeJodaFromUtc().datetimeMillis()
+
+/** ********** 日期时间 Joda -> 日期时间 String UTC 格式 ********** */
+
+/**  */
+@JvmName("datetimeStringUtc1")
+private fun DateTime.datetimeStringUtc() = datetimeStringUtc(this)
+private fun datetimeStringUtc(datetime: DateTime) = datetime.toString()
+
+/** ********** 日期时间 Joda -> 日期时间 String pattern 格式 ********** */
+
+/**  */
+@JvmName("datetimeString1")
+private fun DateTime.datetimeString(pattern: String) = datetimeString(this, pattern)
+private fun datetimeString(datetime: DateTime, pattern: String) = datetime.toString(pattern)
+
+/** ********** 日期时间 Millis -> 日期时间 String pattern 格式 ********** */
+
+/**  */
+@JvmName("datetimeString1")
+fun Long.datetimeString(pattern: String) = datetimeString(this, pattern)
+fun datetimeString(millis: Long, pattern: String) = millis.datetimeJoda().datetimeString(pattern)
+
+/** ********** 日期时间 String -> 日期时间 String pattern 格式 ********** */
+
+/** String 必须满足 pattern */
+@JvmName("datetimeString1")
+fun String.datetimeString(patternFrom: String, patternTo: String) = datetimeString(this, patternFrom, patternTo)
+fun datetimeString(datetimeString: String, patternFrom: String, patternTo: String) = datetimeString.datetimeJoda(patternFrom).datetimeString(patternTo)
+
+/** String 必须满足 UTC */
+@JvmName("datetimeStringForUtc1")
+fun String.datetimeStringForUtc(pattern: String) = datetimeStringForUtc(this, pattern)
+fun datetimeStringForUtc(datetimeStringUtc: String, pattern: String) = datetimeStringUtc.datetimeJodaFromUtc().datetimeString(pattern)
+// fun datetimeString(datetimeStringUtc: String, pattern: String) = datetimeStringUtc.datetimeJodaFromUtc.datetimeString(DateTimeFormat.forPattern(pattern))
+
+/** ********** 日期时间 Millis -> 日期时间 String UTC 格式 ********** */
+
+/**  */
+@JvmName("datetimeStringUtc1")
+fun Long.datetimeStringUtc() = datetimeStringUtc(this)
+fun datetimeStringUtc(millis: Long) = millis.datetimeString(PATTERN_DATETIME_UTC_FULL)
+
+/** ********** 日期时间 String -> 日期时间 String UTC 格式 ********** */
+
+/**  */
+@JvmName("datetimeStringUtc1")
+fun String.datetimeStringUtc(pattern: String) = datetimeStringUtc(this, pattern)
+fun datetimeStringUtc(datetimeString: String, pattern: String) = datetimeString.datetimeString(pattern, PATTERN_DATETIME_UTC_FULL)
+
 
 /** ******************** Checker ******************** */
 
 /** ********** 日期时间 String ?= 此刻 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalNow_")
+@JvmName("equalNow1")
 fun String.equalNow(pattern: String) = equalNow(this, pattern)
-fun equalNow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalNowForUtc
+fun equalNow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalNowForUtc()
 
 /** String 必须满足 UTC */
-val String.equalNowForUtc get() = this.datetimeJodaForUtc.isEqualNow
+fun String.equalNowForUtc() = this.datetimeJodaFromUtc().isEqualNow
 
 /** ********** 日期时间 String ?< 此刻 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("beforeNow_")
+@JvmName("beforeNow1")
 fun String.beforeNow(pattern: String) = beforeNow(this, pattern)
-fun beforeNow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).beforeNowForUtc
+fun beforeNow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).beforeNowForUtc()
 
 /** String 必须满足 UTC */
-val String.beforeNowForUtc get() = this.datetimeJodaForUtc.isBeforeNow
+fun String.beforeNowForUtc() = this.datetimeJodaFromUtc().isBeforeNow
 
 /** ********** 日期时间 String ?> 此刻 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("afterNow_")
+@JvmName("afterNow1")
 fun String.afterNow(pattern: String) = afterNow(this, pattern)
-fun afterNow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).afterNowForUtc
+fun afterNow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).afterNowForUtc()
 
 /** String 必须满足 UTC */
-val String.afterNowForUtc get() = this.datetimeJodaForUtc.isAfterNow
+fun String.afterNowForUtc() = this.datetimeJodaFromUtc().isAfterNow
 
 /** ********** 两个日期时间 String ? 同一日期 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalDate_")
+@JvmName("equalDate1")
 @JvmOverloads
 fun String.equalDate(datetimeStringB: String, patternA: String, patternB: String = patternA) = equalDate(this, datetimeStringB, patternA, patternB)
 
@@ -189,14 +344,14 @@ fun String.equalDate(datetimeStringB: String, patternA: String, patternB: String
 fun equalDate(datetimeStringA: String, datetimeStringB: String, patternA: String, patternB: String = patternA) = datetimeStringA.datetimeStringUtc(patternA).equalDateForUtc(datetimeStringB.datetimeStringUtc(patternB))
 
 /** String 必须满足 UTC */
-@JvmName("equalDateForUtc_")
+@JvmName("equalDateForUtc1")
 fun String.equalDateForUtc(datetimeStringUtc: String) = equalDateForUtc(this, datetimeStringUtc)
-fun equalDateForUtc(datetimeStringUtcA: String, datetimeStringUtcB: String) = datetimeStringUtcA.localDateJodaForUtc == datetimeStringUtcB.localDateJodaForUtc
+fun equalDateForUtc(datetimeStringUtcA: String, datetimeStringUtcB: String) = datetimeStringUtcA.localDateJodaFromUtc() == datetimeStringUtcB.localDateJodaFromUtc()
 
 /** ********** 两个日期时间 String ? 同一时间 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalTime_")
+@JvmName("equalTime1")
 @JvmOverloads
 fun String.equalTime(datetimeStringB: String, patternA: String, patternB: String = patternA) = equalTime(this, datetimeStringB, patternA, patternB)
 
@@ -204,9 +359,9 @@ fun String.equalTime(datetimeStringB: String, patternA: String, patternB: String
 fun equalTime(datetimeStringA: String, datetimeStringB: String, patternA: String, patternB: String = patternA) = datetimeStringA.datetimeStringUtc(patternA).equalTimeForUtc(datetimeStringB.datetimeStringUtc(patternB))
 
 /** String 必须满足 UTC */
-@JvmName("equalTimeForUtc_")
+@JvmName("equalTimeForUtc1")
 fun String.equalTimeForUtc(datetimeStringUtc: String) = equalTimeForUtc(this, datetimeStringUtc)
-fun equalTimeForUtc(datetimeStringUtcA: String, datetimeStringUtcB: String) = datetimeStringUtcA.localTimeJodaForUtc == datetimeStringUtcB.localTimeJodaForUtc
+fun equalTimeForUtc(datetimeStringUtcA: String, datetimeStringUtcB: String) = datetimeStringUtcA.localTimeJodaFromUtc() == datetimeStringUtcB.localTimeJodaFromUtc()
 
 /** ********** 日期时间 String ?= 今年 ********** */
 
@@ -215,194 +370,80 @@ fun equalTimeForUtc(datetimeStringUtcA: String, datetimeStringUtcB: String) = da
 /** ********** 日期时间 String ?= 今天 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalToday_")
+@JvmName("equalToday1")
 fun String.equalToday(pattern: String) = equalToday(this, pattern)
-fun equalToday(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalTodayForUtc
+fun equalToday(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalTodayForUtc()
 
 /** String 必须满足 UTC */
-val String.equalTodayForUtc get() = equalTodayForUtc(this)
-fun equalTodayForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeStringUtc)
+@JvmName("equalTodayForUtc1")
+fun String.equalTodayForUtc() = equalTodayForUtc(this)
+fun equalTodayForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeStringUtc())
 
 /** ********** 日期时间 String ?= 昨天 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalYesterday_")
+@JvmName("equalYesterday1")
 fun String.equalYesterday(pattern: String) = equalYesterday(this, pattern)
-fun equalYesterday(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalYesterdayForUtc
+fun equalYesterday(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalYesterdayForUtc()
 
 /** String 必须满足 UTC */
-val String.equalYesterdayForUtc get() = equalYesterdayForUtc(this)
-fun equalYesterdayForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda.minusDays(1).datetimeStringUtc)
+@JvmName("equalYesterdayForUtc1")
+fun String.equalYesterdayForUtc() = equalYesterdayForUtc(this)
+fun equalYesterdayForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda().minusDays(1).datetimeStringUtc())
 
 /** ********** 日期时间 String ?= 前天 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalDayBeforeYesterday_")
+@JvmName("equalDayBeforeYesterday1")
 fun String.equalDayBeforeYesterday(pattern: String) = equalDayBeforeYesterday(this, pattern)
-fun equalDayBeforeYesterday(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalDayBeforeYesterdayForUtc
+fun equalDayBeforeYesterday(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalDayBeforeYesterdayForUtc()
 
 /** String 必须满足 UTC */
-val String.equalDayBeforeYesterdayForUtc get() = equalDayBeforeYesterdayForUtc(this)
-fun equalDayBeforeYesterdayForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda.minusDays(2).datetimeStringUtc)
+@JvmName("equalDayBeforeYesterdayForUtc1")
+fun String.equalDayBeforeYesterdayForUtc() = equalDayBeforeYesterdayForUtc(this)
+fun equalDayBeforeYesterdayForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda().minusDays(2).datetimeStringUtc())
 
 /** ********** 日期时间 String ?= 明天 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalTomorrow_")
+@JvmName("equalTomorrow1")
 fun String.equalTomorrow(pattern: String) = equalTomorrow(this, pattern)
-fun equalTomorrow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalTomorrowForUtc
+fun equalTomorrow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalTomorrowForUtc()
 
 /** String 必须满足 UTC */
-val String.equalTomorrowForUtc get() = equalTomorrowForUtc(this)
-fun equalTomorrowForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda.plusDays(1).datetimeStringUtc)
+@JvmName("equalTomorrowForUtc1")
+fun String.equalTomorrowForUtc() = equalTomorrowForUtc(this)
+fun equalTomorrowForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda().plusDays(1).datetimeStringUtc())
 
 /** ********** 日期时间 String ?= 后天 ********** */
 
 /** String 必须满足 pattern */
-@JvmName("equalDayAfterTomorrow_")
+@JvmName("equalDayAfterTomorrow1")
 fun String.equalDayAfterTomorrow(pattern: String) = equalDayAfterTomorrow(this, pattern)
-fun equalDayAfterTomorrow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalDayAfterTomorrowForUtc
+fun equalDayAfterTomorrow(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).equalDayAfterTomorrowForUtc()
 
 /** String 必须满足 UTC */
-val String.equalDayAfterTomorrowForUtc get() = equalDayAfterTomorrowForUtc(this)
-fun equalDayAfterTomorrowForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda.plusDays(2).datetimeStringUtc)
+@JvmName("equalDayAfterTomorrowForUtc1")
+fun String.equalDayAfterTomorrowForUtc() = equalDayAfterTomorrowForUtc(this)
+fun equalDayAfterTomorrowForUtc(datetimeStringUtc: String) = datetimeStringUtc.equalDateForUtc(currentDatetimeJoda().plusDays(2).datetimeStringUtc())
 
 /** ********** 日期时间 String ?> 一个月（30天） ********** */
 
 /** String 必须满足 pattern */
-@JvmName("beforeMonth_")
+@JvmName("beforeMonth1")
 fun String.beforeMonth(pattern: String) = beforeMonth(this, pattern)
-fun beforeMonth(datetimeString: String, patternTo: String) = datetimeString.datetimeStringUtc(patternTo).beforeMonthForUtc
+fun beforeMonth(datetimeString: String, patternTo: String) = datetimeString.datetimeStringUtc(patternTo).beforeMonthForUtc()
 
 /** String 必须满足 UTC */
-val String.beforeMonthForUtc get() = beforeMonthForUtc(this)
-fun beforeMonthForUtc(datetimeStringUtc: String) = Days.daysBetween(datetimeStringUtc.datetimeJodaForUtc, currentDatetimeJoda).days > 30
+@JvmName("beforeMonthForUtc1")
+fun String.beforeMonthForUtc() = beforeMonthForUtc(this)
+fun beforeMonthForUtc(datetimeStringUtc: String) = Days.daysBetween(datetimeStringUtc.datetimeJodaFromUtc(), currentDatetimeJoda()).days > 30
 
 /** ********** 两个日期时间 String ? 同一年份 ********** */
 
 /** ********** 两个日期时间 String ? 同一月份 ********** */
 
 /** ********** 两个日期时间 String ? 同一日份 ********** */
-
-/** ******************** Converter ******************** */
-
-/** ********** 日期时间 Millis -> 日期时间 Joda ********** */
-
-/**  */
-private val Long.datetimeJoda get() = datetimeJoda(this)
-private fun datetimeJoda(millis: Long) = DateTime(millis)
-
-/** ********** 日期时间 Date -> 日期时间 Joda ********** */
-
-/**  */
-private val Date.datetimeJoda get() = datetimeJoda(this)
-private fun datetimeJoda(date: Date) = DateTime(date)
-
-/** ********** 日期时间 Calendar -> 日期时间 Joda ********** */
-
-/**  */
-private val Calendar.datetimeJoda get() = datetimeJoda(this)
-private fun datetimeJoda(calendar: Calendar) = DateTime(calendar)
-
-/** ********** 年、月、日、时、分、秒、毫秒 -> 日期时间 Joda ********** */
-
-/**  */
-private fun datetimeJoda(year: Int, monthOfYear: Int, dayOfMonth: Int, hourOfDay: Int, minuteOfHour: Int, secondOfMinute: Int = 0, millisOfSecond: Int = 0) = DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond)
-
-/** ********** 日期时间 String -> 日期时间 Joda ********** */
-
-/** String 必须满足 pattern */
-@JvmName("jodaDatetime_")
-private fun String.datetimeJoda(pattern: String) = datetimeJoda(this, pattern)
-private fun datetimeJoda(datetimeString: String, pattern: String) = DateTime.parse(datetimeString, DateTimeFormat.forPattern(pattern))
-
-/** String 必须满足 UTC */
-private val String.datetimeJodaForUtc get() = datetimeJodaForUtc(this)
-private fun datetimeJodaForUtc(datetimeString: String) = DateTime(datetimeString)
-
-/** ********** 日期时间 String -> Joda LocalDate ********** */
-
-/** String 必须满足 pattern */
-private fun String.localDateJoda(pattern: String) = this.datetimeStringUtc(pattern).localDateJodaForUtc
-
-/** String 必须满足 UTC */
-private val String.localDateJodaForUtc get() = this.datetimeJodaForUtc.toLocalDate()
-
-/** ********** 日期时间 String -> Joda LocalTime ********** */
-
-/** String 必须满足 pattern */
-private fun String.localTimeJoda(pattern: String) = this.datetimeStringUtc(pattern).localTimeJodaForUtc
-
-/** String 必须满足 UTC */
-private val String.localTimeJodaForUtc get() = this.datetimeJodaForUtc.toLocalTime()
-
-/** ********** 日期时间 String -> Joda LocalDateTime ********** */
-
-/** String 必须满足 pattern */
-private fun String.localDatetimeJoda(pattern: String) = this.datetimeStringUtc(pattern).localDatetimeJodaForUtc
-
-/** String 必须满足 UTC */
-private val String.localDatetimeJodaForUtc get() = this.datetimeJodaForUtc.toLocalDateTime()
-
-/** ********** 日期时间 Joda -> 日期时间 Millis ********** */
-
-/**  */
-private val DateTime.datetimeMillis get() = this.millis
-
-/** ********** 日期时间 String -> 日期时间 Millis ********** */
-
-/** String 必须满足 pattern */
-@JvmName("datetimeMillis_")
-fun String.datetimeMillis(pattern: String) = datetimeMillis(this, pattern)
-fun datetimeMillis(datetimeString: String, pattern: String) = datetimeString.datetimeStringUtc(pattern).datetimeMillisForUtc
-
-/** String 必须满足 UTC */
-val String.datetimeMillisForUtc get() = datetimeMillisForUtc(this)
-fun datetimeMillisForUtc(datetimeStringUtc: String) = datetimeStringUtc.datetimeJodaForUtc.datetimeMillis
-
-/** ********** 日期时间 Joda -> 日期时间 String UTC 格式 ********** */
-
-/**  */
-private val DateTime.datetimeStringUtc get() = this.toString()
-// private val DateTime.datetimeStringUtc get() = this.datetimeString(PATTERN_DATETIME_UTC)
-
-/** ********** 日期时间 Joda -> 日期时间 String pattern 格式 ********** */
-
-/**  */
-private fun DateTime.datetimeString(pattern: String) = this.toString(pattern) ?: ""
-
-/** ********** 日期时间 Millis -> 日期时间 String pattern 格式 ********** */
-
-/**  */
-@JvmName("datetimeString_")
-fun Long.datetimeString(pattern: String) = datetimeString(this, pattern)
-fun datetimeString(millis: Long, pattern: String) = millis.datetimeJoda.datetimeString(pattern)
-
-/** ********** 日期时间 String -> 日期时间 String pattern 格式 ********** */
-
-/** String 必须满足 pattern */
-@JvmName("datetimeString_")
-fun String.datetimeString(patternFrom: String, patternTo: String) = datetimeString(this, patternFrom, patternTo)
-fun datetimeString(datetimeString: String, patternFrom: String, patternTo: String) = datetimeString.datetimeJoda(patternFrom).datetimeString(patternTo)
-
-/** String 必须满足 UTC */
-@JvmName("datetimeStringForUtc_")
-fun String.datetimeStringForUtc(pattern: String) = datetimeStringForUtc(this, pattern)
-fun datetimeStringForUtc(datetimeStringUtc: String, pattern: String) = datetimeStringUtc.datetimeJodaForUtc.datetimeString(pattern)
-// fun datetimeString(datetimeStringUtc: String, pattern: String) = datetimeStringUtc.datetimeJodaForUtc.datetimeString(DateTimeFormat.forPattern(pattern))
-
-/** ********** 日期时间 Millis -> 日期时间 String UTC 格式 ********** */
-
-/**  */
-val Long.datetimeStringUtc get() = datetimeStringUtc(this)
-fun datetimeStringUtc(millis: Long) = millis.datetimeString(PATTERN_DATETIME_UTC)
-
-/** ********** 日期时间 String -> 日期时间 String UTC 格式 ********** */
-
-/**  */
-@JvmName("datetimeStringUtc_")
-fun String.datetimeStringUtc(pattern: String) = datetimeStringUtc(this, pattern)
-fun datetimeStringUtc(datetimeString: String, pattern: String) = datetimeString.datetimeString(pattern, PATTERN_DATETIME_UTC)
 
 
 /** ******************** Processor ******************** */

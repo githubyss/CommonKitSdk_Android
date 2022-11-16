@@ -236,7 +236,7 @@ operator fun JSONArray.iterator() = (0 until length()).asSequence().map { get(it
  * @param s The string to be checked.
  * @return `true` if input string is yield a JSON.
  */
-@JvmName("isJsonString_")
+@JvmName("isJsonString1")
 fun isJsonString(s: String?) = s.isJsonString()
 fun String?.isJsonString() = this.isJsonObjectString() || this.isJsonArrayString()
 
@@ -246,7 +246,7 @@ fun String?.isJsonString() = this.isJsonObjectString() || this.isJsonArrayString
  * @param s The string to be checked.
  * @return `true` if input string is yield a JSONObject.
  */
-@JvmName("isJsonObjectString_")
+@JvmName("isJsonObjectString1")
 fun isJsonObjectString(s: String?) = s.isJsonObjectString()
 fun String?.isJsonObjectString() = when {
     this == null -> false
@@ -267,7 +267,7 @@ fun String?.isJsonObjectString() = when {
  * @param s The string to be checked.
  * @return `true` if input string is yield a JSONArray.
  */
-@JvmName("isJsonArrayString_")
+@JvmName("isJsonArrayString1")
 fun isJsonArrayString(s: String?) = s.isJsonArrayString()
 fun String?.isJsonArrayString() = when {
     this == null -> false
@@ -305,7 +305,7 @@ fun String?.isJsonArrayString() = when {
  * @param s Any String.
  * @return JSONObject of given String.
  */
-@JvmName("string2JSONObject_")
+@JvmName("string2JSONObject1")
 fun string2JSONObject(s: String?) = s.string2JSONObject()
 fun String?.string2JSONObject() = when {
     this == null -> null
@@ -325,7 +325,7 @@ fun String?.string2JSONObject() = when {
  * @param s Any String.
  * @return JSONArray of given String.
  */
-@JvmName("string2JSONArray_")
+@JvmName("string2JSONArray1")
 fun string2JSONArray(s: String?) = s.string2JSONArray()
 fun String?.string2JSONArray() = when {
     this == null -> null
@@ -347,7 +347,7 @@ fun String?.string2JSONArray() = when {
  * @param jsonObjectString Json Object String.
  * @return JSONObject of given JsonObjectString.
  */
-@JvmName("jsonObjectString2JSONObject_")
+@JvmName("jsonObjectString2JSONObject1")
 fun jsonObjectString2JSONObject(jsonObjectString: String) = jsonObjectString.jsonObjectString2JSONObject()
 fun String.jsonObjectString2JSONObject() = try {
     JSONObject(this)
@@ -363,7 +363,7 @@ catch (e: JSONException) {
  * @param jsonArrayString Json Array String.
  * @return JSONArray of given JsonArrayString.
  */
-@JvmName("jsonArrayString2JSONArray_")
+@JvmName("jsonArrayString2JSONArray1")
 fun jsonArrayString2JSONArray(jsonArrayString: String) = jsonArrayString.jsonArrayString2JSONArray()
 fun String.jsonArrayString2JSONArray() = try {
     JSONArray(this)
@@ -379,7 +379,7 @@ catch (e: JSONException) {
  * @param jsonString Json string.
  * @return Object of Class T.
  */
-@JvmName("jsonString2Any_")
+@JvmName("jsonString2Any1")
 inline fun <reified T> jsonString2Any(jsonString: String) = jsonString.jsonString2Any<T>()
 inline fun <reified T> String.jsonString2Any() = this.jsonString2Any(T::class.java)
 
@@ -390,7 +390,7 @@ inline fun <reified T> String.jsonString2Any() = this.jsonString2Any(T::class.ja
  * @param cls Class type to parse the JsonString.
  * @return Object of Class T.
  */
-@JvmName("jsonString2Any_")
+@JvmName("jsonString2Any1")
 fun <T> jsonString2Any(jsonString: String, cls: Class<T>?) = jsonString.jsonString2Any(cls)
 fun <T> String.jsonString2Any(cls: Class<T>?) = try {
     Gson().fromJson(this, cls) ?: null
@@ -406,7 +406,7 @@ catch (e: JsonSyntaxException) {
  * @param jsonString Json string.
  * @return Map with value type V.
  */
-@JvmName("jsonString2Map_")
+@JvmName("jsonString2Map1")
 fun <V> jsonString2Map(jsonString: String) = jsonString.jsonString2Map<V>()
 fun <V> String.jsonString2Map() = try {
     Gson().fromJson<Map<String, V?>>(this, object : TypeToken<Map<String, V?>>() {}.type) ?: null
@@ -422,7 +422,7 @@ catch (e: JsonSyntaxException) {
  * @param jsonString Json string.
  * @return List with type T.
  */
-@JvmName("jsonString2List_")
+@JvmName("jsonString2List1")
 inline fun <reified T> jsonString2List(jsonString: String) = jsonString.jsonString2List<T>()
 inline fun <reified T> String.jsonString2List() = this.jsonString2List(T::class.java)
 
@@ -433,7 +433,7 @@ inline fun <reified T> String.jsonString2List() = this.jsonString2List(T::class.
  * @param cls Class type to parse the JsonString.
  * @return List with type T.
  */
-@JvmName("jsonString2List_")
+@JvmName("jsonString2List1")
 fun <T> jsonString2List(jsonString: String, cls: Class<T>?) = jsonString.jsonString2List(cls)
 fun <T> String.jsonString2List(cls: Class<T>?): List<T?>? {
     val jsonArray = try {
@@ -467,7 +467,7 @@ fun <T> String.jsonString2List(cls: Class<T>?): List<T?>? {
  * @param any Custom Object.
  * @return Json string.
  */
-@JvmName("any2JsonString_")
+@JvmName("any2JsonString1")
 fun any2JsonString(any: Any?) = any.any2JsonString()
 fun Any?.any2JsonString() = Gson().toJson(this) ?: ""
 
@@ -476,6 +476,6 @@ fun Any?.any2JsonString() = Gson().toJson(this) ?: ""
  *
  * @param any Custom Object.
  */
-@JvmName("any2Console_")
+@JvmName("any2Console1")
 fun any2Console(any: Any?) = any.any2Console()
 fun Any?.any2Console() = Gson().toJson(this, System.out)

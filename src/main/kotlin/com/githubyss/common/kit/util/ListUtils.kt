@@ -25,6 +25,6 @@ private const val TAG: String = "ListUtils"
  * @param list The list.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(list: List<*>?) = list.isEmptyOrNull()
 fun List<*>?.isEmptyOrNull() = this.isNullOrEmpty()

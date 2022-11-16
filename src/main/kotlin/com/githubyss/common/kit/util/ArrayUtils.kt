@@ -25,7 +25,7 @@ private const val TAG: String = "ArrayUtils"
  * @param array The array.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(array: Array<*>?) = array.isEmptyOrNull()
 fun Array<*>?.isEmptyOrNull() = this.isNullOrEmpty()
 
@@ -35,11 +35,11 @@ fun Array<*>?.isEmptyOrNull() = this.isNullOrEmpty()
  * @param bytes The bytes.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(bytes: ByteArray?) = bytes.isEmptyOrNull()
 fun ByteArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
-@JvmName("isEmptyNonNull_")
+@JvmName("isEmptyNonNull1")
 fun isEmptyNonNull(bytes: ByteArray) = bytes.isEmptyNonNull()
 fun ByteArray.isEmptyNonNull() = this.isEmpty()
 
@@ -49,7 +49,7 @@ fun ByteArray.isEmptyNonNull() = this.isEmpty()
  * @param chars The chars.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(chars: CharArray?) = chars.isEmptyOrNull()
 fun CharArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
@@ -59,7 +59,7 @@ fun CharArray?.isEmptyOrNull() = this?.isEmpty() ?: true
  * @param shorts The shorts.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(shorts: ShortArray?) = shorts.isEmptyOrNull()
 fun ShortArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
@@ -69,7 +69,7 @@ fun ShortArray?.isEmptyOrNull() = this?.isEmpty() ?: true
  * @param ints The ints.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(ints: IntArray?) = ints.isEmptyOrNull()
 fun IntArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
@@ -79,7 +79,7 @@ fun IntArray?.isEmptyOrNull() = this?.isEmpty() ?: true
  * @param longs The longs.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(longs: LongArray?) = longs.isEmptyOrNull()
 fun LongArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
@@ -89,7 +89,7 @@ fun LongArray?.isEmptyOrNull() = this?.isEmpty() ?: true
  * @param floats The floats.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(floats: FloatArray?) = floats.isEmptyOrNull()
 fun FloatArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
@@ -99,7 +99,7 @@ fun FloatArray?.isEmptyOrNull() = this?.isEmpty() ?: true
  * @param doubles The doubles.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(doubles: DoubleArray?) = doubles.isEmptyOrNull()
 fun DoubleArray?.isEmptyOrNull() = this?.isEmpty() ?: true
 
@@ -109,6 +109,6 @@ fun DoubleArray?.isEmptyOrNull() = this?.isEmpty() ?: true
  * @param booleans The booleans.
  * @return {@code true}: yes, {@code false}: no.
  */
-@JvmName("isEmptyOrNull_")
+@JvmName("isEmptyOrNull1")
 fun isEmptyOrNull(booleans: BooleanArray?) = booleans.isEmptyOrNull()
 fun BooleanArray?.isEmptyOrNull() = this?.isEmpty() ?: true

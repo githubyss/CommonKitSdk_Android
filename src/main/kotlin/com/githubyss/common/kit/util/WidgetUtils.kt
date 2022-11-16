@@ -36,7 +36,7 @@ private const val TAG: String = "WidgetUtils"
  * @param layoutId
  * @return
  */
-@JvmName("getRemoteViews_")
+@JvmName("getRemoteViews1")
 fun getRemoteViews(context: Context?, @LayoutRes layoutId: Int) = RemoteViews(context?.packageName, layoutId)
 fun Context?.getRemoteViews(@LayoutRes layoutId: Int) = getRemoteViews(this, layoutId)
 
@@ -48,11 +48,11 @@ fun Context?.getRemoteViews(@LayoutRes layoutId: Int) = getRemoteViews(this, lay
  * @param context
  * @return
  */
-@JvmName("getAppWidgetIds_")
+@JvmName("getAppWidgetIds1")
 inline fun <reified W : AppWidgetProvider> getAppWidgetIds(context: Context?) = getAppWidgetIds(context, W::class.java)
 inline fun <reified W : AppWidgetProvider> Context?.getAppWidgetIds() = getAppWidgetIds<W>(this)
 
-@JvmName("getAppWidgetIds_")
+@JvmName("getAppWidgetIds1")
 fun getAppWidgetIds(context: Context?, clazz: Class<*>) = if (context == null) null else getAppWidgetIds(AppWidgetManager.getInstance(context), ComponentName(context, clazz))
 fun Context?.getAppWidgetIds(clazz: Class<*>) = getAppWidgetIds(this, clazz)
 
@@ -63,7 +63,7 @@ fun Context?.getAppWidgetIds(clazz: Class<*>) = getAppWidgetIds(this, clazz)
  * @param appWidgetComponentName
  * @return
  */
-@JvmName("getAppWidgetIds_")
+@JvmName("getAppWidgetIds1")
 fun getAppWidgetIds(context: Context?, appWidgetComponentName: ComponentName?) = getAppWidgetIds(AppWidgetManager.getInstance(context), appWidgetComponentName)
 fun Context?.getAppWidgetIds(appWidgetComponentName: ComponentName?) = getAppWidgetIds(this, appWidgetComponentName)
 
@@ -88,7 +88,7 @@ fun getAppWidgetIds(appWidgetManager: AppWidgetManager?, appWidgetComponentName:
  * @param remoteViews
  * @return
  */
-@JvmName("refreshAppWidgetViewByIds_")
+@JvmName("refreshAppWidgetViewByIds1")
 inline fun <reified W : AppWidgetProvider> refreshAppWidgetViewByIds(context: Context?, remoteViews: RemoteViews?) = context?.let {
     refreshAppWidgetView(context, getAppWidgetIds<W>(context) ?: return@let, remoteViews)
 }
@@ -102,7 +102,7 @@ inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetViewByIds(re
  * @param remoteViews
  * @return
  */
-@JvmName("refreshAppWidgetViewByComponentName_")
+@JvmName("refreshAppWidgetViewByComponentName1")
 inline fun <reified W : AppWidgetProvider> refreshAppWidgetViewByComponentName(context: Context?, remoteViews: RemoteViews?) = context?.let {
     refreshAppWidgetView(context, ComponentName(context, W::class.java), remoteViews)
 }
@@ -118,7 +118,7 @@ inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetViewByCompon
  * @param remoteViews
  * @return
  */
-@JvmName("refreshAppWidgetView_")
+@JvmName("refreshAppWidgetView1")
 fun refreshAppWidgetView(context: Context?, appWidgetId: Int, remoteViews: RemoteViews?) = AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews)
 fun Context?.refreshAppWidgetView(appWidgetId: Int, remoteViews: RemoteViews?) = refreshAppWidgetView(this, appWidgetId, remoteViews)
 
@@ -130,7 +130,7 @@ fun Context?.refreshAppWidgetView(appWidgetId: Int, remoteViews: RemoteViews?) =
  * @param remoteViews
  * @return
  */
-@JvmName("refreshAppWidgetView_")
+@JvmName("refreshAppWidgetView1")
 fun refreshAppWidgetView(context: Context?, appWidgetIds: IntArray?, remoteViews: RemoteViews?) = AppWidgetManager.getInstance(context).updateAppWidget(appWidgetIds, remoteViews)
 fun Context?.refreshAppWidgetView(appWidgetIds: IntArray?, remoteViews: RemoteViews?) = refreshAppWidgetView(this, appWidgetIds, remoteViews)
 
@@ -140,7 +140,7 @@ fun Context?.refreshAppWidgetView(appWidgetIds: IntArray?, remoteViews: RemoteVi
  * @param
  * @return
  */
-@JvmName("refreshAppWidgetView_")
+@JvmName("refreshAppWidgetView1")
 fun refreshAppWidgetView(context: Context?, appWidgetComponentName: ComponentName?, remoteViews: RemoteViews?) = AppWidgetManager.getInstance(context).updateAppWidget(appWidgetComponentName, remoteViews)
 fun Context?.refreshAppWidgetView(appWidgetComponentName: ComponentName?, remoteViews: RemoteViews?) = refreshAppWidgetView(this, appWidgetComponentName, remoteViews)
 
@@ -155,11 +155,11 @@ fun Context?.refreshAppWidgetView(appWidgetComponentName: ComponentName?, remote
  * @param listResId
  * @return
  */
-@JvmName("refreshAppWidgetList_")
+@JvmName("refreshAppWidgetList1")
 inline fun <reified W : AppWidgetProvider> refreshAppWidgetList(context: Context?, @IdRes listResId: Int) = refreshAppWidgetList(context, W::class.java, listResId)
 inline fun <reified W : AppWidgetProvider> Context?.refreshAppWidgetList(@IdRes redId: Int) = refreshAppWidgetList<W>(this, redId)
 
-@JvmName("refreshAppWidgetList_")
+@JvmName("refreshAppWidgetList1")
 fun refreshAppWidgetList(context: Context?, clazz: Class<*>, @IdRes listResId: Int) = context?.let {
     val appWidgetManager = AppWidgetManager.getInstance(context)
     val appWidgetComponentName = ComponentName(context, clazz)

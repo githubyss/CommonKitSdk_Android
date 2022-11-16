@@ -15,14 +15,17 @@ import java.util.concurrent.Executors
 
 /** ****************************** Properties ****************************** */
 
-private const val TAG: String = "TaskUtils"
+/**  */
+private const val TAG = "TaskUtils"
 
+/**  */
 private val UTIL_POOL = Executors.newFixedThreadPool(3)
 val UTIL_HANDLER = Handler(Looper.getMainLooper())
 
 
 /** ****************************** Functions ****************************** */
 
+/**  */
 fun <T> doAsync(taskRunnable: TaskRunnable<T>?): TaskRunnable<T>? {
     taskRunnable ?: return null
 
@@ -30,6 +33,7 @@ fun <T> doAsync(taskRunnable: TaskRunnable<T>?): TaskRunnable<T>? {
     return taskRunnable
 }
 
+/**  */
 fun runOnUiThread(runnable: Runnable?) {
     runnable ?: return
 
@@ -41,6 +45,7 @@ fun runOnUiThread(runnable: Runnable?) {
     }
 }
 
+/**  */
 fun runOnUiThreadDelayed(runnable: Runnable?, delayMillis: Long) {
     runnable ?: return
 
@@ -55,6 +60,7 @@ fun runOnUiThreadDelayed(runnable: Runnable?, delayMillis: Long) {
 
 /** ****************************** Class ****************************** */
 
+/**  */
 abstract class TaskRunnable<Result>(callback: Callback<Result>) : Runnable {
     @Volatile
     private var state = NEW
@@ -95,9 +101,8 @@ abstract class TaskRunnable<Result>(callback: Callback<Result>) : Runnable {
 
     /** ****************************** Interface ****************************** */
 
+    /**  */
     interface Callback<T> {
         fun onCall(data: T)
     }
 }
-
-
