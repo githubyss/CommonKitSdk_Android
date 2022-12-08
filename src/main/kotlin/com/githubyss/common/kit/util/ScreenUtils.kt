@@ -19,6 +19,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.RequiresPermission
 import com.githubyss.common.base.application.BaseApplicationHolder
+import com.githubyss.common.kit.constant.VALUE_TYPE_MUST_INT_LONG_FLOAT_DOUBLE
 import com.githubyss.common.kit.enumeration.VersionCode
 
 
@@ -425,8 +426,6 @@ fun screenShot(activity: Activity?, isDeleteStatusBar: Boolean = false): Bitmap?
 
 /** ******************** Converter ******************** */
 
-private const val VALUE_TYPE_ERROR: String = "Value type must be Int or Long or Float or Double."
-
 /** ********** Px - Dp ********** */
 
 /**
@@ -441,7 +440,7 @@ fun px2Dp(pxValue: Number): Float {
         is Long -> pxValue / screenDensity + 0.5F
         is Float -> pxValue / screenDensity + 0.5F
         is Double -> (pxValue / screenDensity + 0.5F).toFloat()
-        else -> throw Exception(VALUE_TYPE_ERROR)
+        else -> throw Exception(VALUE_TYPE_MUST_INT_LONG_FLOAT_DOUBLE)
     }
 }
 
@@ -462,7 +461,7 @@ fun dp2Px(dpValue: Number): Float {
         is Long -> dpValue * screenDensity + 0.5F
         is Float -> dpValue * screenDensity + 0.5F
         is Double -> (dpValue * screenDensity + 0.5F).toFloat()
-        else -> throw Exception(VALUE_TYPE_ERROR)
+        else -> throw Exception(VALUE_TYPE_MUST_INT_LONG_FLOAT_DOUBLE)
     }
 }
 
@@ -485,7 +484,7 @@ fun px2Sp(pxValue: Number): Float {
         is Long -> pxValue / scaledDensity + 0.5F
         is Float -> pxValue / scaledDensity + 0.5F
         is Double -> (pxValue / scaledDensity + 0.5F).toFloat()
-        else -> throw Exception(VALUE_TYPE_ERROR)
+        else -> throw Exception(VALUE_TYPE_MUST_INT_LONG_FLOAT_DOUBLE)
     }
 }
 
@@ -506,7 +505,7 @@ fun sp2Px(spValue: Number): Float {
         is Long -> spValue * scaledDensity + 0.5F
         is Float -> spValue * scaledDensity + 0.5F
         is Double -> (spValue * scaledDensity + 0.5F).toFloat()
-        else -> throw Exception(VALUE_TYPE_ERROR)
+        else -> throw Exception(VALUE_TYPE_MUST_INT_LONG_FLOAT_DOUBLE)
     }
 }
 
@@ -529,7 +528,7 @@ fun px2Pt(pxValue: Number): Float {
         is Long -> pxValue * 72 / xDpi + 0.5F
         is Float -> pxValue * 72 / xDpi + 0.5F
         is Double -> (pxValue * 72 / xDpi + 0.5F).toFloat()
-        else -> throw Exception(VALUE_TYPE_ERROR)
+        else -> throw Exception(VALUE_TYPE_MUST_INT_LONG_FLOAT_DOUBLE)
     }
 }
 
@@ -550,7 +549,7 @@ fun pt2Px(ptValue: Number): Float {
         is Long -> ptValue * xDpi / 72f + 0.5F
         is Float -> ptValue * xDpi / 72f + 0.5F
         is Double -> (ptValue * xDpi / 72f + 0.5F).toFloat()
-        else -> throw Exception(VALUE_TYPE_ERROR)
+        else -> throw Exception(VALUE_TYPE_MUST_INT_LONG_FLOAT_DOUBLE)
     }
 }
 

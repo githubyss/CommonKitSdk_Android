@@ -2,10 +2,8 @@ package com.githubyss.common.kit.util
 
 import android.content.Context
 import com.githubyss.common.base.application.BaseApplicationHolder
-import com.google.gson.Gson
-import com.google.gson.JsonParser
-import com.google.gson.JsonSyntaxException
-import com.google.gson.reflect.TypeToken
+import com.githubyss.common.kit.constant.JSON_STRING_START_ERROR
+import com.githubyss.common.kit.enumeration.DataType
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -29,260 +27,616 @@ private const val TAG: String = "JsonUtils"
 
 /** ******************** Getter ******************** */
 
-/** ********** get FromJSONObject ********** */
+/** ********** getBoolean ********** */
 
-/**
- * Parse String from JSONObject
- *
- * @param json The JSONObject to be parsed.
- * @param name The key of value to parse.
- * @return String value of name.
- */
-fun getStringFromJSONObject(json: JSONObject?, name: String?) = json.string(name)
-fun JSONObject?.string(name: String?) = when (this) {
-    null -> null
-    else -> this.optString(name)
-}
-
-/**
- * Parse Boolean from JSONObject
- *
- * @param json The JSONObject to be parsed.
- * @param name The key of value to parse.
- * @return Boolean value of name.
- */
-fun getBooleanFromJSONObject(json: JSONObject?, name: String?) = json.boolean(name)
-fun JSONObject?.boolean(name: String?) = when (this) {
-    null -> null
-    else -> this.optBoolean(name)
-}
-
-/**
- * Parse Int from JSONObject
- *
- * @param json The JSONObject to be parsed.
- * @param name The key of value to parse.
- * @return Int value of name.
- */
-fun getIntFromJSONObject(json: JSONObject?, name: String?) = json.int(name)
-fun JSONObject?.int(name: String?) = when (this) {
-    null -> null
-    else -> this.optInt(name)
-}
-
-/**
- * Parse Long from JSONObject
- *
- * @param json The JSONObject to be parsed.
- * @param name The key of value to parse.
- * @return Long value of name.
- */
-fun getLongFromJSONObject(json: JSONObject?, name: String?) = json.long(name)
-fun JSONObject?.long(name: String?): Long? = when (this) {
-    null -> null
-    else -> this.optLong(name)
-}
-
-/**
- * Parse Double from JSONObject
- *
- * @param json The JSONObject to be parsed.
- * @param name The key of value to parse.
- * @return Double value of name.
- */
-fun getDoubleFromJSONObject(json: JSONObject?, name: String?) = json.double(name)
-fun JSONObject?.double(name: String?) = when (this) {
-    null -> null
-    else -> this.optDouble(name)
-}
-
-/**
- * Parse JSONObject from JSONObject
- *
- * @param json The JSONObject to be parsed.
- * @param name The key of value to parse.
- * @return JSONObject value of name.
- */
-fun getJSONObjectFromJSONObject(json: JSONObject?, name: String?) = json.jsonObject(name)
-fun JSONObject?.jsonObject(name: String?) = when (this) {
-    null -> null
-    else -> this.optJSONObject(name)
-}
-
-/**
- * Parse JSONArray from JSONObject
- *
- * @param json The JSONObject to be parsed.
- * @param name The key of value to parse.
- * @return JSONArray value of name.
- */
-fun getJSONArrayFromJSONObject(json: JSONObject?, name: String?) = json.jsonArray(name)
-fun JSONObject?.jsonArray(name: String?) = when (this) {
-    null -> null
-    else -> this.optJSONArray(name)
-}
-
-/** ********** get FromJSONArray ********** */
-
-/**
- * Parse JSONObject from JSONArray
- *
- * @param json The JSONObject to be parsed.
- * @param idx The index of value to parse.
- * @return JSONObject value of idx.
- */
-fun getJSONObjectFromJSONArray(json: JSONArray?, idx: Int?) = json.jsonObject(idx)
-fun JSONArray?.jsonObject(idx: Int?) = when {
-    this == null -> null
-    idx == null -> null
-    else -> this.optJSONObject(idx)
-}
-
-/**
- * Parse JSONArray from JSONArray
- *
- * @param json The JSONObject to be parsed.
- * @param idx The index of value to parse.
- * @return JSONArray value of idx.
- */
-fun getJSONArrayFromJSONArray(json: JSONArray?, idx: Int?) = json.jsonArray(idx)
-fun JSONArray?.jsonArray(idx: Int?) = when {
-    this == null -> null
-    idx == null -> null
-    else -> this.optJSONArray(idx)
-}
-
-/** ********** get FromAssets JsonFile ********** */
-
-/**
- * Get the Json String from file in assets dir.
- *
- * @param assetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
- * @param context The context.
- * @return Json String if file content is Json String, otherwise null.
- */
 @JvmOverloads
-fun getJsonStringFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = context.getJsonStringFromAssets(assetsFilePath)
-fun Context?.getJsonStringFromAssets(assetsFilePath: String?): String? {
-    val string = this.getStringFromAssets(assetsFilePath)
-    return when {
-        string.isJsonString() -> string
-        else -> null
-    }
-}
+fun getBooleanFromJSONObject(jsonObject: JSONObject?, key: String?, defaultValue: Boolean = false) = getValueByType(jsonObject, key, defaultValue, DataType.BOOLEAN)
+fun JSONObject?.boolean(key: String?, defaultValue: Boolean = false) = getBooleanFromJSONObject(this, key, defaultValue)
 
-/**
- * Get the JSONObject String from file in assets dir.
- *
- * @param assetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
- * @param context The context.
- * @return JSONObject String if file content is JSONObject String, otherwise null.
- */
 @JvmOverloads
-fun getJsonObjectStringFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = context.getJsonObjectStringFromAssets(assetsFilePath)
-fun Context?.getJsonObjectStringFromAssets(assetsFilePath: String?): String? {
-    val string = this.getStringFromAssets(assetsFilePath)
-    return when {
-        string.isJsonObjectString() -> string
-        else -> null
-    }
-}
+fun getBooleanFromJsonString(jsonString: String?, key: String?, defaultValue: Boolean = false) = getValueByType(jsonString, key, defaultValue, DataType.BOOLEAN)
+fun String?.boolean(key: String?, defaultValue: Boolean = false) = getBooleanFromJsonString(this, key, defaultValue)
 
-/**
- * Get the JSONArray String from file in assets dir.
- *
- * @param assetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
- * @param context The context.
- * @return JSONArray String if file content is JSONArray String, otherwise null.
- */
 @JvmOverloads
-fun getJsonArrayStringFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = context.getJsonArrayStringFromAssets(assetsFilePath)
-fun Context?.getJsonArrayStringFromAssets(assetsFilePath: String?): String? {
-    val string = this.getStringFromAssets(assetsFilePath)
-    return when {
-        string.isJsonArrayString() -> string
-        else -> null
-    }
-}
+fun getBooleanFromJSONArray(jsonArray: JSONArray?, idx: Int?, defaultValue: Boolean = false) = getValueByType(jsonArray, idx, defaultValue, DataType.BOOLEAN)
+fun JSONArray?.boolean(idx: Int?, defaultValue: Boolean = false) = getBooleanFromJSONArray(this, idx, defaultValue)
+
+@JvmOverloads
+fun getBooleanFromJsonString(jsonString: String?, idx: Int?, defaultValue: Boolean = false) = getValueByType(jsonString, idx, defaultValue, DataType.BOOLEAN)
+fun String?.boolean(idx: Int?, defaultValue: Boolean = false) = getBooleanFromJsonString(this, idx, defaultValue)
+
+/** ********** getInt ********** */
+
+@JvmOverloads
+fun getIntFromJSONObject(jsonObject: JSONObject?, key: String?, defaultValue: Int = -1) = getValueByType(jsonObject, key, defaultValue, DataType.INT)
+fun JSONObject?.int(key: String?, defaultValue: Int = -1) = getIntFromJSONObject(this, key, defaultValue)
+
+@JvmOverloads
+fun getIntFromJsonString(jsonString: String?, key: String?, defaultValue: Int = -1) = getValueByType(jsonString, key, defaultValue, DataType.INT)
+fun String?.int(key: String?, defaultValue: Int = -1) = getIntFromJsonString(this, key, defaultValue)
+
+@JvmOverloads
+fun getIntFromJSONArray(jsonArray: JSONArray?, idx: Int?, defaultValue: Int = -1) = getValueByType(jsonArray, idx, defaultValue, DataType.INT)
+fun JSONArray?.int(idx: Int?, defaultValue: Int = -1) = getIntFromJSONArray(this, idx, defaultValue)
+
+@JvmOverloads
+fun getIntFromJsonString(jsonString: String?, idx: Int?, defaultValue: Int = -1) = getValueByType(jsonString, idx, defaultValue, DataType.INT)
+fun String?.int(idx: Int?, defaultValue: Int = -1) = getIntFromJsonString(this, idx, defaultValue)
+
+/** ********** getLong ********** */
+
+@JvmOverloads
+fun getLongFromJSONObject(jsonObject: JSONObject?, key: String?, defaultValue: Long = -1) = getValueByType(jsonObject, key, defaultValue, DataType.LONG)
+fun JSONObject?.long(key: String?, defaultValue: Long = -1) = getLongFromJSONObject(this, key, defaultValue)
+
+@JvmOverloads
+fun getLongFromJsonString(jsonString: String?, key: String?, defaultValue: Long = -1) = getValueByType(jsonString, key, defaultValue, DataType.LONG)
+fun String?.long(key: String?, defaultValue: Long = -1) = getLongFromJsonString(this, key, defaultValue)
+
+@JvmOverloads
+fun getLongFromJSONArray(jsonArray: JSONArray?, idx: Int?, defaultValue: Long = -1) = getValueByType(jsonArray, idx, defaultValue, DataType.LONG)
+fun JSONArray?.long(idx: Int?, defaultValue: Long = -1) = getLongFromJSONArray(this, idx, defaultValue)
+
+@JvmOverloads
+fun getLongFromJsonString(jsonString: String?, idx: Int?, defaultValue: Long = -1) = getValueByType(jsonString, idx, defaultValue, DataType.LONG)
+fun String?.long(idx: Int?, defaultValue: Long = -1) = getLongFromJsonString(this, idx, defaultValue)
+
+/** ********** getDouble ********** */
+
+@JvmOverloads
+fun getDoubleFromJSONObject(jsonObject: JSONObject?, key: String?, defaultValue: Double = -1.0) = getValueByType(jsonObject, key, defaultValue, DataType.DOUBLE)
+fun JSONObject?.double(key: String?, defaultValue: Double = -1.0) = getDoubleFromJSONObject(this, key, defaultValue)
+
+@JvmOverloads
+fun getDoubleFromJsonString(jsonString: String?, key: String?, defaultValue: Double = -1.0) = getValueByType(jsonString, key, defaultValue, DataType.DOUBLE)
+fun String?.double(key: String?, defaultValue: Double = -1.0) = getDoubleFromJsonString(this, key, defaultValue)
+
+@JvmOverloads
+fun getDoubleFromJSONArray(jsonArray: JSONArray?, idx: Int?, defaultValue: Double = -1.0) = getValueByType(jsonArray, idx, defaultValue, DataType.DOUBLE)
+fun JSONArray?.double(idx: Int?, defaultValue: Double = -1.0) = getDoubleFromJSONArray(this, idx, defaultValue)
+
+@JvmOverloads
+fun getDoubleFromJsonString(jsonString: String?, idx: Int?, defaultValue: Double = -1.0) = getValueByType(jsonString, idx, defaultValue, DataType.DOUBLE)
+fun String?.double(idx: Int?, defaultValue: Double = -1.0) = getDoubleFromJsonString(this, idx, defaultValue)
+
+/** ********** getString ********** */
+
+@JvmOverloads
+fun getStringFromJSONObject(jsonObject: JSONObject?, key: String?, defaultValue: String = "") = getValueByType(jsonObject, key, defaultValue, DataType.STRING)
+fun JSONObject?.string(key: String?, defaultValue: String = "") = getStringFromJSONObject(this, key, defaultValue)
+
+@JvmOverloads
+fun getStringFromJsonString(jsonString: String?, key: String?, defaultValue: String = "") = getValueByType(jsonString, key, defaultValue, DataType.STRING)
+fun String?.string(key: String?, defaultValue: String = "") = getStringFromJsonString(this, key, defaultValue)
+
+@JvmOverloads
+fun getStringFromJSONArray(jsonArray: JSONArray?, idx: Int?, defaultValue: String = "") = getValueByType(jsonArray, idx, defaultValue, DataType.STRING)
+fun JSONArray?.string(idx: Int?, defaultValue: String = "") = getStringFromJSONArray(this, idx, defaultValue)
+
+@JvmOverloads
+fun getStringFromJsonString(jsonString: String?, idx: Int?, defaultValue: String = "") = getValueByType(jsonString, idx, defaultValue, DataType.STRING)
+fun String?.string(idx: Int?, defaultValue: String = "") = getStringFromJsonString(this, idx, defaultValue)
+
+/** ********** getJSONObject ********** */
+
+@JvmOverloads
+fun getJSONObjectFromJSONObject(jsonObject: JSONObject?, key: String?, defaultValue: JSONObject = JSONObject()) = getValueByType(jsonObject, key, defaultValue, DataType.JSON_OBJECT)
+fun JSONObject?.jsonObject(key: String?, defaultValue: JSONObject = JSONObject()) = getJSONObjectFromJSONObject(this, key, defaultValue)
+
+@JvmOverloads
+fun getJSONObjectFromJsonString(jsonString: String?, key: String?, defaultValue: JSONObject = JSONObject()) = getValueByType(jsonString, key, defaultValue, DataType.JSON_OBJECT)
+fun String?.jsonObject(key: String?, defaultValue: JSONObject = JSONObject()) = getJSONObjectFromJsonString(this, key, defaultValue)
+
+@JvmOverloads
+fun getJSONObjectFromJSONArray(jsonArray: JSONArray?, idx: Int?, defaultValue: JSONObject = JSONObject()) = getValueByType(jsonArray, idx, defaultValue, DataType.JSON_OBJECT)
+fun JSONArray?.jsonObject(idx: Int?, defaultValue: JSONObject = JSONObject()) = getJSONObjectFromJSONArray(this, idx, defaultValue)
+
+@JvmOverloads
+fun getJSONObjectFromJsonString(jsonString: String?, idx: Int?, defaultValue: JSONObject = JSONObject()) = getValueByType(jsonString, idx, defaultValue, DataType.JSON_OBJECT)
+fun String?.jsonObject(idx: Int?, defaultValue: JSONObject = JSONObject()) = getJSONObjectFromJsonString(this, idx, defaultValue)
 
 /**
  * Get the JSONObject from file in assets dir.
  *
- * @param assetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
- * @param context        The context.
- * @return JSONObject if file content is Json String, otherwise null.
+ * @param jsonAssetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
+ * @param context The context.
+ * @return JSONObject if file content is JSONObject String, otherwise null.
  */
 @JvmOverloads
-fun getJSONObjectFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = context.getJSONObjectFromAssets(assetsFilePath)
-fun Context?.getJSONObjectFromAssets(assetsFilePath: String?) = this.getJsonObjectStringFromAssets(assetsFilePath)?.jsonObjectString2JSONObject()
+fun getJSONObjectFromAssets(jsonAssetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = string2JSONObject(getStringFromAssets(jsonAssetsFilePath, context))
+fun Context?.getJSONObjectFromAssets(jsonAssetsFilePath: String?) = getJSONObjectFromAssets(jsonAssetsFilePath, this)
+
+/** ********** getJSONArray ********** */
 
 @JvmOverloads
-fun getJSONArrayFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = context.getJSONArrayFromAssets(assetsFilePath)
-fun Context?.getJSONArrayFromAssets(assetsFilePath: String?) = this.getJsonArrayStringFromAssets(assetsFilePath)?.jsonArrayString2JSONArray()
+fun getJSONArrayFromJSONObject(jsonObject: JSONObject?, key: String?, defaultValue: JSONArray = JSONArray()) = getValueByType(jsonObject, key, defaultValue, DataType.JSON_ARRAY)
+fun JSONObject?.jsonArray(key: String?, defaultValue: JSONArray = JSONArray()) = getJSONArrayFromJSONObject(this, key, defaultValue)
 
 @JvmOverloads
-fun <V> getMapFromAssets(assetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = context.getMapFromAssets<V>(assetsFilePath)
-fun <V> Context?.getMapFromAssets(assetsFilePath: String?) = this.getJsonStringFromAssets(assetsFilePath)?.jsonString2Map<V?>()
+fun getJSONArrayFromJsonString(jsonString: String?, key: String?, defaultValue: JSONArray = JSONArray()) = getValueByType(jsonString, key, defaultValue, DataType.JSON_ARRAY)
+fun String?.jsonArray(key: String?, defaultValue: JSONArray = JSONArray()) = getJSONArrayFromJsonString(this, key, defaultValue)
 
-/** ********** JSONArray iterator ********** */
+@JvmOverloads
+fun getJSONArrayFromJSONArray(jsonArray: JSONArray?, idx: Int?, defaultValue: JSONArray = JSONArray()) = getValueByType(jsonArray, idx, defaultValue, DataType.JSON_ARRAY)
+fun JSONArray?.jsonArray(idx: Int?, defaultValue: JSONArray = JSONArray()) = getJSONArrayFromJSONArray(this, idx, defaultValue)
 
-operator fun JSONArray.iterator() = (0 until length()).asSequence().map { get(it) as JSONObject }.iterator()
+@JvmOverloads
+fun getJSONArrayFromJsonString(jsonString: String?, idx: Int?, defaultValue: JSONArray = JSONArray()) = getValueByType(jsonString, idx, defaultValue, DataType.JSON_ARRAY)
+fun String?.jsonArray(idx: Int?, defaultValue: JSONArray = JSONArray()) = getJSONArrayFromJsonString(this, idx, defaultValue)
+
+/**
+ * Get the JSONArray from file in assets dir.
+ *
+ * @param jsonAssetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
+ * @param context The context.
+ * @return JSONArray if file content is JSONArray String, otherwise null.
+ */
+@JvmOverloads
+fun getJSONArrayFromAssets(jsonAssetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()) = string2JSONArray(getStringFromAssets(jsonAssetsFilePath, context))
+fun Context?.getJSONArrayFromAssets(jsonAssetsFilePath: String?) = getJSONArrayFromAssets(jsonAssetsFilePath, this)
+
+/** ********** getJsonString ********** */
+
+/**
+ * Get the Json String from file in assets dir.
+ *
+ * @param jsonAssetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
+ * @param context The context.
+ * @return Json String if file content is Json String, otherwise null.
+ */
+@JvmOverloads
+fun getJsonStringFromAssets(jsonAssetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): String {
+    val string = getStringFromAssets(jsonAssetsFilePath, context)
+    return when {
+        isJsonString(string) -> string
+        else -> ""
+    }
+}
+
+fun Context?.getJsonStringFromAssets(jsonAssetsFilePath: String?) = getJsonStringFromAssets(jsonAssetsFilePath, this)
+
+
+/**
+ * Get the JSONObject String from file in assets dir.
+ *
+ * @param jsonAssetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
+ * @param context The context.
+ * @return JSONObject String if file content is JSONObject String, otherwise null.
+ */
+@JvmOverloads
+fun getJSONObjectStringFromAssets(jsonAssetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): String {
+    val string = getStringFromAssets(jsonAssetsFilePath, context)
+    return when {
+        isJSONObjectString(string) -> string
+        else -> ""
+    }
+}
+
+fun Context?.getJSONObjectStringFromAssets(jsonAssetsFilePath: String?) = getJSONObjectStringFromAssets(jsonAssetsFilePath, this)
+
+
+/**
+ * Get the JSONArray String from file in assets dir.
+ *
+ * @param jsonAssetsFilePath The path of file in assets. e.g., it can be "json/net_resp/xxx.json" when xxx.json in dir [assets/json/net_resp/]
+ * @param context The context.
+ * @return JSONArray String if file content is JSONArray String, otherwise null.
+ */
+@JvmOverloads
+fun getJSONArrayStringFromAssets(jsonAssetsFilePath: String?, context: Context? = BaseApplicationHolder.getApp()): String {
+    val string = getStringFromAssets(jsonAssetsFilePath, context)
+    return when {
+        isJSONArrayString(string) -> string
+        else -> ""
+    }
+}
+
+fun Context?.getJSONArrayStringFromAssets(jsonAssetsFilePath: String?) = getJSONArrayStringFromAssets(jsonAssetsFilePath, this)
+
+
+/** ********** getValueByType ********** */
+
+/**
+ * Parse value from JSONObject
+ *
+ * @param jsonObject The JSONObject to be parsed.
+ * @param key The key of value to parse.
+ * @param defaultValue The default value when parse failed.
+ * @param type The value type to be parsed.
+ * @return T value of key.
+ */
+private fun <T> getValueByType(jsonObject: JSONObject?, key: String?, defaultValue: T, type: Int) =
+    when {
+        jsonObject == null || key == null || key.isEmpty() -> defaultValue
+        else -> try {
+            val ret = when (type) {
+                DataType.BOOLEAN -> jsonObject.optBoolean(key)
+                DataType.INT -> jsonObject.optInt(key)
+                DataType.LONG -> jsonObject.optLong(key)
+                DataType.DOUBLE -> jsonObject.optDouble(key)
+                DataType.STRING -> jsonObject.optString(key)
+                DataType.JSON_OBJECT -> jsonObject.optJSONObject(key)
+                DataType.JSON_ARRAY -> jsonObject.optJSONArray(key)
+                else -> defaultValue
+            }
+            when (ret) {
+                null -> defaultValue
+                else -> ret as T
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+private inline fun <reified T> getValueByType(jsonObject: JSONObject?, key: String?, defaultValue: T) =
+    when {
+        jsonObject == null || key == null || key.isEmpty() -> defaultValue
+        else -> try {
+            val ret = when (T::class) {
+                Boolean::class -> jsonObject.optBoolean(key)
+                Int::class -> jsonObject.optInt(key)
+                Long::class -> jsonObject.optLong(key)
+                Double::class -> jsonObject.optDouble(key)
+                String::class -> jsonObject.optString(key)
+                JSONObject::class -> jsonObject.optJSONObject(key)
+                JSONArray::class -> jsonObject.optJSONArray(key)
+                else -> defaultValue
+            }
+            when (ret) {
+                null -> defaultValue
+                else -> ret as T
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+/**
+ * Parse value from JSONObject String
+ *
+ * @param jsonString The JSONObject String to be parsed.
+ * @param key The key of value to parse.
+ * @param defaultValue The default value when parse failed.
+ * @param type The value type to be parsed.
+ * @return T value of key.
+ */
+private fun <T> getValueByType(jsonString: String?, key: String?, defaultValue: T, type: Int) =
+    when {
+        jsonString == null || jsonString.isEmpty() || key == null || key.isEmpty() -> defaultValue
+        else -> try {
+            when {
+                jsonString.isJSONObjectString() -> getValueByType(JSONObject(jsonString), key, defaultValue, type)
+                else -> defaultValue
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+private inline fun <reified T> getValueByType(jsonString: String?, key: String?, defaultValue: T) =
+    when {
+        jsonString == null || jsonString.isEmpty() || key == null || key.isEmpty() -> defaultValue
+        else -> try {
+            when {
+                jsonString.isJSONObjectString() -> getValueByType<T>(JSONObject(jsonString), key, defaultValue)
+                else -> defaultValue
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+/**
+ * Parse value from JSONArray
+ *
+ * @param jsonArray The JSONArray to be parsed.
+ * @param idx The index of value to parse.
+ * @param defaultValue The default value when parse failed.
+ * @param type The value type to be parsed.
+ * @return T value in idx.
+ */
+private fun <T> getValueByType(jsonArray: JSONArray?, idx: Int?, defaultValue: T, type: Int) =
+    when {
+        jsonArray == null || idx == null || idx < 0 -> defaultValue
+        else -> try {
+            val ret = when (type) {
+                DataType.BOOLEAN -> jsonArray.optBoolean(idx)
+                DataType.INT -> jsonArray.optInt(idx)
+                DataType.LONG -> jsonArray.optLong(idx)
+                DataType.DOUBLE -> jsonArray.optDouble(idx)
+                DataType.STRING -> jsonArray.optString(idx)
+                DataType.JSON_OBJECT -> jsonArray.optJSONObject(idx)
+                DataType.JSON_ARRAY -> jsonArray.optJSONArray(idx)
+                else -> defaultValue
+            }
+            when (ret) {
+                null -> defaultValue
+                else -> ret as T
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+private inline fun <reified T> getValueByType(jsonArray: JSONArray?, idx: Int?, defaultValue: T) =
+    when {
+        jsonArray == null || idx == null || idx < 0 -> defaultValue
+        else -> try {
+            val ret = when (T::class) {
+                Boolean::class -> jsonArray.optBoolean(idx)
+                Int::class -> jsonArray.optInt(idx)
+                Long::class -> jsonArray.optLong(idx)
+                Double::class -> jsonArray.optDouble(idx)
+                String::class -> jsonArray.optString(idx)
+                JSONObject::class -> jsonArray.optJSONObject(idx)
+                JSONArray::class -> jsonArray.optJSONArray(idx)
+                else -> defaultValue
+            }
+            when (ret) {
+                null -> defaultValue
+                else -> ret as T
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+/**
+ * Parse value from JSONArray String
+ *
+ * @param jsonString The JSONArray String to be parsed.
+ * @param idx The index of value to parse.
+ * @param defaultValue The default value when parse failed.
+ * @param type The value type to be parsed.
+ * @return T value in idx.
+ */
+private fun <T> getValueByType(jsonString: String?, idx: Int?, defaultValue: T, type: Int) =
+    when {
+        jsonString == null || jsonString.isEmpty() || idx == null || idx < 0 -> defaultValue
+        else -> try {
+            when {
+                jsonString.isJSONArrayString() -> getValueByType(JSONArray(jsonString), idx, defaultValue, type)
+                else -> defaultValue
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+private inline fun <reified T> getValueByType(jsonString: String?, idx: Int?, defaultValue: T) =
+    when {
+        jsonString == null || jsonString.isEmpty() || idx == null || idx < 0 -> defaultValue
+        else -> try {
+            when {
+                jsonString.isJSONArrayString() -> getValueByType<T>(JSONArray(jsonString), idx, defaultValue)
+                else -> defaultValue
+            }
+        }
+        catch (e: JSONException) {
+            logE(TAG, "getValueByType", e)
+            defaultValue
+        }
+    }
+
+
+/** ******************** Converter ******************** */
+
+/** ********** String -> JSON ********** */
+
+/**
+ * Convert String to JSONObject.
+ *
+ * @param string Json Object String.
+ * @return JSONObject of given String.
+ */
+fun string2JSONObject(string: String?) = string2JSON<JSONObject>(string)
+
+@JvmName("string2JSONObject1")
+fun String?.string2JSONObject() = string2JSONObject(this)
+
+
+/**
+ * Convert String to JSONArray.
+ *
+ * @param string Json Array String.
+ * @return JSONArray of given String.
+ */
+fun string2JSONArray(string: String?) = string2JSON<JSONArray>(string)
+
+@JvmName("string2JSONArray1")
+fun String?.string2JSONArray() = string2JSONArray(this)
+
+
+/**
+ * Convert String to JSONObject or JSONArray.
+ *
+ * @param string Json String.
+ * @param type The value type to be parsed.
+ * @return JSONObject or JSONArray of given String.
+ */
+fun <T> string2JSON(string: String?, type: Int) =
+    when {
+        string == null || string.isEmpty() -> null
+        else -> try {
+            when (type) {
+                DataType.JSON_OBJECT -> JSONObject(string)
+                DataType.JSON_ARRAY -> JSONArray(string)
+                else -> null
+            } as T
+        }
+        catch (e: JSONException) {
+            logE("TAG", "string2JSON", e)
+            null
+        }
+    }
+
+@JvmName("string2JSON1")
+fun <T> String?.string2JSON(type: Int) = string2JSON<T>(this, type)
+
+
+inline fun <reified T> string2JSON(string: String?) =
+    when {
+        string == null || string.isEmpty() -> null
+        else -> try {
+            when (T::class) {
+                JSONObject::class -> JSONObject(string)
+                JSONArray::class -> JSONArray(string)
+                else -> null
+            } as T
+
+            // when {
+            //     JSONObject() is T -> JSONObject(jsonString)
+            //     JSONArray() is T -> JSONArray(jsonString)
+            //     else -> null
+            // } as T
+        }
+        catch (e: JSONException) {
+            logE("TAG", "string2JSON", e)
+            null
+        }
+    }
+
+@JvmName("string2JSON1")
+inline fun <reified T> String?.string2JSON() = string2JSON<T>(this)
+
+
+/** ********** JSON -> String ********** */
+
+/**
+ * Convert JSONObject to String.
+ *
+ * @param jsonObject JSONObject.
+ * @return String of given JSONObject.
+ */
+fun jsonObject2String(jsonObject: JSONObject?) = json2String<JSONObject>(jsonObject)
+
+@JvmName("jsonObject2String1")
+fun JSONObject?.jsonObject2String() = jsonObject2String(this)
+
+
+/**
+ * Convert JSONArray to String.
+ *
+ * @param jsonArray JSONArray.
+ * @return String of given JSONArray.
+ */
+fun jsonArray2String(jsonArray: JSONArray?) = json2String<JSONArray>(jsonArray)
+
+@JvmName("jsonArray2String1")
+fun JSONArray?.jsonArray2String() = jsonArray2String(this)
+
+
+/**
+ * Convert JSONObject or JSONArray to String.
+ *
+ * @param json JSONObject or JSONArray.
+ * @param type The value type to be parsed.
+ * @return String of given JSONObject or JSONArray.
+ */
+fun <T> json2String(json: T?, type: Int) =
+    when (json) {
+        null -> ""
+        else -> try {
+            when (type) {
+                DataType.JSON_OBJECT,
+                DataType.JSON_ARRAY -> json.toString()
+                else -> ""
+            }
+
+        }
+        catch (e: JSONException) {
+            logE("TAG", "json2String", e)
+            ""
+        }
+    }
+
+@JvmName("json2String1")
+fun <T> T?.json2String(type: Int) = json2String<T>(this, type)
+
+
+inline fun <reified T> json2String(json: T?) =
+    when (json) {
+        null -> ""
+        else -> try {
+            when (T::class) {
+                JSONObject::class,
+                JSONArray::class -> json.toString()
+                else -> ""
+            }
+
+        }
+        catch (e: JSONException) {
+            logE("TAG", "json2String", e)
+            ""
+        }
+    }
+
+@JvmName("json2String1")
+inline fun <reified T> T?.json2String() = json2String<T>(this)
+
+
+/** ******************** Formatter ******************** */
+
+@JvmOverloads
+fun formatJson(string: String?, indentSpaces: Int = 4): String {
+    when {
+        string == null || string.isEmpty() -> return ""
+        else -> {
+            try {
+                for (idx in string.indices) {
+                    val c = string[idx]
+                    return when {
+                        c == '{' -> JSONObject(string).toString(indentSpaces)
+                        c == '[' -> JSONArray(string).toString(indentSpaces)
+                        !Character.isWhitespace(c) -> throw Exception(JSON_STRING_START_ERROR)
+                        else -> throw Exception(JSON_STRING_START_ERROR)
+                    }
+                }
+            }
+            catch (e: JSONException) {
+                logE(TAG, t = e)
+                return ""
+            }
+
+            return string
+        }
+    }
+}
+
+@JvmName("formatJson1")
+@JvmOverloads
+fun String?.formatJson(indentSpaces: Int = 4) = formatJson(this, indentSpaces)
+
 
 /** ******************** Checker ******************** */
 
 /**
  * Check input string whether it is yield a JSON.
  *
- * @param s The string to be checked.
+ * @param string The string to be checked.
  * @return `true` if input string is yield a JSON.
  */
+fun isJsonString(string: String?) = isJSONObjectString(string) || isJSONArrayString(string)
+
 @JvmName("isJsonString1")
-fun isJsonString(s: String?) = s.isJsonString()
-fun String?.isJsonString() = this.isJsonObjectString() || this.isJsonArrayString()
+fun String?.isJsonString() = isJsonString(this)
 
-/**
- * Check input string whether it is yield a JSONObject.
- *
- * @param s The string to be checked.
- * @return `true` if input string is yield a JSONObject.
- */
-@JvmName("isJsonObjectString1")
-fun isJsonObjectString(s: String?) = s.isJsonObjectString()
-fun String?.isJsonObjectString() = when {
-    this == null -> false
-    this.isSpaceNonNull() -> false
-    else -> try {
-        JSONObject(this)
-        true
-    }
-    catch (e: JSONException) {
-        logE(TAG, t = e)
-        false
-    }
-}
-
-/**
- * Check input string whether it is yield a JSONArray.
- *
- * @param s The string to be checked.
- * @return `true` if input string is yield a JSONArray.
- */
-@JvmName("isJsonArrayString1")
-fun isJsonArrayString(s: String?) = s.isJsonArrayString()
-fun String?.isJsonArrayString() = when {
-    this == null -> false
-    this.isSpaceNonNull() -> false
-    else -> try {
-        JSONArray(this)
-        true
-    }
-    catch (e: JSONException) {
-        logE(TAG, t = e)
-        false
-    }
-}
-
-// fun String?.isJsonString() = when {
+// fun String?.isJsonString() =
+// when {
 //     this == null -> false
 //     this.isSpaceNonNull() -> false
 //     else -> try {
@@ -295,187 +649,55 @@ fun String?.isJsonArrayString() = when {
 //     }
 // }
 
-/** ******************** Converter ******************** */
-
-/** ********** String -> ********** */
 
 /**
- * Convert String to JSONObject.
+ * Check input string whether it is yield a JSONObject.
  *
- * @param s Any String.
- * @return JSONObject of given String.
+ * @param string The string to be checked.
+ * @return `true` if input string is yield a JSONObject.
  */
-@JvmName("string2JSONObject1")
-fun string2JSONObject(s: String?) = s.string2JSONObject()
-fun String?.string2JSONObject() = when {
-    this == null -> null
-    this.isJsonObjectString() -> try {
-        JSONObject(this)
-    }
-    catch (e: JSONException) {
-        logE(TAG, t = e)
-        null
-    }
-    else -> null
-}
-
-/**
- * Convert String to JSONArray.
- *
- * @param s Any String.
- * @return JSONArray of given String.
- */
-@JvmName("string2JSONArray1")
-fun string2JSONArray(s: String?) = s.string2JSONArray()
-fun String?.string2JSONArray() = when {
-    this == null -> null
-    this.isJsonArrayString() -> try {
-        JSONArray(this)
-    }
-    catch (e: JSONException) {
-        logE(TAG, t = e)
-        null
-    }
-    else -> null
-}
-
-/** ********** JsonString -> ********** */
-
-/**
- * Convert JsonObjectString to JSONObject.
- *
- * @param jsonObjectString Json Object String.
- * @return JSONObject of given JsonObjectString.
- */
-@JvmName("jsonObjectString2JSONObject1")
-fun jsonObjectString2JSONObject(jsonObjectString: String) = jsonObjectString.jsonObjectString2JSONObject()
-fun String.jsonObjectString2JSONObject() = try {
-    JSONObject(this)
-}
-catch (e: JSONException) {
-    logE(TAG, t = e)
-    null
-}
-
-/**
- * Convert JsonArrayString to JSONArray.
- *
- * @param jsonArrayString Json Array String.
- * @return JSONArray of given JsonArrayString.
- */
-@JvmName("jsonArrayString2JSONArray1")
-fun jsonArrayString2JSONArray(jsonArrayString: String) = jsonArrayString.jsonArrayString2JSONArray()
-fun String.jsonArrayString2JSONArray() = try {
-    JSONArray(this)
-}
-catch (e: JSONException) {
-    logE(TAG, t = e)
-    null
-}
-
-/**
- * Convert JsonString to Any object according to given Class type.
- *
- * @param jsonString Json string.
- * @return Object of Class T.
- */
-@JvmName("jsonString2Any1")
-inline fun <reified T> jsonString2Any(jsonString: String) = jsonString.jsonString2Any<T>()
-inline fun <reified T> String.jsonString2Any() = this.jsonString2Any(T::class.java)
-
-/**
- * Convert JsonString to Any object according to given Class type.
- *
- * @param jsonString Json string.
- * @param cls Class type to parse the JsonString.
- * @return Object of Class T.
- */
-@JvmName("jsonString2Any1")
-fun <T> jsonString2Any(jsonString: String, cls: Class<T>?) = jsonString.jsonString2Any(cls)
-fun <T> String.jsonString2Any(cls: Class<T>?) = try {
-    Gson().fromJson(this, cls) ?: null
-}
-catch (e: JsonSyntaxException) {
-    logE(TAG, t = e)
-    null
-}
-
-/**
- * Convert JsonString to Map<String, V>.
- *
- * @param jsonString Json string.
- * @return Map with value type V.
- */
-@JvmName("jsonString2Map1")
-fun <V> jsonString2Map(jsonString: String) = jsonString.jsonString2Map<V>()
-fun <V> String.jsonString2Map() = try {
-    Gson().fromJson<Map<String, V?>>(this, object : TypeToken<Map<String, V?>>() {}.type) ?: null
-}
-catch (e: JsonSyntaxException) {
-    logE(TAG, t = e)
-    null
-}
-
-/**
- * Convert JsonString to List<T>.
- *
- * @param jsonString Json string.
- * @return List with type T.
- */
-@JvmName("jsonString2List1")
-inline fun <reified T> jsonString2List(jsonString: String) = jsonString.jsonString2List<T>()
-inline fun <reified T> String.jsonString2List() = this.jsonString2List(T::class.java)
-
-/**
- * Convert JsonString to List<T>.
- *
- * @param jsonString Json string.
- * @param cls Class type to parse the JsonString.
- * @return List with type T.
- */
-@JvmName("jsonString2List1")
-fun <T> jsonString2List(jsonString: String, cls: Class<T>?) = jsonString.jsonString2List(cls)
-fun <T> String.jsonString2List(cls: Class<T>?): List<T?>? {
-    val jsonArray = try {
-        JsonParser.parseString(this).asJsonArray ?: null
-    }
-    catch (e: IllegalStateException) {
-        logE(TAG, t = e)
-        null
-    }
-
-    jsonArray ?: return null
-    val list = ArrayList<T?>()
-    for (jsonElement in jsonArray) {
-        val item = try {
-            Gson().fromJson(jsonElement, cls)
+fun isJSONObjectString(string: String?) =
+    when {
+        string == null || string.isEmpty() -> false
+        else -> try {
+            JSONObject(string)
+            true
         }
-        catch (e: JsonSyntaxException) {
+        catch (e: JSONException) {
             logE(TAG, t = e)
-            null
+            false
         }
-        list.add(item)
     }
-    return list
-}
 
-/** ********** -> JsonString ********** */
+@JvmName("isJSONObjectString1")
+fun String?.isJSONObjectString() = isJSONObjectString(this)
 
-/**
- * Convert Object to JsonString.
- *
- * @param any Custom Object.
- * @return Json string.
- */
-@JvmName("any2JsonString1")
-fun any2JsonString(any: Any?) = any.any2JsonString()
-fun Any?.any2JsonString() = Gson().toJson(this) ?: ""
 
 /**
- * Convert Object to Console.
+ * Check input string whether it is yield a JSONArray.
  *
- * @param any Custom Object.
+ * @param string The string to be checked.
+ * @return `true` if input string is yield a JSONArray.
  */
-@JvmName("any2Console1")
-fun any2Console(any: Any?) = any.any2Console()
-fun Any?.any2Console() = Gson().toJson(this, System.out)
+fun isJSONArrayString(string: String?) =
+    when {
+        string == null || string.isEmpty() -> false
+        else -> try {
+            JSONArray(string)
+            true
+        }
+        catch (e: JSONException) {
+            logE(TAG, t = e)
+            false
+        }
+    }
+
+@JvmName("isJSONArrayString1")
+fun String?.isJSONArrayString() = isJSONArrayString(this)
+
+
+/** ******************** Operator ******************** */
+
+/** ********** JSONArray iterator ********** */
+
+operator fun JSONArray.iterator() = (0 until length()).asSequence().map { get(it) as JSONObject }.iterator()

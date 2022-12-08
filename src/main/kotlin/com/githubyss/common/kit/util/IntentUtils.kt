@@ -342,10 +342,11 @@ fun getCaptureIntent(outUri: Uri?, isNewTask: Boolean = false): Intent? {
     return getIntent(intent, isNewTask)
 }
 
-/**  */
+/** 通过已有的 intent 获取新的做过 NEW_TASK flag 判断的 intent */
 @JvmName("getIntent1")
-fun getIntent(intent: Intent?, isNewTask: Boolean = false) = if (isNewTask) intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
 fun Intent.getIntent(isNewTask: Boolean = false) = getIntent(this, isNewTask)
+
+fun getIntent(intent: Intent?, isNewTask: Boolean = false) = if (isNewTask) intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
 
 /**
  * Return the intent of given clazz.
@@ -405,8 +406,9 @@ inline fun <reified C : Context> Context?.getPendingIntent(requestCode: Int = 0,
  * @return
  */
 @JvmName("getPendingIntent1")
-inline fun <reified B : BroadcastReceiver> getPendingIntent(context: Context?, action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<B>(context, getIntent<B>(context)?.apply { this.action = action }, requestCode, extra)
 inline fun <reified B : BroadcastReceiver> Context?.getPendingIntent(action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<B>(this, action, requestCode, extra)
+
+inline fun <reified B : BroadcastReceiver> getPendingIntent(context: Context?, action: String, requestCode: Int = 0, extra: String = "") = getPendingIntent<B>(context, getIntent<B>(context)?.apply { this.action = action }, requestCode, extra)
 
 /**
  * Return the pending intent of given T target.
@@ -419,6 +421,8 @@ inline fun <reified B : BroadcastReceiver> Context?.getPendingIntent(action: Str
  * @return
  */
 @JvmName("getPendingIntent1")
+inline fun <reified T : Any> Context?.getPendingIntent(intent: Intent?, requestCode: Int = 0, extra: String = "") = getPendingIntent<T>(this, intent, requestCode, extra)
+
 inline fun <reified T : Any> getPendingIntent(context: Context?, intent: Intent?, requestCode: Int = 0, extra: String = ""): PendingIntent? {
     context ?: return null
     intent ?: return null
@@ -443,8 +447,6 @@ inline fun <reified T : Any> getPendingIntent(context: Context?, intent: Intent?
         else -> null
     }
 }
-
-inline fun <reified T : Any> Context?.getPendingIntent(intent: Intent?, requestCode: Int = 0, extra: String = "") = getPendingIntent<T>(this, intent, requestCode, extra)
 
 
 /** ******************** Checker ******************** */
