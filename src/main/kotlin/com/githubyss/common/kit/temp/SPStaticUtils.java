@@ -1,10 +1,11 @@
 package com.githubyss.common.kit.temp;
 
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 
 import java.util.Map;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>
@@ -16,14 +17,14 @@ import java.util.Set;
  */
 public final class SPStaticUtils {
 
-    private static com.blankj.utilcode.util.SPUtils sDefaultSPUtils;
+    private static SPUtils sDefaultSPUtils;
 
     /**
-     * Set the default instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * Set the default instance of {@link SPUtils}.
      *
-     * @param spUtils The default instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The default instance of {@link SPUtils}.
      */
-    public static void setDefaultSPUtils(final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void setDefaultSPUtils(final SPUtils spUtils) {
         sDefaultSPUtils = spUtils;
     }
 
@@ -356,9 +357,9 @@ public final class SPStaticUtils {
      *
      * @param key     The key of sp.
      * @param value   The value of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void put(@NonNull final String key, final String value, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void put(@NonNull final String key, final String value, @NonNull final SPUtils spUtils) {
         spUtils.put(key, value);
     }
 
@@ -369,12 +370,12 @@ public final class SPStaticUtils {
      * @param value    The value of sp.
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
     public static void put(@NonNull final String key,
                            final String value,
                            final boolean isCommit,
-                           @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                           @NonNull final SPUtils spUtils) {
         spUtils.put(key, value, isCommit);
     }
 
@@ -383,10 +384,10 @@ public final class SPStaticUtils {
      * Return the string value in sp.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return the string value if sp exists or {@code ""} otherwise
      */
-    public static String getString(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static String getString(@NonNull final String key, @NonNull final SPUtils spUtils) {
         return spUtils.getString(key);
     }
 
@@ -395,12 +396,12 @@ public final class SPStaticUtils {
      *
      * @param key          The key of sp.
      * @param defaultValue The default value if the sp doesn't exist.
-     * @param spUtils      The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils      The instance of {@link SPUtils}.
      * @return the string value if sp exists or {@code defaultValue} otherwise
      */
     public static String getString(@NonNull final String key,
                                    final String defaultValue,
-                                   @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                                   @NonNull final SPUtils spUtils) {
         return spUtils.getString(key, defaultValue);
     }
 
@@ -410,9 +411,9 @@ public final class SPStaticUtils {
      *
      * @param key     The key of sp.
      * @param value   The value of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void put(@NonNull final String key, final int value, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void put(@NonNull final String key, final int value, @NonNull final SPUtils spUtils) {
         spUtils.put(key, value);
     }
 
@@ -423,12 +424,12 @@ public final class SPStaticUtils {
      * @param value    The value of sp.
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
     public static void put(@NonNull final String key,
                            final int value,
                            final boolean isCommit,
-                           @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                           @NonNull final SPUtils spUtils) {
         spUtils.put(key, value, isCommit);
     }
 
@@ -436,10 +437,10 @@ public final class SPStaticUtils {
      * Return the int value in sp.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return the int value if sp exists or {@code -1} otherwise
      */
-    public static int getInt(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static int getInt(@NonNull final String key, @NonNull final SPUtils spUtils) {
         return spUtils.getInt(key);
     }
 
@@ -448,10 +449,10 @@ public final class SPStaticUtils {
      *
      * @param key          The key of sp.
      * @param defaultValue The default value if the sp doesn't exist.
-     * @param spUtils      The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils      The instance of {@link SPUtils}.
      * @return the int value if sp exists or {@code defaultValue} otherwise
      */
-    public static int getInt(@NonNull final String key, final int defaultValue, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static int getInt(@NonNull final String key, final int defaultValue, @NonNull final SPUtils spUtils) {
         return spUtils.getInt(key, defaultValue);
     }
 
@@ -460,9 +461,9 @@ public final class SPStaticUtils {
      *
      * @param key     The key of sp.
      * @param value   The value of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void put(@NonNull final String key, final long value, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void put(@NonNull final String key, final long value, @NonNull final SPUtils spUtils) {
         spUtils.put(key, value);
     }
 
@@ -473,12 +474,12 @@ public final class SPStaticUtils {
      * @param value    The value of sp.
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
     public static void put(@NonNull final String key,
                            final long value,
                            final boolean isCommit,
-                           @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                           @NonNull final SPUtils spUtils) {
         spUtils.put(key, value, isCommit);
     }
 
@@ -486,10 +487,10 @@ public final class SPStaticUtils {
      * Return the long value in sp.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return the long value if sp exists or {@code -1} otherwise
      */
-    public static long getLong(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static long getLong(@NonNull final String key, @NonNull final SPUtils spUtils) {
         return spUtils.getLong(key);
     }
 
@@ -498,10 +499,10 @@ public final class SPStaticUtils {
      *
      * @param key          The key of sp.
      * @param defaultValue The default value if the sp doesn't exist.
-     * @param spUtils      The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils      The instance of {@link SPUtils}.
      * @return the long value if sp exists or {@code defaultValue} otherwise
      */
-    public static long getLong(@NonNull final String key, final long defaultValue, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static long getLong(@NonNull final String key, final long defaultValue, @NonNull final SPUtils spUtils) {
         return spUtils.getLong(key, defaultValue);
     }
 
@@ -510,9 +511,9 @@ public final class SPStaticUtils {
      *
      * @param key     The key of sp.
      * @param value   The value of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void put(@NonNull final String key, final float value, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void put(@NonNull final String key, final float value, @NonNull final SPUtils spUtils) {
         spUtils.put(key, value);
     }
 
@@ -523,12 +524,12 @@ public final class SPStaticUtils {
      * @param value    The value of sp.
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
     public static void put(@NonNull final String key,
                            final float value,
                            final boolean isCommit,
-                           @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                           @NonNull final SPUtils spUtils) {
         spUtils.put(key, value, isCommit);
     }
 
@@ -536,10 +537,10 @@ public final class SPStaticUtils {
      * Return the float value in sp.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return the float value if sp exists or {@code -1f} otherwise
      */
-    public static float getFloat(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static float getFloat(@NonNull final String key, @NonNull final SPUtils spUtils) {
         return spUtils.getFloat(key);
     }
 
@@ -548,10 +549,10 @@ public final class SPStaticUtils {
      *
      * @param key          The key of sp.
      * @param defaultValue The default value if the sp doesn't exist.
-     * @param spUtils      The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils      The instance of {@link SPUtils}.
      * @return the float value if sp exists or {@code defaultValue} otherwise
      */
-    public static float getFloat(@NonNull final String key, final float defaultValue, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static float getFloat(@NonNull final String key, final float defaultValue, @NonNull final SPUtils spUtils) {
         return spUtils.getFloat(key, defaultValue);
     }
 
@@ -560,9 +561,9 @@ public final class SPStaticUtils {
      *
      * @param key     The key of sp.
      * @param value   The value of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void put(@NonNull final String key, final boolean value, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void put(@NonNull final String key, final boolean value, @NonNull final SPUtils spUtils) {
         spUtils.put(key, value);
     }
 
@@ -573,12 +574,12 @@ public final class SPStaticUtils {
      * @param value    The value of sp.
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
     public static void put(@NonNull final String key,
                            final boolean value,
                            final boolean isCommit,
-                           @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                           @NonNull final SPUtils spUtils) {
         spUtils.put(key, value, isCommit);
     }
 
@@ -586,10 +587,10 @@ public final class SPStaticUtils {
      * Return the boolean value in sp.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return the boolean value if sp exists or {@code false} otherwise
      */
-    public static boolean getBoolean(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static boolean getBoolean(@NonNull final String key, @NonNull final SPUtils spUtils) {
         return spUtils.getBoolean(key);
     }
 
@@ -598,12 +599,12 @@ public final class SPStaticUtils {
      *
      * @param key          The key of sp.
      * @param defaultValue The default value if the sp doesn't exist.
-     * @param spUtils      The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils      The instance of {@link SPUtils}.
      * @return the boolean value if sp exists or {@code defaultValue} otherwise
      */
     public static boolean getBoolean(@NonNull final String key,
                                      final boolean defaultValue,
-                                     @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                                     @NonNull final SPUtils spUtils) {
         return spUtils.getBoolean(key, defaultValue);
     }
 
@@ -612,9 +613,9 @@ public final class SPStaticUtils {
      *
      * @param key     The key of sp.
      * @param value   The value of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void put(@NonNull final String key, final Set<String> value, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void put(@NonNull final String key, final Set<String> value, @NonNull final SPUtils spUtils) {
         spUtils.put(key, value);
     }
 
@@ -625,12 +626,12 @@ public final class SPStaticUtils {
      * @param value    The value of sp.
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
     public static void put(@NonNull final String key,
                            final Set<String> value,
                            final boolean isCommit,
-                           @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                           @NonNull final SPUtils spUtils) {
         spUtils.put(key, value, isCommit);
     }
 
@@ -638,11 +639,11 @@ public final class SPStaticUtils {
      * Return the set of string value in sp.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return the set of string value if sp exists
      * or {@code Collections.<String>emptySet()} otherwise
      */
-    public static Set<String> getStringSet(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static Set<String> getStringSet(@NonNull final String key, @NonNull final SPUtils spUtils) {
         return spUtils.getStringSet(key);
     }
 
@@ -651,22 +652,22 @@ public final class SPStaticUtils {
      *
      * @param key          The key of sp.
      * @param defaultValue The default value if the sp doesn't exist.
-     * @param spUtils      The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils      The instance of {@link SPUtils}.
      * @return the set of string value if sp exists or {@code defaultValue} otherwise
      */
     public static Set<String> getStringSet(@NonNull final String key,
                                            final Set<String> defaultValue,
-                                           @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+                                           @NonNull final SPUtils spUtils) {
         return spUtils.getStringSet(key, defaultValue);
     }
 
     /**
      * Return all values in sp.
      *
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return all values in sp
      */
-    public static Map<String, ?> getAll(@NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static Map<String, ?> getAll(@NonNull final SPUtils spUtils) {
         return spUtils.getAll();
     }
 
@@ -674,10 +675,10 @@ public final class SPStaticUtils {
      * Return whether the sp contains the preference.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      * @return {@code true}: yes<br>{@code false}: no
      */
-    public static boolean contains(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static boolean contains(@NonNull final String key, @NonNull final SPUtils spUtils) {
         return spUtils.contains(key);
     }
 
@@ -685,9 +686,9 @@ public final class SPStaticUtils {
      * Remove the preference in sp.
      *
      * @param key     The key of sp.
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void remove(@NonNull final String key, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void remove(@NonNull final String key, @NonNull final SPUtils spUtils) {
         spUtils.remove(key);
     }
 
@@ -697,18 +698,18 @@ public final class SPStaticUtils {
      * @param key      The key of sp.
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
-    public static void remove(@NonNull final String key, final boolean isCommit, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void remove(@NonNull final String key, final boolean isCommit, @NonNull final SPUtils spUtils) {
         spUtils.remove(key, isCommit);
     }
 
     /**
      * Remove all preferences in sp.
      *
-     * @param spUtils The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils The instance of {@link SPUtils}.
      */
-    public static void clear(@NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void clear(@NonNull final SPUtils spUtils) {
         spUtils.clear();
     }
 
@@ -717,13 +718,13 @@ public final class SPStaticUtils {
      *
      * @param isCommit True to use {@link SharedPreferences.Editor#commit()},
      *                 false to use {@link SharedPreferences.Editor#apply()}
-     * @param spUtils  The instance of {@link com.blankj.utilcode.util.SPUtils}.
+     * @param spUtils  The instance of {@link SPUtils}.
      */
-    public static void clear(final boolean isCommit, @NonNull final com.blankj.utilcode.util.SPUtils spUtils) {
+    public static void clear(final boolean isCommit, @NonNull final SPUtils spUtils) {
         spUtils.clear(isCommit);
     }
 
-    private static com.blankj.utilcode.util.SPUtils getDefaultSPUtils() {
-        return sDefaultSPUtils != null ? sDefaultSPUtils : com.blankj.utilcode.util.SPUtils.getInstance();
+    private static SPUtils getDefaultSPUtils() {
+        return sDefaultSPUtils != null ? sDefaultSPUtils : SPUtils.getInstance();
     }
 }

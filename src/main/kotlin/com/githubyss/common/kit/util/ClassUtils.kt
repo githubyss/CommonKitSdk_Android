@@ -23,7 +23,7 @@ private const val TAG: String = "ClassUtils"
 /** ********** createClass ********** */
 
 /**
- * Create Class of appointed Type.
+ * Create Class of given Type.
  *
  * @param className The whole class name with package path. e.g., "android.app.ActivityThread".
  * @return JavaClass instance.
@@ -38,16 +38,10 @@ fun createClass(className: String) =
     }
 
 fun createClass(packageName: String, className: String) =
-    try {
-        Class.forName("$packageName.$className")
-    }
-    catch (e: ClassNotFoundException) {
-        logE(TAG, "createClass", e)
-        null
-    }
+    createClass("$packageName.$className")
 
 /**
- * Create Class of appointed Type.
+ * Create Class of given Type.
  *
  * @param className The whole class name with package path. e.g., "android.app.ActivityThread".
  * @param classLoader The classLoader.
@@ -63,13 +57,7 @@ fun createClass(className: String, classLoader: ClassLoader) =
     }
 
 fun createClass(packageName: String, className: String, classLoader: ClassLoader) =
-    try {
-        Class.forName("$packageName.$className", true, classLoader)
-    }
-    catch (e: ClassNotFoundException) {
-        logE(TAG, "createClass", e)
-        null
-    }
+    createClass("$packageName.$className", classLoader)
 
 fun createClass(clazz: Class<*>?) = clazz
 fun createClass(clazz: KClass<*>?) = clazz?.java
@@ -82,7 +70,7 @@ private inline fun <reified T> createClass3() = (T::class as Any)::class.java
 /** ********** createKClass ********** */
 
 /**
- * Create KClass of appointed Type.
+ * Create KClass of given Type.
  *
  * @param className The whole class name with package path. e.g., "android.app.ActivityThread".
  * @return KotlinClass instance.
@@ -97,16 +85,10 @@ fun createKClass(className: String) =
     }
 
 fun createKClass(packageName: String, className: String) =
-    try {
-        Class.forName("$packageName.$className").kotlin
-    }
-    catch (e: ClassNotFoundException) {
-        logE(TAG, "createClass", e)
-        null
-    }
+    createKClass("$packageName.$className")
 
 /**
- * Create KClass of appointed Type.
+ * Create KClass of given Type.
  *
  * @param className The whole class name with package path. e.g., "android.app.ActivityThread".
  * @param classLoader The classLoader.
@@ -123,13 +105,7 @@ fun createKClass(className: String, classLoader: ClassLoader) =
     }
 
 fun createKClass(packageName: String, className: String, classLoader: ClassLoader) =
-    try {
-        Class.forName("$packageName.$className", true, classLoader).kotlin
-    }
-    catch (e: ClassNotFoundException) {
-        logE(TAG, "createClass", e)
-        null
-    }
+    createKClass("$packageName.$className", classLoader)
 
 fun createKClass(clazz: Class<*>?) = clazz?.kotlin
 fun createKClass(clazz: KClass<*>?) = clazz
@@ -142,7 +118,7 @@ private inline fun <reified T> createKClass3() = (T::class as Any)::class
 /** ********** createInstance ********** */
 
 /**
- * Create Class instance of appointed Type.
+ * Create Class instance of given Type.
  *
  * @param className The whole class name with package path. e.g., "android.app.ActivityThread".
  * @return

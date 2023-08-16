@@ -1,10 +1,8 @@
 package com.githubyss.common.kit.temp;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -21,121 +19,121 @@ import java.util.Set;
  */
 public final class GsonUtils {
     //
-    // private static final Gson GSON = createGson(true);
+    private static final Gson GSON = new Gson();
     //
     // private static final Gson GSON_NO_NULLS = createGson(false);
-
+    //
     // private GsonUtils() {
     //     throw new UnsupportedOperationException("u can't instantiate me...");
     // }
 
-    /**
-     * Gets pre-configured {@link Gson} instance.
-     *
-     * @return {@link Gson} instance.
-     */
+    // /**
+    //  * Gets pre-configured {@link Gson} instance.
+    //  *
+    //  * @return {@link Gson} instance.
+    //  */
     // public static Gson getGson() {
     //     return getGson(true);
     // }
-
-    /**
-     * Gets pre-configured {@link Gson} instance.
-     *
-     * @param serializeNulls Determines if nulls will be serialized.
-     * @return {@link Gson} instance.
-     */
+    //
+    // /**
+    //  * Gets pre-configured {@link Gson} instance.
+    //  *
+    //  * @param serializeNulls Determines if nulls will be serialized.
+    //  * @return {@link Gson} instance.
+    //  */
     // public static Gson getGson(final boolean serializeNulls) {
     //     return serializeNulls ? GSON_NO_NULLS : GSON;
     // }
 
-    /**
-     * Serializes an object into json.
-     *
-     * @param object The object to serialize.
-     * @return object serialized into json.
-     */
+    // /**
+    //  * Serializes an object into json.
+    //  *
+    //  * @param object The object to serialize.
+    //  * @return object serialized into json.
+    //  */
     // public static String toJson(final Object object) {
     //     return toJson(object, true);
     // }
-
-    /**
-     * Serializes an object into json.
-     *
-     * @param object       The object to serialize.
-     * @param includeNulls Determines if nulls will be included.
-     * @return object serialized into json.
-     */
+    //
+    // /**
+    //  * Serializes an object into json.
+    //  *
+    //  * @param object       The object to serialize.
+    //  * @param includeNulls Determines if nulls will be included.
+    //  * @return object serialized into json.
+    //  */
     // public static String toJson(final Object object, final boolean includeNulls) {
     //     return includeNulls ? GSON.toJson(object) : GSON_NO_NULLS.toJson(object);
     // }
-
-    /**
-     * Serializes an object into json.
-     *
-     * @param src       The object to serialize.
-     * @param typeOfSrc The specific genericized type of src.
-     * @return object serialized into json.
-     */
+    //
+    // /**
+    //  * Serializes an object into json.
+    //  *
+    //  * @param src       The object to serialize.
+    //  * @param typeOfSrc The specific genericized type of src.
+    //  * @return object serialized into json.
+    //  */
     // public static String toJson(final Object src, final Type typeOfSrc) {
     //     return toJson(src, typeOfSrc, true);
     // }
-
-    /**
-     * Serializes an object into json.
-     *
-     * @param src          The object to serialize.
-     * @param typeOfSrc    The specific genericized type of src.
-     * @param includeNulls Determines if nulls will be included.
-     * @return object serialized into json.
-     */
+    //
+    // /**
+    //  * Serializes an object into json.
+    //  *
+    //  * @param src          The object to serialize.
+    //  * @param typeOfSrc    The specific genericized type of src.
+    //  * @param includeNulls Determines if nulls will be included.
+    //  * @return object serialized into json.
+    //  */
     // public static String toJson(final Object src, final Type typeOfSrc, final boolean includeNulls) {
     //     return includeNulls ? GSON.toJson(src, typeOfSrc) : GSON_NO_NULLS.toJson(src, typeOfSrc);
     // }
 
 
-    /**
-     * Converts {@link String} to given type.
-     *
-     * @param json The json to convert.
-     * @param type Type json will be converted to.
-     * @return instance of type
-     */
-    public static <T> T fromJson(final String json, final Class<T> type) {
-        return GSON.fromJson(json, type);
-    }
-
-    /**
-     * Converts {@link String} to given type.
-     *
-     * @param json the json to convert.
-     * @param type type type json will be converted to.
-     * @return instance of type
-     */
-    public static <T> T fromJson(final String json, final Type type) {
-        return GSON.fromJson(json, type);
-    }
-
-    /**
-     * Converts {@link Reader} to given type.
-     *
-     * @param reader the reader to convert.
-     * @param type   type type json will be converted to.
-     * @return instance of type
-     */
-    public static <T> T fromJson(final Reader reader, final Class<T> type) {
-        return GSON.fromJson(reader, type);
-    }
-
-    /**
-     * Converts {@link Reader} to given type.
-     *
-     * @param reader the reader to convert.
-     * @param type   type type json will be converted to.
-     * @return instance of type
-     */
-    public static <T> T fromJson(final Reader reader, final Type type) {
-        return GSON.fromJson(reader, type);
-    }
+    // /**
+    //  * Converts {@link String} to given type.
+    //  *
+    //  * @param json The json to convert.
+    //  * @param type Type json will be converted to.
+    //  * @return instance of type
+    //  */
+    // public static <T> T fromJson(final String json, final Class<T> type) {
+    //     return GSON.fromJson(json, type);
+    // }
+    //
+    // /**
+    //  * Converts {@link String} to given type.
+    //  *
+    //  * @param json the json to convert.
+    //  * @param type type type json will be converted to.
+    //  * @return instance of type
+    //  */
+    // public static <T> T fromJson(final String json, final Type type) {
+    //     return GSON.fromJson(json, type);
+    // }
+    //
+    // /**
+    //  * Converts {@link Reader} to given type.
+    //  *
+    //  * @param reader the reader to convert.
+    //  * @param type   type type json will be converted to.
+    //  * @return instance of type
+    //  */
+    // public static <T> T fromJson(final Reader reader, final Class<T> type) {
+    //     return GSON.fromJson(reader, type);
+    // }
+    //
+    // /**
+    //  * Converts {@link Reader} to given type.
+    //  *
+    //  * @param reader the reader to convert.
+    //  * @param type   type type json will be converted to.
+    //  * @return instance of type
+    //  */
+    // public static <T> T fromJson(final Reader reader, final Type type) {
+    //     return GSON.fromJson(reader, type);
+    // }
 
     /**
      * Return the type of {@link List} with the {@code type}.

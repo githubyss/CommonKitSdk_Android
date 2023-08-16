@@ -67,36 +67,34 @@ fun isFragmentAlive(activity: Activity?, fragment: Any?): Boolean {
  * 正确的切换方式是 add，切换时 hide，add 另一个 fragment；再次切换时，只需 hide 当前，show 另一个。
  * 这样就能做到多个 fragment 切换不重新实例化。
  */
-fun switchFragmentByAddHideShow(fragment: Fragment?, fragmentTag: String?, currentFragment: Any?, fragmentManager: FragmentManager?, @IdRes containerId: Int, addToBackStack: Boolean = true, bundle: Bundle? = null) {
+fun switchFragmentByAddHideShow(fragment: Fragment?, currentFragment: Any?, fragmentTag: String?, fragmentManager: FragmentManager?, @IdRes containerId: Int, bundle: Bundle? = null, addToBackStack: Boolean = true, allowingStateLoss: Boolean = true) {
     fragment ?: return
     fragmentManager ?: return
 
-    val currentFragment: Fragment? = when (currentFragment) {
-        is Fragment -> {
-            currentFragment
-        }
-        is String -> {
-            fragmentManager.findFragmentByTag(currentFragment)
-        }
+    val currentFragmentActual: Fragment? = when (currentFragment) {
+        is Fragment -> currentFragment
+        is String -> fragmentManager.findFragmentByTag(currentFragment)
         else -> null
     }
 
     fragment.arguments = bundle
-    val fragmentTransaction = fragmentManager.beginTransaction()
-    if (currentFragment == null) {
-        fragmentTransaction.add(containerId, fragment, fragmentTag)
-    }
-    else if (currentFragment != fragment) {
-        fragmentTransaction.hide(currentFragment)
-        if (fragment.isAdded) {
-            fragmentTransaction.show(fragment)
+    fragmentManager.beginTransaction().apply {
+        when {
+            currentFragmentActual == null -> {
+                add(containerId, fragment, fragmentTag)
+            }
+            currentFragmentActual != fragment -> {
+                hide(currentFragmentActual)
+                when {
+                    fragment.isAdded -> show(fragment)
+                    else -> add(containerId, fragment, fragmentTag)
+                }
+            }
         }
-        else {
-            fragmentTransaction.add(containerId, fragment, fragmentTag)
-        }
+        if (addToBackStack) addToBackStack(null)
+        if (allowingStateLoss) commitAllowingStateLoss()
+        else commit()
     }
-    if (addToBackStack) fragmentTransaction.addToBackStack(null)
-    fragmentTransaction.commitAllowingStateLoss()
 }
 
 /**
@@ -104,98 +102,96 @@ fun switchFragmentByAddHideShow(fragment: Fragment?, fragmentTag: String?, curre
  * 造成了在切换到以前的 fragment 时，就会重新实例化 fragment。
  * 重新加载一遍数据，这样非常消耗性能和用户的数据流量。
  */
-fun replaceFragment(fragment: Fragment?, fragmentTag: String?, fragmentManager: FragmentManager?, @IdRes containerId: Int, addToBackStack: Boolean = true, bundle: Bundle? = null) {
+fun replaceFragment(fragment: Fragment?, fragmentTag: String?, fragmentManager: FragmentManager?, @IdRes containerId: Int, bundle: Bundle? = null, addToBackStack: Boolean = true, allowingStateLoss: Boolean = true) {
     fragment ?: return
     fragmentManager ?: return
 
     fragment.arguments = bundle
     if (fragmentManager.findFragmentByTag(fragmentTag) == null) {
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(containerId, fragment, fragmentTag)
-        if (addToBackStack) fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commitAllowingStateLoss()
+        fragmentManager.beginTransaction().apply {
+            replace(containerId, fragment, fragmentTag)
+            if (addToBackStack) addToBackStack(null)
+            if (allowingStateLoss) commitAllowingStateLoss()
+            else commit()
+        }
     }
 }
 
 /**  */
-fun addFragment(fragment: Fragment?, fragmentTag: String?, fragmentManager: FragmentManager?, @IdRes containerId: Int, addToBackStack: Boolean = true, bundle: Bundle? = null) {
+fun addFragment(fragment: Fragment?, fragmentTag: String?, fragmentManager: FragmentManager?, @IdRes containerId: Int, bundle: Bundle? = null, addToBackStack: Boolean = true, allowingStateLoss: Boolean = true) {
     fragment ?: return
     fragmentManager ?: return
 
     fragment.arguments = bundle
     if (fragmentManager.findFragmentByTag(fragmentTag) == null) {
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.add(containerId, fragment, fragmentTag)
-        if (addToBackStack) fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commitAllowingStateLoss()
+        fragmentManager.beginTransaction().apply {
+            add(containerId, fragment, fragmentTag)
+            if (addToBackStack) addToBackStack(null)
+            if (allowingStateLoss) commitAllowingStateLoss()
+            else commit()
+        }
     }
 }
 
 /**  */
-fun showFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true) {
+fun showFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true, allowingStateLoss: Boolean = true) {
     fragmentManager ?: return
 
-    val fragment: Fragment? = when (fragment) {
-        is Fragment -> {
-            fragment
-        }
-        is String -> {
-            fragmentManager.findFragmentByTag(fragment)
-        }
+    val fragmentActual: Fragment? = when (fragment) {
+        is Fragment -> fragment
+        is String -> fragmentManager.findFragmentByTag(fragment)
         else -> null
     }
+    fragmentActual ?: return
 
-    fragment ?: return
-    if (fragmentManager.fragments.contains(fragment)) {
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.show(fragment)
-        if (addToBackStack) fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commitAllowingStateLoss()
+    if (fragmentManager.fragments.contains(fragmentActual)) {
+        fragmentManager.beginTransaction().apply {
+            show(fragmentActual)
+            if (addToBackStack) addToBackStack(null)
+            if (allowingStateLoss) commitAllowingStateLoss()
+            else commit()
+        }
     }
 }
 
 /**  */
-fun hideFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true) {
+fun hideFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true, allowingStateLoss: Boolean = true) {
     fragmentManager ?: return
 
-    val fragment: Fragment? = when (fragment) {
-        is Fragment -> {
-            fragment
-        }
-        is String -> {
-            fragmentManager.findFragmentByTag(fragment)
-        }
+    val fragmentActual: Fragment? = when (fragment) {
+        is Fragment -> fragment
+        is String -> fragmentManager.findFragmentByTag(fragment)
         else -> null
     }
+    fragmentActual ?: return
 
-    fragment ?: return
-    if (fragmentManager.fragments.contains(fragment)) {
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.hide(fragment)
-        if (addToBackStack) fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commitAllowingStateLoss()
+    if (fragmentManager.fragments.contains(fragmentActual)) {
+        fragmentManager.beginTransaction().apply {
+            hide(fragmentActual)
+            if (addToBackStack) addToBackStack(null)
+            if (allowingStateLoss) commitAllowingStateLoss()
+            else commit()
+        }
     }
 }
 
 /**  */
-fun removeFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true) {
+fun removeFragment(fragment: Any?, fragmentManager: FragmentManager?, addToBackStack: Boolean = true, allowingStateLoss: Boolean = true) {
     fragmentManager ?: return
 
-    val fragment: Fragment? = when (fragment) {
-        is Fragment -> {
-            fragment
-        }
-        is String -> {
-            fragmentManager.findFragmentByTag(fragment)
-        }
+    val fragmentActual: Fragment? = when (fragment) {
+        is Fragment -> fragment
+        is String -> fragmentManager.findFragmentByTag(fragment)
         else -> null
     }
+    fragmentActual ?: return
 
-    fragment ?: return
-    if (fragmentManager.fragments.contains(fragment)) {
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.remove(fragment)
-        if (addToBackStack) fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commitAllowingStateLoss()
+    if (fragmentManager.fragments.contains(fragmentActual)) {
+        fragmentManager.beginTransaction().apply {
+            remove(fragmentActual)
+            if (addToBackStack) addToBackStack(null)
+            if (allowingStateLoss) commitAllowingStateLoss()
+            else commit()
+        }
     }
 }

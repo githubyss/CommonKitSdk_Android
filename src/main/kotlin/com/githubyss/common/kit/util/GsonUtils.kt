@@ -8,6 +8,7 @@ import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
+import java.io.Reader
 import java.lang.reflect.Type
 
 
@@ -64,44 +65,7 @@ fun getGson(serializeNulls: Boolean = true) =
 
 /** ******************** Converter ******************** */
 
-/** ********** Object -> String ********** */
-
-/**
- * Serializes an object into json.
- *
- * @param src The object to serialize.
- * @param typeOfSrc The specific genericized type of src.
- * @param includeNulls Determines if nulls will be included.
- * @return object serialized into json.
- */
-@JvmOverloads
-fun object2Json(src: Any?, typeOfSrc: Type? = null, includeNulls: Boolean = true) =
-    when (src) {
-        null -> ""
-        else -> try {
-            when (typeOfSrc) {
-                null -> when {
-                    includeNulls -> GSON.toJson(src)
-                    else -> GSON_NO_NULLS.toJson(src)
-                }
-                else -> {
-                    val type = src.javaClass
-                    when {
-                        includeNulls -> GSON.toJson(src, type)
-                        else -> GSON_NO_NULLS.toJson(src, type)
-                    }
-                }
-            } ?: ""
-        }
-        catch (e: IOException) {
-            logE(TAG, "object2Json", e)
-            ""
-        }
-    }
-
-@JvmName("object2Json1")
-fun Any?.object2Json(typeOfSrc: Type? = null, includeNulls: Boolean = true) = object2Json(this, typeOfSrc, includeNulls)
-
+/** ********** Object -> Console ********** */
 
 /**
  * Convert Object to Console.
@@ -113,6 +77,94 @@ fun object2Console(src: Any?) = Gson().toJson(src, System.out)
 @JvmName("object2Console1")
 fun Any?.object2Console() = object2Console(this)
 
+
+/** ********** Object -> Json String ********** */
+
+/**
+ * Serializes an object into json string.
+ *
+ * @param src The object to serialize.
+ * @param typeOfSrc The specific genericized type of src.
+ * @param includeNulls Determines if nulls will be included.
+ * @return object serialized into json string.
+ */
+@JvmOverloads
+fun object2JsonString(src: Any?, typeOfSrc: Type? = null, includeNulls: Boolean = true) =
+    when (src) {
+        null -> ""
+        else -> try {
+            when (typeOfSrc) {
+                null -> {
+                    when {
+                        includeNulls -> GSON.toJson(src)
+                        else -> GSON_NO_NULLS.toJson(src)
+                    }
+                }
+                else -> {
+                    when {
+                        includeNulls -> GSON.toJson(src, typeOfSrc)
+                        else -> GSON_NO_NULLS.toJson(src, typeOfSrc)
+                    }
+                }
+            } ?: ""
+        }
+        catch (e: IOException) {
+            logE(TAG, "object2JsonString", e)
+            ""
+        }
+    }
+
+@JvmName("object2JsonString1")
+fun Any?.object2JsonString(typeOfSrc: Type? = null, includeNulls: Boolean = true) = object2JsonString(this, typeOfSrc, includeNulls)
+
+/** ********** String -> Object ********** */
+
+/**
+ * Converts [String] to given type.
+ *
+ * @param json The json to convert.
+ * @param type Type json will be converted to.
+ * @return instance of type
+ */
+fun <T> fromJson(json: String?, type: Class<T>?): T {
+    return GSON.fromJson(json, type)
+}
+
+/**
+ * Converts [String] to given type.
+ *
+ * @param json the json to convert.
+ * @param type type type json will be converted to.
+ * @return instance of type
+ */
+fun <T> fromJson(json: String?, type: Type?): T {
+    return GSON.fromJson(json, type)
+}
+
+/**
+ * Converts [Reader] to given type.
+ *
+ * @param reader the reader to convert.
+ * @param type   type type json will be converted to.
+ * @return instance of type
+ */
+fun <T> fromJson(reader: Reader?, type: Class<T>?): T {
+    return GSON.fromJson(reader, type)
+}
+
+/**
+ * Converts [Reader] to given type.
+ *
+ * @param reader the reader to convert.
+ * @param type   type type json will be converted to.
+ * @return instance of type
+ */
+fun <T> fromJson(reader: Reader?, type: Type?): T {
+    return GSON.fromJson(reader, type)
+}
+
+
+/** ******************** Getter ******************** */
 
 /** ********** getMap ********** */
 
